@@ -26,7 +26,37 @@ public class ItemWheel : MonoBehaviour {//should be attached to the game manager
         if (Input.GetKeyUp(KeyCode.I) || Input.GetButtonUp("PS4_L1"))
             Wheel.SetActive(false);
 
-        
+        //to select via controller
+        if (Input.GetButton("PS4_L1")) {//while L1 is held down
+            float rStickX = Input.GetAxis("PS4_RStick_X");
+            float rStickY = Input.GetAxis("PS4_RStick_Y");
+
+            print("L1 + ");
+            #region Vertical Items
+            //if the RIGHT stick is moved on the vertical axis, the top or bottom item is selected
+            if (rStickX > -0.1f && rStickX < 0.1f && rStickY < -0.9f) {
+                EnableTop();
+                print("up" + rStickX + rStickY);
+            }
+            if (rStickX > -0.1f && rStickX < 0.1f && rStickY > 0.9f) {
+                EnableDown();
+                print("Down" + rStickX + rStickY);
+            }
+            #endregion
+
+            #region Horizontal Items
+            ////if the RIGHT stick is moved on the Horrizontal axis, the left or right item is selected
+            if (rStickY > -0.1f && rStickY < 0.1f && rStickX < -0.9f) {
+                EnableLeft();
+                print("Left" + rStickX + rStickY);
+            }
+            if (rStickY > -0.1f && rStickY < 0.1f && rStickX > 0.9f) {
+                EnableRight();
+                print("Right" + rStickX + rStickY);
+            }
+            #endregion
+        }
+
     }
 
     #region Item Enable
