@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
@@ -18,20 +17,27 @@ public class PlayerController : MonoBehaviour {
         float horiz_axis = Input.GetAxis("Horizontal");
         float vert_axis = Input.GetAxis("Vertical");
 
-       
+       this.CheckPS4();
        
 
         Vector3 movement = transform.TransformDirection(new Vector3(horiz_axis,0,vert_axis)*speed*Time.deltaTime);
 
         _rig.MovePosition(transform.position+movement);
 
+    
+
+
+        
+
+    }
+
+    private void CheckPS4() {
+        float dPadX = Input.GetAxis("PS4_DPad_X");
+        float dPadY = Input.GetAxis("PS4_DPad_Y");
+
         //to rotate the player
         float rStickX = Input.GetAxis("PS4_RStick_X");
         transform.Rotate(new Vector3(0, rStickX, 0) * turnSpeed * Time.deltaTime);
-
-
-        float dPadX = Input.GetAxis("PS4_DPad_X");
-        float dPadY = Input.GetAxis("PS4_DPad_Y");
 
         //Front Left
         if (dPadX > 0)
@@ -73,7 +79,5 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetButtonDown("PS4_Button_OPTIONS"))
             Debug.Log("Input: OPTIONS");
 
-
     }
-
 }
