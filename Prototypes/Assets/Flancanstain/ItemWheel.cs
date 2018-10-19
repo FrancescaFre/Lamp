@@ -2,16 +2,21 @@
 using UnityEngine.UI;
 
 public class ItemWheel : MonoBehaviour {//should be attached to the game manager
-    public GameObject Wheel;
+
+    public GameObject Wheel;    // canvas of the wheel
+
+    //this GO are the items that the character will have in its hand
     public GameObject Item1;
     public GameObject Item2;
     public GameObject Item3;
     public GameObject Item4;
 
+    //buttons of the wheel
     public Button top;
     public Button bottom;
     public Button left;
     public Button right;
+
 	// Use this for initialization
 	void Start () {
         Wheel.SetActive(false);
@@ -20,7 +25,7 @@ public class ItemWheel : MonoBehaviour {//should be attached to the game manager
         Item3.SetActive(false);
         Item4.SetActive(false);
 
-        //this values sets all the buttons of the wheel to be interactable
+        //this function sets all the buttons of the wheel to be interactable
         _ActivateWheel();
     }
 
@@ -29,12 +34,13 @@ public class ItemWheel : MonoBehaviour {//should be attached to the game manager
     // Update is called once per frame
     void Update () {
 
+        //input to open the wheel
         if (Input.GetKeyDown(KeyCode.I) || Input.GetButtonDown("PS4_L1"))
             Wheel.SetActive(true);
         if (Input.GetKeyUp(KeyCode.I) || Input.GetButtonUp("PS4_L1"))
             Wheel.SetActive(false);
 
-        //to select via controller
+        //to select item via controller
         if (Input.GetButton("PS4_L1")) {//while L1 is held down
             float rStickX = Input.GetAxis("PS4_RStick_X");
             float rStickY = Input.GetAxis("PS4_RStick_Y");
@@ -70,7 +76,7 @@ public class ItemWheel : MonoBehaviour {//should be attached to the game manager
     }
 
     #region Item Enable
-    /*it does not matter which item is in in which position
+    /**it does not matter which item is in in which position
      */
     public void EnableTop() {  // this enables the top item 
         Item1.SetActive(true);
@@ -108,7 +114,7 @@ public class ItemWheel : MonoBehaviour {//should be attached to the game manager
     #endregion
 
     #region Set Interactable
-    /**this functions sets interactable the buttons
+    /**this functions sets as interactable the buttons
      * to let the player have a visual feedback on which item is selected
      * 
      * Each buttons have a component "Event trigger" that listen to the event
