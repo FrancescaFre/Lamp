@@ -1,14 +1,12 @@
 #ignores files in these folders as they are useless
-Prototypes/Library
-Prototypes/Packages
-Prototypes/Temp
-Prototypes/obj
-Prototypes/.vs
 
-Brutta/Library
-Brutta/Packages
-Brutta/Temp
-Brutta/obj
-Brutta/.vs
+**/Library
+**/Packages
+**/Temp
+**/obj
+**/.vs
 
 *.meta
+
+#to learn the patterns for gitignore
+#https://www.atlassian.com/git/tutorials/saving-changes/gitignore#git-ignore-patterns
