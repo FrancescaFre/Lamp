@@ -24,11 +24,6 @@ public class PlayerController : MonoBehaviour {
 
         _rig.MovePosition(transform.position+movement);
 
-    
-
-
-        
-
     }
 
     private void CheckPS4() {
@@ -37,8 +32,17 @@ public class PlayerController : MonoBehaviour {
 
         //to rotate the player
         float rStickX = Input.GetAxis("PS4_RStick_X");
+        float rStickY = Input.GetAxis("PS4_RStick_Y");
         transform.Rotate(new Vector3(0, rStickX, 0) * turnSpeed * Time.deltaTime);
 
+        if (rStickX > 0)
+            Debug.Log("positive rStickX: " + rStickX);
+        if (rStickX < 0)
+            Debug.Log("negative rStickX: " + rStickX);
+        if (rStickY > 0)
+            Debug.Log("positive rStickY: " + rStickY);
+        if (rStickY < 0)
+            Debug.Log("negative rStickY: " + rStickY);
         //Front Left
         if (dPadX > 0)
             Debug.Log("DPad: Right");
