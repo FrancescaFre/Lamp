@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerGravityBody : MonoBehaviour {
+public class GravityBody : MonoBehaviour {
     public PlanetGravity AttractorPlanet;
 
 	// Use this for initialization
