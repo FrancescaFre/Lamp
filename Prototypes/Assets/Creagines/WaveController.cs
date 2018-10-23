@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public class WaveController : MonoBehaviour {
@@ -13,8 +12,5 @@ public class WaveController : MonoBehaviour {
         iTween.MoveBy(gameObject,iTween.Hash("y",this.height,"time",this.time,"looptype","pingpong","easetype",iTween.EaseType.easeInOutSine)); //check minute 8:15 of the tutorial
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 }

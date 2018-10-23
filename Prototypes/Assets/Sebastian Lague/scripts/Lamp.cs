@@ -12,7 +12,7 @@ public class Lamp : MonoBehaviour {
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<PlayerController>())
+        if (other.GetComponent<PlayerController>()|| other.GetComponent<PlayerControllerF>())
             gameObject.GetComponent<MeshRenderer>().material = materials[1];
     }
 }
