@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class ItemWheel : MonoBehaviour {//should be attached to the game manager
 
-    public GameObject Wheel;    // canvas of the wheel
+    public GameObject WheelPanel;    // panel of the wheel
 
     //this GO are the items that the character will have in its hand
     public GameObject Item1;
@@ -23,7 +23,7 @@ public class ItemWheel : MonoBehaviour {//should be attached to the game manager
     }
     // Use this for initialization
     void Start () {
-        Wheel.SetActive(false);
+        WheelPanel.SetActive(false);
       /*  Item1.SetActive(false);
         Item2.SetActive(false);
         Item3.SetActive(false);
@@ -40,12 +40,12 @@ public class ItemWheel : MonoBehaviour {//should be attached to the game manager
 
         //input to open the wheel
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetButtonDown("PS4_L1")) {
-            Wheel.SetActive(true);
+            WheelPanel.SetActive(true);
             Time.timeScale = .7f;
             Time.fixedDeltaTime = .2f * Time.timeScale;
         }
         if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetButtonUp("PS4_L1")) {
-            Wheel.SetActive(false);
+            WheelPanel.SetActive(false);
             Time.fixedDeltaTime = _originalFixedTime;
         }
 
@@ -54,17 +54,17 @@ public class ItemWheel : MonoBehaviour {//should be attached to the game manager
             float rStickX = Input.GetAxis("PS4_RStick_X");
             float rStickY = Input.GetAxis("PS4_RStick_Y");
 
-            print("L1 + ");
+            Debug.Log("L1 + ");
             #region Vertical Items
             //if the RIGHT stick is moved on the vertical axis, the top or bottom item is selected
             //the use of the tresholds guarantee a correct selection even in the worst case scenario
             if (rStickX > -0.1f && rStickX < 0.1f && rStickY < -0.9f) {
                 EnableTop();
-                print("up" + rStickX + rStickY);
+                Debug.Log("up" + rStickX + rStickY);
             }
             if (rStickX > -0.1f && rStickX < 0.1f && rStickY > 0.9f) {
                 EnableDown();
-                print("Down" + rStickX + rStickY);
+                Debug.Log("Down" + rStickX + rStickY);
             }
             #endregion
 
@@ -73,11 +73,11 @@ public class ItemWheel : MonoBehaviour {//should be attached to the game manager
             //the use of the tresholds guarantee a correct selection even in the worst case scenario
             if (rStickY > -0.1f && rStickY < 0.1f && rStickX < -0.9f) {
                 EnableLeft();
-                print("Left" + rStickX + rStickY);
+                Debug.Log("Left" + rStickX + rStickY);
             }
             if (rStickY > -0.1f && rStickY < 0.1f && rStickX > 0.9f) {
                 EnableRight();
-                print("Right" + rStickX + rStickY);
+                Debug.Log("Right" + rStickX + rStickY);
             }
             #endregion
         }
