@@ -6,11 +6,11 @@ public class FauxGravityAttract : MonoBehaviour {
 
     public float gravity = -10f;
 
-    public void Attract(Transform bodyTransform) {
+    public void Attract(Rigidbody bodyTransform) {
         Vector3 gravityUp = (bodyTransform.position - transform.position).normalized;
-        Vector3 bodyUp = bodyTransform.up;
+        Vector3 bodyUp = bodyTransform.transform.up;
 
-        bodyTransform.GetComponent<Rigidbody>().AddForce(gravityUp * gravity);
+        bodyTransform.AddForce(gravityUp * gravity);
 
         Quaternion targetRotation = Quaternion.FromToRotation(bodyUp, gravityUp) * bodyTransform.rotation; 
         bodyTransform.rotation = Quaternion.Slerp(bodyTransform.rotation, targetRotation, 50 * Time.deltaTime);

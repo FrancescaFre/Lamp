@@ -1,6 +1,6 @@
 ﻿
 using UnityEngine;
-
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour {
     public float speed = 18f;
     public float turnSpeed = 60f;
