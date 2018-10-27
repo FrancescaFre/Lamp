@@ -3,7 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(ItemWheel))]
-public class CharacterControllerM : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
     [Range(1,10)]
     public float movementSpeed = 8f;
     public bool isSafe { get; private set; }
