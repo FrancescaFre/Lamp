@@ -4,12 +4,17 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(ItemWheel))]
 public class PlayerController : MonoBehaviour {
-    [Range(1,10)]
-    public float movementSpeed = 8f;
+    [Range(5,10)]
+    public float walkSpeed = 8f;
+    [Range(10,15)]
+    public float runSpeed = 10f;
+    [Range(1,5)]
+    public float stealthSpeed = 4f;
     public bool isSafe { get; private set; }
     public Status curseStatus { get; private set; }
     public Visibility visible { get; private set; }
     public Dictionary<string, int> items;
+
 
 
 
@@ -40,10 +45,25 @@ public class PlayerController : MonoBehaviour {
         //to move the player
         float horiz_axis = Input.GetAxis("Horizontal");
         float vert_axis = Input.GetAxis("Vertical");
-
-        Vector3 movement = transform.TransformDirection(new Vector3(horiz_axis, 0, vert_axis) * movementSpeed * Time.deltaTime);
-
+        Vector3 movement=Vector3.zero;
+        
+        if((Input.GetButton("PS4_R2") || Input.GetKey(KeyCode.R))&& (horiz_axis != 0 || vert_axis != 0)) {
+            //if is holding down a button and moving use the running animation and speed
+            movement= transform.TransformDirection(new Vector3(horiz_axis, 0, vert_axis) * runSpeed * Time.deltaTime);
+            Debug.Log("RUN");
+        }else if ((Input.GetButton("PS4_L2") || Input.GetKey(KeyCode.T))&& (horiz_axis != 0 || vert_axis != 0)) {
+            //if is holding down a button and moving use the stealth animation and speed
+            movement= transform.TransformDirection(new Vector3(horiz_axis, 0, vert_axis) * stealthSpeed * Time.deltaTime);
+            Debug.Log("STEALTH");
+        }
+        else if (horiz_axis != 0 || vert_axis != 0) {
+            //if only moving use walk animation and speed
+            movement = transform.TransformDirection(new Vector3(horiz_axis, 0, vert_axis) * walkSpeed * Time.deltaTime);
+            Debug.Log("WALK");
+        }
         _rig.MovePosition(transform.position + movement);
+
+         
     }
     
     /// <summary>
