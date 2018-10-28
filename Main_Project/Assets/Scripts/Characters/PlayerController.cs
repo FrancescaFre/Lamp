@@ -1,5 +1,9 @@
 ﻿using System.Collections.Generic;
+using System;
 using UnityEngine;
+
+public enum Status { NORMAL = 0, HALF_CURSED, CURSED }
+public enum Visibility { INVISIBLE = 0, WARNING, SPOTTED }
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(ItemWheel))]
@@ -43,6 +47,7 @@ public class PlayerController : MonoBehaviour {
         this.CheckMovement();
         this.CheckSkillInteraction();
         this.CheckCamera();
+        Debug.Log("PLAYER IS: "+IsSafe);
     }
 
     /// <summary>
@@ -152,7 +157,27 @@ public class PlayerController : MonoBehaviour {
     public void ManageItem(string itemKey, int use) {
         items[itemKey] += use;
     }
+
+    #region Collision Detection
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.tag.Equals("Lamp_Base")|| other.tag.Equals("Lamp_Switch")) {//if the character has entered the light of a lamp that is switched on
+            
+            this.ChangeSafety();
+            
+        }
+
+    }
+    private void OnTriggerExit(Collider other) {
+        if (other.tag.Equals("Lamp_Base") || other.tag.Equals("Lamp_Switch")) {//if the character has entered the light of a lamp that is switched on
+            
+            this.ChangeSafety();
+            
+        }
+    }
+
+
+    #endregion
 }
 
-public enum Status { NORMAL=0, HALF_CURSED, CURSED }
-public enum Visibility { INVISIBLE=0 , WARNING, SPOTTED}
+
