@@ -6,7 +6,7 @@ public class CameraManager : MonoBehaviour {//http://youttu.be/MFQhpwc6cKE
     public bool IsFollowingPlayer { get; private set; }
 
     [Range(0,1)]
-    public float smoothSpeed=.125f;   //the higher it is, the faster thecamera will lock on the player
+    public float smoothSpeed=.125f;   //the higher it is, the faster the camera will lock on the player
 
     public Vector3 playerOffset;
     [Range(3,30)]
@@ -27,8 +27,10 @@ public class CameraManager : MonoBehaviour {//http://youttu.be/MFQhpwc6cKE
             transform.position = smoothedPosition;
             Debug.Log("follow player");
             transform.LookAt(playerModel);
+            return;
         }
 
+        AroundTarget(planetModel);
     }
     /// <summary>
     /// Moves the camera around the planet
@@ -45,11 +47,7 @@ public class CameraManager : MonoBehaviour {//http://youttu.be/MFQhpwc6cKE
     public void ResetPlanetView() {
         currentX = currentY = 3f;
     }
-    private void LateUpdate() {
-        if (IsFollowingPlayer)
-            return;
-        AroundTarget(planetModel);
-    }
+
     /// <summary>
     /// Moves the camera around the given target
     /// </summary>
