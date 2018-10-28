@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-public class CameraManager : MonoBehaviour {//http://youttu.be/MFQhpwc6cKE
+public class CameraManager : MonoBehaviour {//http://youtu.be/MFQhpwc6cKE
     public Transform playerModel;// the model of the player, NOT the pivot
     public Transform planetModel;
     public bool IsFollowingPlayer { get; private set; }
 
-    [Range(0,1)]
-    public float smoothSpeed=.125f;   //the higher it is, the faster the camera will lock on the player
+    [Range(10,15)]
+    public float smoothSpeed=10.25f;   //the higher it is, the faster the camera will lock on the player
 
     public Vector3 playerOffset;
     [Range(3,30)]
@@ -23,7 +23,7 @@ public class CameraManager : MonoBehaviour {//http://youttu.be/MFQhpwc6cKE
     void FixedUpdate() {
         if (IsFollowingPlayer) {
             Vector3 desiredPosition = playerModel.position + playerOffset;
-            Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed/*Time.deltaTime*/);
+            Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
             transform.position = smoothedPosition;
             Debug.Log("follow player");
             transform.LookAt(playerModel);
