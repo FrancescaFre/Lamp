@@ -161,7 +161,7 @@ public class PlayerController : MonoBehaviour {
     #region Collision Detection
 
     private void OnTriggerEnter(Collider other) {
-        if (other.tag.Equals("Lamp_Base")|| other.tag.Equals("Lamp_Switch")) {//if the character has entered the light of a lamp that is switched on
+        if (other.CompareTag("Lamp_Base")|| other.CompareTag("Lamp_Switch")) {//if the character has entered the light of a lamp that is switched on
             
             this.ChangeSafety();
             
@@ -169,7 +169,7 @@ public class PlayerController : MonoBehaviour {
 
     }
     private void OnTriggerExit(Collider other) {
-        if (other.tag.Equals("Lamp_Base") || other.tag.Equals("Lamp_Switch")) {//if the character has entered the light of a lamp that is switched on
+        if (other.CompareTag("Lamp_Base") || other.CompareTag("Lamp_Switch")) {//if the character has entered the light of a lamp that is switched on
             
             this.ChangeSafety();
             
