@@ -47,8 +47,7 @@ public class CameraManager : MonoBehaviour {//http://youttu.be/MFQhpwc6cKE
     }
     private void LateUpdate() {
         if (IsFollowingPlayer)
-            AroundTarget(playerModel);//the camera is not following the planet
-        else
+            return;
         AroundTarget(planetModel);
     }
     /// <summary>

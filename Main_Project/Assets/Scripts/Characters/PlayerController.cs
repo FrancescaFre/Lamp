@@ -10,8 +10,7 @@ public class PlayerController : MonoBehaviour {
     public float runSpeed = 10f;
     [Range(1, 5)]
     public float stealthSpeed = 4f;
-    [Range(1,8)]
-    public float cameraSpeed = 7f;
+
 
     public bool IsSafe { get; private set; }
     public Status CurseStatus { get; private set; }
