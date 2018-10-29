@@ -7,6 +7,11 @@ public class LampBehaviour : MonoBehaviour {
     public Light lightBulb;
     public SphereCollider baseCollider;
     public CapsuleCollider lampCollider;
+   
+    /// <summary>
+    /// True if the lamp is missing a part.
+    /// </summary>
+    public bool IsMissingPart { get; private set; }   
 
 	// Use this for initialization
 	void Start () {
@@ -17,6 +22,7 @@ public class LampBehaviour : MonoBehaviour {
         lightBulb.enabled = false;
         baseCollider.enabled = false;
         lampCollider.enabled = true;
+        IsMissingPart = false;         
 
     }
 	
@@ -26,6 +32,8 @@ public class LampBehaviour : MonoBehaviour {
 	}
 
     public void SwitchOnLamp() {
+        if (IsMissingPart) return;
+
         lightBulb.enabled = true;
         baseCollider.enabled = true;
         lampCollider.enabled = false;

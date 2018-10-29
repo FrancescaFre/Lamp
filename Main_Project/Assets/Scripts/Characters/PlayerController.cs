@@ -163,14 +163,18 @@ public class PlayerController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Lamp_Base")|| other.CompareTag("Lamp_Switch")) {//if the character has entered the light of a lamp that is switched on
-            IsSafe = true;
+            
             if (other.CompareTag("Lamp_Switch")) {
-                other.GetComponent<LampBehaviour>().SwitchOnLamp();
+                LampBehaviour lamp= other.GetComponent<LampBehaviour>();
+                if (lamp.IsMissingPart) return;    //if the lamp is missing the light bulb 
+
+                lamp.SwitchOnLamp();
                 Debug.Log("lamp_switch: ON");
+                
             }
-            //this.ChangeSafety();
-            
-            
+            IsSafe = true;
+
+
         }
 
     }
