@@ -135,6 +135,7 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     public void ChangeSafety() {
         IsSafe = !IsSafe;
+        Debug.Log("chiamato");
     }
     /// <summary>
     /// Use an item from the inventory if any
@@ -162,16 +163,21 @@ public class PlayerController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Lamp_Base")|| other.CompareTag("Lamp_Switch")) {//if the character has entered the light of a lamp that is switched on
+            IsSafe = true;
+            if (other.CompareTag("Lamp_Switch")) {
+                other.GetComponent<LampBehaviour>().SwitchOnLamp();
+                Debug.Log("lamp_switch: ON");
+            }
+            //this.ChangeSafety();
             
-            this.ChangeSafety();
             
         }
 
     }
     private void OnTriggerExit(Collider other) {
-        if (other.CompareTag("Lamp_Base") || other.CompareTag("Lamp_Switch")) {//if the character has entered the light of a lamp that is switched on
-            
-            this.ChangeSafety();
+        if (other.CompareTag("Lamp_Base") ) {//if the character has entered the light of a lamp that is switched on
+
+            IsSafe = false;
             
         }
     }
