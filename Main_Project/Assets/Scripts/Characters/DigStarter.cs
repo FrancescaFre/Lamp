@@ -34,7 +34,7 @@ public class DigStarter : MonoBehaviour
     public void StopDig (ref Dig digType)
     {
         gameObject.SetActive(false);
-        digType = 0;
+        digType = global::Dig.NONE;
     }
 
     /// <summary>

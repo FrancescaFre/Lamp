@@ -222,6 +222,7 @@ public class PlayerController : MonoBehaviour {
             if (_digStarter.CanDig(_digType))
             {
                 _digStarter.Dig();
+                transform.position = -transform.position;
 
                 // After digging
                 _digStarter.StopDig(ref _digType);
@@ -252,7 +253,7 @@ public class PlayerController : MonoBehaviour {
 
                 // After digging
                 IsZoneDigging = false;
-                _digTarget.StopTarget(_targetStartingPosition);
+                _digTarget.StopTarget(_digStarter.transform.position);
                 _digStarter.StopDig(ref _digType);
             }
             else
