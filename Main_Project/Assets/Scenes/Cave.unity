@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 388114453}
   - component: {fileID: 388114452}
   - component: {fileID: 388114451}
+  - component: {fileID: 388114454}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -183,13 +184,29 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 388114450}
-  m_LocalRotation: {x: 0.30070576, y: 0, z: 0, w: 0.953717}
+  m_LocalRotation: {x: 0.30070576, y: -0, z: -0, w: 0.953717}
   m_LocalPosition: {x: 0, y: 5, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 760298951}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 35, y: 0, z: 0}
+--- !u!114 &388114454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 388114450}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44ec41572219a2f40a8c17bbd3cace56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerModel: {fileID: 760298951}
+  planetModel: {fileID: 1281477835}
+  smoothSpeed: 10.25
+  playerOffset: {x: 0, y: 0, z: 0}
+  planetOffset_Z: 0
 --- !u!1 &760298946
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,6 +220,9 @@ GameObject:
   - component: {fileID: 760298948}
   - component: {fileID: 760298953}
   - component: {fileID: 760298947}
+  - component: {fileID: 760298956}
+  - component: {fileID: 760298955}
+  - component: {fileID: 760298954}
   - component: {fileID: 760298952}
   m_Layer: 0
   m_Name: Player
@@ -300,7 +320,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 760298946}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0bd3bafc664548847b72f3020766d3e2, type: 3}
   m_Name: 
@@ -322,6 +342,57 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &760298954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 760298946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8099f7e14868dcd48969b9c77f86280c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 8
+  runSpeed: 10
+  stealthSpeed: 4
+  CameraGO: {fileID: 388114450}
+  _digStarter: {fileID: 1184816004}
+  _digTarget: {fileID: 1936457995}
+--- !u!114 &760298955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 760298946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2202b063a847de8438154477a6a006b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WheelPanel: {fileID: 0}
+  Item1: {fileID: 0}
+  Item2: {fileID: 0}
+  Item3: {fileID: 0}
+  Item4: {fileID: 0}
+  top: {fileID: 0}
+  bottom: {fileID: 0}
+  left: {fileID: 0}
+  right: {fileID: 0}
+--- !u!114 &760298956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 760298946}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 005a3628545af114f956c6bb38f47b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DigPanel: {fileID: 0}
+  linearDig: {fileID: 0}
+  zoneDig: {fileID: 0}
 --- !u!1 &1184816002
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,6 +550,11 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 20.3
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1281477835 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 405376, guid: 2f6c5d6ec779606459f39a8773a9fb35,
+    type: 2}
+  m_PrefabInternal: {fileID: 1281477831}
 --- !u!1 &1909139908
 GameObject:
   m_ObjectHideFlags: 0

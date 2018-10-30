@@ -18,12 +18,19 @@ public class DigTarget : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    // TODO: Targeted Digging
-    public void Dig()
+    /// <summary>
+    /// Moves the character from point A (the character) to point B (the targeted zone)
+    /// </summary>
+    /// <returns>The final transform position</returns>
+    public Vector3 Dig()
     {
         Debug.Log("Scavo 2!");
+        return transform.position;
     }
 
+    /// <summary>
+    /// Changes the color of the target digging circle
+    /// </summary>
     public void CheckTarget()
     {
         if (CanDig())
@@ -32,6 +39,10 @@ public class DigTarget : MonoBehaviour
             GetComponent<MeshRenderer>().material = DigNo;
     }
 
+    /// <summary>
+    /// Hides the target digging circle
+    /// </summary>
+    /// <param name="startingPosition"></param>
     public void StopTarget(Vector3 startingPosition)
     {
         transform.position = startingPosition;
@@ -39,7 +50,10 @@ public class DigTarget : MonoBehaviour
         isDigging = false;
     }
 
-    // Returns true if the target is in a valid terrain to dig
+    /// <summary>
+    /// Checks if the targeted terrain is diggable
+    /// </summary>
+    /// <returns>True if the player can dig out of the target terrain</returns>
     public bool CanDig()
     {
         // TODO: check terrain ↓
