@@ -114,25 +114,29 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetButtonDown("PS4_Button_RStickClick") || Input.GetKeyDown(KeyCode.Tab)) {
             Debug.Log("before " + _camera.IsFollowingPlayer);
             _camera.SetCamera();
-            _camera.ResetPlanetView();
+            
             Debug.Log("after "+_camera.IsFollowingPlayer);
         }
-        if (!_camera.IsFollowingPlayer) {// if the player is not followed by the camera
-            float rStickX = Input.GetAxis("PS4_RStick_X");
-            float rStickY = Input.GetAxis("PS4_RStick_Y");
+        
+        float rStickX = Input.GetAxis("PS4_RStick_X");
+        float rStickY = Input.GetAxis("PS4_RStick_Y");
 
-            float mouseX = Input.GetAxis("Mouse X");
-            float mouseY = Input.GetAxis("Mouse Y");
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
 
-            Debug.Log("move camera");
-            if ((rStickX != 0 || rStickY != 0) && (mouseX == 0 && mouseY == 0)) {// if only the controller is used
-             
-                _camera.LookAtPlanet(rStickX, rStickY);
-            }
-            else {
-                _camera.LookAtPlanet(mouseX, mouseY);
-            }
+        /*if (_camera.IsFollowingPlayer) {
+            rStickY = mouseY = 0f;
+        }*/
+
+        Debug.Log("move camera");
+        if ((rStickX != 0 || rStickY != 0) && (mouseX == 0 && mouseY == 0)) {// if only the controller is used
+
+            _camera.LookAtTarget(rStickX, rStickY);
         }
+        else {
+            _camera.LookAtTarget(mouseX, mouseY);
+        }
+        
 
     }
 
