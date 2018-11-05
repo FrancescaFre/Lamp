@@ -6,17 +6,14 @@ public enum Status { NORMAL = 0, HALF_CURSED, CURSED }
 public enum Visibility { INVISIBLE = 0, WARNING, SPOTTED }
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(ItemWheel))]
 [RequireComponent(typeof(DigWheel))]
-
 public class PlayerController : MonoBehaviour {
-    [Range(5, 10)]
-    public float walkSpeed = 8f;
-    [Range(10, 15)]
-    public float runSpeed = 10f;
-    [Range(1, 5)]
-    public float stealthSpeed = 4f;
 
+
+
+    public Transform playerModel;
 
     public bool IsSafe { get; private set; }
     public Status CurseStatus { get; private set; }
@@ -52,52 +49,25 @@ public class PlayerController : MonoBehaviour {
         //_digStarter = GetComponentInChildren<DigStarter>();
         //_digTarget = GetComponentInChildren<DigTarget>();
         _digType = Dig.NONE;
+        playerModel = transform.Find("Model");
     }
-
+    
     // Update is called once per frame
     void Update() {
-        this.CheckMovement();
+        // With the dig active, check the circle color on the ground
+        if (_digType != Dig.NONE)
+            _digStarter.CheckDig(_digType);
+
+
         this.CheckSkillInteraction();
         this.CheckCamera();
         this.DiggingTest();
         Debug.Log("PLAYER IS: "+IsSafe);
     }
-
-    /// <summary>
-    /// Moves the player if an input is detected
-    /// </summary>
-    private void CheckMovement() {
-
-        // Stops the character movement when it's zone digging
-        if (IsZoneDigging) return;
-
-        // With the dig active, check the circle color on the ground
-        if (_digType != Dig.NONE)
-            _digStarter.CheckDig(_digType);
-
-        //to move the player
-        float horiz_axis = Input.GetAxis("Horizontal");
-        float vert_axis = Input.GetAxis("Vertical");
-        Vector3 movement = Vector3.zero;
-
-        if ((Input.GetButton("PS4_R2") || Input.GetKey(KeyCode.R)) && (horiz_axis != 0 || vert_axis != 0)) {
-            //if is holding down a button and moving use the running animation and speed
-            movement = transform.TransformDirection(new Vector3(horiz_axis, 0, vert_axis) * runSpeed * Time.deltaTime);
-            Debug.Log("RUN");
-        } else if ((Input.GetButton("PS4_L2") || Input.GetKey(KeyCode.T)) && (horiz_axis != 0 || vert_axis != 0)) {
-            //if is holding down a button and moving use the stealth animation and speed
-            movement = transform.TransformDirection(new Vector3(horiz_axis, 0, vert_axis) * stealthSpeed * Time.deltaTime);
-            Debug.Log("STEALTH");
-        }
-        else if (horiz_axis != 0 || vert_axis != 0) {
-            //if only moving use walk animation and speed
-            movement = transform.TransformDirection(new Vector3(horiz_axis, 0, vert_axis) * walkSpeed * Time.deltaTime);
-            Debug.Log("WALK");
-        }
-        _rig.MovePosition(transform.position + movement);
+    
 
 
-    }
+
 
     /// <summary>
     /// The skill is used if an input is detected
