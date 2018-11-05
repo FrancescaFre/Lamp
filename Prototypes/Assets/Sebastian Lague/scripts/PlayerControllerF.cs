@@ -20,7 +20,7 @@ public class PlayerControllerF : MonoBehaviour {
     }
 
     private void FixedUpdate()
-    {
+    {   
         rb.MovePosition(rb.position + transform.TransformDirection(moveDir) * moveSpeed * Time.deltaTime);    
         //voglio moveDir in local space, non in global
     }

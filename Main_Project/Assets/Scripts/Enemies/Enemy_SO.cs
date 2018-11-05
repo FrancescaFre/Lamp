@@ -23,5 +23,6 @@ public class Enemy_SO : ScriptableObject {
     public float cov_angle_search;
 
     //---AI
-
+    public float stop_search_after_x_seconds;
+    public EnemyStatus enemy_initial_status; 
 }

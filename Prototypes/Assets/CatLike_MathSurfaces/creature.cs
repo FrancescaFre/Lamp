@@ -2,47 +2,59 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class creature : MonoBehaviour {
-    public float speed;
+public class creature : MonoBehaviour
+{
+    //public float speed;
+    
+    public static float speed = (2 * Mathf.PI) / 20f; //2 PI us 360 dregressm so there are need 5 sec to complete
+    public static float r = 5;
+    public static float angle = 0;
+
     public float offset_from_planet;
-    Rigidbody rb;
+
 
     public float time;
-    public float variation;
+    public Vector3 variation;
 
-    public enum MathFunctionName {SineFunction, Circle}
+    public enum MathFunctionName { Idle, Line, Circle }
     public MathFunctionName selected; //crea la tendina
 
     delegateFunctions f;
-    delegateFunctions[] functions = {Sine, Circle};
+    static delegateFunctions[] functions = {Idle, Line, Circle };
+
+    Rigidbody rb;
 
     private void Start()
     {
         rb = this.GetComponent<Rigidbody>();
-        offset_from_planet = 15 ;
-        speed = 5;
+        speed = 5f;
     }
 
-    void Update () {
+    void Update()
+    {
         f = functions[(int)selected];
-        time = Time.deltaTime;
-        //  variation = f(rb.position.x, rb.position.z, time);
-        // rb.position = new Vector3(rb.position.x, variation.y, rb.position.z);
-        // rb.position += offset_from_planet;
-        rb.position = new Vector3 (rb.position.x, Mathf.Sin(0.5f * time) + offset_from_planet, rb.position.z);
-        rb.MovePosition(rb.position * speed * Time.deltaTime);
-	}
+        variation = f(rb.position.x, rb.position.z, Time.time);
+        rb.MovePosition(rb.position + variation * (speed * Time.deltaTime));
+    }
+
 
     #region Mathematical functions
     //https://www.desmos.com/calculator
 
-    static Vector3 Sine(float x, float z, float t)
-    { 
-        return new Vector3(0,Mathf.Sin(0.5f * t),0);
+     static Vector3 Idle(float x, float z, float t) {
+        return new Vector3(0, 0, 0);
     }
 
-    static Vector3 Circle(float x, float z, float t) {
-        return new Vector3(Mathf.Cos(x),0,Mathf.Sin(x));
+     static Vector3 Line(float x, float z, float t)
+    {
+        return new Vector3(t*x, 0, z);
     }
+
+     static Vector3 Circle(float x, float z, float t)
+    {//https://answers.unity.com/questions/596671/circular-rotation-via-the-mathematical-circle-equa.html
+        angle += speed *Time.deltaTime;
+        return new Vector3(Mathf.Cos(angle)*r, 0, Mathf.Sin(angle)*r);
+    }
+
     #endregion
 }
