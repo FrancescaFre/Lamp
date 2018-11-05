@@ -2,6 +2,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum Dig { NONE = 0, LINEAR, ZONE }
+
 public class DigWheel : MonoBehaviour {
 
     public GameObject DigPanel;
@@ -9,7 +11,8 @@ public class DigWheel : MonoBehaviour {
     public Button linearDig;    //from one side to another
     public Button zoneDig;      //select the wayout
 
-    enum Dig { LINEAR,ZONE}
+    
+    private PlayerController _player;
 
     private float _originalFixedTime;
     void Awake() {
@@ -18,7 +21,8 @@ public class DigWheel : MonoBehaviour {
     // Use this for initialization
     void Start () {
         DigPanel.SetActive(false);
-	}
+        _player = GetComponent<PlayerController>();
+    }
 
     // Update is called once per frame
     void Update() {
@@ -28,7 +32,7 @@ public class DigWheel : MonoBehaviour {
             /*  Time.timeScale = .7f;   //to slow time
               Time.fixedDeltaTime = .2f * Time.timeScale;*/
         }
-        if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetButtonDown("PS4_R1")) {
+        if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetButtonUp("PS4_R1")) {
             DigPanel.SetActive(false);
             //Time.fixedDeltaTime = _originalFixedTime;
         }
@@ -42,11 +46,15 @@ public class DigWheel : MonoBehaviour {
                 Debug.Log("Linear (right)");
                 //TODO:create linear digging here
 
+                if (!_player.IsZoneDigging)
+                    _player.LinearDig();
             }
             if (rStickX < -.8f) {
                 EnableZone();
                 Debug.Log("Zone (left)");
                 //TODO:create zone digging here
+
+                _player.ZoneDig();
             }
 
         }

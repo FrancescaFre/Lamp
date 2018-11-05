@@ -9,7 +9,7 @@ public class CavePlayer : MonoBehaviour
     bool isJumping = false;
 
     bool isDigging = false; // Flag to stop player movement with targeted dig
-    int digType = 0; // 0 = Not Digging, 1 = Vertical Dig, 2 = Targeted Dig
+    Dig digType = Dig.NONE; // 0 = Not Digging, 1 = Vertical Dig, 2 = Targeted Dig
 
     Rigidbody rb;
     DigStarter digStarter;
@@ -31,22 +31,22 @@ public class CavePlayer : MonoBehaviour
 
         // Vertical Dig (input digType=1)
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isDigging)
-            if (digType == 1) // If you already pressed shift
+            if (digType == Dig.LINEAR) // If you already pressed shift
                 if (digStarter.CanDig(digType))
                 {
                     digStarter.Dig();
 
                     // After digging
-                    digStarter.StopDig(out digType);
+                    digStarter.StopDig(ref digType);
                 }
                 else
-                    digStarter.StopDig(out digType); // Also resets digType to 0
+                    digStarter.StopDig(ref digType); // Also resets digType to 0
 
-            else if (digType == 2) // If you press shift after ctrl it cancels the digging action
-                digStarter.StopDig(out digType);
+            else if (digType == Dig.ZONE) // If you press shift after ctrl it cancels the digging action
+                digStarter.StopDig(ref digType);
             else
             {
-                digType = 1;
+                digType = Dig.LINEAR;
                 digStarter.gameObject.SetActive(true);
                 digStarter.CheckDig(digType); // Type 1 for vertical dig
             }
@@ -61,14 +61,14 @@ public class CavePlayer : MonoBehaviour
                     // After digging
                     isDigging = false;
                     digTarget.StopTarget(targetStartingPosition);
-                    digStarter.StopDig(out digType);
+                    digStarter.StopDig(ref digType);
                 }
                 else
                 {
                     isDigging = false;
                     digTarget.StopTarget(targetStartingPosition);
                 }
-            else if (digType == 2) // If you already pressed ctrl
+            else if (digType == Dig.ZONE) // If you already pressed ctrl
                 if (digStarter.CanDig(digType))
                 {
                     isDigging = true;
@@ -78,13 +78,13 @@ public class CavePlayer : MonoBehaviour
                     digTarget.CheckTarget();
                 }
                 else
-                    digStarter.StopDig(out digType);
+                    digStarter.StopDig(ref digType);
 
-            else if (digType == 1) // If you press ctrl after shift it cancels the digging action
-                digStarter.StopDig(out digType);
+            else if (digType == Dig.LINEAR) // If you press ctrl after shift it cancels the digging action
+                digStarter.StopDig(ref digType);
             else
             {
-                digType = 2;
+                digType = Dig.ZONE;
                 digStarter.gameObject.SetActive(true);
                 digStarter.CheckDig(digType); // Type 2 for vertical dig
             }

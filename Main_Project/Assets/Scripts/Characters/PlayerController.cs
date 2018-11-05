@@ -7,6 +7,8 @@ public enum Visibility { INVISIBLE = 0, WARNING, SPOTTED }
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(ItemWheel))]
+[RequireComponent(typeof(DigWheel))]
+
 public class PlayerController : MonoBehaviour {
     [Range(5, 10)]
     public float walkSpeed = 8f;
@@ -23,23 +25,33 @@ public class PlayerController : MonoBehaviour {
 
     public GameObject CameraGO;
 
-
+    public bool IsZoneDigging { get; private set; }
 
     private Rigidbody _rig;
     private CameraManager _camera;
+
+    public DigStarter _digStarter;  // Digging circle under the player (used for both dig)
+    public DigTarget _digTarget;  // Digging circle that moves around (used for the zone dig)
+
+    private Dig _digType;  // Actual digging state
+    private Vector3 _targetStartingPosition;  // Saves the zone digging target's position
 
     void Awake() {
         IsSafe = false;
         CurseStatus = Status.NORMAL;
         Visible = Visibility.INVISIBLE;
         items = new Dictionary<string, int>(6);
-
+        IsZoneDigging = false;
+        
     }
 
     // Use this for initialization
     void Start() {
         _rig = GetComponent<Rigidbody>();
         _camera = CameraGO.GetComponent<CameraManager>();
+        //_digStarter = GetComponentInChildren<DigStarter>();
+        //_digTarget = GetComponentInChildren<DigTarget>();
+        _digType = Dig.NONE;
     }
 
     // Update is called once per frame
@@ -47,6 +59,7 @@ public class PlayerController : MonoBehaviour {
         this.CheckMovement();
         this.CheckSkillInteraction();
         this.CheckCamera();
+        this.DiggingTest();
         Debug.Log("PLAYER IS: "+IsSafe);
     }
 
@@ -54,6 +67,14 @@ public class PlayerController : MonoBehaviour {
     /// Moves the player if an input is detected
     /// </summary>
     private void CheckMovement() {
+
+        // Stops the character movement when it's zone digging
+        if (IsZoneDigging) return;
+
+        // With the dig active, check the circle color on the ground
+        if (_digType != Dig.NONE)
+            _digStarter.CheckDig(_digType);
+
         //to move the player
         float horiz_axis = Input.GetAxis("Horizontal");
         float vert_axis = Input.GetAxis("Vertical");
@@ -93,25 +114,29 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetButtonDown("PS4_Button_RStickClick") || Input.GetKeyDown(KeyCode.Tab)) {
             Debug.Log("before " + _camera.IsFollowingPlayer);
             _camera.SetCamera();
-            _camera.ResetPlanetView();
+            
             Debug.Log("after "+_camera.IsFollowingPlayer);
         }
-        if (!_camera.IsFollowingPlayer) {// if the player is not followed by the camera
-            float rStickX = Input.GetAxis("PS4_RStick_X");
-            float rStickY = Input.GetAxis("PS4_RStick_Y");
+        
+        float rStickX = Input.GetAxis("PS4_RStick_X");
+        float rStickY = Input.GetAxis("PS4_RStick_Y");
 
-            float mouseX = Input.GetAxis("Mouse X");
-            float mouseY = Input.GetAxis("Mouse Y");
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
 
-            Debug.Log("move camera");
-            if ((rStickX != 0 || rStickY != 0) && (mouseX == 0 && mouseY == 0)) {// if only the controller is used
-             
-                _camera.LookAtPlanet(rStickX, rStickY);
-            }
-            else {
-                _camera.LookAtPlanet(mouseX, mouseY);
-            }
+        /*if (_camera.IsFollowingPlayer) {
+            rStickY = mouseY = 0f;
+        }*/
+
+        Debug.Log("move camera");
+        if ((rStickX != 0 || rStickY != 0) && (mouseX == 0 && mouseY == 0)) {// if only the controller is used
+
+            _camera.LookAtTarget(rStickX, rStickY);
         }
+        else {
+            _camera.LookAtTarget(mouseX, mouseY);
+        }
+        
 
     }
 
@@ -186,6 +211,90 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+
+    #endregion
+
+    #region Digging
+
+    /// <summary>
+    /// Checks the conditions for the linear dig (valid terrain both
+    /// at start and end) and performs the vertical teleport
+    /// </summary>
+    public void LinearDig()
+    {
+        if (_digType == Dig.LINEAR) // If you already pressed shift
+            if (_digStarter.CanDig(_digType))
+            {
+                _digStarter.Dig();
+                transform.position = -transform.position;
+
+                // After digging
+                _digStarter.StopDig(ref _digType);
+            }
+            else
+                _digStarter.StopDig(ref _digType); // Also resets digType to 0
+
+        else if (_digType == Dig.LINEAR) // If you press shift after ctrl it cancels the digging action
+            _digStarter.StopDig(ref _digType);
+        else
+        {
+            _digType = Dig.LINEAR;
+            _digStarter.gameObject.SetActive(true);
+            _digStarter.CheckDig(_digType); // Type 1 for vertical dig
+        }
+    }
+
+    /// <summary>
+    /// Checks the conditions for the zone dig and performs both
+    /// ending point selection and the dig itself
+    /// </summary>
+    public void ZoneDig()
+    {
+        if (IsZoneDigging) // If you're searching for a target to dig
+            if (_digTarget.CanDig())
+            {
+                transform.position = _digTarget.Dig();
+
+                // After digging
+                IsZoneDigging = false;
+                _digTarget.StopTarget(_digStarter.transform.position);
+                _digStarter.StopDig(ref _digType);
+            }
+            else
+            {
+                IsZoneDigging = false;
+                _digTarget.StopTarget(_targetStartingPosition);
+            }
+        else if (_digType == Dig.ZONE) // If you already pressed ctrl
+            if (_digStarter.CanDig(_digType))
+            {
+                IsZoneDigging = true;
+                _digTarget.isDigging = true;
+                _digTarget.gameObject.SetActive(true);
+                _targetStartingPosition = _digTarget.transform.position; // Saves the position to restart the target
+                _digTarget.CheckTarget();
+            }
+            else
+                _digStarter.StopDig(ref _digType);
+
+        else if (_digType == Dig.LINEAR) // If you press ctrl after shift it cancels the digging action
+            _digStarter.StopDig(ref _digType);
+        else
+        {
+            _digType = Dig.ZONE;
+            _digStarter.gameObject.SetActive(true);
+            _digStarter.CheckDig(_digType); // Type 2 for vertical dig
+        }
+    }
+
+    private void DiggingTest()
+    {
+        if (Input.GetKeyDown(KeyCode.I) && !IsZoneDigging)
+            LinearDig();
+
+        if (Input.GetKeyDown(KeyCode.O))
+            ZoneDig();
+    }
 
     #endregion
 }
