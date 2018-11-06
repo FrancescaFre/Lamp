@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The second dig circle in zone digging, to
+/// choose the target
+/// </summary>
 public class DigTarget : MonoBehaviour
 {
 
@@ -24,12 +28,12 @@ public class DigTarget : MonoBehaviour
     /// <returns>The final transform position</returns>
     public Vector3 Dig()
     {
-        Debug.Log("Scavo 2!");
+        //Debug.Log("Scavo 2!");
         return transform.position;
     }
 
     /// <summary>
-    /// Changes the color of the target digging circle
+    /// Changes the color of the target dig circle
     /// </summary>
     public void CheckTarget()
     {
@@ -40,7 +44,7 @@ public class DigTarget : MonoBehaviour
     }
 
     /// <summary>
-    /// Hides the target digging circle
+    /// Hides the target dig circle
     /// </summary>
     /// <param name="startingPosition"></param>
     public void StopTarget(Vector3 startingPosition)

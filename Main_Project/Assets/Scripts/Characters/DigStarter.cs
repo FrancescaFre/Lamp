@@ -2,21 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The dig circle under the player, checks the starting
+/// position's terrain
+/// </summary>
 public class DigStarter : MonoBehaviour
 {
 
     public Material DigYes;
     public Material DigNo;
 
-    // This is only for the vertical dig. The type 2 is within DigTarget
+    /// <summary>
+    /// Moves the player on the other side of the planet.
+    /// Actually unused.
+    /// </summary>
     public void Dig()
     {
-        // TODO: Vertical dig
-        Debug.Log("Scavo 1!");
+        //Debug.Log("Scavo 1!");
     }
 
     /// <summary>
-    /// Changes the color of the starting digging circle under the player
+    /// Changes the color of the circle
     /// </summary>
     /// <param name="digType"></param>
     public void CheckDig(Dig digType)
@@ -28,7 +34,7 @@ public class DigStarter : MonoBehaviour
     }
 
     /// <summary>
-    /// Hides the starting digging circle under the player
+    /// Hides the circle
     /// </summary>
     /// <param name="digType"></param>
     public void StopDig (ref Dig digType)
