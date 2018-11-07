@@ -11,21 +11,17 @@ public enum Visibility { INVISIBLE = 0, WARNING, SPOTTED }
 [RequireComponent(typeof(DigWheel))]
 public class PlayerController : MonoBehaviour {
 
-
-
-    public Transform playerModel;
-
     public bool IsSafe { get; private set; }
     public Status CurseStatus { get; private set; }
     public Visibility Visible { get; private set; }
-    public Dictionary<string, int> items;
+    
 
-    public GameObject CameraGO;
+   
 
     public bool IsZoneDigging { get; private set; }
 
     private Rigidbody _rig;
-    private CameraManager _camera;
+    public CameraManager cameraManager;
 
     public DigStarter _digStarter;  // Digging circle under the player (used for both dig)
     public DigTarget _digTarget;  // Digging circle that moves around (used for the zone dig)
@@ -37,19 +33,19 @@ public class PlayerController : MonoBehaviour {
         IsSafe = false;
         CurseStatus = Status.NORMAL;
         Visible = Visibility.INVISIBLE;
-        items = new Dictionary<string, int>(6);
-        IsZoneDigging = false;
         
+        IsZoneDigging = false;
+        cameraManager = GetComponentInChildren<CameraManager>();
     }
 
     // Use this for initialization
     void Start() {
         _rig = GetComponent<Rigidbody>();
-        _camera = CameraGO.GetComponent<CameraManager>();
+        
         //_digStarter = GetComponentInChildren<DigStarter>();
         //_digTarget = GetComponentInChildren<DigTarget>();
         _digType = Dig.NONE;
-        playerModel = transform.Find("Model");
+        
     }
     
     // Update is called once per frame
@@ -82,10 +78,10 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     private void CheckCamera(){
         if (Input.GetButtonDown("PS4_Button_RStickClick") || Input.GetKeyDown(KeyCode.Tab)) {
-            Debug.Log("before " + _camera.IsFollowingPlayer);
-            _camera.SetCamera();
+            Debug.Log("before " + cameraManager.IsFollowingPlayer);
+            cameraManager.SetCamera();
             
-            Debug.Log("after "+_camera.IsFollowingPlayer);
+            Debug.Log("after "+cameraManager.IsFollowingPlayer);
         }
         
         float rStickX = Input.GetAxis("PS4_RStick_X");
@@ -94,17 +90,17 @@ public class PlayerController : MonoBehaviour {
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
 
-        /*if (_camera.IsFollowingPlayer) {
+        if (cameraManager.IsFollowingPlayer) {// forbid the camera to go above or below the player
             rStickY = mouseY = 0f;
-        }*/
+        }
 
         Debug.Log("move camera");
         if ((rStickX != 0 || rStickY != 0) && (mouseX == 0 && mouseY == 0)) {// if only the controller is used
 
-            _camera.LookAtTarget(rStickX, rStickY);
+            cameraManager.LookAtTarget(rStickX, rStickY);
         }
         else {
-            _camera.LookAtTarget(mouseX, mouseY);
+            cameraManager.LookAtTarget(mouseX, mouseY);
         }
         
 
@@ -130,29 +126,9 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     public void ChangeSafety() {
         IsSafe = !IsSafe;
-        Debug.Log("chiamato");
+        Debug.Log("chiamato safety");
     }
-    /// <summary>
-    /// Use an item from the inventory if any
-    /// </summary>
-    /// <param name="itemKey">Item to be used</param>
-    public void UseItem(string itemKey) {
-        if (items[itemKey] > 0) {
-            ManageItem(itemKey, -1);
-            Debug.Log("used item " + itemKey);  //TODO: add use of the item
-        }
-        else {
-            Debug.Log("not enough item " + itemKey);
-        }
-    }
-    /// <summary>
-    /// Manage an item in the inventory
-    /// </summary>
-    /// <param name="itemKey">Managed item</param>
-    /// <param name="use">Plus 1 if gathered; Minus 1 if used</param>
-    public void ManageItem(string itemKey, int use) {
-        items[itemKey] += use;
-    }
+
 
     #region Collision Detection
 
@@ -160,10 +136,18 @@ public class PlayerController : MonoBehaviour {
         if (other.CompareTag("Lamp_Base")|| other.CompareTag("Lamp_Switch")) {//if the character has entered the light of a lamp that is switched on
             
             if (other.CompareTag("Lamp_Switch")) {
-                LampBehaviour lamp= other.GetComponent<LampBehaviour>();
+                LampBehaviour lamp = other.GetComponent<LampBehaviour>();
+                
+                if (lamp.IsEnemyLamp) { //if the player touches an enemy lamp, it will be switched off 
+                    lamp.SwitchOffEnemyLamp();
+                    //TODO decrease the number of enemy maps turned on
+                    return;
+                }
+
+                
                 if (lamp.IsMissingPart) return;    //if the lamp is missing the light bulb 
 
-                lamp.SwitchOnLamp();
+                lamp.SwitchOnAllyLamp();
                 Debug.Log("lamp_switch: ON");
                 
             }
@@ -181,6 +165,13 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    private void OnCollisionEnter(Collision collision) {
+        if (collision.collider.CompareTag("Enemy")) {// if the player touches an enemy
+            Enemy touchedEnemy = collision.gameObject.GetComponent<Enemy>();
+            GameObject enemyGO = GameManager.Instance.enemies[touchedEnemy.data_enemy.level]; 
+
+        }
+    }
 
     #endregion
 
