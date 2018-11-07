@@ -3,10 +3,13 @@
 public class CameraManager : MonoBehaviour {//http://youtu.be/MFQhpwc6cKE
     public Transform playerModel;// the model of the player, NOT the pivot
     public Transform planetModel;
+
+    private Vector3 _prevPosition;
+    private Quaternion _prevRotation;
     public bool IsFollowingPlayer { get; private set; }
 
-    [Range(10,15)]
-    public float smoothSpeed=10.25f;   //the higher it is, the faster the camera will lock on the player
+    [Range(0,1)]
+    public float smoothSpeed=0.25f;   //the higher it is, the faster the camera will lock on the player
 
     public Vector3 playerOffset;
     [Range(3,80)]
@@ -14,7 +17,7 @@ public class CameraManager : MonoBehaviour {//http://youtu.be/MFQhpwc6cKE
 
     private float _currentX = 0f;
     private float _currentY = 0f;
-
+    public float cameraRotation = 0f;
     void Awake() {
         IsFollowingPlayer = true;
     }
@@ -34,13 +37,15 @@ public class CameraManager : MonoBehaviour {//http://youtu.be/MFQhpwc6cKE
     public void LookAtTarget(float X_axis, float Y_axis) {
         _currentX += X_axis;
         _currentY += Y_axis;
-        _currentY = Mathf.Clamp(_currentY, -50f, 50f);  //prevents the camera from doing a revolution around the player on the Y axis
+        if(!IsFollowingPlayer)
+        _currentY = Mathf.Clamp(_currentY,  -cameraRotation, cameraRotation);  //prevents the camera from doing a revolution around the player on the Y axis
     }
     /// <summary>
     /// Resets the view of the planet to the original position
     /// </summary>
     public void ResetPlanetView() {
         _currentX = _currentY = 3f;
+        
     }
 
     /// <summary>
@@ -48,6 +53,7 @@ public class CameraManager : MonoBehaviour {//http://youtu.be/MFQhpwc6cKE
     /// </summary>
     public void ResetPlayerView() {
         _currentX = _currentY = 0f;
+
     }
 
 
@@ -57,9 +63,13 @@ public class CameraManager : MonoBehaviour {//http://youtu.be/MFQhpwc6cKE
     /// </summary>
     /// <param name="target">Target of the camera</param>
     private void AroundTarget(Transform target, Vector3 offset) {
-        
+        if (target.position.y < 0) transform.position= -transform.position;
         Quaternion rotation = Quaternion.Euler(_currentY, _currentX, 0f);
-        transform.position = target.position + rotation * offset ;
+        
+        Vector3 newpos = target.position + rotation * offset ;
+
+        transform.position = Vector3.Lerp(transform.position, newpos, IsFollowingPlayer ? smoothSpeed:1f);
+       
         transform.LookAt(target.position);
     }
 
@@ -68,9 +78,20 @@ public class CameraManager : MonoBehaviour {//http://youtu.be/MFQhpwc6cKE
     /// </summary>
     public void SetCamera() {
         IsFollowingPlayer = !IsFollowingPlayer;
-        if (IsFollowingPlayer)
+        if (IsFollowingPlayer) {
             ResetPlayerView();
-        else
-            ResetPlanetView(); 
+            transform.SetParent(playerModel);
+            transform.localPosition = _prevPosition;
+            transform.localRotation = _prevRotation;
+
+        }
+        else {
+            _prevPosition = transform.localPosition;
+            _prevRotation = transform.localRotation;
+            ResetPlanetView();
+            transform.SetParent(null);
+            
+
+        }
     }
 }
