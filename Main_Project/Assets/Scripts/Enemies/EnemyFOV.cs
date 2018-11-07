@@ -88,7 +88,7 @@ public class EnemyFOV : MonoBehaviour {
             Quaternion angleQ = this.transform.localRotation;
 
             float angle = -viewAngle / 2 + stepAngleSize * i;
-            Debug.DrawLine(this.transform.position, transform.position + transform.TransformDirection(Mathf.Sin(angle * Mathf.Deg2Rad), 0, Mathf.Cos(angle * Mathf.Deg2Rad)) * viewRadius, Color.blue);
+           // Debug.DrawLine(this.transform.position, transform.position + transform.TransformDirection(Mathf.Sin(angle * Mathf.Deg2Rad), 0, Mathf.Cos(angle * Mathf.Deg2Rad)) * viewRadius, Color.blue);
            
             ViewCastInfo newViewCast = ViewCast(angle);
 
