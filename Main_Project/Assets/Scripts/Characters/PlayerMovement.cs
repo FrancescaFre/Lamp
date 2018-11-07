@@ -42,11 +42,13 @@ public class PlayerMovement : MonoBehaviour {
     /// Sets the player movement direction
     /// </summary>
     private void SetDirection() {
+
         //Stops the character movement if the camera is not following it
         if (!_player.cameraManager.IsFollowingPlayer) return;
 
         // Stops the character movement when it's zone digging        
         if (_player.IsZoneDigging) return;
+
 
         this._horiz_axis = Input.GetAxis("Horizontal");
         this._vert_axis = Input.GetAxis("Vertical");
@@ -61,13 +63,10 @@ public class PlayerMovement : MonoBehaviour {
         //Stops the character movement if the camera is not following it
         if (!_player.cameraManager.IsFollowingPlayer) return;
 
-        // Stops the character movement when it's zone digging
-        if (_player.IsZoneDigging) return;
-
-       
+        // Stops the character movement when it's zone digging or it's casting the dig
+        if (_player.IsZoneDigging || _player.isCasting) return;
 
         //to move the player
-
         Vector3 movement = Vector3.zero;
 
 

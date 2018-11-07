@@ -98,7 +98,7 @@ public class Enemy : MonoBehaviour
 
         //THANKS Mister ANTONIO
         dirY = Vector3.ProjectOnPlane(destination - this.transform.position, transform.up);
-        Debug.DrawLine(this.transform.position, this.transform.position + dirY * 10f, Color.red);
+        //Debug.DrawLine(this.transform.position, this.transform.position + dirY * 10f, Color.red);
         transform.LookAt(transform.position + dirY, transform.up);
     }
  
