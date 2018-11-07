@@ -19,9 +19,10 @@ public class PlayerController : MonoBehaviour {
     public Dictionary<string, int> items;
 
     public GameObject CameraGO;
+    public Robot robot;
 
     public bool isZoneDigging { get; private set; } // If the player is blocked to zone dig (searching for destination)
-    public bool isCasting { get; private set; } // If the player is blocked while casting the dig
+    public bool isCasting { get; set; } // If the player is blocked while casting the dig
 
     private Rigidbody _rig;
     private CameraManager _camera;
@@ -63,6 +64,8 @@ public class PlayerController : MonoBehaviour {
         this.CheckSkillInteraction();
         this.CheckCamera();
         this.DiggingTest();
+        this.RobotTest();
+
         Debug.Log("PLAYER IS: "+IsSafe);
     }
 
@@ -301,6 +304,29 @@ public class PlayerController : MonoBehaviour {
     }
 
     #endregion
+
+    /// <summary>
+    /// Stub to playtest robot. Press [P] to activate and
+    /// pause robot
+    /// </summary>
+    private void RobotTest()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+            if (robot.paused)
+            {
+                enabled = false;
+                isCasting = true;
+                _camera.gameObject.SetActive(false);
+                robot.Restart();
+            }
+            else
+            {
+                enabled = false;
+                isCasting = true;
+                _camera.gameObject.SetActive(false);
+                robot.Spawn(transform.position);
+            }
+    }
 }
 
 
