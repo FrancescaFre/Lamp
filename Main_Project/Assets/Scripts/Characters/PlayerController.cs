@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour {
    
 
     public bool IsZoneDigging { get; private set; } // If the player is blocked to zone dig (searching for destination)
-    public bool isCasting { get; private set; } // If the player is blocked while casting the dig
+    public bool IsCasting { get; private set; } // If the player is blocked while casting the dig
 
     private Rigidbody _rig;
     public CameraManager cameraManager;
@@ -194,7 +194,7 @@ public class PlayerController : MonoBehaviour {
             if (digStarter.CanDig(_digType))
             {
                 caster.StartCircle(_digType);
-                isCasting = true;
+                IsCasting = true;
             }
             else
                 digStarter.StopDig(ref _digType);
@@ -220,7 +220,7 @@ public class PlayerController : MonoBehaviour {
 
         // After digging
         digStarter.StopDig(ref _digType);
-        isCasting = false;
+        IsCasting = false;
     }
 
     /// <summary>
@@ -229,23 +229,23 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     public void ZoneCheck()
     {
-        if (isZoneDigging) // If you already pressed [ZDIG] 2 times (activate -> valid start -> now)
+        if (IsZoneDigging) // If you already pressed [ZDIG] 2 times (activate -> valid start -> now)
             if (digTarget.CanDig())
             {
                 caster.StartCircle(_digType);
                 digTarget.isDigging = false;
-                isCasting = true;
+                IsCasting = true;
             }
             else
             {
-                isZoneDigging = false;
+                IsZoneDigging = false;
                 digTarget.StopTarget(_targetStartingPosition);
             }
 
         else if (_digType == Dig.ZONE) // If you already pressed [ZDIG] (activate -> now)
             if (digStarter.CanDig(_digType))
             {
-                isZoneDigging = true;
+                IsZoneDigging = true;
                 digTarget.isDigging = true;
                 digTarget.gameObject.SetActive(true);
                 _targetStartingPosition = digTarget.transform.position; // Saves the position to restart the target
@@ -275,7 +275,7 @@ public class PlayerController : MonoBehaviour {
 
         // After digging
         IsZoneDigging = false;
-        isCasting = false;
+        IsCasting = false;
         digTarget.StopTarget(digStarter.transform.position);
         digStarter.StopDig(ref _digType);
     }
@@ -286,10 +286,10 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     private void DiggingTest()
     {
-        if (isCasting)
+        if (IsCasting)
             return;
 
-        if (Input.GetKeyDown(KeyCode.I) && !isZoneDigging)
+        if (Input.GetKeyDown(KeyCode.I) && !IsZoneDigging)
             LinearCheck();
 
         if (Input.GetKeyDown(KeyCode.O))

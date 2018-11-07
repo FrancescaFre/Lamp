@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour {
         if (!_player.cameraManager.IsFollowingPlayer) return;
 
         // Stops the character movement when it's zone digging or it's casting the dig
-        if (_player.IsZoneDigging || _player.isCasting) return;
+        if (_player.IsZoneDigging || _player.IsCasting) return;
 
         //to move the player
         Vector3 movement = Vector3.zero;

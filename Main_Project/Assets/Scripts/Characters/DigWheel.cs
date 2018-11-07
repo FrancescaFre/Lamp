@@ -46,7 +46,7 @@ public class DigWheel : MonoBehaviour {
                 Debug.Log("Linear (right)");
                 //TODO:create linear digging here
 
-                if (!_player.isZoneDigging)
+                if (!_player.IsZoneDigging)
                     _player.LinearCheck();
             }
             if (rStickX < -.8f) {
