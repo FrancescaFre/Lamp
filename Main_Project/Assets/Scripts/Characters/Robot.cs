@@ -87,7 +87,7 @@ public class Robot : MonoBehaviour {
         enabled = false;
         paused = true;
 
-        player.cameraGO.gameObject.SetActive(true);
+        player.playerCamera.gameObject.SetActive(true);
         player.IsCasting = false;
         player.enabled = true;
     }

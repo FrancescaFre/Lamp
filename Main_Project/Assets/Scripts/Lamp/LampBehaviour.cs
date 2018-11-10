@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using AuraAPI;
 
 public class LampBehaviour : MonoBehaviour {
 
-    public Light lightBulb;
+    public Light[] lightBulb;
     public SphereCollider baseCollider;
     public CapsuleCollider lampCollider;
     public bool IsEnemyLamp;
@@ -16,11 +15,13 @@ public class LampBehaviour : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        lightBulb=GetComponentInChildren<Light>();                  //the light source of the child GO
+        lightBulb=GetComponentsInChildren<Light>();                 //the light sources of the child GO
         baseCollider = GetComponentInChildren<SphereCollider>();    //the collider of the base around the lamp (is a trigger)
         lampCollider = GetComponent<CapsuleCollider>();             //the collider around the lamp model (is a trigger)
 
-        lightBulb.enabled = false;
+        
+        for (int i =0;i<lightBulb.Length; i++)
+            lightBulb[i].enabled = false;
         baseCollider.enabled = false;
         lampCollider.enabled = true;
         IsMissingPart = false;
@@ -38,7 +39,10 @@ public class LampBehaviour : MonoBehaviour {
     public void SwitchOnAllyLamp() {
         if (IsMissingPart) return;
 
-        lightBulb.enabled = true;
+        for (int i = 0; i < lightBulb.Length; i++) {
+            lightBulb[i].enabled = true;
+            lightBulb[i].GetComponent<AuraLight>().enabled=true;
+        }
         baseCollider.enabled = true;
         lampCollider.enabled = false;
 
@@ -47,7 +51,8 @@ public class LampBehaviour : MonoBehaviour {
 
     public void SwitchOffEnemyLamp() {
         lampCollider.enabled = false;
-        lightBulb.enabled = false;
+        for (int i = 0; i < lightBulb.Length; i++)
+            lightBulb[i].enabled = false;
     }
 
 
