@@ -7,26 +7,38 @@ public class Painter : MonoBehaviour {
     public GameObject prefab;
     GameObject objd;
     List<GameObject> painterTrail;
+    PlayerController pc;
+    int skillTime; 
+
 
     public void ActivePainter() {
-        objd = Instantiate(prefab);
-        objd.transform.parent = transform;
-        painterTrail.Add(objd);
+        pc = GetComponent<PlayerController>();
+        Invoke("DisablePainter",skillTime);
+    }
 
-        foreach (GameObject go in painterTrail)
+    void FixedUpdate()
+    {
+        if (pc.usingSkill)
         {
-            //active Aura HALO
+            objd = Instantiate(prefab);
+            objd.layer = 11; //layer 11 = Obstacles
+            objd.transform.parent = transform;
+            painterTrail.Add(objd);
         }
     }
 
     //after x seconds or rpressing button of jolly skills
     public void DisablePainter()
     {
-        foreach (GameObject go in painterTrail) {
-            Destroy(go);
-            painterTrail.Remove(go);
-        }
-        //or painterTrail.Clear();
-    }
+        if (pc.usingSkill)
+        {
+            pc.usingSkill = false;
+            foreach (GameObject go in painterTrail)
+                Destroy(go);
 
+            painterTrail.Clear();
+        }
+        else return; 
+    }
+  
 }
