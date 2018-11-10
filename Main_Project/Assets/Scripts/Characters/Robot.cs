@@ -75,7 +75,7 @@ public class Robot : MonoBehaviour {
         paused = true;
 
         player.cameraGO.gameObject.SetActive(true);
-        player.isCasting = false;
+        player.IsCasting = false;
         player.enabled = true;
     }
 }

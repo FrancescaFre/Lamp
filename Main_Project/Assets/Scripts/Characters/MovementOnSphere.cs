@@ -43,7 +43,7 @@ public class MovementOnSphere : MonoBehaviour {
     private void SetDirection() {
 
         // Stops the character movement when it's zone digging or it's casting the dig
-        if (_player.isZoneDigging || _player.isCasting) return;
+        if (_player.IsZoneDigging || _player.IsCasting) return;
 
         this._horiz_axis = Input.GetAxis("Horizontal");
         this._vert_axis = Input.GetAxis("Vertical");
@@ -57,7 +57,7 @@ public class MovementOnSphere : MonoBehaviour {
     private void CheckMovement() {
 
         // Stops the character movement when it's zone digging or it's casting the dig
-        if (_player.isZoneDigging || _player.isCasting) return;
+        if (_player.IsZoneDigging || _player.IsCasting) return;
 
         //to move the player
         Vector3 movement = Vector3.zero;
