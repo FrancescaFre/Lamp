@@ -12,6 +12,7 @@ public class PlayerControllerHummel : MonoBehaviour
     public bool isDigging = false; // Flag to stop player movement with targeted dig
     public int digType = 0; // 0 = Not Digging, 1 = Vertical Dig, 2 = Targeted Dig
 
+    Animator anim;
     Rigidbody rb;
     DigStarter digStarter;
     DigTarget digTarget;
@@ -19,6 +20,7 @@ public class PlayerControllerHummel : MonoBehaviour
 
     void Start()
     {
+        anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         digStarter = GetComponentInChildren<DigStarter>(includeInactive: true);
         digTarget = GetComponentInChildren<DigTarget>(includeInactive: true);
@@ -27,8 +29,8 @@ public class PlayerControllerHummel : MonoBehaviour
     void Update()
     {
         // Can remove, just for fun
-        //if (Input.GetButtonDown("Jump") && !isJumping)
-        //    isJumping = true;
+        if (Input.GetButtonDown("Jump") && !isJumping)
+            isJumping = true;
 
         // Vertical Dig (input digType=1)
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isDigging)

@@ -34,8 +34,6 @@ public class PlayerMovement : MonoBehaviour {
 
     private void FixedUpdate() {
         this.CheckMovement();
-        //_rig.MoveRotation(Quaternion.LookRotation(_moveDir+_rig.position ));
-    
     }
 
     /// <summary>
@@ -43,12 +41,8 @@ public class PlayerMovement : MonoBehaviour {
     /// </summary>
     private void SetDirection() {
 
-        //Stops the character movement if the camera is not following it
-        if (!_player.cameraManager.IsFollowingPlayer) return;
-
-        // Stops the character movement when it's zone digging        
-        if (_player.IsZoneDigging) return;
-
+        // Stops the character movement when it's zone digging or it's casting the dig
+        if (_player.IsZoneDigging || _player.IsCasting) return;
 
         this._horiz_axis = Input.GetAxis("Horizontal");
         this._vert_axis = Input.GetAxis("Vertical");
@@ -60,8 +54,6 @@ public class PlayerMovement : MonoBehaviour {
     /// Moves the player if an input is detected
     /// </summary>
     private void CheckMovement() {
-        //Stops the character movement if the camera is not following it
-        if (!_player.cameraManager.IsFollowingPlayer) return;
 
         // Stops the character movement when it's zone digging or it's casting the dig
         if (_player.IsZoneDigging || _player.IsCasting) return;

@@ -11,19 +11,23 @@ public enum Visibility { INVISIBLE = 0, WARNING, SPOTTED }
 [RequireComponent(typeof(DigWheel))]
 public class PlayerController : MonoBehaviour {
 
+    public Transform playerModel;
 
     public bool IsSafe { get; private set; }
     public Status CurseStatus { get; private set; }
     public Visibility Visible { get; private set; }
-    
+    public Dictionary<string, int> items;
 
-   
+    public GameObject cameraGO;
+    public Robot robot;
 
     public bool IsZoneDigging { get; private set; } // If the player is blocked to zone dig (searching for destination)
-    public bool IsCasting { get; private set; } // If the player is blocked while casting the dig
+
+    public bool IsCasting { get; set; } // If the player is blocked while casting the dig
+
 
     private Rigidbody _rig;
-    public CameraManager cameraManager;
+    private CameraManager _camera;
 
     public DigStarter digStarter; // Digging circle under the player (used for both dig)
     public DigTarget digTarget; // Digging circle that moves around (used for the zone dig)
@@ -38,21 +42,18 @@ public class PlayerController : MonoBehaviour {
         IsSafe = false;
         CurseStatus = Status.NORMAL;
         Visible = Visibility.INVISIBLE;
-
-        
-        IsZoneDigging = false;
-        cameraManager = GetComponentInChildren<CameraManager>();
-
+        items = new Dictionary<string, int>(6);
+        IsZoneDigging = false;      
     }
 
     // Use this for initialization
     void Start() {
         _rig = GetComponent<Rigidbody>();
-        
+        _camera = cameraGO.GetComponent<CameraManager>();
         //_digStarter = GetComponentInChildren<DigStarter>();
         //_digTarget = GetComponentInChildren<DigTarget>();
         _digType = Dig.NONE;
-        
+        playerModel = transform.Find("Model");
     }
     
     // Update is called once per frame
@@ -65,6 +66,8 @@ public class PlayerController : MonoBehaviour {
         this.CheckSkillInteraction();
         this.CheckCamera();
         this.DiggingTest();
+        this.RobotTest();
+
         Debug.Log("PLAYER IS: "+IsSafe);
     }
 
@@ -83,10 +86,10 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     private void CheckCamera(){
         if (Input.GetButtonDown("PS4_Button_RStickClick") || Input.GetKeyDown(KeyCode.Tab)) {
-            Debug.Log("before " + cameraManager.IsFollowingPlayer);
-            cameraManager.SetCamera();
+            Debug.Log("before " + _camera.IsFollowingPlayer);
+            _camera.SetCamera();
             
-            Debug.Log("after "+cameraManager.IsFollowingPlayer);
+            Debug.Log("after "+_camera.IsFollowingPlayer);
         }
         
         float rStickX = Input.GetAxis("PS4_RStick_X");
@@ -95,17 +98,17 @@ public class PlayerController : MonoBehaviour {
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
 
-        if (cameraManager.IsFollowingPlayer) {// forbid the camera to go above or below the player
+        /*if (_camera.IsFollowingPlayer) {
             rStickY = mouseY = 0f;
-        }
+        }*/
 
         Debug.Log("move camera");
         if ((rStickX != 0 || rStickY != 0) && (mouseX == 0 && mouseY == 0)) {// if only the controller is used
 
-            cameraManager.LookAtTarget(rStickX, rStickY);
+            _camera.LookAtTarget(rStickX, rStickY);
         }
         else {
-            cameraManager.LookAtTarget(mouseX, mouseY);
+            _camera.LookAtTarget(mouseX, mouseY);
         }
         
 
@@ -132,26 +135,39 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     public void ChangeSafety() {
         IsSafe = !IsSafe;
-
         Debug.Log("chiamato");
     }
 
-    
+    /// <summary>
+    /// Use an item from the inventory if any
+    /// </summary>
+    /// <param name="itemKey">Item to be used</param>
+    public void UseItem(string itemKey) {
+        if (items[itemKey] > 0) {
+            ManageItem(itemKey, -1);
+            Debug.Log("used item " + itemKey);  //TODO: add use of the item
+        }
+        else {
+            Debug.Log("not enough item " + itemKey);
+        }
+    }
+
+    /// <summary>
+    /// Manage an item in the inventory
+    /// </summary>
+    /// <param name="itemKey">Managed item</param>
+    /// <param name="use">Plus 1 if gathered; Minus 1 if used</param>
+    public void ManageItem(string itemKey, int use) {
+        items[itemKey] += use;
+    }
+
     #region Collision Detection
 
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Lamp_Base")|| other.CompareTag("Lamp_Switch")) {//if the character has entered the light of a lamp that is switched on
             
             if (other.CompareTag("Lamp_Switch")) {
-                LampBehaviour lamp = other.GetComponent<LampBehaviour>();
-                
-                if (lamp.IsEnemyLamp) { //if the player touches an enemy lamp, it will be switched off 
-                    lamp.SwitchOffEnemyLamp();
-                    //TODO decrease the number of enemy maps turned on
-                    return;
-                }
-
-                
+                LampBehaviour lamp= other.GetComponent<LampBehaviour>();
                 if (lamp.IsMissingPart) return;    //if the lamp is missing the light bulb 
 
                 lamp.SwitchOnAllyLamp();
@@ -171,6 +187,7 @@ public class PlayerController : MonoBehaviour {
             
         }
     }
+
 
     private void OnCollisionEnter(Collision collision) {
         if (collision.collider.CompareTag("Enemy")) {// if the player touches an enemy
@@ -193,6 +210,7 @@ public class PlayerController : MonoBehaviour {
 
         }
     }
+
 
     #endregion
 
@@ -311,6 +329,29 @@ public class PlayerController : MonoBehaviour {
     }
 
     #endregion
+
+    /// <summary>
+    /// Stub to playtest robot. Press [P] to activate and
+    /// pause robot
+    /// </summary>
+    private void RobotTest()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+            if (robot.paused)
+            {
+                enabled = false;
+                IsCasting = true;
+                _camera.gameObject.SetActive(false);
+                robot.Restart();
+            }
+            else
+            {
+                enabled = false;
+                IsCasting = true;
+                _camera.gameObject.SetActive(false);
+                robot.Spawn(transform.position);
+            }
+    }
 }
 
 
