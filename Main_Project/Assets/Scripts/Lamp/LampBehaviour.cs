@@ -42,6 +42,7 @@ public class LampBehaviour : MonoBehaviour {
         baseCollider.enabled = true;
         lampCollider.enabled = false;
 
+        GameManager.Instance.LastAllyLamp = this;   //if the character dies, the next one will be spawned here
     }
 
     public void SwitchOffEnemyLamp() {

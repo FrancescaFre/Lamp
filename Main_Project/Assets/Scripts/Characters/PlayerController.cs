@@ -150,20 +150,42 @@ public class PlayerController : MonoBehaviour {
     #region Collision Detection
 
     private void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Lamp_Base")|| other.CompareTag("Lamp_Switch")) {//if the character has entered the light of a lamp that is switched on
-            
+        if (other.CompareTag("Lamp_Base") || other.CompareTag("Lamp_Switch")) {//if the character has entered the light of a lamp that is switched on
+
             if (other.CompareTag("Lamp_Switch")) {
-                LampBehaviour lamp= other.GetComponent<LampBehaviour>();
+                LampBehaviour lamp = other.GetComponent<LampBehaviour>();
                 if (lamp.IsMissingPart) return;    //if the lamp is missing the light bulb 
 
                 lamp.SwitchOnAllyLamp();
                 Debug.Log("lamp_switch: ON");
-                
+
             }
             IsSafe = true;
 
 
         }
+        else if (other.CompareTag("Enemy")) {   //if the character touches an enemy trigger
+                                                //READ AS: if an enemy curse the character
+            Enemy touchedEnemy = other.gameObject.GetComponent<Enemy>();
+            Debug.Log("before " + CurseStatus);
+            if (CurseStatus == Status.NORMAL && !touchedEnemy.data_enemy.instant_curse) {
+                CurseStatus = Status.HALF_CURSED;
+                Debug.Log("after " + CurseStatus);
+                return;
+            }
+            Debug.Log("create the enemy ");
+            //if the enemy can curse the character instantly
+            GameObject enemyGO = GameManager.Instance.enemies[touchedEnemy.data_enemy.level - 1]; //the levels are [1,3]
+            enemyGO.GetComponent<Rigidbody>().position = _rig.position;
+
+            enemyGO.GetComponent<Enemy>().path = touchedEnemy.path;
+
+            Destroy(gameObject);    //destroys the character
+            Instantiate<GameObject>(enemyGO);//creates the enemy instead
+
+
+        }
+
 
     }
     private void OnTriggerExit(Collider other) {
@@ -175,27 +197,6 @@ public class PlayerController : MonoBehaviour {
     }
 
 
-    private void OnCollisionEnter(Collision collision) {
-        if (collision.collider.CompareTag("Enemy")) {// if the player touches an enemy
-            Enemy touchedEnemy = collision.gameObject.GetComponent<Enemy>();
-            Debug.Log("before "+CurseStatus);
-            if (CurseStatus == Status.NORMAL && !touchedEnemy.data_enemy.instant_curse) {
-                CurseStatus = Status.HALF_CURSED;
-                Debug.Log("after " + CurseStatus);
-                return;
-            }
-            Debug.Log("create the enemy ");
-            //if the enemy can curse me instantly
-            GameObject enemyGO = GameManager.Instance.enemies[touchedEnemy.data_enemy.level-1]; //the levels are [1,3]
-            enemyGO.GetComponent<Rigidbody>().position = _rig.position;
-
-            enemyGO.GetComponent<Enemy>().path = touchedEnemy.path;
-
-            Destroy(gameObject);    //destroys the character
-            Instantiate<GameObject>(enemyGO);//creates the enemy instead
-
-        }
-    }
 
 
     #endregion
