@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour {
     public Dictionary<string, int> items;
 
     public GameObject CameraGO;
+    public Digging dig;
     public Robot robot;
 
     public bool IsZoneDigging { get; private set; } // If the player is blocked to zone dig (searching for destination)
@@ -31,7 +32,6 @@ public class PlayerController : MonoBehaviour {
     public DigTarget digTarget; // Digging circle that moves around (used for the zone dig)
     public Caster caster; // Caster waiting bar that appears before a dig
 
-    private Dig _digType; // Actual digging state (None, Linear, Zone)
     private Vector3 _targetStartingPosition; // Saves the zone digging target's position
 
     //-----------------------------------------------------------------------//
@@ -50,20 +50,17 @@ public class PlayerController : MonoBehaviour {
         _camera = CameraGO.GetComponent<CameraManager>();
         //_digStarter = GetComponentInChildren<DigStarter>();
         //_digTarget = GetComponentInChildren<DigTarget>();
-        _digType = Dig.NONE;
         playerModel = transform.Find("Model");
     }
     
     // Update is called once per frame
     void Update() {
 
-        // With the dig active, check the circle color on the ground
-        if (_digType != Dig.NONE)
-            digStarter.CheckDig(_digType);
-
         this.CheckSkillInteraction();
         this.CheckCamera();
-        this.DiggingTest();
+        this.CheckDig();
+
+        // Testing Zone
         this.RobotTest();
 
         Debug.Log("PLAYER IS: "+IsSafe);
@@ -192,12 +189,29 @@ public class PlayerController : MonoBehaviour {
     #region Digging
 
     /// <summary>
+    /// Stub to playtest digging. Press [I] for linear dig
+    /// and [O] for zone dig
+    /// </summary>
+    private void CheckDig()
+    {
+        if (IsCasting)
+            return;
+
+        if (Input.GetKeyDown(KeyCode.I) && !IsZoneDigging) // [LDIG]
+            dig.LinearDig();
+
+        if (Input.GetKeyDown(KeyCode.O)) // [ZDIG]
+            dig.ZoneDig();
+    }
+
+    /*
+    /// <summary>
     /// Checks the conditions for the linear dig (valid terrain both
     /// at start and end) and eventually awakes the Casting Circle
     /// </summary>
     public void LinearCheck()
     {
-        if (_digType == Dig.LINEAR) // If you already pressed [LDIG]
+        if (_digType == dig.LINEAR) // If you already pressed [LDIG]
             if (digStarter.CanDig(_digType))
             {
                 caster.StartCircle(_digType);
@@ -206,17 +220,19 @@ public class PlayerController : MonoBehaviour {
             else
                 digStarter.StopDig(ref _digType);
 
-        else if (_digType == Dig.ZONE) // If you press [LDIG] after [ZDIG] it cancels the digging action
+        else if (_digType == dig.ZONE) // If you press [LDIG] after [ZDIG] it cancels the digging action
             digStarter.StopDig(ref _digType);
 
         else // First time the player presses [LDIG]
         {
-            _digType = Dig.LINEAR;
+            _digType = dig.LINEAR;
             digStarter.gameObject.SetActive(true);
             digStarter.CheckDig(_digType);
         }
     }
+    */
 
+    /*
     /// <summary>
     /// Performs the linear dig. This is called by the
     /// Caster script, after the casting is ready.
@@ -229,7 +245,8 @@ public class PlayerController : MonoBehaviour {
         digStarter.StopDig(ref _digType);
         IsCasting = false;
     }
-
+    */
+    /*
     /// <summary>
     /// Checks the conditions for the zone dig and performs both
     /// ending point selection and the dig itself
@@ -249,7 +266,7 @@ public class PlayerController : MonoBehaviour {
                 digTarget.StopTarget(_targetStartingPosition);
             }
 
-        else if (_digType == Dig.ZONE) // If you already pressed [ZDIG] (activate -> now)
+        else if (_digType == dig.ZONE) // If you already pressed [ZDIG] (activate -> now)
             if (digStarter.CanDig(_digType))
             {
                 IsZoneDigging = true;
@@ -261,12 +278,12 @@ public class PlayerController : MonoBehaviour {
             else
                 digStarter.StopDig(ref _digType);
 
-        else if (_digType == Dig.LINEAR) // If you press [LDIG] after [ZDIG] it cancels the digging action
+        else if (_digType == dig.LINEAR) // If you press [LDIG] after [ZDIG] it cancels the digging action
             digStarter.StopDig(ref _digType);
 
         else // First time the player presses [ZDIG]
         {
-            _digType = Dig.ZONE;
+            _digType = dig.ZONE;
             digStarter.gameObject.SetActive(true);
             digStarter.CheckDig(_digType); // Type 2 for vertical dig
         }
@@ -286,22 +303,7 @@ public class PlayerController : MonoBehaviour {
         digTarget.StopTarget(digStarter.transform.position);
         digStarter.StopDig(ref _digType);
     }
-
-    /// <summary>
-    /// Stub to playtest digging. Press [I] for linear dig
-    /// and [O] for zone dig
-    /// </summary>
-    private void DiggingTest()
-    {
-        if (IsCasting)
-            return;
-
-        if (Input.GetKeyDown(KeyCode.I) && !IsZoneDigging)
-            LinearCheck();
-
-        if (Input.GetKeyDown(KeyCode.O))
-            ZoneCheck();
-    }
+    */
 
     #endregion
 

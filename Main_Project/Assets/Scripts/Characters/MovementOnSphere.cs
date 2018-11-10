@@ -42,22 +42,17 @@ public class MovementOnSphere : MonoBehaviour {
     /// </summary>
     private void SetDirection() {
 
-        // Stops the character movement when it's zone digging or it's casting the dig
-        if (_player.isZoneDigging || _player.isCasting) return;
-
         this._horiz_axis = Input.GetAxis("Horizontal");
         this._vert_axis = Input.GetAxis("Vertical");
 
         _moveDir.Set(_horiz_axis, 0f, _vert_axis);
-        _moveDir.Normalize();
+        _moveDir.Normalize(); 
     }
+
     /// <summary>
     /// Moves the player if an input is detected
     /// </summary>
     private void CheckMovement() {
-
-        // Stops the character movement when it's zone digging or it's casting the dig
-        if (_player.isZoneDigging || _player.isCasting) return;
 
         //to move the player
         Vector3 movement = Vector3.zero;
@@ -87,6 +82,7 @@ public class MovementOnSphere : MonoBehaviour {
 
 
         _rig.MovePosition(_rig.position + movement);
+        _rig.MoveRotation(new Quaternion(_horiz_axis, 0, _vert_axis, 1).normalized);
 
     }
 }

@@ -2,8 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum Dig { NONE = 0, LINEAR, ZONE }
-
 public class DigWheel : MonoBehaviour {
 
     public GameObject DigPanel;
@@ -46,7 +44,7 @@ public class DigWheel : MonoBehaviour {
                 Debug.Log("Linear (right)");
                 //TODO:create linear digging here
 
-                if (!_player.isZoneDigging)
+                if (!_player.IsZoneDigging)
                     _player.LinearCheck();
             }
             if (rStickX < -.8f) {

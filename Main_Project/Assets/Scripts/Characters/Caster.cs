@@ -14,7 +14,7 @@ public class Caster : MonoBehaviour
     public float castingTime; // Frames needed to charge (120 frames = 2 seconds)
 
     private float _progress; // Actual progress
-    private Dig _digType; // Used to know which Dig to execute
+    private DigType _digType; // Used to know which Dig to execute
 
     void Update()
     {
@@ -23,7 +23,7 @@ public class Caster : MonoBehaviour
 
         if (_progress >= castingTime)
         {
-            if (_digType == Dig.LINEAR)
+            if (_digType == DigType.LINEAR)
                 player.LinearDig();
             else
                 player.ZoneDig();
@@ -36,7 +36,7 @@ public class Caster : MonoBehaviour
     /// Awakens and sets the Caster for the actual dig
     /// </summary>
     /// <param name="digType"></param>
-    public void StartCircle(Dig digType)
+    public void StartCircle(DigType digType)
     {
         _progress = 0;
         _digType = digType;
@@ -50,7 +50,7 @@ public class Caster : MonoBehaviour
     {
         _progress = 0;
         bar.fillAmount = 0;
-        _digType = Dig.NONE;
+        _digType = DigType.NONE;
         gameObject.SetActive(false);
     }
 }
