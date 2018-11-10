@@ -175,7 +175,21 @@ public class PlayerController : MonoBehaviour {
     private void OnCollisionEnter(Collision collision) {
         if (collision.collider.CompareTag("Enemy")) {// if the player touches an enemy
             Enemy touchedEnemy = collision.gameObject.GetComponent<Enemy>();
-            GameObject enemyGO = GameManager.Instance.enemies[touchedEnemy.data_enemy.level]; 
+            Debug.Log("before "+CurseStatus);
+            if (CurseStatus == Status.NORMAL && !touchedEnemy.data_enemy.instant_curse) {
+                CurseStatus = Status.HALF_CURSED;
+                Debug.Log("after " + CurseStatus);
+                return;
+            }
+            Debug.Log("create the enemy ");
+            //if the enemy can curse me instantly
+            GameObject enemyGO = GameManager.Instance.enemies[touchedEnemy.data_enemy.level-1]; //the levels are [1,3]
+            enemyGO.GetComponent<Rigidbody>().position = _rig.position;
+
+            enemyGO.GetComponent<Enemy>().path = touchedEnemy.path;
+
+            Destroy(gameObject);    //destroys the character
+            Instantiate<GameObject>(enemyGO);//creates the enemy instead
 
         }
     }

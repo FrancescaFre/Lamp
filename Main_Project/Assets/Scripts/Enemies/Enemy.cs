@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
 
     //---Level details
     int level;
-    bool instant_curse;
+    public bool instant_curse;
 
     //---Movement
     public float speed;
