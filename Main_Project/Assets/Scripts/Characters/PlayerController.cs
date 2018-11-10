@@ -180,7 +180,8 @@ public class PlayerController : MonoBehaviour {
 
             enemyGO.GetComponent<Enemy>().path = touchedEnemy.path;
 
-            Destroy(gameObject);    //destroys the character
+            //Destroy(gameObject);    //destroys the character
+            GameManager.Instance.SpawnNewPlayer(this);
             Instantiate<GameObject>(enemyGO);//creates the enemy instead
 
 

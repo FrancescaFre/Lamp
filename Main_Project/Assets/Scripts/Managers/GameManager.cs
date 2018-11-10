@@ -5,6 +5,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
     public static GameManager Instance = null;
+    public Level_SO levelLoaded;
+    public LampBehaviour LastAllyLamp = null; //last lamp turned on
+
 
     #region  GameObjects
 
@@ -12,9 +15,11 @@ public class GameManager : MonoBehaviour {
     public List<GameObject> enemies = new List<GameObject>(3);
 
     [Header("Prefabs of the Characters")]
-    public List<GameObject> Characters = new List<GameObject>(3);
+    public List<GameObject> Characters = new List<GameObject>(4);
+    public int nextChar = 1;
     #endregion
 
+  
     public Dictionary<string, int> items;
 
     private void Awake() {
@@ -29,7 +34,7 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         items = new Dictionary<string, int>(6);
-
+        
 
     }
 	
@@ -37,6 +42,21 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public void SpawnNewPlayer(PlayerController character) {
+        while(Characters[nextChar]&& nextChar < 4) {
+            nextChar++;
+        }
+        GameObject newCharacter = Characters[nextChar];
+        Rigidbody newCharRig = newCharacter.GetComponent<Rigidbody>();
+
+
+        newCharRig.position = LastAllyLamp.transform.position + LastAllyLamp.transform.forward + newCharacter.transform.forward;
+
+        Destroy(character.gameObject);
+        GameObject.Instantiate<GameObject>(newCharacter);
+
+    }
 
     /// <summary>
     /// Use an item from the inventory if any
