@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour {
 
     [Header("Prefabs of the Characters")]
     public List<GameObject> Characters;
+    public int currentCharacter = 0;
     public int nextChar = 1;    //the 0 is the starting player
     #endregion
 
@@ -34,7 +35,8 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         items = new Dictionary<string, int>(6);
-        
+
+           ActivatePlayerX();
 
     }
 	
@@ -43,19 +45,30 @@ public class GameManager : MonoBehaviour {
 		
 	}
 
-    public void SpawnNewPlayer(PlayerController character) {
-        while(!Characters[nextChar] && nextChar < Characters.Count) {
-            nextChar++;
-        }
-        GameObject newCharacter = Characters[nextChar];
-        Debug.Log(newCharacter.name);
+    /// <summary>
+    /// Sets as Active only one character at a time
+    /// </summary>
+    public void ActivatePlayerX() {
 
+        for (int i = 0; i < Characters.Count; i++)
+            Characters[i].SetActive(i == currentCharacter );
+       
+        
 
+        nextChar = currentCharacter  < Characters.Count ? currentCharacter + 1:-1;
+        if (nextChar == -1)
+            Debug.Log("gameover");
+        
 
-        //newCharacter.transform.position = LastAllyLamp.transform.position + LastAllyLamp.transform.forward + newCharacter.transform.forward;
+    }
 
-        Destroy(character.gameObject);
-        Instantiate<GameObject>(newCharacter);
+    public void SpawnNewPlayer() {
+        currentCharacter = nextChar;
+
+        Characters[currentCharacter].transform.position = LastAllyLamp.transform.position/* + LastAllyLamp.transform.forward */+ Characters[currentCharacter].transform.forward;
+
+        ActivatePlayerX();
+
 
     }
 
