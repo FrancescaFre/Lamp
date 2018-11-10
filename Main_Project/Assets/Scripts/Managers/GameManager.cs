@@ -15,8 +15,8 @@ public class GameManager : MonoBehaviour {
     public List<GameObject> enemies = new List<GameObject>(3);
 
     [Header("Prefabs of the Characters")]
-    public List<GameObject> Characters = new List<GameObject>(4);
-    public int nextChar = 1;
+    public List<GameObject> Characters;
+    public int nextChar = 1;    //the 0 is the starting player
     #endregion
 
   
@@ -44,17 +44,18 @@ public class GameManager : MonoBehaviour {
 	}
 
     public void SpawnNewPlayer(PlayerController character) {
-        while(Characters[nextChar]&& nextChar < 4) {
+        while(!Characters[nextChar] && nextChar < Characters.Count) {
             nextChar++;
         }
         GameObject newCharacter = Characters[nextChar];
-        Rigidbody newCharRig = newCharacter.GetComponent<Rigidbody>();
+        Debug.Log(newCharacter.name);
 
 
-        newCharRig.position = LastAllyLamp.transform.position + LastAllyLamp.transform.forward + newCharacter.transform.forward;
+
+        //newCharacter.transform.position = LastAllyLamp.transform.position + LastAllyLamp.transform.forward + newCharacter.transform.forward;
 
         Destroy(character.gameObject);
-        GameObject.Instantiate<GameObject>(newCharacter);
+        Instantiate<GameObject>(newCharacter);
 
     }
 

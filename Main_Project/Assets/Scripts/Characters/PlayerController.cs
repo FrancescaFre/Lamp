@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
-using System;
+
 using UnityEngine;
 
 public enum Status { NORMAL = 0, HALF_CURSED, CURSED }
 public enum Visibility { INVISIBLE = 0, WARNING, SPOTTED }
+public enum CharPeriod { PREHISTORY = 0, ORIENTAL, VICTORIAN, FUTURE }
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(PlayerMovement))]
@@ -16,9 +17,9 @@ public class PlayerController : MonoBehaviour {
     public bool IsSafe { get;  set; }
     public Status CurseStatus { get;  set; }
     public Visibility Visible { get;  set; }
+    public CharPeriod CharacterPeriod { get; set; }
     public Dictionary<string, int> items;
 
-    public GameObject cameraGO;
     public Robot robot;
 
     public bool IsZoneDigging { get;  set; } // If the player is blocked to zone dig (searching for destination)
@@ -27,7 +28,7 @@ public class PlayerController : MonoBehaviour {
 
 
     private Rigidbody _rig;
-    private CameraManager _camera;
+    public CameraManager playerCamera;
 
     public DigStarter digStarter; // Digging circle under the player (used for both dig)
     public DigTarget digTarget; // Digging circle that moves around (used for the zone dig)
@@ -49,7 +50,7 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start() {
         _rig = GetComponent<Rigidbody>();
-        _camera = cameraGO.GetComponent<CameraManager>();
+        playerCamera = GetComponentInChildren<CameraManager>();
         //_digStarter = GetComponentInChildren<DigStarter>();
         //_digTarget = GetComponentInChildren<DigTarget>();
         _digType = Dig.NONE;
@@ -86,10 +87,10 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     private void CheckCamera(){
         if (Input.GetButtonDown("PS4_Button_RStickClick") || Input.GetKeyDown(KeyCode.Tab)) {
-            Debug.Log("before " + _camera.IsFollowingPlayer);
-            _camera.SetCamera();
+            Debug.Log("before " + playerCamera.IsFollowingPlayer);
+            playerCamera.SetCamera();
             
-            Debug.Log("after "+_camera.IsFollowingPlayer);
+            Debug.Log("after "+playerCamera.IsFollowingPlayer);
         }
         
         float rStickX = Input.GetAxis("PS4_RStick_X");
@@ -105,10 +106,10 @@ public class PlayerController : MonoBehaviour {
         Debug.Log("move camera");
         if ((rStickX != 0 || rStickY != 0) && (mouseX == 0 && mouseY == 0)) {// if only the controller is used
 
-            _camera.LookAtTarget(rStickX, rStickY);
+            playerCamera.LookAtTarget(rStickX, rStickY);
         }
         else {
-            _camera.LookAtTarget(mouseX, mouseY);
+            playerCamera.LookAtTarget(mouseX, mouseY);
         }
         
 
@@ -166,7 +167,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if (other.CompareTag("Enemy")) {   //if the character touches an enemy trigger
                                                 //READ AS: if an enemy curse the character
-            Enemy touchedEnemy = other.gameObject.GetComponent<Enemy>();
+            Enemy touchedEnemy = other.GetComponentInParent<Enemy>();
             Debug.Log("before " + CurseStatus);
             if (CurseStatus == Status.NORMAL && !touchedEnemy.data_enemy.instant_curse) {
                 CurseStatus = Status.HALF_CURSED;
@@ -329,14 +330,14 @@ public class PlayerController : MonoBehaviour {
             {
                 enabled = false;
                 IsCasting = true;
-                _camera.gameObject.SetActive(false);
+                playerCamera.gameObject.SetActive(false);
                 robot.Restart();
             }
             else
             {
                 enabled = false;
                 IsCasting = true;
-                _camera.gameObject.SetActive(false);
+                playerCamera.gameObject.SetActive(false);
                 robot.Spawn(transform.position);
             }
     }
