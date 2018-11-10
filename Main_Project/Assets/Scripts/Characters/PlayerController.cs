@@ -13,15 +13,15 @@ public class PlayerController : MonoBehaviour {
 
     public Transform playerModel;
 
-    public bool IsSafe { get; private set; }
-    public Status CurseStatus { get; private set; }
-    public Visibility Visible { get; private set; }
+    public bool IsSafe { get;  set; }
+    public Status CurseStatus { get;  set; }
+    public Visibility Visible { get;  set; }
     public Dictionary<string, int> items;
 
     public GameObject cameraGO;
     public Robot robot;
 
-    public bool IsZoneDigging { get; private set; } // If the player is blocked to zone dig (searching for destination)
+    public bool IsZoneDigging { get;  set; } // If the player is blocked to zone dig (searching for destination)
 
     public bool IsCasting { get; set; } // If the player is blocked while casting the dig
 
@@ -114,21 +114,7 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    /// <summary>
-    /// Change the state of the curse of the character
-    /// </summary>
-    /// <param name="stat">New state of the curse (ENUM)</param>
-    public void ChangeStatus(Status stat) {
-        this.CurseStatus = stat;
-    }
 
-    /// <summary>
-    /// Change the visibility of the character
-    /// </summary>
-    /// <param name="vis">New visibility of the character\</param>
-    public void ChangeVisibility(Visibility vis) {
-        this.Visible = vis;
-    }
 
     /// <summary>
     /// Sets the opposite of the current value of safety
