@@ -34,8 +34,8 @@ public class Skill : MonoBehaviour {
     {
         if (robot)
             robot.ActivateSkill();
-        else if (mimic)
-        else if (painter)
+        else if (mimic) ;
+        else if (painter) ;
 
     }
     
