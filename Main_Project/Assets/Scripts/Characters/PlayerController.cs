@@ -14,10 +14,12 @@ public class PlayerController : MonoBehaviour {
 
     public Transform playerModel;
 
+    public bool usingSkill=false;
+    public bool IsMimicOrDash { get; set; }
     public bool IsSafe { get;  set; }
     public Status CurseStatus { get;  set; }
     public Visibility Visible { get;  set; }
-    public CharPeriod CharacterPeriod { get; set; }
+    public CharPeriod CharacterPeriod;
     public Dictionary<string, int> items;
 
     public Robot robot;
@@ -65,6 +67,7 @@ public class PlayerController : MonoBehaviour {
             digStarter.CheckDig(_digType);
 
         this.CheckSkillInteraction();
+        this.CheckItemInteraction();
         this.CheckCamera();
         this.DiggingTest();
         this.RobotTest();
@@ -78,9 +81,24 @@ public class PlayerController : MonoBehaviour {
     /// The skill is used if an input is detected
     /// </summary>
     private void CheckSkillInteraction() {
+ 
         if (Input.GetButtonDown("PS4_Button_O") || Input.GetKeyDown(KeyCode.Q)) {
             Debug.Log("SKILL used");
+            if (usingSkill) {
+                //Skill.DeactivateSkill();
+
+            }
+            else {
+                //Skill.ActivateSkill();
+            }
+            
         }
+    }
+
+    private void CheckItemInteraction() {//TODO button to pick an item and to select an item to use
+        if (IsMimicOrDash) return;
+        Debug.Log("Item picked/used");
+
     }
     /// <summary>
     /// If a button is clicked, enables/disables the control of the camera around the player
@@ -125,42 +143,14 @@ public class PlayerController : MonoBehaviour {
         Debug.Log("chiamato");
     }
 
-    /// <summary>
-    /// Use an item from the inventory if any
-    /// </summary>
-    /// <param name="itemKey">Item to be used</param>
-    public void UseItem(string itemKey) {
-        if (items[itemKey] > 0) {
-            ManageItem(itemKey, -1);
-            Debug.Log("used item " + itemKey);  //TODO: add use of the item
-        }
-        else {
-            Debug.Log("not enough item " + itemKey);
-        }
-    }
 
-    /// <summary>
-    /// Manage an item in the inventory
-    /// </summary>
-    /// <param name="itemKey">Managed item</param>
-    /// <param name="use">Plus 1 if gathered; Minus 1 if used</param>
-    public void ManageItem(string itemKey, int use) {
-        items[itemKey] += use;
-    }
 
     #region Collision Detection
 
     private void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Lamp_Base") || other.CompareTag("Lamp_Switch")) {//if the character has entered the light of a lamp that is switched on
+        if (other.CompareTag("Lamp_Base")) {//if the character has entered the light of a lamp that is switched on
 
-            if (other.CompareTag("Lamp_Switch")) {
-                LampBehaviour lamp = other.GetComponent<LampBehaviour>();
-                if (lamp.IsMissingPart) return;    //if the lamp is missing the light bulb 
-
-                lamp.SwitchOnAllyLamp();
-                Debug.Log("lamp_switch: ON");
-
-            }
+           
             IsSafe = true;
 
 
@@ -182,7 +172,7 @@ public class PlayerController : MonoBehaviour {
             enemyGO.GetComponent<Enemy>().path = touchedEnemy.path;
 
             //Destroy(gameObject);    //destroys the character
-            GameManager.Instance.SpawnNewPlayer(this);
+            GameManager.Instance.SpawnNewPlayer();
             Instantiate<GameObject>(enemyGO);//creates the enemy instead
 
 
@@ -199,7 +189,28 @@ public class PlayerController : MonoBehaviour {
     }
 
 
+    private void OnCollisionEnter(Collision collision) {
+        Collider other = collision.collider;
+        if (other.CompareTag("Lamp_Switch")) {
+            Debug.Log("lamp_switch");
+            LampBehaviour lamp = other.GetComponentInParent<LampBehaviour>();
+            Debug.Log("lamp_switch: ON "+lamp.transform.position);
+            if (lamp.IsEnemyLamp) {
+                lamp.SwitchOffEnemyLamp();
+                return;
+            }
 
+            if (lamp.IsMissingPart) return;    //if the lamp is missing the light bulb 
+
+            if (IsMimicOrDash) return;
+
+            lamp.SwitchOnAllyLamp();
+            Debug.Log("lamp_switch: ON");
+
+            
+
+        }
+    }
 
     #endregion
 
