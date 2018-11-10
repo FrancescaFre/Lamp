@@ -16,6 +16,20 @@ public class Robot : MonoBehaviour {
     private float _horiz_axis;
     private float _vert_axis;
 
+    public void ActivateSkill()
+    {
+        //disable the control to the player
+        //enables robot at the player position
+        //if player press again the button of the skill, DEACTIVATE ROBOT
+        //else wait x seconds and DEACIVATE ROBOT
+    }
+
+    void DeactivateSkill()
+    {
+        //return the control to the player
+        //becomes pickable (update a flag in the robot), and if picked, becomes disabled (the go of the robot)
+    }
+
     // Use this for initialization
     void Start () {
         _movement = Vector3.zero;
@@ -30,7 +44,6 @@ public class Robot : MonoBehaviour {
         MoveRobot();
         if (Input.GetKeyDown(KeyCode.P))
             ShutDown();
-
     }
 
     /// <summary>
@@ -74,7 +87,9 @@ public class Robot : MonoBehaviour {
         enabled = false;
         paused = true;
 
-        player.CameraGO.gameObject.SetActive(true);
+        //player.CameraGO.gameObject.SetActive(true);
+        //player.playerCamera.gameObject.SetActive(true);
+
         player.IsCasting = false;
         player.enabled = true;
     }

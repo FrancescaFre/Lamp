@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
-using System;
+
 using UnityEngine;
 
 public enum Status { NORMAL = 0, HALF_CURSED, CURSED }
 public enum Visibility { INVISIBLE = 0, WARNING, SPOTTED }
+public enum CharPeriod { PREHISTORY = 0, ORIENTAL, VICTORIAN, FUTURE }
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(PlayerMovement))]
@@ -13,20 +14,24 @@ public class PlayerController : MonoBehaviour {
 
     public Transform playerModel;
 
-    public bool IsSafe { get; private set; }
-    public Status CurseStatus { get; private set; }
-    public Visibility Visible { get; private set; }
+    public bool usingSkill=false;
+    public bool IsMimicOrDash { get; set; }
+    public bool IsSafe { get;  set; }
+    public Status CurseStatus { get;  set; }
+    public Visibility Visible { get;  set; }
+    public CharPeriod CharacterPeriod;
     public Dictionary<string, int> items;
 
-    public GameObject CameraGO;
     public Digging dig;
     public Robot robot;
 
-    public bool IsZoneDigging { get; private set; } // If the player is blocked to zone dig (searching for destination)
+    public bool IsZoneDigging { get;  set; } // If the player is blocked to zone dig (searching for destination)
+
     public bool IsCasting { get; set; } // If the player is blocked while casting the dig
 
+
     private Rigidbody _rig;
-    private CameraManager _camera;
+    public CameraManager playerCamera;
 
     public DigStarter digStarter; // Digging circle under the player (used for both dig)
     public DigTarget digTarget; // Digging circle that moves around (used for the zone dig)
@@ -47,7 +52,7 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start() {
         _rig = GetComponent<Rigidbody>();
-        _camera = CameraGO.GetComponent<CameraManager>();
+        playerCamera = GetComponentInChildren<CameraManager>();
         //_digStarter = GetComponentInChildren<DigStarter>();
         //_digTarget = GetComponentInChildren<DigTarget>();
         playerModel = transform.Find("Model");
@@ -57,6 +62,7 @@ public class PlayerController : MonoBehaviour {
     void Update() {
 
         this.CheckSkillInteraction();
+        this.CheckItemInteraction();
         this.CheckCamera();
         this.CheckDig();
 
@@ -72,19 +78,34 @@ public class PlayerController : MonoBehaviour {
     /// The skill is used if an input is detected
     /// </summary>
     private void CheckSkillInteraction() {
+ 
         if (Input.GetButtonDown("PS4_Button_O") || Input.GetKeyDown(KeyCode.Q)) {
             Debug.Log("SKILL used");
+            if (usingSkill) {
+                //Skill.DeactivateSkill();
+
+            }
+            else {
+                //Skill.ActivateSkill();
+            }
+            
         }
+    }
+
+    private void CheckItemInteraction() {//TODO button to pick an item and to select an item to use
+        if (IsMimicOrDash) return;
+        Debug.Log("Item picked/used");
+
     }
     /// <summary>
     /// If a button is clicked, enables/disables the control of the camera around the player
     /// </summary>
     private void CheckCamera(){
         if (Input.GetButtonDown("PS4_Button_RStickClick") || Input.GetKeyDown(KeyCode.Tab)) {
-            Debug.Log("before " + _camera.IsFollowingPlayer);
-            _camera.SetCamera();
+            Debug.Log("before " + playerCamera.IsFollowingPlayer);
+            playerCamera.SetCamera();
             
-            Debug.Log("after "+_camera.IsFollowingPlayer);
+            Debug.Log("after "+playerCamera.IsFollowingPlayer);
         }
         
         float rStickX = Input.GetAxis("PS4_RStick_X");
@@ -100,30 +121,16 @@ public class PlayerController : MonoBehaviour {
         Debug.Log("move camera");
         if ((rStickX != 0 || rStickY != 0) && (mouseX == 0 && mouseY == 0)) {// if only the controller is used
 
-            _camera.LookAtTarget(rStickX, rStickY);
+            playerCamera.LookAtTarget(rStickX, rStickY);
         }
         else {
-            _camera.LookAtTarget(mouseX, mouseY);
+            playerCamera.LookAtTarget(mouseX, mouseY);
         }
         
 
     }
 
-    /// <summary>
-    /// Change the state of the curse of the character
-    /// </summary>
-    /// <param name="stat">New state of the curse (ENUM)</param>
-    public void ChangeStatus(Status stat) {
-        this.CurseStatus = stat;
-    }
 
-    /// <summary>
-    /// Change the visibility of the character
-    /// </summary>
-    /// <param name="vis">New visibility of the character\</param>
-    public void ChangeVisibility(Visibility vis) {
-        this.Visible = vis;
-    }
 
     /// <summary>
     /// Sets the opposite of the current value of safety
@@ -133,46 +140,41 @@ public class PlayerController : MonoBehaviour {
         Debug.Log("chiamato");
     }
 
-    /// <summary>
-    /// Use an item from the inventory if any
-    /// </summary>
-    /// <param name="itemKey">Item to be used</param>
-    public void UseItem(string itemKey) {
-        if (items[itemKey] > 0) {
-            ManageItem(itemKey, -1);
-            Debug.Log("used item " + itemKey);  //TODO: add use of the item
-        }
-        else {
-            Debug.Log("not enough item " + itemKey);
-        }
-    }
 
-    /// <summary>
-    /// Manage an item in the inventory
-    /// </summary>
-    /// <param name="itemKey">Managed item</param>
-    /// <param name="use">Plus 1 if gathered; Minus 1 if used</param>
-    public void ManageItem(string itemKey, int use) {
-        items[itemKey] += use;
-    }
 
     #region Collision Detection
 
     private void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Lamp_Base")|| other.CompareTag("Lamp_Switch")) {//if the character has entered the light of a lamp that is switched on
-            
-            if (other.CompareTag("Lamp_Switch")) {
-                LampBehaviour lamp= other.GetComponent<LampBehaviour>();
-                if (lamp.IsMissingPart) return;    //if the lamp is missing the light bulb 
+        if (other.CompareTag("Lamp_Base")) {//if the character has entered the light of a lamp that is switched on
 
-                lamp.SwitchOnLamp();
-                Debug.Log("lamp_switch: ON");
-                
-            }
+           
             IsSafe = true;
 
 
         }
+        else if (other.CompareTag("Enemy")) {   //if the character touches an enemy trigger
+                                                //READ AS: if an enemy curse the character
+            Enemy touchedEnemy = other.GetComponentInParent<Enemy>();
+            Debug.Log("before " + CurseStatus);
+            if (CurseStatus == Status.NORMAL && !touchedEnemy.data_enemy.instant_curse) {
+                CurseStatus = Status.HALF_CURSED;
+                Debug.Log("after " + CurseStatus);
+                return;
+            }
+            Debug.Log("create the enemy ");
+            //if the enemy can curse the character instantly
+            GameObject enemyGO = GameManager.Instance.enemies[touchedEnemy.data_enemy.level - 1]; //the levels are [1,3]
+            enemyGO.GetComponent<Rigidbody>().position = _rig.position;
+
+            enemyGO.GetComponent<Enemy>().path = touchedEnemy.path;
+
+            //Destroy(gameObject);    //destroys the character
+            GameManager.Instance.SpawnNewPlayer();
+            Instantiate<GameObject>(enemyGO);//creates the enemy instead
+
+
+        }
+
 
     }
     private void OnTriggerExit(Collider other) {
@@ -183,6 +185,29 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+
+    private void OnCollisionEnter(Collision collision) {
+        Collider other = collision.collider;
+        if (other.CompareTag("Lamp_Switch")) {
+            Debug.Log("lamp_switch");
+            LampBehaviour lamp = other.GetComponentInParent<LampBehaviour>();
+            Debug.Log("lamp_switch: ON "+lamp.transform.position);
+            if (lamp.IsEnemyLamp) {
+                lamp.SwitchOffEnemyLamp();
+                return;
+            }
+
+            if (lamp.IsMissingPart) return;    //if the lamp is missing the light bulb 
+
+            if (IsMimicOrDash) return;
+
+            lamp.SwitchOnAllyLamp();
+            Debug.Log("lamp_switch: ON");
+
+            
+
+        }
+    }
 
     #endregion
 
@@ -318,14 +343,14 @@ public class PlayerController : MonoBehaviour {
             {
                 enabled = false;
                 IsCasting = true;
-                _camera.gameObject.SetActive(false);
+                playerCamera.gameObject.SetActive(false);
                 robot.Restart();
             }
             else
             {
                 enabled = false;
                 IsCasting = true;
-                _camera.gameObject.SetActive(false);
+                playerCamera.gameObject.SetActive(false);
                 robot.Spawn(transform.position);
             }
     }

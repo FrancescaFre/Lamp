@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
 
     //---Level details
     int level;
-    bool instant_curse;
+    public bool instant_curse;
 
     //---Movement
     public float speed;
@@ -115,17 +115,7 @@ public class Enemy : MonoBehaviour
             //start following the path of touched enemy
         }
 
-        //collide with the player
-        if (other.CompareTag("Player"))
-        {
-            if (instant_curse || other.GetComponent<PlayerController>().CurseStatus == Status.HALF_CURSED)
-                other.GetComponent<PlayerController>().ChangeStatus(Status.CURSED); //DIE
-            else
-            {
-                if (other.GetComponent<PlayerController>().CurseStatus == Status.NORMAL)
-                    other.GetComponent<PlayerController>().ChangeStatus(Status.HALF_CURSED);
-            }
-        }
+
     }
 
 
