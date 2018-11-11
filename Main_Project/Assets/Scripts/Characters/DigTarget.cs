@@ -8,7 +8,7 @@ using UnityEngine;
 /// </summary>
 public class DigTarget : MonoBehaviour
 {
-
+    /*
     public float speed = 5;
     Rigidbody rb;
 
@@ -74,5 +74,5 @@ public class DigTarget : MonoBehaviour
             rb.MovePosition(rb.position + transform.TransformDirection(dir) * speed * Time.deltaTime);
         }
     }
-
+    */
 }

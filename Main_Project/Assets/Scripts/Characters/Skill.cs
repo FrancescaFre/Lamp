@@ -30,19 +30,26 @@ public class Skill : MonoBehaviour {
         painter = GetComponent<Painter>();
     }
 
-    public void ActiveSkill()
+    public void ActivateSkill()
     {
         if (robot)
-            robot.ActivateSkill();
-        else if (mimic) ;
-        else if (painter) ;
-
-    }
-    
-
-    public void DectivateSkill() {
+            robot.ActiveRobot();
+        else if (mimic)
+            mimic.ActiveMimic();
+        else if (painter)
+            painter.ActivePainter();
 
     }
 
-
+    public void DeactivateSkill() {
+        //if (pc.usingSkill){
+        if (robot)
+            robot.DisableRobot();
+        else if (mimic)
+            mimic.DisableMimic();
+        else if (painter)
+            painter.DisablePainter();
+        //}
+        //else return;
+    }
 }

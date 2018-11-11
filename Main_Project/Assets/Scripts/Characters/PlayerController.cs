@@ -13,31 +13,22 @@ public enum CharPeriod { PREHISTORY = 0, ORIENTAL, VICTORIAN, FUTURE }
 public class PlayerController : MonoBehaviour {
 
     public Transform playerModel;
+    public Digging dig;
+    public Robot robot;
+    public Caster caster;
+    public CameraManager playerCamera;
+    public Dictionary<string, int> items;
 
     public bool usingSkill=false;
     public bool IsMimicOrDash { get; set; }
     public bool IsSafe { get;  set; }
+    public bool IsZoneDigging { get; set; } 
+    public bool IsCasting { get; set; } 
     public Status CurseStatus { get;  set; }
     public Visibility Visible { get;  set; }
     public CharPeriod CharacterPeriod;
-    public Dictionary<string, int> items;
-
-    public Digging dig;
-    public Robot robot;
-
-    public bool IsZoneDigging { get;  set; } // If the player is blocked to zone dig (searching for destination)
-
-    public bool IsCasting { get; set; } // If the player is blocked while casting the dig
-
 
     private Rigidbody _rig;
-    public CameraManager playerCamera;
-
-    public DigStarter digStarter; // Digging circle under the player (used for both dig)
-    public DigTarget digTarget; // Digging circle that moves around (used for the zone dig)
-    public Caster caster; // Caster waiting bar that appears before a dig
-
-    private Vector3 _targetStartingPosition; // Saves the zone digging target's position
 
     //-----------------------------------------------------------------------//
 
@@ -53,8 +44,6 @@ public class PlayerController : MonoBehaviour {
     void Start() {
         _rig = GetComponent<Rigidbody>();
         playerCamera = GetComponentInChildren<CameraManager>();
-        //_digStarter = GetComponentInChildren<DigStarter>();
-        //_digTarget = GetComponentInChildren<DigTarget>();
         playerModel = transform.Find("Model");
     }
     

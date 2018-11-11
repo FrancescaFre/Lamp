@@ -8,13 +8,12 @@ public class Caster : MonoBehaviour
 {
 
     public Image bar; // The bar that fills when casting
-    public PlayerController player;  // The player. Needed to access its methods (we could use singleton pattern tho)
+    public Digging digging;
 
     [Range(1, 120)]
     public float castingTime; // Frames needed to charge (120 frames = 2 seconds)
 
     private float _progress; // Actual progress
-    private DigType _digType; // Used to know which Dig to execute
 
     void Update()
     {
@@ -23,11 +22,7 @@ public class Caster : MonoBehaviour
 
         if (_progress >= castingTime)
         {
-            if (_digType == DigType.LINEAR)
-                player.LinearDig();
-            else
-                player.ZoneDig();
-
+            digging.Dig();
             Cancel();
         }
     }
@@ -39,7 +34,6 @@ public class Caster : MonoBehaviour
     public void StartCircle(DigType digType)
     {
         _progress = 0;
-        _digType = digType;
         gameObject.SetActive(true);
     }
 
@@ -50,7 +44,6 @@ public class Caster : MonoBehaviour
     {
         _progress = 0;
         bar.fillAmount = 0;
-        _digType = DigType.NONE;
         gameObject.SetActive(false);
     }
 }

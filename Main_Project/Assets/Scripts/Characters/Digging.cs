@@ -9,9 +9,9 @@ public class Digging : MonoBehaviour {
     public Material digYes;
     public Material digNo;
     public Caster caster;
+    public bool isTheTarget;
 
     private PlayerController _player;
-    private Rigidbody _rb;
     private Vector3 _startingPosition;
     private DigType _digType;
     private bool _canMove;
@@ -21,7 +21,6 @@ public class Digging : MonoBehaviour {
     void Start ()
     {
         _player = GetComponentInParent<PlayerController>();
-        _rb = GetComponent<Rigidbody>();
         _startingPosition = transform.position;
         _canMove = false;
 	}
@@ -33,15 +32,18 @@ public class Digging : MonoBehaviour {
 	}
 
     // The circle moves when _canMove is true
+    
     void FixedUpdate()
     {
         // TODO: MovementOnSphere su di questo ↓
-        if (_canMove)
+        if (isTheTarget && _canMove)
         {
+            Rigidbody rb = GetComponent<Rigidbody>();
             Vector3 dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            _rb.MovePosition(_rb.position + transform.TransformDirection(dir) * speed * Time.deltaTime);
+            rb.MovePosition(rb.position + transform.TransformDirection(dir) * speed * Time.deltaTime);
         }
     }
+    
 
     /// <summary>
     /// Performs the digging action (called by caster)
@@ -53,6 +55,7 @@ public class Digging : MonoBehaviour {
         else
             _player.transform.position = transform.position; // Moves the player right on top of the target
 
+            
         // After digging
         StopDig();
         _player.IsCasting = false;
@@ -80,7 +83,6 @@ public class Digging : MonoBehaviour {
         {
             _digType = DigType.LINEAR;
             gameObject.SetActive(true);
-            ChangeColor(DigType.LINEAR);
         }
     }
 
@@ -103,9 +105,13 @@ public class Digging : MonoBehaviour {
             }
 
         else if (_digType == DigType.ZONE) // If you already pressed [ZDIG] (activate -> now)
-            if (CheckTerrain(_digType))
+            if (CheckTerrain(_digType)) // Second condition is true only for the moving circle
             {
+                Instantiate(this,_player.transform);
+                gameObject.AddComponent<Rigidbody>();
+                GetComponent<GravityBody>().enabled = true;
                 _canMove = true;
+                _player.IsZoneDigging = true;
                 _startingPosition = transform.position; // Saves the position to restart the circle afterwards
             }
             else
@@ -155,8 +161,13 @@ public class Digging : MonoBehaviour {
     /// <param name="digType"></param>
     private void StopDig()
     {
-        if (_digType == DigType.ZONE)
+        if (_player.IsZoneDigging)
+        {
             transform.position = _startingPosition;
+            GetComponent<GravityBody>().enabled = false;
+            Destroy(GetComponent<Rigidbody>());
+            _player.IsZoneDigging = false;
+        }         
 
         gameObject.SetActive(false);
         _canMove = false;

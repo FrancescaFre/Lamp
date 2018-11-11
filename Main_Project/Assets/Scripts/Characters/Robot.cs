@@ -16,7 +16,7 @@ public class Robot : MonoBehaviour {
     private float _horiz_axis;
     private float _vert_axis;
 
-    public void ActivateSkill()
+    public void ActiveRobot()
     {
         //disable the control to the player
         //enables robot at the player position
@@ -24,7 +24,7 @@ public class Robot : MonoBehaviour {
         //else wait x seconds and DEACIVATE ROBOT
     }
 
-    void DeactivateSkill()
+    public void DisableRobot()
     {
         //return the control to the player
         //becomes pickable (update a flag in the robot), and if picked, becomes disabled (the go of the robot)

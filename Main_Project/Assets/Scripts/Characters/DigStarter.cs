@@ -6,6 +6,7 @@ using UnityEngine;
 /// The dig circle under the player, checks the starting
 /// position's terrain
 /// </summary>
+
 public class DigStarter : MonoBehaviour
 {
 
@@ -23,7 +24,7 @@ public class DigStarter : MonoBehaviour
     {
         //Debug.Log("Scavo 1!");
     }
-    */
+    
 
     /// <summary>
     /// Changes the color of the circle
@@ -96,4 +97,5 @@ public class DigStarter : MonoBehaviour
         else
             return true; // For the targeted dig there's no other check apart of the terrain
     }
+    */
 }
