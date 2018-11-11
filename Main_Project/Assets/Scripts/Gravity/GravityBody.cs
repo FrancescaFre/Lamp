@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-//[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody))]
 public class GravityBody : MonoBehaviour
 {
     public GravityAttractor attractor;
