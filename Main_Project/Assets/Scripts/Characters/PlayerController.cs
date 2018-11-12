@@ -21,10 +21,12 @@ public class PlayerController : MonoBehaviour {
     public Dictionary<string, int> items;
 
     public bool usingSkill=false;
+    public bool isSneaking = false;
     public bool IsMimicOrDash { get; set; }
     public bool IsSafe { get;  set; }
     public bool IsZoneDigging { get; set; } 
     public bool IsCasting { get; set; } 
+    
     public Status CurseStatus { get;  set; }
     public Visibility Visible { get;  set; }
     public CharPeriod CharacterPeriod;
@@ -53,7 +55,7 @@ public class PlayerController : MonoBehaviour {
 
         this.CheckSkillInteraction();
         this.CheckItemInteraction();
-        this.CheckCamera();
+        
         this.CheckDig();
 
         // Testing Zone
@@ -87,40 +89,8 @@ public class PlayerController : MonoBehaviour {
         Debug.Log("Item picked/used");
 
     }
-    /// <summary>
-    /// If a button is clicked, enables/disables the control of the camera around the player
-    /// </summary>
-    private void CheckCamera(){
-        if (Input.GetButtonDown("PS4_Button_RStickClick") || Input.GetKeyDown(KeyCode.Tab)) {
-            Debug.Log("before " + playerCamera.IsFollowingPlayer);
-            playerCamera.SetCamera();
-            
-            Debug.Log("after "+playerCamera.IsFollowingPlayer);
-        }
-        
-        float rStickX = Input.GetAxis("PS4_RStick_X");
-        float rStickY = Input.GetAxis("PS4_RStick_Y");
 
-        float mouseX = Input.GetAxis("Mouse X");
-        float mouseY = Input.GetAxis("Mouse Y");
-
-        /*if (_camera.IsFollowingPlayer) {
-            rStickY = mouseY = 0f;
-        }*/
-
-        Debug.Log("move camera");
-        if ((rStickX != 0 || rStickY != 0) && (mouseX == 0 && mouseY == 0)) {// if only the controller is used
-
-            playerCamera.LookAtTarget(rStickX, rStickY);
-        }
-        else {
-            playerCamera.LookAtTarget(mouseX, mouseY);
-        }
-        
-
-    }
-
-
+    
 
     /// <summary>
     /// Sets the opposite of the current value of safety

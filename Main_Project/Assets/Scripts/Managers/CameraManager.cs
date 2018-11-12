@@ -27,6 +27,43 @@ public class CameraManager : MonoBehaviour {//http://youtu.be/MFQhpwc6cKE
         planetModel = GameObject.FindGameObjectWithTag("Planet").transform;
     }
 
+    private void Update() {
+        this.CheckCameraMovement();
+    }
+    /// <summary>
+    /// If a button is clicked, enables/disables the control of the camera around the player
+    /// </summary>
+    private void CheckCameraMovement() {
+        if (Input.GetButtonDown("PS4_Button_RStickClick") || Input.GetKeyDown(KeyCode.Tab)) {
+            Debug.Log("before " + IsFollowingPlayer);
+            this.SetCamera();
+
+            Debug.Log("after " + IsFollowingPlayer);
+        }
+
+        float rStickX = Input.GetAxis("PS4_RStick_X");
+        float rStickY = Input.GetAxis("PS4_RStick_Y");
+
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
+
+        /*if (_camera.IsFollowingPlayer) {
+            rStickY = mouseY = 0f;
+        }*/
+
+        Debug.Log("move camera");
+        if ((rStickX != 0 || rStickY != 0) && (mouseX == 0 && mouseY == 0)) {// if only the controller is used
+
+            this.LookAtTarget(rStickX, rStickY);
+        }
+        else {
+            this.LookAtTarget(mouseX, mouseY);
+        }
+
+
+    }
+
+
     void FixedUpdate() {
         if (IsFollowingPlayer)
             AroundTarget(playerModel, playerOffset);

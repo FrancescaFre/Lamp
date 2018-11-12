@@ -70,6 +70,12 @@ public class Movement : MonoBehaviour {
 
             movement = transform.TransformDirection(_moveDir) * stealthSpeed * Time.deltaTime;
             Debug.Log("STEALTH");
+
+            if(_player)
+                _player.isSneaking = true;
+
+            if (_player && (Input.GetButtonUp("PS4_L2") || Input.GetKeyUp(KeyCode.T)) )
+                _player.isSneaking = false;
         }
         else if (_horiz_axis != 0 || _vert_axis != 0) {
             //if only moving use walk animation and speed
