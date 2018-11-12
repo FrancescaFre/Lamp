@@ -6,10 +6,11 @@ public enum Status { NORMAL = 0, HALF_CURSED, CURSED }
 public enum Visibility { INVISIBLE = 0, WARNING, SPOTTED }
 public enum CharPeriod { PREHISTORY = 0, ORIENTAL, VICTORIAN, FUTURE }
 
-/*[RequireComponent(typeof(Rigidbody))]
+/*
+[RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(ItemWheel))]
-[RequireComponent(typeof(DigWheel))]*/
+*/
 public class PlayerController : MonoBehaviour {
 
     public Transform playerModel;
