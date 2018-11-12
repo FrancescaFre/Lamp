@@ -7,12 +7,16 @@ public class Painter : MonoBehaviour {
     public GameObject prefab;
     GameObject objd;
     List<GameObject> painterTrail;
+    ParticleSystem ps;
     PlayerController pc;
     int skillTime; 
 
 
-    public void ActivePainter() {
+    public void ActivatePainter() {
         pc = GetComponent<PlayerController>();
+        ps = GetComponentInChildren<ParticleSystem>();
+        ps.gameObject.SetActive(true); //start the trail
+
         //start caster
         Invoke("DisablePainter",skillTime);
     }
@@ -23,7 +27,6 @@ public class Painter : MonoBehaviour {
         {
             objd = Instantiate(prefab);
             objd.layer = 11; //layer 11 = Obstacles
-            objd.transform.parent = transform;
             painterTrail.Add(objd);
         }
     }
@@ -34,6 +37,7 @@ public class Painter : MonoBehaviour {
         if (pc.usingSkill)
         {
             pc.usingSkill = false;
+            ps.gameObject.SetActive(false);
             foreach (GameObject go in painterTrail)
                 Destroy(go);
 
