@@ -4,32 +4,43 @@ using AuraAPI;
 public class LampBehaviour : MonoBehaviour {
 
     public Light[] lightBulb;
-    public SphereCollider baseCollider;
-    public CapsuleCollider lampCollider;
-    public bool IsEnemyLamp = false;
-   
+    public AuraLight[] auraLight;
+
+    public Collider[] allColliders;
+    [Header("Lamp Properties")]
+    public bool isEnemyLamp = false;
+    public bool isTurnedOn = false;
+
     /// <summary>
     /// True if the lamp is missing a part.
     /// </summary>
-    public bool IsMissingPart { get;  set; }   
+    public bool hasMissingPart = false; 
 
 	// Use this for initialization
 	void Start () {
         lightBulb=GetComponentsInChildren<Light>();                 //the light sources of the child GO
-        baseCollider = GetComponent<SphereCollider>();              //the collider of the base around the lamp (is a trigger)
-        lampCollider = GetComponentInChildren<CapsuleCollider>();   //the collider around the lamp model 
+        auraLight=GetComponentsInChildren<AuraLight>();                 //the aura sources of the child GO
+          
 
+        allColliders = GetComponentsInChildren<Collider>();
 
         for (int i = 0; i < lightBulb.Length; i++) {
             lightBulb[i].gameObject.SetActive(false);
+            auraLight[i].enabled = true;
             
         }
-        baseCollider.enabled = false;
-        lampCollider.enabled = true;
-        IsMissingPart = false;
 
-         
+      
+        
+        for(int i = 0; i < allColliders.Length; i++) {
+            if (allColliders[i].CompareTag("Lamp_Switch"))
+                allColliders[i].enabled = true;
+            if (allColliders[i].CompareTag("Lamp_Base"))
+                allColliders[i].enabled = false;
 
+        }
+
+        isTurnedOn = isEnemyLamp;
     }
 	
 	// Update is called once per frame
@@ -39,22 +50,29 @@ public class LampBehaviour : MonoBehaviour {
 
 
     public void SwitchOnAllyLamp() {
-        if (IsMissingPart) return;
+        if (hasMissingPart) return;
 
         for (int i = 0; i < lightBulb.Length; i++) {
             lightBulb[i].gameObject.SetActive(true);
-            
+            auraLight[i].enabled = true;
         }
-        baseCollider.enabled = true;
-        lampCollider.enabled = false;
 
+        for (int i = 0; i < allColliders.Length; i++) {
+            
+            if (allColliders[i].CompareTag("Lamp_Base"))
+                allColliders[i].enabled = true;
+
+        }
+
+        isTurnedOn = true;
         GameManager.Instance.LastAllyLamp = this;   //if the character dies, the next one will be spawned here
     }
 
     public void SwitchOffEnemyLamp() {
-        lampCollider.enabled = false;
+        isTurnedOn = false;
         for (int i = 0; i < lightBulb.Length; i++) { 
             lightBulb[i].gameObject.SetActive(false);
+            auraLight[i].enabled = false;
             Debug.Log("off: " + lightBulb[i].gameObject.name);
         }
     }

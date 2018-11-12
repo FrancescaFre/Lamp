@@ -6,10 +6,10 @@ public enum Status { NORMAL = 0, HALF_CURSED, CURSED }
 public enum Visibility { INVISIBLE = 0, WARNING, SPOTTED }
 public enum CharPeriod { PREHISTORY = 0, ORIENTAL, VICTORIAN, FUTURE }
 
-[RequireComponent(typeof(Rigidbody))]
+/*[RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(ItemWheel))]
-[RequireComponent(typeof(DigWheel))]
+[RequireComponent(typeof(DigWheel))]*/
 public class PlayerController : MonoBehaviour {
 
     public Transform playerModel;
@@ -171,8 +171,8 @@ public class PlayerController : MonoBehaviour {
 
             enemyGO.GetComponent<Enemy>().path = touchedEnemy.path;
 
-            //Destroy(gameObject);    //destroys the character
-            GameManager.Instance.SpawnNewPlayer();
+                
+            GameManager.Instance.SpawnNewPlayer(); //destroys the character
             Instantiate<GameObject>(enemyGO);//creates the enemy instead
 
 
@@ -195,15 +195,15 @@ public class PlayerController : MonoBehaviour {
             Debug.Log("lamp_switch");
             LampBehaviour lamp = other.GetComponentInParent<LampBehaviour>();
             Debug.Log("lamp_switch: ON "+lamp.transform.position);
-            if (lamp.IsEnemyLamp) {
+            if (lamp.isEnemyLamp && lamp.isTurnedOn) { //if it is an enemy lamp AND it is turned on
                 lamp.SwitchOffEnemyLamp();
                 return;
             }
 
-            if (lamp.IsMissingPart) return;    //if the lamp is missing the light bulb 
+            if (lamp.hasMissingPart) return;    //if the lamp is missing the light bulb 
 
             if (IsMimicOrDash) return;
-
+            if (lamp.isTurnedOn) return;    //if the lamp is already turned on, exit
             lamp.SwitchOnAllyLamp();
             Debug.Log("lamp_switch: ON");
 

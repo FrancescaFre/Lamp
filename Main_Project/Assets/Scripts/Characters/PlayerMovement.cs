@@ -41,8 +41,9 @@ public class PlayerMovement : MonoBehaviour {
     /// </summary>
     private void SetDirection() {
 
-        // Stops the character movement when it's zone digging or it's casting the dig
-        if (_player.IsZoneDigging || _player.IsCasting) return;
+        if (_player)    //if THIS component is attached to the player
+            if (_player.IsZoneDigging || _player.IsCasting) return; // Stops the character movement when it's zone digging or it's casting the dig
+
 
         this._horiz_axis = Input.GetAxis("Horizontal");
         this._vert_axis = Input.GetAxis("Vertical");
@@ -55,8 +56,9 @@ public class PlayerMovement : MonoBehaviour {
     /// </summary>
     private void CheckMovement() {
 
-        // Stops the character movement when it's zone digging or it's casting the dig
-        if (_player.IsZoneDigging || _player.IsCasting) return;
+        
+        if (_player)    //if THIS component is attached to the player
+            if (_player.IsZoneDigging || _player.IsCasting) return; // Stops the character movement when it's zone digging or it's casting the dig
 
         //to move the player
         Vector3 movement = Vector3.zero;

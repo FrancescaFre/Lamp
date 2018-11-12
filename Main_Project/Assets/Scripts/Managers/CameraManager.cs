@@ -22,6 +22,10 @@ public class CameraManager : MonoBehaviour {//http://youtu.be/MFQhpwc6cKE
         IsFollowingPlayer = true;
     }
 
+    private void Start() {
+        playerModel = transform.parent;
+        planetModel = GameObject.FindGameObjectWithTag("Planet").transform;
+    }
 
     void FixedUpdate() {
         if (IsFollowingPlayer)
