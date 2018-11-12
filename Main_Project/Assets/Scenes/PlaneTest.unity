@@ -182,7 +182,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 141919702}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 03f70ff73275f1c4c947215a3ba8edeb, type: 3}
   m_Name: 
@@ -247,6 +247,7 @@ GameObject:
   - component: {fileID: 195236826}
   - component: {fileID: 195236827}
   - component: {fileID: 195236824}
+  - component: {fileID: 195236820}
   m_Layer: 10
   m_Name: MoveTester
   m_TagString: Enemy
@@ -254,6 +255,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &195236820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 195236819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efd52e2317c8ebb42877eb13f969ca4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 8
+  runSpeed: 10
+  stealthSpeed: 4
 --- !u!114 &195236822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,12 +344,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 195236819}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af04fb8fe73bb2e49aa81cc6e928dc7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 10
   look: {fileID: 195236827}
 --- !u!114 &195236827
 MonoBehaviour:
@@ -342,7 +357,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 195236819}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 217407718e1bdec44b9e6adf77d8f30e, type: 3}
   m_Name: 

@@ -13,6 +13,7 @@ public class Painter : MonoBehaviour {
 
     public void ActivePainter() {
         pc = GetComponent<PlayerController>();
+        //start caster
         Invoke("DisablePainter",skillTime);
     }
 

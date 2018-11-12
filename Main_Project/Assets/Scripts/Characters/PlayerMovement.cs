@@ -64,14 +64,8 @@ public class PlayerMovement : MonoBehaviour {
         Vector3 movement = Vector3.zero;
 
 
-        if ((Input.GetButton("PS4_R2") || Input.GetKey(KeyCode.R)) && (_horiz_axis != 0 || _vert_axis != 0)) {
-            //if is holding down a button and moving use the running animation and speed
-            movement = transform.TransformDirection(_moveDir) * runSpeed * Time.deltaTime;
 
-
-            Debug.Log("RUN");
-        }
-        else if ((Input.GetButton("PS4_L2") || Input.GetKey(KeyCode.T)) && (_horiz_axis != 0 || _vert_axis != 0)) {
+        if ((Input.GetButton("PS4_L2") || Input.GetKey(KeyCode.T)) && (_horiz_axis != 0 || _vert_axis != 0)) {
             //if is holding down a button and moving use the stealth animation and speed
 
             movement = transform.TransformDirection(_moveDir) * stealthSpeed * Time.deltaTime;

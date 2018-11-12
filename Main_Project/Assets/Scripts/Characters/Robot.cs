@@ -1,68 +1,102 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Robot : MonoBehaviour {
+public class Robot : MonoBehaviour
+{
 
     [Range(5, 10)]
-    public float walkSpeed = 8f;
+    public float walkSpeed = 5f;
+
+    [Range(300, 600)]
+    public float batteryDuration = 420f;
+    private float _progress = 0f;
+
     public PlayerController player;
-    public Camera cam;
-    public bool paused;
+    public bool pickable = false;
+    public Image battery;
+    public Image batteryProgress;
 
     private Rigidbody _rb;
+    private Camera _cam;
     private Vector3 _moveDir;
     private Vector3 _movement;
     private float _horiz_axis;
     private float _vert_axis;
 
-    public void ActiveRobot()
+    /// <summary>
+    /// Spawns the robot in front of the player
+    /// </summary>
+    public void Activate()
     {
-        //disable the control to the player
-        //enables robot at the player position
-        //if player press again the button of the skill, DEACTIVATE ROBOT
-        //else wait x seconds and DEACIVATE ROBOT
+        transform.position = player.transform.position; // TODO
+
+        gameObject.SetActive(true);
+        enabled = true;
+        _progress = 0f;
+        battery.gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// Picks Up the sleeping robot
+    /// </summary>
+    public void PickUp()
+    {
+        pickable = false; 
+        gameObject.SetActive(false);
+        _cam.gameObject.SetActive(true);
+    }
+
+    /// <summary>
+    /// Shuts down the robot and returns control to the character
+    /// </summary>
     public void DisableRobot()
     {
-        //return the control to the player
-        //becomes pickable (update a flag in the robot), and if picked, becomes disabled (the go of the robot)
+        enabled = false;
+        _cam.gameObject.SetActive(false);
+        _progress = 0f;
+
+        player.IsCasting = false;
+        player.enabled = true;
+        player.playerCamera.gameObject.SetActive(true);
+
+        battery.gameObject.SetActive(false);
+        batteryProgress.fillAmount = 0;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject == player.gameObject)
+            pickable = true;
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        pickable = false;
     }
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         _movement = Vector3.zero;
         _moveDir = Vector3.zero;
         _horiz_axis = 0f;
         _vert_axis = 0f;
+        _cam = GetComponentInChildren<Camera>();
         _rb = GetComponent<Rigidbody>();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         MoveRobot();
-        if (Input.GetKeyDown(KeyCode.P))
-            ShutDown();
-    }
 
-    /// <summary>
-    /// Spawns the robot in front of the player
-    /// </summary>
-    public void Spawn(Vector3 playerPosition)
-    {
-        cam.gameObject.SetActive(true);
-        transform.position = playerPosition; // TODO
-        gameObject.SetActive(true);
-    }
+        _progress++;
+        batteryProgress.fillAmount += 1.0f / batteryDuration;
 
-    /// <summary>
-    /// Gives back the control to the sleeping robot
-    /// </summary>
-    public void Restart()
-    {
-        cam.gameObject.SetActive(true);
-        enabled = true;
+        if (_progress >= batteryDuration || Input.GetKeyDown(KeyCode.P))
+            DisableRobot();
     }
 
     /// <summary>
@@ -77,18 +111,5 @@ public class Robot : MonoBehaviour {
         _movement = transform.TransformDirection(_moveDir) * walkSpeed * Time.deltaTime;
         _rb.MovePosition(_rb.position + _movement);
     }
-    
-    /// <summary>
-    /// Shuts down the robot and returns control to the character
-    /// </summary>
-    private void ShutDown()
-    {
-        cam.gameObject.SetActive(false);
-        enabled = false;
-        paused = true;
 
-        player.playerCamera.gameObject.SetActive(true);
-        player.IsCasting = false;
-        player.enabled = true;
-    }
 }

@@ -33,11 +33,12 @@ public class Skill : MonoBehaviour {
     public void ActivateSkill()
     {
         if (robot)
-            robot.ActiveRobot();
+            robot.Activate();
         else if (mimic)
             mimic.ActiveMimic();
         else if (painter)
             painter.ActivePainter();
+
     }
 
     public void DeactivateSkill() {

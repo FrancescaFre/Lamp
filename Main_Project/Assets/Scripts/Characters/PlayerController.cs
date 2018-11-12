@@ -13,31 +13,22 @@ public enum CharPeriod { PREHISTORY = 0, ORIENTAL, VICTORIAN, FUTURE }
 public class PlayerController : MonoBehaviour {
 
     public Transform playerModel;
+    public Digging dig;
+    public Robot robot;
+    public Caster caster;
+    public CameraManager playerCamera;
+    public Dictionary<string, int> items;
 
     public bool usingSkill=false;
     public bool IsMimicOrDash { get; set; }
     public bool IsSafe { get;  set; }
+    public bool IsZoneDigging { get; set; } 
+    public bool IsCasting { get; set; } 
     public Status CurseStatus { get;  set; }
     public Visibility Visible { get;  set; }
     public CharPeriod CharacterPeriod;
-    public Dictionary<string, int> items;
-
-    public Robot robot;
-
-    public bool IsZoneDigging { get;  set; } // If the player is blocked to zone dig (searching for destination)
-
-    public bool IsCasting { get; set; } // If the player is blocked while casting the dig
-
 
     private Rigidbody _rig;
-    public CameraManager playerCamera;
-
-    public DigStarter digStarter; // Digging circle under the player (used for both dig)
-    public DigTarget digTarget; // Digging circle that moves around (used for the zone dig)
-    public Caster caster; // Caster waiting bar that appears before a dig
-
-    private Dig _digType; // Actual digging state (None, Linear, Zone)
-    private Vector3 _targetStartingPosition; // Saves the zone digging target's position
 
     //-----------------------------------------------------------------------//
 
@@ -53,23 +44,18 @@ public class PlayerController : MonoBehaviour {
     void Start() {
         _rig = GetComponent<Rigidbody>();
         playerCamera = GetComponentInChildren<CameraManager>();
-        //_digStarter = GetComponentInChildren<DigStarter>();
-        //_digTarget = GetComponentInChildren<DigTarget>();
-        _digType = Dig.NONE;
         playerModel = transform.Find("Model");
     }
     
     // Update is called once per frame
     void Update() {
 
-        // With the dig active, check the circle color on the ground
-        if (_digType != Dig.NONE)
-            digStarter.CheckDig(_digType);
-
         this.CheckSkillInteraction();
         this.CheckItemInteraction();
         this.CheckCamera();
-        this.DiggingTest();
+        this.CheckDig();
+
+        // Testing Zone
         this.RobotTest();
 
         Debug.Log("PLAYER IS: "+IsSafe);
@@ -214,121 +200,25 @@ public class PlayerController : MonoBehaviour {
 
     #endregion
 
-    #region Digging
-
-    /// <summary>
-    /// Checks the conditions for the linear dig (valid terrain both
-    /// at start and end) and eventually awakes the Casting Circle
-    /// </summary>
-    public void LinearCheck()
-    {
-        if (_digType == Dig.LINEAR) // If you already pressed [LDIG]
-            if (digStarter.CanDig(_digType))
-            {
-                caster.StartCircle(_digType);
-                IsCasting = true;
-            }
-            else
-                digStarter.StopDig(ref _digType);
-
-        else if (_digType == Dig.ZONE) // If you press [LDIG] after [ZDIG] it cancels the digging action
-            digStarter.StopDig(ref _digType);
-
-        else // First time the player presses [LDIG]
-        {
-            _digType = Dig.LINEAR;
-            digStarter.gameObject.SetActive(true);
-            digStarter.CheckDig(_digType);
-        }
-    }
-
-    /// <summary>
-    /// Performs the linear dig. This is called by the
-    /// Caster script, after the casting is ready.
-    /// </summary>
-    public void LinearDig()
-    {
-        transform.position = -transform.position; // Actual linear dig action
-
-        // After digging
-        digStarter.StopDig(ref _digType);
-        IsCasting = false;
-    }
-
-    /// <summary>
-    /// Checks the conditions for the zone dig and performs both
-    /// ending point selection and the dig itself
-    /// </summary>
-    public void ZoneCheck()
-    {
-        if (IsZoneDigging) // If you already pressed [ZDIG] 2 times (activate -> valid start -> now)
-            if (digTarget.CanDig())
-            {
-                caster.StartCircle(_digType);
-                digTarget.isDigging = false;
-                IsCasting = true;
-            }
-            else
-            {
-                IsZoneDigging = false;
-                digTarget.StopTarget(_targetStartingPosition);
-            }
-
-        else if (_digType == Dig.ZONE) // If you already pressed [ZDIG] (activate -> now)
-            if (digStarter.CanDig(_digType))
-            {
-                IsZoneDigging = true;
-                digTarget.isDigging = true;
-                digTarget.gameObject.SetActive(true);
-                _targetStartingPosition = digTarget.transform.position; // Saves the position to restart the target
-                digTarget.CheckTarget();
-            }
-            else
-                digStarter.StopDig(ref _digType);
-
-        else if (_digType == Dig.LINEAR) // If you press [LDIG] after [ZDIG] it cancels the digging action
-            digStarter.StopDig(ref _digType);
-
-        else // First time the player presses [ZDIG]
-        {
-            _digType = Dig.ZONE;
-            digStarter.gameObject.SetActive(true);
-            digStarter.CheckDig(_digType); // Type 2 for vertical dig
-        }
-    }
-
-    /// <summary>
-    /// Performs the zone dig. This is called by the
-    /// Caster script, after the casting is ready.
-    /// </summary>
-    public void ZoneDig()
-    {
-        transform.position = digTarget.Dig();
-
-        // After digging
-        IsZoneDigging = false;
-        IsCasting = false;
-        digTarget.StopTarget(digStarter.transform.position);
-        digStarter.StopDig(ref _digType);
-    }
+    
 
     /// <summary>
     /// Stub to playtest digging. Press [I] for linear dig
     /// and [O] for zone dig
     /// </summary>
-    private void DiggingTest()
+    private void CheckDig()
     {
         if (IsCasting)
             return;
 
-        if (Input.GetKeyDown(KeyCode.I) && !IsZoneDigging)
-            LinearCheck();
+        if (Input.GetKeyDown(KeyCode.I) && !IsZoneDigging) // [LDIG]
+            dig.LinearDig();
 
-        if (Input.GetKeyDown(KeyCode.O))
-            ZoneCheck();
+        if (Input.GetKeyDown(KeyCode.O)) // [ZDIG]
+            dig.ZoneDig();
     }
 
-    #endregion
+    
 
     /// <summary>
     /// Stub to playtest robot. Press [P] to activate and
@@ -336,21 +226,19 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     private void RobotTest()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-            if (robot.paused)
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            if (!robot.gameObject.activeSelf)
             {
                 enabled = false;
                 IsCasting = true;
                 playerCamera.gameObject.SetActive(false);
-                robot.Restart();
+                robot.Activate();
             }
-            else
-            {
-                enabled = false;
-                IsCasting = true;
-                playerCamera.gameObject.SetActive(false);
-                robot.Spawn(transform.position);
-            }
+            else if(robot.pickable)
+                robot.PickUp();
+        }
+            
     }
 }
 
