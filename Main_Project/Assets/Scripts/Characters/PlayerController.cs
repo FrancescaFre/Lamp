@@ -327,21 +327,19 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     private void RobotTest()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-            if (robot.paused)
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            if (!robot.gameObject.activeSelf)
             {
                 enabled = false;
                 IsCasting = true;
                 playerCamera.gameObject.SetActive(false);
-                robot.Restart();
+                robot.Activate();
             }
-            else
-            {
-                enabled = false;
-                IsCasting = true;
-                playerCamera.gameObject.SetActive(false);
-                robot.Spawn(transform.position);
-            }
+            else if(robot.pickable)
+                robot.PickUp();
+        }
+            
     }
 }
 
