@@ -10,12 +10,15 @@ public class GravityBody : MonoBehaviour
     {
         attractor = GameObject.FindGameObjectWithTag("Planet").GetComponent<GravityAttractor>();
         rb = GetComponent<Rigidbody>();
-        rb.constraints = RigidbodyConstraints.FreezeRotation;
+        /*rb.constraints = RigidbodyConstraints.FreezeRotationX;
+        rb.constraints = RigidbodyConstraints.FreezeRotationZ;*/
         rb.useGravity = false;
     }
+
 
     void FixedUpdate()
     {
         attractor.Attract(rb);
     }
+        
 }

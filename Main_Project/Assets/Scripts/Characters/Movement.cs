@@ -6,8 +6,6 @@ public class Movement : MonoBehaviour {
 
     [Range(5, 10)]
     public float walkSpeed = 8f;
-    [Range(10, 15)]
-    public float runSpeed = 10f;
     [Range(1, 5)]
     public float stealthSpeed = 4f;
 
@@ -88,6 +86,7 @@ public class Movement : MonoBehaviour {
 
 
         _rig.MovePosition(_rig.position + movement);
+        //_rig.MoveRotation(transform.localRotation + Quaternion.Euler(movement));
 
     }
 }
