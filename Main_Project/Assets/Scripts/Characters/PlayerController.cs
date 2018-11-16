@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour {
 
     private Rigidbody _rig;
 
-    //-----------------------------------------------------------------------//
+    //#####################################################################
 
     void Awake() {
         IsSafe = false;
@@ -54,8 +54,7 @@ public class PlayerController : MonoBehaviour {
     void Update() {
 
         this.CheckSkillInteraction();
-        this.CheckItemInteraction();
-        
+        this.CheckItemInteraction();       
         this.CheckDig();
 
         // Testing Zone
@@ -64,8 +63,9 @@ public class PlayerController : MonoBehaviour {
         Debug.Log("PLAYER IS: "+IsSafe);
     }
 
-    //-----------------------------------------------------------------------//
-
+    //#####################################################################
+    #region Player's interaction/action
+    
     /// <summary>
     /// The skill is used if an input is detected
     /// </summary>
@@ -90,15 +90,32 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    
+    /// <summary>
+    /// Stub to playtest digging. Press [I] for linear dig
+    /// and [O] for zone dig
+    /// </summary>
+    private void CheckDig() {
+        if (IsCasting)
+            return;
+
+        if (Input.GetKeyDown(KeyCode.I) && !IsZoneDigging) // [LDIG]
+            dig.LinearDig();
+
+        if (Input.GetKeyDown(KeyCode.O)) // [ZDIG]
+            dig.ZoneDig();
+    }
+
+    #endregion
+
 
     /// <summary>
     /// Sets the opposite of the current value of safety
     /// </summary>
     public void ChangeSafety() {
         IsSafe = !IsSafe;
-        Debug.Log("chiamato");
+        Debug.Log("chiamato ChangeSafety");
     }
+
 
 
 
@@ -173,21 +190,6 @@ public class PlayerController : MonoBehaviour {
 
     
 
-    /// <summary>
-    /// Stub to playtest digging. Press [I] for linear dig
-    /// and [O] for zone dig
-    /// </summary>
-    private void CheckDig()
-    {
-        if (IsCasting)
-            return;
-
-        if (Input.GetKeyDown(KeyCode.I) && !IsZoneDigging) // [LDIG]
-            dig.LinearDig();
-
-        if (Input.GetKeyDown(KeyCode.O)) // [ZDIG]
-            dig.ZoneDig();
-    }
 
     
 
