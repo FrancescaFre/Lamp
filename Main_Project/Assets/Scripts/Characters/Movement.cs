@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour {
 
+    public Transform cam;
+
     [Range(5, 10)]
     public float walkSpeed = 8f;
     [Range(1, 5)]
@@ -34,6 +36,15 @@ public class Movement : MonoBehaviour {
         this.CheckMovement();
     }
 
+    void LateUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            cam.transform.SetParent(transform);
+        }
+    }
+
+
     /// <summary>
     /// Sets the player movement direction
     /// </summary>
@@ -48,6 +59,7 @@ public class Movement : MonoBehaviour {
 
         _moveDir.Set(_horiz_axis, 0f, _vert_axis);
         _moveDir.Normalize();
+        //transform.Rotate(Vector3.up, _horiz_axis, Space.Self);
     }
     /// <summary>
     /// Moves the player if an input is detected
@@ -60,8 +72,6 @@ public class Movement : MonoBehaviour {
 
         //to move the player
         Vector3 movement = Vector3.zero;
-
-
 
         if ((Input.GetButton("PS4_L2") || Input.GetKey(KeyCode.T)) && (_horiz_axis != 0 || _vert_axis != 0)) {
             //if is holding down a button and moving use the stealth animation and speed
@@ -83,10 +93,14 @@ public class Movement : MonoBehaviour {
             Debug.Log("WALK");
         }
 
-
-
         _rig.MovePosition(_rig.position + movement);
-        //_rig.MoveRotation(transform.localRotation + Quaternion.Euler(movement));
 
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            //camPosition = cam.transform.localPosition;
+            cam.transform.SetParent(null);
+            transform.localRotation = Quaternion.LookRotation(transform.right, transform.up); 
+        }
     }
+    
 }

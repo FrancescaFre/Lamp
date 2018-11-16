@@ -8,10 +8,9 @@ public class GravityBody : MonoBehaviour
 
     void Start()
     {
-        attractor = GameObject.FindGameObjectWithTag("Planet").GetComponent<GravityAttractor>();
+        //attractor = GameObject.FindGameObjectWithTag("Planet").GetComponent<GravityAttractor>();
         rb = GetComponent<Rigidbody>();
-        /*rb.constraints = RigidbodyConstraints.FreezeRotationX;
-        rb.constraints = RigidbodyConstraints.FreezeRotationZ;*/
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
         rb.useGravity = false;
     }
 
