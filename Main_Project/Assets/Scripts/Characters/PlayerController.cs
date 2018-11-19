@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour {
     public Digging dig;
     public Robot robot;
     public Caster caster;
-    public CameraManager playerCamera;
+    public FixedCamera playerCamera;
     public Dictionary<string, int> items;
 
     public bool usingSkill=false;
@@ -46,7 +46,6 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start() {
         _rig = GetComponent<Rigidbody>();
-        playerCamera = GetComponentInChildren<CameraManager>();
         playerModel = transform.Find("Model");
     }
     
@@ -55,13 +54,20 @@ public class PlayerController : MonoBehaviour {
 
         this.CheckSkillInteraction();
         this.CheckItemInteraction();
-        
         this.CheckDig();
+        this.CheckRobot();
 
-        // Testing Zone
-        this.RobotTest();
+        //Debug.Log("PLAYER IS: "+IsSafe);
+    }
 
-        Debug.Log("PLAYER IS: "+IsSafe);
+    //-----------------------------------------------------------------------//
+
+    /// <summary>
+    /// Returns true if the player can move freely
+    /// </summary>
+    public bool CanMove()
+    {
+        return !(IsZoneDigging || IsCasting);
     }
 
     //-----------------------------------------------------------------------//
@@ -179,25 +185,23 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     private void CheckDig()
     {
-        if (IsCasting)
-            return;
+        if (!IsCasting)
+        {
+            if (Input.GetKeyDown(KeyCode.I) && !IsZoneDigging) // [LDIG]
+                dig.LinearDig();
 
-        if (Input.GetKeyDown(KeyCode.I) && !IsZoneDigging) // [LDIG]
-            dig.LinearDig();
-
-        if (Input.GetKeyDown(KeyCode.O)) // [ZDIG]
-            dig.ZoneDig();
+            if (Input.GetKeyDown(KeyCode.O)) // [ZDIG]
+                dig.ZoneDig();
+        }
     }
-
-    
 
     /// <summary>
     /// Stub to playtest robot. Press [P] to activate and
     /// pause robot
     /// </summary>
-    private void RobotTest()
+    private void CheckRobot()
     {
-        if(Input.GetKeyDown(KeyCode.P))
+        if(Input.GetKeyDown(KeyCode.P) && CanMove())
         {
             if (!robot.gameObject.activeSelf)
             {

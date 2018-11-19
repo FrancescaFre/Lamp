@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Painter : MonoBehaviour {
+public class Painter : Skill {
 
     public GameObject prefab;
     GameObject objd;
@@ -12,7 +12,7 @@ public class Painter : MonoBehaviour {
     int skillTime; 
 
 
-    public void ActivatePainter() {
+    override public void Activate() {
         pc = GetComponent<PlayerController>();
         ps = GetComponentInChildren<ParticleSystem>();
         ps.gameObject.SetActive(true); //start the trail
@@ -32,7 +32,7 @@ public class Painter : MonoBehaviour {
     }
 
     //after x seconds or rpressing button of jolly skills
-    public void DisablePainter()
+    override public void Deactivate()
     {
         if (pc.usingSkill)
         {
