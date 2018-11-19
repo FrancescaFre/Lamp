@@ -85,6 +85,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log("not enough item " + itemKey);
         }
     }
+
     /// <summary>
     /// Manage an item in the inventory
     /// </summary>
@@ -93,5 +94,6 @@ public class GameManager : MonoBehaviour {
     public void ManageItem(string itemKey, int use) {
         items[itemKey] += use;
     }
+
 
 }

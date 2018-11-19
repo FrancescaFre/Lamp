@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI; //needed for NavMeshAgent
 
 
-public enum EnemyStatus { WANDERING = 0, SEEKING, SEARCHING }
+public enum EnemyStatus { WANDERING = 0, SEEKING, SEARCHING, RETURN}
 
 public class Enemy : MonoBehaviour
 {
@@ -30,13 +30,20 @@ public class Enemy : MonoBehaviour
     //---AI
     public Transform[] wanderPath;
     public Transform path;
-    public NavMeshAgent agent;
     float stop_search_after_x_seconds;
+    public Transform player;
 
     public Vector3 destination;
     public int pathIndex;
 
     public EnemyStatus currentStatus;
+    private float timePassed;
+
+    private Queue<Vector3> hanselGretelGPS;
+    private int pathIndexReturn;
+
+    private Vector3 lastPlayerPosition;
+
 
     //---Object
     private Rigidbody rb;
@@ -80,20 +87,16 @@ public class Enemy : MonoBehaviour
 
     public void Update()
     {
-        if (Vector3.Distance(destination, transform.position) > 1f)
+        ChangeStatus();
+        ChangeDirection();
+        
+        if (Vector3.Distance(destination, transform.position) > 0.3f)
         {
-            //  agent.SetDestination(destination); //CON UNA NAVMESH SAREBBE BELLO E SEMPLICE PORCA PUTTANA
             direction = (destination - transform.position).normalized;
+            //add adjust for floking
             velocity = direction * speed * Time.deltaTime;
             velocity = Vector3.ClampMagnitude(velocity, direction.magnitude);
             rb.MovePosition(rb.position + velocity);
-        }
-        else
-        {
-            // pathIndex = (pathIndex + 1) % wanderPath.Length;
-            pathIndex = (pathIndex + 1) % path.childCount;
-            //destination = wanderPath[pathIndex].position;
-            destination = path.GetChild(pathIndex).position;
         }
 
         //THANKS Mister ANTONIO
@@ -113,11 +116,97 @@ public class Enemy : MonoBehaviour
                 if (Random.Range(0, 9) % 3 == 0)
                     path = other.GetComponent<Enemy>().path;
             //start following the path of touched enemy
+       }
+    }
+
+    private void ChangeStatus() {
+        //1- if the enemy is wandering and it see an enemy and this is not safe--> seeking the player (player)
+        if (currentStatus == EnemyStatus.WANDERING && fov.visibleTargets.Count > 0 && !fov.visibleTargets[0].GetComponent<PlayerController>().IsSafe) {
+            Debug.Log("WANDERING TO SEEKING");
+            player = fov.visibleTargets[0];
+            currentStatus = EnemyStatus.SEEKING;
         }
 
+        //2- if the player isn't reachable by any rayCast, stop and start to Search
+        if (currentStatus == EnemyStatus.SEEKING){
+            Debug.Log("SEEKING TO SEARCHING");
+            Vector3 dirToTarget = (player.position - transform.position).normalized;
+            float dstToTarget = Vector3.Distance(transform.position, player.position);
+            //if the player is safe or the raycast can't reach the player (cause some obstacles), stop seek
+            if ( player.GetComponent<PlayerController>().IsSafe || !Physics.Raycast(transform.position, dirToTarget, dstToTarget, fov.targetMask))
+            {
+                player = null; ///WARNING!
+                currentStatus = EnemyStatus.SEARCHING;
+                timePassed = 0;
+            }
+        }
+
+        //3- if the player isn't visible for an ammount of time, stop looking for it
+        if (currentStatus == EnemyStatus.SEARCHING && timePassed < stop_search_after_x_seconds)
+        {
+            Debug.Log("SEARCHING TO RETURN");
+            timePassed += Time.deltaTime;
+        }
+        else
+        {
+            currentStatus = EnemyStatus.RETURN;
+            //hanselGretelGPS.Reverse();
+            //pathIndexReturn = 0;
+        }
+
+        //4- if the enemy is correctly returned at the last waypoint
+        if (currentStatus == EnemyStatus.RETURN) {
+            Debug.Log("RETURN TO WANDERING");
+            if (Vector3.Distance(path.GetChild(pathIndex).position, transform.position) > 0.3f) {
+                currentStatus = EnemyStatus.WANDERING;
+                hanselGretelGPS.Clear();
+            }
+        }
 
     }
 
+    private void ChangeDirection() {
+        if (currentStatus == EnemyStatus.RETURN)
+        {
+            //destination -> backtrace of the hansel_gretelGPS
+            if (Vector3.Distance(path.GetChild(pathIndex).position, transform.position) > 0.3f)
+            {
+                //pathIndexReturn = (pathIndexReturn + 1) % hanselGretelGPS.Count;
+                //destination = hanselGretelGPS[pathIndex];
+                destination = hanselGretelGPS.Count>0 ? hanselGretelGPS.Dequeue() : this.transform.position;
+            }
+        }
+
+        if (currentStatus == EnemyStatus.SEARCHING) {
+            destination = lastPlayerPosition;
+            if (Vector3.Distance(destination, transform.position) > 0.3f) {
+                //rotate 360 on local y axis
+            }
+        }
+
+        if (currentStatus == EnemyStatus.SEEKING)
+        {
+            if (player)
+            {
+                lastPlayerPosition = player.position;
+                destination = player.position;
+            }
+        }
+
+        if (currentStatus == EnemyStatus.WANDERING) {
+            pathIndex = (pathIndex + 1) % wanderPath.Length;
+            destination = wanderPath[pathIndex].position;
+        }
+    }
+
+    private void FixedUpdate() {
+        
+        while (currentStatus == EnemyStatus.SEEKING) {
+            // hanselGretelGPS.Add(this.transform.position); 
+            hanselGretelGPS.Enqueue(this.transform.position);
+
+        }
+    }
 
     #region GIZMO
     private void OnDrawGizmos()

@@ -27,7 +27,6 @@ public class LampBehaviour : MonoBehaviour {
         for (int i = 0; i < lightBulb.Length; i++) {
             lightBulb[i].gameObject.SetActive(false);
             auraLight[i].enabled = true;
-            
         }
 
       
@@ -49,8 +48,8 @@ public class LampBehaviour : MonoBehaviour {
 	}
 
 
-    public void SwitchOnAllyLamp() {
-        if (hasMissingPart) return;
+    public void SwitchOnAllyLamp() { //you cant turn on a lamp if there are any enemy lamp turned on
+        if (hasMissingPart && GameManager.Instance.levelLoaded.enemyLamps > 0) return;
 
         for (int i = 0; i < lightBulb.Length; i++) {
             lightBulb[i].gameObject.SetActive(true);
@@ -61,10 +60,12 @@ public class LampBehaviour : MonoBehaviour {
             
             if (allColliders[i].CompareTag("Lamp_Base"))
                 allColliders[i].enabled = true;
-
         }
 
         isTurnedOn = true;
+
+        gameObject.layer = 11; //obstacle layer
+        GameManager.Instance.levelLoaded.allyLamps--;
         GameManager.Instance.LastAllyLamp = this;   //if the character dies, the next one will be spawned here
     }
 
@@ -74,8 +75,7 @@ public class LampBehaviour : MonoBehaviour {
             lightBulb[i].gameObject.SetActive(false);
             auraLight[i].enabled = false;
             Debug.Log("off: " + lightBulb[i].gameObject.name);
+            GameManager.Instance.levelLoaded.enemyLamps--;
         }
     }
-
-
 }
