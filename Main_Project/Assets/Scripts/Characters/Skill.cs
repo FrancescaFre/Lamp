@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Skill : MonoBehaviour {
 
+    public virtual void ActivateSkill() { }
+    public virtual void DeactivateSkill() { }
+}
+
+/*
+public class Skill : MonoBehaviour {
+
     public enum AgeChar { PREHISTORY = 0, ORIENTAL, VICTORIAN, FUTURE }
     private AgeChar typeOfCharacter;
 
@@ -53,3 +60,4 @@ public class Skill : MonoBehaviour {
         else return;
     }
 }
+*/

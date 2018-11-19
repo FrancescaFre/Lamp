@@ -24,5 +24,6 @@ public class Enemy_SO : ScriptableObject {
 
     //---AI
     public float stop_search_after_x_seconds;
-    public EnemyStatus enemy_initial_status; 
+    public EnemyStatus enemy_initial_status;
+
 }
