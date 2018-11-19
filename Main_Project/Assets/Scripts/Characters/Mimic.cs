@@ -8,7 +8,7 @@ public class Mimic : MonoBehaviour {
     private int skillTime;
     private PlayerController pc;
 
-    public void ActiveMimic() {
+    public void ActivateMimic() {
         pc = GetComponent<PlayerController>();
         //start Caster
         //add flag for block actions on player controller

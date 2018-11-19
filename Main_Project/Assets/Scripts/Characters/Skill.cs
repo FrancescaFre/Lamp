@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Skill : MonoBehaviour {
 
+    public virtual void ActivateSkill() { }
+    public virtual void DeactivateSkill() { }
+}
+
+/*
+public class Skill : MonoBehaviour {
+
     public enum AgeChar { PREHISTORY = 0, ORIENTAL, VICTORIAN, FUTURE }
     private AgeChar typeOfCharacter;
 
@@ -35,21 +42,22 @@ public class Skill : MonoBehaviour {
         if (robot)
             robot.Activate();
         else if (mimic)
-            mimic.ActiveMimic();
+            mimic.ActivateMimic();
         else if (painter)
-            painter.ActivePainter();
-
+            painter.ActivatePainter();
     }
 
     public void DeactivateSkill() {
-        //if (pc.usingSkill){
-        if (robot)
-            robot.DisableRobot();
-        else if (mimic)
-            mimic.DisableMimic();
-        else if (painter)
-            painter.DisablePainter();
-        //}
-        //else return;
+        if (pc.usingSkill)
+        {
+            if (robot)
+                robot.DisableRobot();
+            else if (mimic)
+                mimic.DisableMimic();
+            else if (painter)
+                painter.DisablePainter();
+        }
+        else return;
     }
 }
+*/

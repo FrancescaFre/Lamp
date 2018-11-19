@@ -11,8 +11,7 @@ public class Digging : MonoBehaviour {
 
     public PlayerController player;
     public Caster caster;
-    public Transform prefabToSpawn;
-    
+    public Transform prefabToSpawn;  
 
     private DigType _digType;
 
