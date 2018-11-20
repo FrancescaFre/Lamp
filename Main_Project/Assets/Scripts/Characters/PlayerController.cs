@@ -13,7 +13,6 @@ public enum CharPeriod { PREHISTORY = 0, ORIENTAL, VICTORIAN, FUTURE }
 */
 public class PlayerController : MonoBehaviour {
 
-    public Transform playerModel;
     public Digging dig;
     public Robot robot;
     public Caster caster;
@@ -31,7 +30,7 @@ public class PlayerController : MonoBehaviour {
     public Visibility Visible { get;  set; }
     public CharPeriod CharacterPeriod;
 
-    private Rigidbody _rig;
+    private Rigidbody _rb;
 
     //-----------------------------------------------------------------------//
 
@@ -45,8 +44,7 @@ public class PlayerController : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        _rig = GetComponent<Rigidbody>();
-        playerModel = transform.Find("Model");
+        _rb = GetComponent<Rigidbody>();
     }
     
     // Update is called once per frame
@@ -55,7 +53,7 @@ public class PlayerController : MonoBehaviour {
         this.CheckSkillInteraction();
         this.CheckItemInteraction();
         this.CheckDig();
-        this.CheckRobot();
+        //this.CheckRobot(); ---> Must be refactored with Robot under Skills
 
         //Debug.Log("PLAYER IS: "+IsSafe);
     }
@@ -130,7 +128,7 @@ public class PlayerController : MonoBehaviour {
             Debug.Log("create the enemy ");
             //if the enemy can curse the character instantly
             GameObject enemyGO = GameManager.Instance.enemies[touchedEnemy.data_enemy.level - 1]; //the levels are [1,3]
-            enemyGO.GetComponent<Rigidbody>().position = _rig.position;
+            enemyGO.GetComponent<Rigidbody>().position = _rb.position;
 
             enemyGO.GetComponent<Enemy>().path = touchedEnemy.path;
 

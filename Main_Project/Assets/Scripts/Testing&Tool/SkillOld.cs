@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿/*
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -53,3 +54,4 @@ public class SkillOld : MonoBehaviour {
         else return;
     }
 }
+*/
