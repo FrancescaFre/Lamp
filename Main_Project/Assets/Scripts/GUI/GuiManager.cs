@@ -1,33 +1,55 @@
 ﻿using System.Collections;
-using TMPro;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class GuiManager : MonoBehaviour {
+public class GUIManager : MonoBehaviour {
+    public GameObject Characters;
+    public GameObject Galaxies;
 
-    public static GuiManager Instance;
-    public Transform CharInfoPanel;
-    [Header("Description panel")]
-    public TMP_Text CharName;
-    public TMP_Text CharDesc;
-    public TMP_Text CharPeriod;
-    public Image CharSkill;
-    public TMP_Text CharSkillDescription;
+    public GameObject firstSelectedGalaxy;
+    public GameObject firstSelectedCharacter;
+
+
+    public Button nextButton;
+    public Button StartButton;
+
+    private EventSystem eSystem;
+
 
     private void Start() {
-        if (!Instance)
-            Instance = this;
-
-        
+        Galaxies.SetActive(true);
+        Characters.SetActive(false);
+        eSystem = FindObjectOfType<EventSystem>();
+        eSystem.SetSelectedGameObject(firstSelectedGalaxy, null);
+       
     }
 
-    private void FixedUpdate() {
-        if (!PlayerGroup.pointedChar) return;
+    public void CheckSelectedGalaxy() {
+        if (GameManager.Instance.levelsQueue == null) {
+            nextButton.interactable = false;
+            return;
+        }
+        
+        
+        Galaxies.SetActive(false);
+        Characters.SetActive(true);
+        eSystem.SetSelectedGameObject(firstSelectedCharacter, null);
+    }
 
-        CharName.SetText(PlayerGroup.pointedChar.charName);
-        CharDesc.SetText(PlayerGroup.pointedChar.description);
-        CharPeriod.SetText(PlayerGroup.pointedChar.timePeriod.ToString());
-        CharSkillDescription.SetText(PlayerGroup.pointedChar.SkillDescription);
-        CharSkill.sprite = PlayerGroup.pointedChar.Skill;
+
+    public void CheckSelectedTeam() {
+        //if(GameManager.Instance.)
+        GameManager.Instance.StartGame();
+
+    }
+
+    //to turn backonce reached the team selection
+    public void BackToGalaxySelect() {
+        
+        Characters.SetActive(false);
+        Galaxies.SetActive(true);
+        eSystem.SetSelectedGameObject(firstSelectedGalaxy, null);
     }
 }

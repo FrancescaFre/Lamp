@@ -11,7 +11,9 @@ public class Character_SO : ScriptableObject {
     public CharPeriod timePeriod;
     public Sprite Skill;
     public string SkillDescription;
+    public Sprite CharSprite;
 
+    
 
 
 }

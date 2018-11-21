@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
     public static GameManager Instance = null;
     public Level_SO levelLoaded;
     public LampBehaviour LastAllyLamp = null; //last lamp turned on
-
+    public Queue<Level_SO> levelsQueue;
 
     #region  GameObjects
 
@@ -28,6 +29,8 @@ public class GameManager : MonoBehaviour {
             Instance = this;
             DontDestroyOnLoad(Instance);
         }
+
+        SceneManager.sceneLoaded += OnSceneLoaded;  // add a delegate to be run everytime a scene is loaded
     }
 
 
@@ -35,8 +38,9 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         items = new Dictionary<string, int>(6);
-
-           ActivatePlayerX();
+        
+        
+        //ActivatePlayerX(); //called when the scene has been loaded
 
     }
 	
@@ -96,4 +100,16 @@ public class GameManager : MonoBehaviour {
     }
 
 
+    #region Scene Management
+    public void StartGame() {
+        Debug.Log("GAME STARTED WITH SCENE: " + levelsQueue.Dequeue().name);
+
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        Debug.Log("OnSceneLoaded: " + scene.name);
+        Debug.Log(mode);
+    }
+
+    #endregion
 }
