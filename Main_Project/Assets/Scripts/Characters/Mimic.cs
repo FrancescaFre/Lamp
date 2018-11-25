@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mimic : MonoBehaviour {
+public class Mimic : Skill {
     //become invisible to enemies and disable any action, like 
     // switch on lamps, using object, dig
     private int skillTime;
     private PlayerController pc;
 
-    public void ActivateMimic() {
+    override public void Activate() {
         pc = GetComponent<PlayerController>();
         //start Caster
         //add flag for block actions on player controller
@@ -18,7 +18,7 @@ public class Mimic : MonoBehaviour {
     }
 
     //the jolly skill will be disabled when the player press again the button, or after x seconds
-    public void DisableMimic() {
+    override public void Deactivate() {
         if (pc.usingSkill)
         {
             pc.usingSkill = false;

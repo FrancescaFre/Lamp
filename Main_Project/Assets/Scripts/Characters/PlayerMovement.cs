@@ -48,8 +48,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_vertInput == 0 && _horizInput == 0)
             return;
-        else if (CanMove())
+        else if (_player.CanMove())
+        {
+            CheckStealth();
+            ComputeCamAxes();
             MovePlayer();
+        }
+            
     }
 
     private void Update()
@@ -72,28 +77,20 @@ public class PlayerMovement : MonoBehaviour
     //-------------------------------------------------------------------------
 
     /// <summary>
-    /// Checks if the player can move and how fast
+    /// Checks if the player is stealthing or not
     /// </summary>
-    private bool CanMove()
+    private void CheckStealth()
     {
-        if (_player) // If THIS component is attached to the player
-            if (_player.IsZoneDigging || _player.IsCasting) // Stops the character movement when it's zone digging or it's casting the dig
-                return false;
-
         if (Input.GetButton("PS4_L2") || Input.GetKey(KeyCode.T)) // Slows the movement if the player is pressing the stealth button
         {
             _stepSpeed = stealthSpeed;
-            if (_player)
-                _player.isSneaking = true;
+            _player.isSneaking = true;
         }
         else // Otherwise, it's normal speed
         {
             _stepSpeed = walkSpeed;
-            if (_player)
-                _player.isSneaking = false;
+            _player.isSneaking = false;
         }
-
-        return true;
     }
     
     /// <summary>
@@ -111,8 +108,6 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void MovePlayer()
     {
-        ComputeCamAxes();
-
         if (_vertInput > 0) // Pressing ↓ made the player literally jump backwards (so it's needed the _screenUp variable)
             _movement = (_screenForward * _vertInput + _screenRight * _horizInput).normalized * _stepSpeed * Time.deltaTime; // Takes camera axes to correct the direction
         else
@@ -150,7 +145,7 @@ public class PlayerMovement : MonoBehaviour
     {
         while (true)
         {
-            if (_horizInput != 0 || _vertInput != 0) // OMFG IT WORKS GOD BLESS COROUTINES
+            if ((_horizInput != 0 || _vertInput != 0) && _player.CanMove()) // OMFG IT WORKS GOD BLESS COROUTINES
             {
                 transform.LookAt((_screenUp * _vertInput + _screenRight * _horizInput).normalized, transform.up);
                 transform.Rotate(-88, 0, 0, Space.Self); // DON'T ASK ME WHY 88 WORKS BETTER

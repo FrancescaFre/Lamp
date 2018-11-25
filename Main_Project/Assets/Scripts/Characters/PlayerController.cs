@@ -12,12 +12,14 @@ public enum CharPeriod { PREHISTORY = 0, ORIENTAL, VICTORIAN, FUTURE }
 [RequireComponent(typeof(ItemWheel))]
 */
 public class PlayerController : MonoBehaviour {
+
     public CharPeriod CharacterPeriod;
     public Transform playerModel;
+
     public Digging dig;
     public Robot robot;
     public Caster caster;
-    public CameraManager playerCamera;
+    public FixedCamera playerCamera;
     public Dictionary<string, int> items;
 
     public bool usingSkill=false;
@@ -31,13 +33,11 @@ public class PlayerController : MonoBehaviour {
     public Visibility Visible { get;  set; }
     
 
-    private Rigidbody _rig;
-    public Skill skill;
-    private int missingParts;
-    private int keys;
-    private GameManager gameManager;
+    private Rigidbody _rb;
+    private int missingParts=0;
+    private int keys=0;
 
-    //#####################################################################
+    //-----------------------------------------------------------------------//
 
     void Awake() {
         IsSafe = false;
@@ -49,30 +49,32 @@ public class PlayerController : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        _rig = GetComponent<Rigidbody>();
-        playerCamera = GetComponentInChildren<CameraManager>();
-        playerModel = transform.Find("Model");
-        skill = GetComponent<Skill>() ? GetComponent<Skill>() : null; //WARNING AT THIS NULL!!!!
-        gameManager = GameManager.Instance;
-
+        _rb = GetComponent<Rigidbody>();
     }
     
     // Update is called once per frame
     void Update() {
 
         this.CheckSkillInteraction();
-        this.CheckItemInteraction();       
+        this.CheckItemInteraction();
         this.CheckDig();
+        //this.CheckRobot(); ---> Must be refactored with Robot under Skills
 
-        // Testing Zone
-        this.RobotTest();
-
-        Debug.Log("PLAYER IS: "+IsSafe);
+        //Debug.Log("PLAYER IS: "+IsSafe);
     }
 
-    //#####################################################################
-    #region Player's interaction/action
-    
+    //-----------------------------------------------------------------------//
+
+    /// <summary>
+    /// Returns true if the player can move freely
+    /// </summary>
+    public bool CanMove()
+    {
+        return !(IsZoneDigging || IsCasting);
+    }
+
+    //-----------------------------------------------------------------------//
+
     /// <summary>
     /// The skill is used if an input is detected
     /// </summary>
@@ -97,32 +99,15 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    /// <summary>
-    /// Stub to playtest digging. Press [I] for linear dig
-    /// and [O] for zone dig
-    /// </summary>
-    private void CheckDig() {
-        if (IsCasting)
-            return;
-
-        if (Input.GetKeyDown(KeyCode.I) && !IsZoneDigging) // [LDIG]
-            dig.LinearDig();
-
-        if (Input.GetKeyDown(KeyCode.O)) // [ZDIG]
-            dig.ZoneDig();
-    }
-
-    #endregion
-
+    
 
     /// <summary>
     /// Sets the opposite of the current value of safety
     /// </summary>
     public void ChangeSafety() {
         IsSafe = !IsSafe;
-        Debug.Log("chiamato ChangeSafety");
+        Debug.Log("chiamato");
     }
-
 
 
 
@@ -132,12 +117,14 @@ public class PlayerController : MonoBehaviour {
         if (other.CompareTag("Lamp_Base")) {//if the character has entered the light of a lamp that is switched on
             IsSafe = true;
         }
+
         else if (other.CompareTag("MissingPart"))
             missingParts++;
         else if (other.CompareTag("Key"))
             keys++;
         else if (other.CompareTag("Enemy")) {   //if the character touches an enemy trigger
             //READ AS: if an enemy curse the character
+
             Enemy touchedEnemy = other.GetComponentInParent<Enemy>();
             Debug.Log("before " + CurseStatus);
             if (CurseStatus == Status.NORMAL && !touchedEnemy.data_enemy.instant_curse) {
@@ -148,19 +135,24 @@ public class PlayerController : MonoBehaviour {
             Debug.Log("create the enemy ");
             //if the enemy can curse the character instantly
             GameObject enemyGO = GameManager.Instance.enemies[touchedEnemy.data_enemy.level - 1]; //the levels are [1,3]
-            enemyGO.GetComponent<Rigidbody>().position = _rig.position;
+            enemyGO.GetComponent<Rigidbody>().position = _rb.position;
 
             enemyGO.GetComponent<Enemy>().path = touchedEnemy.path;
 
-
+                
             GameManager.Instance.SpawnNewPlayer(); //destroys the character
             Instantiate<GameObject>(enemyGO);//creates the enemy instead
-        }
-    }
 
+
+        }
+
+
+    }
     private void OnTriggerExit(Collider other) {
         if (other.CompareTag("Lamp_Base") ) {//if the character has entered the light of a lamp that is switched on
+
             IsSafe = false;
+            
         }
     }
 
@@ -175,18 +167,19 @@ public class PlayerController : MonoBehaviour {
                 lamp.SwitchOffEnemyLamp();
                 return;
             }
-
+            
             if (lamp.hasMissingPart && missingParts > 0) {
                 lamp.hasMissingPart = false;
                 missingParts--;
                 
             }
-            else if (lamp.hasMissingPart) return;
+            else if (lamp.hasMissingPart) return;   //if the lamp is missing the light bulb 
+
 
             if (IsMimicOrDash) return;
             if (lamp.isTurnedOn) return;    //if the lamp is already turned on, exit
             lamp.SwitchOnAllyLamp();
-            
+
         }
     }
 
@@ -194,16 +187,29 @@ public class PlayerController : MonoBehaviour {
 
     
 
+    /// <summary>
+    /// Stub to playtest digging. Press [I] for linear dig
+    /// and [O] for zone dig
+    /// </summary>
+    private void CheckDig()
+    {
+        if (!IsCasting)
+        {
+            if (Input.GetKeyDown(KeyCode.I) && !IsZoneDigging) // [LDIG]
+                dig.LinearDig();
 
-    
+            if (Input.GetKeyDown(KeyCode.O)) // [ZDIG]
+                dig.ZoneDig();
+        }
+    }
 
     /// <summary>
     /// Stub to playtest robot. Press [P] to activate and
     /// pause robot
     /// </summary>
-    private void RobotTest()
+    private void CheckRobot()
     {
-        if(Input.GetKeyDown(KeyCode.P))
+        if(Input.GetKeyDown(KeyCode.P) && CanMove())
         {
             if (!robot.gameObject.activeSelf)
             {

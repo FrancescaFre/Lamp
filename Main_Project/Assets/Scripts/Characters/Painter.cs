@@ -12,7 +12,7 @@ public class Painter : Skill {
     int skillTime; 
 
 
-    public override void ActivateSkill() {
+    override public void Activate() {
         pc = GetComponent<PlayerController>();
         ps = GetComponentInChildren<ParticleSystem>();
         ps.gameObject.SetActive(true); //start the trail
@@ -32,7 +32,7 @@ public class Painter : Skill {
     }
 
     //after x seconds or rpressing button of jolly skills
-    public override void DeactivateSkill()
+    override public void Deactivate()
     {
         if (pc.usingSkill)
         {
