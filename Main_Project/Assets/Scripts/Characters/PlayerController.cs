@@ -12,7 +12,7 @@ public enum CharPeriod { PREHISTORY = 0, ORIENTAL, VICTORIAN, FUTURE }
 [RequireComponent(typeof(ItemWheel))]
 */
 public class PlayerController : MonoBehaviour {
-
+    public CharPeriod CharacterPeriod;
     public Transform playerModel;
     public Digging dig;
     public Robot robot;
@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour {
     
     public Status CurseStatus { get;  set; }
     public Visibility Visible { get;  set; }
-    public CharPeriod CharacterPeriod;
+    
 
     private Rigidbody _rig;
     public Skill skill;
@@ -129,21 +129,18 @@ public class PlayerController : MonoBehaviour {
     #region Collision Detection
 
     private void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Lamp_Base"))
-        {//if the character has entered the light of a lamp that is switched on
+        if (other.CompareTag("Lamp_Base")) {//if the character has entered the light of a lamp that is switched on
             IsSafe = true;
         }
         else if (other.CompareTag("MissingPart"))
             missingParts++;
         else if (other.CompareTag("Key"))
             keys++;
-        else if (other.CompareTag("Enemy"))
-        {   //if the character touches an enemy trigger
+        else if (other.CompareTag("Enemy")) {   //if the character touches an enemy trigger
             //READ AS: if an enemy curse the character
             Enemy touchedEnemy = other.GetComponentInParent<Enemy>();
             Debug.Log("before " + CurseStatus);
-            if (CurseStatus == Status.NORMAL && !touchedEnemy.data_enemy.instant_curse)
-            {
+            if (CurseStatus == Status.NORMAL && !touchedEnemy.data_enemy.instant_curse) {
                 CurseStatus = Status.HALF_CURSED;
                 Debug.Log("after " + CurseStatus);
                 return;
@@ -179,17 +176,17 @@ public class PlayerController : MonoBehaviour {
                 return;
             }
 
-            if (!lamp.hasMissingPart && missingParts > 0) {
+            if (lamp.hasMissingPart && missingParts > 0) {
                 lamp.hasMissingPart = false;
                 missingParts--;
-               // lamp.SwitchOnAllyLamp(); it useless because the call to switch on the lamp is below
+                
             }
-            else return;    //if the lamp is missing the light bulb 
+            else if (lamp.hasMissingPart) return;
 
             if (IsMimicOrDash) return;
             if (lamp.isTurnedOn) return;    //if the lamp is already turned on, exit
             lamp.SwitchOnAllyLamp();
-            Debug.Log("lamp_switch: ON");
+            
         }
     }
 

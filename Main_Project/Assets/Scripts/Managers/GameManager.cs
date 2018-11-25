@@ -8,17 +8,19 @@ public class GameManager : MonoBehaviour {
     public static GameManager Instance = null;
     public Level_SO levelLoaded;
     public LampBehaviour LastAllyLamp = null; //last lamp turned on
-    public Queue<Level_SO> levelsQueue;
-
+    public Queue<Level_SO> levelsQueue;     //queue to load the levels of the galaxy
+    public Vector3 startingPosition;      //the starting position if no lamp has been turned on yet
     #region  GameObjects
 
     [Header("Prefabs of the Enemies")]
     public List<GameObject> enemies = new List<GameObject>(3);
 
     [Header("Prefabs of the Characters")]
-    public List<GameObject> Characters;
+    public List<PlayerController> CharactersList;   //the gameobject that are present in the scene
     public int currentCharacter = 0;
     public int nextChar = 1;    //the 0 is the starting player
+    public List<CharPeriod> TeamList;
+    public static Dictionary<CharPeriod, PlayerController> Characters;
     #endregion
 
   
@@ -38,28 +40,31 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         items = new Dictionary<string, int>(6);
-        
+        Characters = new Dictionary<CharPeriod, PlayerController>();
+
+       /* for (int i = 0; i < CharactersList.Count; i++) {// fill the dictionary with the characters
+            
+            Characters[CharactersList[i].CharacterPeriod] = CharactersList[i];
+        }*/
+
         
         //ActivatePlayerX(); //called when the scene has been loaded
 
     }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 
     /// <summary>
     /// Sets as Active only one character at a time
     /// </summary>
     public void ActivatePlayerX() {
 
-        for (int i = 0; i < Characters.Count; i++)
-            Characters[i].SetActive(i == currentCharacter );
+        for (int i = 0; i < TeamList.Count; i++)
+            Characters[TeamList[i]].gameObject.SetActive(i == currentCharacter );
        
         
 
-        nextChar = currentCharacter  < Characters.Count ? currentCharacter + 1:-1;
+        nextChar = currentCharacter  < TeamList.Count ? currentCharacter + 1:-1;
         if (nextChar == -1)
             Debug.Log("gameover");
         
@@ -68,9 +73,11 @@ public class GameManager : MonoBehaviour {
 
     public void SpawnNewPlayer() {
         currentCharacter = nextChar;
-
-        Characters[currentCharacter].transform.position = LastAllyLamp.transform.position/* + LastAllyLamp.transform.forward */+ Characters[currentCharacter].transform.forward;
-
+        if (LastAllyLamp)
+            // CharactersList[currentCharacter].transform.position = LastAllyLamp.transform.position/* + LastAllyLamp.transform.forward */+ CharactersList[currentCharacter].transform.forward;
+            Characters[TeamList[currentCharacter]].transform.position = LastAllyLamp.transform.position/* + LastAllyLamp.transform.forward */+ Characters[TeamList [currentCharacter]].transform.forward;
+        else
+            Characters[TeamList[currentCharacter]].transform.position = startingPosition;
         ActivatePlayerX();
 
 
@@ -102,8 +109,9 @@ public class GameManager : MonoBehaviour {
 
     #region Scene Management
     public void StartGame() {
-        Debug.Log("GAME STARTED WITH SCENE: " + levelsQueue.Dequeue().name);
-
+        levelLoaded = levelsQueue.Dequeue();
+        Debug.Log("GAME STARTED WITH SCENE: " + levelLoaded.levelSeason+" first player is "+TeamList[0]);
+        SceneManager.LoadScene(levelLoaded.name);
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {

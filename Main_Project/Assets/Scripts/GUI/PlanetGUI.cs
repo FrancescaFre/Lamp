@@ -30,5 +30,9 @@ public class PlanetGUI : MonoBehaviour, IPointerEnterHandler ,ISelectHandler,ICa
 
     public void OnCancel(BaseEventData eventData) {
         GameManager.Instance.levelsQueue=null;
+        GUIManager.GUIInstance.nextButton.interactable = false;
+        descriptionPanel.DescriptionPanel.SetActive(false);
+        GUIManager.GUIInstance.eSystem.SetSelectedGameObject(transform.parent.parent.gameObject,null);
+        transform.parent.gameObject.SetActive(false);
     }
 }

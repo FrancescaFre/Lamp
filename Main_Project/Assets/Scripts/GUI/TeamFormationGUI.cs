@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
-public class TeamFormationGUI : MonoBehaviour, ICancelHandler {
+public class TeamFormationGUI : MonoBehaviour {
     public List<CharPeriod> teamList;
     public int MAX_TEAM_NUMBER = 3;
 
@@ -20,12 +20,12 @@ public class TeamFormationGUI : MonoBehaviour, ICancelHandler {
     public Light FutureLight;
     public Dictionary<CharPeriod, Light> LightsDict;
 
-    private Button startButton;
+
 
     private void Start() {
         teamList = new List<CharPeriod>(3);
         LightsDict = new Dictionary<CharPeriod, Light>();
-        startButton = GetComponentInParent<GUIManager>().StartButton;
+       
 
         LightsDict[CharPeriod.PREHISTORY] = PrimitiveLight;
         LightsDict[CharPeriod.ORIENTAL] = OrientalLight;
@@ -57,41 +57,40 @@ public class TeamFormationGUI : MonoBehaviour, ICancelHandler {
         if (teamList.Count > 2 && teamList[2] >= 0) {
             Third.gameObject.SetActive(true);
             Third.sprite = PlayerGroupGUI.SharedCharacterInfo[teamList[2]].CharSprite;
-            startButton.interactable = true;
+            GUIManager.GUIInstance.PlayButton.interactable = true;
+
         }
         else {
             Third.sprite = null;
             Third.gameObject.SetActive(false);
-            startButton.interactable = false;
+            GUIManager.GUIInstance.PlayButton.interactable = false;
         }
        
     }
 
-    public void OnCancel(BaseEventData eventData) {
-        Debug.Log("CANCEL");
-        if (teamList.Count > 0) {
-            teamList.Clear();
-            //TODO clear team in GAMEMANAGER
-            Debug.Log("CANCEL TEAM");
-        }
-
-    }
-
-
-    public void AddCharacter(CharPeriod temp) {
-        if (teamList.Contains(temp)) {
-            teamList.RemoveAll(x => x.Equals(temp));
-            LightsDict[temp].gameObject.SetActive(false);
+    /// <summary>
+    /// Adds the character to the team(if already present it will be removed)
+    /// </summary>
+    /// <param name="period">the time period of the character to be added/removed</param>
+    public void SetCharacter(CharPeriod period) {
+        if (teamList.Contains(period)) {
+            teamList.RemoveAll(x => x.Equals(period));
+            LightsDict[period].gameObject.SetActive(false);
         }
         else {
             if (teamList.Count < MAX_TEAM_NUMBER) {
-                teamList.Add(temp);
+                teamList.Add(period);
                
-                LightsDict[temp].gameObject.SetActive(true);
+                LightsDict[period].gameObject.SetActive(true);
             }
 
 
         }
+
+        if (teamList.Count == 3)
+            GameManager.Instance.TeamList = teamList;
+        else
+            GameManager.Instance.TeamList = null;
 
     }
 
