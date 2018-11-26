@@ -20,7 +20,7 @@ public class FixedCamera : MonoBehaviour {
     private void FixedUpdate()
     {
         yPosition += Input.GetAxis("Mouse X") * Time.deltaTime * 180f; // TESTING
-        //yPosition += Input.GetAxis("RightStick X") * Time.deltaTime * 90f; // Real one
+        //yPosition += Input.GetAxis("RightStick X") * Time.deltaTime * 90f; // Real one with the joypad analog stick
         dummyCam.parent.localRotation = Quaternion.Euler(dummyCam.parent.localRotation.x, yPosition, dummyCam.parent.localRotation.z);
     }
 
