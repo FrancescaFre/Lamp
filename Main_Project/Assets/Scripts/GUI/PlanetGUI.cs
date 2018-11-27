@@ -1,38 +1,65 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PlanetGUI : MonoBehaviour, IPointerEnterHandler ,ISelectHandler,ICancelHandler{
+public class PlanetGUI : BaseButtonGUI {
 
     public Level_SO planetLevel;
-    private DescriptionGUI descriptionPanel;
-    private void OnEnable() {
-        GetComponentInParent<GalaxyButtonGUI>().FetchPlanets();
-        descriptionPanel = GetComponentInParent<DescriptionGUI>();
+    private DescriptionGUI descriptionGUIPanel;
+
+    public override void Awake() {
+        base.Awake();
+        descriptionGUIPanel = GetComponentInParent<DescriptionGUI>();
     }
+
 
     public void ShowPlanetInfo() {
         if (!planetLevel) return;
-        descriptionPanel.DescriptionPanel.SetActive(true);
-        descriptionPanel.pointedLevel = planetLevel;
-        descriptionPanel.ShowPlanetInfo();
+        descriptionGUIPanel.DescriptionPanel.SetActive(true);
+        descriptionGUIPanel.pointedLevel = planetLevel;
+        descriptionGUIPanel.ShowPlanetInfo();
     }
 
-    public void OnPointerEnter(PointerEventData eventData) {    //allows to decide what happens when hovered 
-        ShowPlanetInfo();
+
+
+
+
+
+    private void LevelSelected() {
         
+        GameManager.Instance.levelLoaded = planetLevel;
+        GUIManager.GUIInstance.nextButton.interactable = true;
+        GUIManager.GUIInstance.eSystem.SetSelectedGameObject(GUIManager.GUIInstance.nextButton.gameObject);
+        this.haloParticle.SetActive(true);
+    }
+    #region Event Handlers
+    public override void OnPointerClick(PointerEventData eventData) {
+        base.OnPointerClick(eventData);
+        LevelSelected();
     }
 
-    public void OnSelect(BaseEventData eventData) {
+    public override void OnSubmit(BaseEventData eventData) {
+        base.OnSubmit(eventData);
+        LevelSelected();
+    }
+    public override void OnPointerEnter(PointerEventData eventData) {    //allows to decide what happens when hovered 
+        base.OnPointerEnter(eventData);
+        ShowPlanetInfo();
+
+    }
+
+    public override void OnSelect(BaseEventData eventData) {
+        base.OnSelect(eventData);
         ShowPlanetInfo();
     }
+    public override void OnCancel(BaseEventData eventData) {
+        base.OnCancel(eventData);
 
-    public void OnCancel(BaseEventData eventData) {
-        GameManager.Instance.levelsQueue=null;
+        GameManager.Instance.levelLoaded = null;
         GUIManager.GUIInstance.nextButton.interactable = false;
-        descriptionPanel.DescriptionPanel.SetActive(false);
-        GUIManager.GUIInstance.eSystem.SetSelectedGameObject(transform.parent.parent.gameObject,null);
+        descriptionGUIPanel.DescriptionPanel.SetActive(false);
+        GUIManager.GUIInstance.eSystem.SetSelectedGameObject(transform.parent.parent.gameObject, null);
         transform.parent.gameObject.SetActive(false);
     }
+    #endregion
 }

@@ -6,18 +6,25 @@ using UnityEngine.UI;
 
 
 public class TeamFormationGUI : MonoBehaviour {
+    [Header("Team Information")]
     public List<CharPeriod> teamList;
     public int MAX_TEAM_NUMBER = 3;
 
-
+    [Header("Team profile picture")]
     public Image First;
     public Image Second;
     public Image Third;
 
+    [Header("Team stage light")]
     public Light PrimitiveLight;
     public Light OrientalLight;
     public Light VictorianLight;
     public Light FutureLight;
+    [Header("Stage Light Colours")]
+    public Color FirstLight;
+    public Color secondLight;
+    public Color thirdLight;
+
     public Dictionary<CharPeriod, Light> LightsDict;
 
 
@@ -82,6 +89,12 @@ public class TeamFormationGUI : MonoBehaviour {
                 teamList.Add(period);
                
                 LightsDict[period].gameObject.SetActive(true);
+                if (teamList.Count == 1)
+                    LightsDict[period].color = FirstLight;
+                else if (teamList.Count == 2)
+                    LightsDict[period].color = secondLight;
+                else if (teamList.Count == 3)
+                    LightsDict[period].color = thirdLight;
             }
 
 

@@ -14,7 +14,7 @@ public enum CharPeriod { PREHISTORY = 0, ORIENTAL, VICTORIAN, FUTURE }
 public class PlayerController : MonoBehaviour {
 
     public CharPeriod CharacterPeriod;
-    public Transform playerModel;
+   
 
     public Digging dig;
     public Robot robot;
@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour {
     private int missingParts=0;
     private int keys=0;
 
-    //-----------------------------------------------------------------------//
+    //#####################################################################
 
     void Awake() {
         IsSafe = false;
@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour {
         //Debug.Log("PLAYER IS: "+IsSafe);
     }
 
-    //-----------------------------------------------------------------------//
+    //#####################################################################
 
     /// <summary>
     /// Returns true if the player can move freely
@@ -73,8 +73,8 @@ public class PlayerController : MonoBehaviour {
         return !(IsZoneDigging || IsCasting);
     }
 
-    //-----------------------------------------------------------------------//
-
+    //#####################################################################
+    #region Player's Interaction/action
     /// <summary>
     /// The skill is used if an input is detected
     /// </summary>
@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    
+    #endregion
 
     /// <summary>
     /// Sets the opposite of the current value of safety

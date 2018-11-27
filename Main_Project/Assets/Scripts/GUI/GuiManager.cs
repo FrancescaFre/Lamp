@@ -47,8 +47,8 @@ public class GUIManager : MonoBehaviour {
         Debug.Log("StartGame");
         eSystem.SetSelectedGameObject(firstSelectedGalaxy, null);
     }
-    public void CheckSelectedGalaxy() {
-        if (GameManager.Instance.levelsQueue == null) {
+    public void CheckSelectedLevel() {
+        if (GameManager.Instance.levelLoaded == null) {
             nextButton.interactable = false;
             return;
         }

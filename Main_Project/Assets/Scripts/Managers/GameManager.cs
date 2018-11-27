@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour {
     public static GameManager Instance = null;
     public Level_SO levelLoaded;
     public LampBehaviour LastAllyLamp = null; //last lamp turned on
-    public Queue<Level_SO> levelsQueue;     //queue to load the levels of the galaxy
     public Vector3 startingPosition;      //the starting position if no lamp has been turned on yet
     #region  GameObjects
 
@@ -109,7 +108,7 @@ public class GameManager : MonoBehaviour {
 
     #region Scene Management
     public void StartGame() {
-        levelLoaded = levelsQueue.Dequeue();
+        
         Debug.Log("GAME STARTED WITH SCENE: " + levelLoaded.levelSeason+" first player is "+TeamList[0]);
         SceneManager.LoadScene(levelLoaded.name);
     }
