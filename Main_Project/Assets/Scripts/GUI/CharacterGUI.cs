@@ -1,81 +1,87 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CharacterGUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler, ICancelHandler, ISubmitHandler, IPointerClickHandler {
-
+public class CharacterGUI : BaseButtonGUI {
+    [Header("Character Information")]
     public GameObject displayModel;
     public CharPeriod timePeriod;
 
-    private DescriptionGUI descriptionGUI;
+    private DescriptionGUI descriptionGUIPanel;
     private TeamFormationGUI teamGUI;
 
     // Use this for initialization
-    void Start() {
-        descriptionGUI = GetComponentInParent<DescriptionGUI>();
-        teamGUI = descriptionGUI.GetComponentInChildren<TeamFormationGUI>();
+    public override void  Awake() {
+        base.Awake();
+        descriptionGUIPanel = GetComponentInParent<DescriptionGUI>();
+        teamGUI = descriptionGUIPanel.GetComponentInChildren<TeamFormationGUI>();
     }
 
-
-    #region Input interaction
-
-    public void OnPointerEnter(PointerEventData eventData) {
-        ShowInfo();
-
-    }
-    public void OnPointerExit(PointerEventData eventData) {
-        HideInfo();
-    }
-
-    public void OnSelect(BaseEventData eventData) {
-        ShowInfo();
-    }
-
-    public void OnDeselect(BaseEventData eventData) {
-        HideInfo();
-    }
     private void HideInfo() {
         displayModel.SetActive(false);
-        descriptionGUI.DescriptionPanel.SetActive(false);
+        descriptionGUIPanel.DescriptionPanel.SetActive(false);
     }
-
-    public void OnCancel(BaseEventData eventData) {
-        
-        if (teamGUI.teamList.Count > 0) {// remove one by one the team members
-            teamGUI.SetCharacter(teamGUI.teamList[teamGUI.teamList.Count - 1]);
-            //TODO clear team in GAMEMANAGER
-            Debug.Log("CANCEL TEAM");
-        }
-        else {  //if the list is empty goes back to galaxy selection
-            Debug.Log("BACK TO GALAXY");
-            GUIManager.GUIInstance.BackToGalaxySelect();
-            
-        }
-
-    }
-
-    public void OnSubmit(BaseEventData eventData) {
-        teamGUI.SetCharacter(timePeriod);
-    }
-
-    public void OnPointerClick(PointerEventData eventData) {
-        teamGUI.SetCharacter(timePeriod);
-    }
-
-    #endregion
-
-
     private void ShowInfo() {
-       
-        descriptionGUI.pointedChar = PlayerGroupGUI.SharedCharacterInfo[timePeriod];
 
-        descriptionGUI.DescriptionPanel.SetActive(true);
-        descriptionGUI.ShowCharacterInfo();
+        descriptionGUIPanel.pointedChar = PlayerGroupGUI.SharedCharacterInfo[timePeriod];
+
+        descriptionGUIPanel.DescriptionPanel.SetActive(true);
+        descriptionGUIPanel.ShowCharacterInfo();
         displayModel.SetActive(true);
     }
 
 
+
+    #region Event Handlers
+
+    public override void OnPointerEnter(PointerEventData eventData) {
+        base.OnPointerEnter(eventData);
+        ShowInfo();
+
+    }
+    public override void OnPointerExit(PointerEventData eventData) {
+        base.OnPointerExit(eventData);
+        HideInfo();
+    }
+
+    public override void OnSelect(BaseEventData eventData) {
+        base.OnSelect(eventData);
+        ShowInfo();
+    }
+
+    public override void OnDeselect(BaseEventData eventData) {
+        base.OnDeselect(eventData);
+        HideInfo();
+    }
+
+
+    public override void OnCancel(BaseEventData eventData) {
+
+        if (teamGUI.teamList.Count > 0) {// remove one by one the team members
+            teamGUI.SetCharacter(teamGUI.teamList[teamGUI.teamList.Count - 1]);
+            //TODO clear team in GAMEMANAGER
+            Debug.Log("CANCEL TEAM");
+
+        }
+        else {  //if the list is empty goes back to galaxy selection
+            Debug.Log("BACK TO GALAXY");
+            GUIManager.GUIInstance.BackToGalaxySelect();
+
+        }
+
+    }
+
+    public override void OnSubmit(BaseEventData eventData) {
+        base.OnSubmit(eventData);
+        teamGUI.SetCharacter(timePeriod);
+    }
+
+    public override void OnPointerClick(PointerEventData eventData) {
+        base.OnPointerClick(eventData);
+        teamGUI.SetCharacter(timePeriod);
+    }
+
+    #endregion
 
 
 }
