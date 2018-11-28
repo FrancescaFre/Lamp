@@ -14,14 +14,13 @@ public enum CharPeriod { PREHISTORY = 0, ORIENTAL, VICTORIAN, FUTURE }
 public class PlayerController : MonoBehaviour {
 
     public CharPeriod CharacterPeriod;
-   
-
-    public Digging dig;
-    public Robot robot;
-    public Caster caster;
-    public FixedCamera playerCamera;
     public Dictionary<string, int> items;
 
+    public CamManager MainCamera { get; set; }
+    public Robot robot;
+
+    private Digging _dig;
+    
     public bool usingSkill=false;
     public bool isSneaking = false;
     public bool IsMimicOrDash { get; set; }
@@ -32,7 +31,6 @@ public class PlayerController : MonoBehaviour {
     public Status CurseStatus { get;  set; }
     public Visibility Visible { get;  set; }
     
-
     private Rigidbody _rb;
     private int missingParts=0;
     private int keys=0;
@@ -50,6 +48,8 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start() {
         _rb = GetComponent<Rigidbody>();
+        _dig = GetComponentInChildren<Digging>(includeInactive:true);
+        MainCamera = FindObjectOfType<CamManager>();
     }
     
     // Update is called once per frame
@@ -196,10 +196,10 @@ public class PlayerController : MonoBehaviour {
         if (!IsCasting)
         {
             if (Input.GetKeyDown(KeyCode.I) && !IsZoneDigging) // [LDIG]
-                dig.LinearDig();
+                _dig.LinearDig();
 
             if (Input.GetKeyDown(KeyCode.O)) // [ZDIG]
-                dig.ZoneDig();
+                _dig.ZoneDig();
         }
     }
 
@@ -215,7 +215,7 @@ public class PlayerController : MonoBehaviour {
             {
                 enabled = false;
                 IsCasting = true;
-                playerCamera.gameObject.SetActive(false);
+                MainCamera.gameObject.SetActive(false);
                 robot.Activate();
             }
             else if(robot.pickable)

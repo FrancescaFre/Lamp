@@ -13,11 +13,11 @@ public class Robot : MonoBehaviour
     public float batteryDuration = 420f;
     private float _progress = 0f;
 
-    public PlayerController player;
-    public bool pickable = false;
     public Image battery;
     public Image batteryProgress;
+    public bool pickable = false;
 
+    private PlayerController _player;
     private Rigidbody _rb;
     private Camera _cam;
     private Vector3 _moveDir;
@@ -25,12 +25,37 @@ public class Robot : MonoBehaviour
     private float _horiz_axis;
     private float _vert_axis;
 
+
+    // Use this for initialization
+    void Start()
+    {
+        _player = FindObjectOfType<PlayerController>();
+        _movement = Vector3.zero;
+        _moveDir = Vector3.zero;
+        _horiz_axis = 0f;
+        _vert_axis = 0f;
+        _cam = GetComponentInChildren<Camera>();
+        _rb = GetComponent<Rigidbody>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        MoveRobot();
+
+        _progress++;
+        batteryProgress.fillAmount += 1.0f / batteryDuration;
+
+        if (_progress >= batteryDuration || Input.GetKeyDown(KeyCode.P))
+            DisableRobot();
+    }
+
     /// <summary>
     /// Spawns the robot in front of the player
     /// </summary>
     public void Activate()
     {
-        transform.position = player.transform.position; // TODO
+        transform.position = _player.transform.position; // TODO
 
         gameObject.SetActive(true);
         enabled = true;
@@ -57,9 +82,9 @@ public class Robot : MonoBehaviour
         _cam.gameObject.SetActive(false);
         _progress = 0f;
 
-        player.IsCasting = false;
-        player.enabled = true;
-        player.playerCamera.gameObject.SetActive(true);
+        _player.IsCasting = false;
+        _player.enabled = true;
+        _player.MainCamera.gameObject.SetActive(true);
 
         battery.gameObject.SetActive(false);
         batteryProgress.fillAmount = 0;
@@ -67,36 +92,13 @@ public class Robot : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject == player.gameObject)
+        if (collision.gameObject == _player.gameObject)
             pickable = true;
     }
 
     void OnCollisionExit(Collision collision)
     {
         pickable = false;
-    }
-
-    // Use this for initialization
-    void Start()
-    {
-        _movement = Vector3.zero;
-        _moveDir = Vector3.zero;
-        _horiz_axis = 0f;
-        _vert_axis = 0f;
-        _cam = GetComponentInChildren<Camera>();
-        _rb = GetComponent<Rigidbody>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        MoveRobot();
-
-        _progress++;
-        batteryProgress.fillAmount += 1.0f / batteryDuration;
-
-        if (_progress >= batteryDuration || Input.GetKeyDown(KeyCode.P))
-            DisableRobot();
     }
 
     /// <summary>

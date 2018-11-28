@@ -334,7 +334,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1921531312545850
 GameObject:
   m_ObjectHideFlags: 1
@@ -466,8 +466,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1905150215803194}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children:
   - {fileID: 4943420850361406}
@@ -821,10 +821,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 8
   batteryDuration: 420
-  player: {fileID: 0}
-  pickable: 0
   battery: {fileID: 0}
   batteryProgress: {fileID: 0}
+  pickable: 0
 --- !u!137 &137902131902692568
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

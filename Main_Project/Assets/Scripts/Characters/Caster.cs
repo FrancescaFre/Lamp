@@ -6,14 +6,18 @@ using UnityEngine;
 /// </summary>
 public class Caster : MonoBehaviour
 {
-
     public Image bar; // The bar that fills when casting
-    public Digging digging;
+    private Digging _digging;
 
     [Range(1, 120)]
     public float castingTime; // Frames needed to charge (120 frames = 2 seconds)
 
     private float _progress; // Actual progress
+
+    void Start()
+    {
+        _digging = FindObjectOfType<PlayerController>().GetComponentInChildren<Digging>(includeInactive:true);
+    }
 
     void Update()
     {
@@ -22,7 +26,7 @@ public class Caster : MonoBehaviour
 
         if (_progress >= castingTime)
         {
-            digging.Dig();
+            _digging.Dig();
             Cancel();
         }
     }

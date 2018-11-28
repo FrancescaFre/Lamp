@@ -13,11 +13,11 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("The player's stealth speed")]
     public float stealthSpeed = 3f;
 
-    [Tooltip("The dummy player's transform")]
-    public Transform dummyPlayer;
+    //[Tooltip("The dummy player's transform")]
+    private Transform dummyPlayer;
 
-    [Tooltip("The dummy player's camera transform (must be dummy's child")]
-    public Transform dummyCam;
+    //[Tooltip("The dummy player's camera transform (must be dummy's child")]
+    private Transform dummyCam;
 
     //-------------------------------------------------------------------------
 
@@ -35,6 +35,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        dummyPlayer = GameObject.FindGameObjectWithTag("DummyPlayer").transform;
+        dummyCam = GameObject.FindGameObjectWithTag("DummyCam").transform;
+
         _player = GetComponent<PlayerController>();
         _rb = GetComponent<Rigidbody>();
         _movement = Vector3.zero;

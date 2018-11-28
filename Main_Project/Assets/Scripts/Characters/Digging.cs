@@ -9,12 +9,12 @@ public class Digging : MonoBehaviour {
     public Material digYes;
     public Material digNo;
 
-    public PlayerController player;
     public Caster caster;
+    public PlayerController player; 
     public Transform prefabToSpawn;  
 
     private DigType _digType;
-
+    
     private Transform _startingTransform;
     private Transform _target;
     private Rigidbody _targetRB;
