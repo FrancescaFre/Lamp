@@ -11,6 +11,7 @@ public class Level_SO : ScriptableObject {
     public string Description;
     public int allyLamps;
     public int enemyLamps;
+    public Vector3 entryPoint;
     [Header("Number of enemy of each type")]
     public int enemy_L1;
     public int enemy_L2;

@@ -1,12 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PauseManager : MonoBehaviour {
 
     private bool _isPaused;
     public GameObject PausePanel;
+    public Button firstButtonSelected;
     private float _originalFixedTime;   //this way it is possible to restore the previous value
+    private EventSystem eSystem;
+
 
     void Awake() {
         this._originalFixedTime = Time.fixedDeltaTime;
@@ -14,6 +18,7 @@ public class PauseManager : MonoBehaviour {
 
     void Start() {
         _isPaused = false;
+        eSystem = FindObjectOfType<EventSystem>();
     }
 
     // Update is called once per frame
@@ -30,6 +35,7 @@ public class PauseManager : MonoBehaviour {
         if (_isPaused) {//stops time
             Time.timeScale = 0f;
             Time.fixedDeltaTime = .2f * Time.timeScale;
+            eSystem.SetSelectedGameObject(firstButtonSelected.gameObject, null);
         }
         else {//restores time
             Time.timeScale = 1f;
@@ -45,5 +51,10 @@ public class PauseManager : MonoBehaviour {
     public void ChangePauseStatus() {// this allows to press a button and call this function to resume
         _isPaused = !_isPaused;
         this._UpdateGamePause();
+    }
+
+    public void QuitGame() {
+        Debug.Log("QUIT GAME");
+        Application.Quit();
     }
 }

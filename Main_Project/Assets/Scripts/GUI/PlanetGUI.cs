@@ -59,6 +59,13 @@ public class PlanetGUI : BaseButtonGUI {
         GUIManager.GUIInstance.nextButton.interactable = false;
         descriptionGUIPanel.DescriptionPanel.SetActive(false);
         GUIManager.GUIInstance.eSystem.SetSelectedGameObject(transform.parent.parent.gameObject, null);
+     
+        ///switch off all the halos of the planets
+        for (int i = 0; i < this.haloParticle.transform.parent.childCount; i++) {
+            this.haloParticle.transform.parent.GetChild(i).gameObject.SetActive(false);
+        }
+
+
         transform.parent.gameObject.SetActive(false);
     }
     #endregion

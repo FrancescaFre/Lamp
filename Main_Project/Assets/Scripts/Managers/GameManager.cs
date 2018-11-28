@@ -107,10 +107,18 @@ public class GameManager : MonoBehaviour {
 
 
     #region Scene Management
+    /// <summary>
+    /// Start the selected level
+    /// </summary>
     public void StartGame() {
-        
+        //TODO fade nto scene
         Debug.Log("GAME STARTED WITH SCENE: " + levelLoaded.levelSeason+" first player is "+TeamList[0]);
         SceneManager.LoadScene(levelLoaded.name);
+    }
+
+    public void EndGame() {
+
+
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {

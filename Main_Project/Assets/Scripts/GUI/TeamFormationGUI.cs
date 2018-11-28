@@ -71,6 +71,8 @@ public class TeamFormationGUI : MonoBehaviour {
             Third.sprite = null;
             Third.gameObject.SetActive(false);
             GUIManager.GUIInstance.PlayButton.interactable = false;
+            
+
         }
        
     }
