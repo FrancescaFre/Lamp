@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Robot : MonoBehaviour
+public class Robot : Skill
 {
 
     [Range(5, 10)]
@@ -13,11 +13,11 @@ public class Robot : MonoBehaviour
     public float batteryDuration = 420f;
     private float _progress = 0f;
 
+    public PlayerController player;
+    public bool pickable = false;
     public Image battery;
     public Image batteryProgress;
-    public bool pickable = false;
 
-    private PlayerController _player;
     private Rigidbody _rb;
     private Camera _cam;
     private Vector3 _moveDir;
@@ -25,37 +25,12 @@ public class Robot : MonoBehaviour
     private float _horiz_axis;
     private float _vert_axis;
 
-
-    // Use this for initialization
-    void Start()
-    {
-        _player = FindObjectOfType<PlayerController>();
-        _movement = Vector3.zero;
-        _moveDir = Vector3.zero;
-        _horiz_axis = 0f;
-        _vert_axis = 0f;
-        _cam = GetComponentInChildren<Camera>();
-        _rb = GetComponent<Rigidbody>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        MoveRobot();
-
-        _progress++;
-        batteryProgress.fillAmount += 1.0f / batteryDuration;
-
-        if (_progress >= batteryDuration || Input.GetKeyDown(KeyCode.P))
-            DisableRobot();
-    }
-
     /// <summary>
     /// Spawns the robot in front of the player
     /// </summary>
-    public void Activate()
+    public override void ActivateSkill()
     {
-        transform.position = _player.transform.position; // TODO
+        transform.position = player.transform.position; // TODO
 
         gameObject.SetActive(true);
         enabled = true;
@@ -76,29 +51,58 @@ public class Robot : MonoBehaviour
     /// <summary>
     /// Shuts down the robot and returns control to the character
     /// </summary>
-    public void DisableRobot()
+   // public void DisableRobot()
+    public override void DeactivateSkill()
     {
-        enabled = false;
-        _cam.gameObject.SetActive(false);
-        _progress = 0f;
+        if (pc.usingSkill)
+        {
+            pc.usingSkill = false;
 
-        _player.IsCasting = false;
-        _player.enabled = true;
-        _player.MainCamera.gameObject.SetActive(true);
+            enabled = false;
+            _cam.gameObject.SetActive(false);
+            _progress = 0f;
 
-        battery.gameObject.SetActive(false);
-        batteryProgress.fillAmount = 0;
+            player.IsCasting = false;
+            player.enabled = true;
+         //   player.playerCamera.gameObject.SetActive(true);
+
+            battery.gameObject.SetActive(false);
+            batteryProgress.fillAmount = 0;
+        }
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject == _player.gameObject)
+        if (collision.gameObject == player.gameObject)
             pickable = true;
     }
 
     void OnCollisionExit(Collision collision)
     {
         pickable = false;
+    }
+
+    // Use this for initialization
+    void Start()
+    {
+        _movement = Vector3.zero;
+        _moveDir = Vector3.zero;
+        _horiz_axis = 0f;
+        _vert_axis = 0f;
+        _cam = GetComponentInChildren<Camera>();
+        _rb = GetComponent<Rigidbody>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        MoveRobot();
+
+        _progress++;
+        batteryProgress.fillAmount += 1.0f / batteryDuration;
+
+        if (_progress >= batteryDuration || Input.GetKeyDown(KeyCode.P))
+            DeactivateSkill();
     }
 
     /// <summary>
