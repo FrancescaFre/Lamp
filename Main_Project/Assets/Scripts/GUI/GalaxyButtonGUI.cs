@@ -41,7 +41,7 @@ public class GalaxyButtonGUI : BaseButtonGUI {
         PlanetGUI[] temp = GetComponentsInChildren<PlanetGUI>();
 
         for (int i = 0; i < levels.Count; i++) {
-            Debug.Log(temp[i].name + " " + i);
+          
             temp[i].planetLevel = levels[i];
         }
         firstPlanet = temp[0];

@@ -42,7 +42,7 @@ public class TeamFormationGUI : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        Debug.Log("THERE ARE "+teamList.Count);
+
         if (teamList.Count>0 && teamList[0] >= 0) {
             First.gameObject.SetActive(true);
             First.sprite = PlayerGroupGUI.SharedCharacterInfo[teamList[0]].CharSprite;

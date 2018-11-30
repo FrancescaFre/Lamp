@@ -12,11 +12,11 @@ public class BaseButtonGUI : MonoBehaviour, ICancelHandler, IPointerClickHandler
 
     public void StartHalo() {
         haloParticle.SetActive(true);
-        Debug.Log("LUCE ATTIVA");
+
     }
     public void StopHalo() {
         haloParticle.SetActive(false);
-        Debug.Log("LUCE SPENTA");
+
     }
 
 

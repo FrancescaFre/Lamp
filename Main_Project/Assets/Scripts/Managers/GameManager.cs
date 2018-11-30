@@ -8,21 +8,22 @@ public class GameManager : MonoBehaviour {
     public static GameManager Instance = null;
     public Level_SO levelLoaded;
     public LampBehaviour LastAllyLamp = null; //last lamp turned on
-    public Vector3 startingPosition;      //the starting position if no lamp has been turned on yet
+
+
     #region  GameObjects
 
     [Header("Prefabs of the Enemies")]
-    public List<GameObject> enemies = new List<GameObject>(3);
+    public List<GameObject> enemies;
 
     [Header("Prefabs of the Characters")]
-    public List<PlayerController> CharactersList;   //the gameobject that are present in the scene
+    public List<PlayerController> CharactersList = new List<PlayerController>();   //the gameobject that are present in the scene
     public int currentCharacter = 0;
     public int nextChar = 1;    //the 0 is the starting player
     public List<CharPeriod> TeamList;
-    public static Dictionary<CharPeriod, PlayerController> Characters;
+    public static Dictionary<CharPeriod, PlayerController> CharactersDict;
     #endregion
 
-  
+
     public Dictionary<string, int> items;
 
     private void Awake() {
@@ -37,20 +38,16 @@ public class GameManager : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         items = new Dictionary<string, int>(6);
-        Characters = new Dictionary<CharPeriod, PlayerController>();
+        CharactersDict = new Dictionary<CharPeriod, PlayerController>();
 
-       /* for (int i = 0; i < CharactersList.Count; i++) {// fill the dictionary with the characters
-            
-            Characters[CharactersList[i].CharacterPeriod] = CharactersList[i];
-        }*/
 
-        
+
         //ActivatePlayerX(); //called when the scene has been loaded
 
     }
-	
+
 
 
     /// <summary>
@@ -59,14 +56,14 @@ public class GameManager : MonoBehaviour {
     public void ActivatePlayerX() {
 
         for (int i = 0; i < TeamList.Count; i++)
-            Characters[TeamList[i]].gameObject.SetActive(i == currentCharacter );
-       
-        
+            CharactersDict[TeamList[i]].gameObject.SetActive(i == currentCharacter);
 
-        nextChar = currentCharacter  < TeamList.Count ? currentCharacter + 1:-1;
+
+
+        nextChar = currentCharacter < TeamList.Count ? currentCharacter + 1 : -1;
         if (nextChar == -1)
             Debug.Log("gameover");
-        
+
 
     }
 
@@ -74,9 +71,9 @@ public class GameManager : MonoBehaviour {
         currentCharacter = nextChar;
         if (LastAllyLamp)
             // CharactersList[currentCharacter].transform.position = LastAllyLamp.transform.position/* + LastAllyLamp.transform.forward */+ CharactersList[currentCharacter].transform.forward;
-            Characters[TeamList[currentCharacter]].transform.position = LastAllyLamp.transform.position/* + LastAllyLamp.transform.forward */+ Characters[TeamList [currentCharacter]].transform.forward;
+            CharactersDict[TeamList[currentCharacter]].transform.position = LastAllyLamp.transform.position/* + LastAllyLamp.transform.forward */+ CharactersDict[TeamList[currentCharacter]].transform.forward;
         else
-            Characters[TeamList[currentCharacter]].transform.position = startingPosition;
+            CharactersDict[TeamList[currentCharacter]].transform.position = levelLoaded.entryPoint;
         ActivatePlayerX();
 
 
@@ -110,20 +107,52 @@ public class GameManager : MonoBehaviour {
     /// <summary>
     /// Start the selected level
     /// </summary>
-    public void StartGame() {
-        //TODO fade nto scene
-        Debug.Log("GAME STARTED WITH SCENE: " + levelLoaded.levelSeason+" first player is "+TeamList[0]);
+    public void LoadGame() {
+        //TODO fade into scene
+        Debug.Log("GAME STARTED WITH SCENE: " + levelLoaded.levelSeason + " first player is " + TeamList[0]);
         SceneManager.LoadScene(levelLoaded.name);
-    }
 
-    public void EndGame() {
+
+       
+    }
+    private void FixedUpdate() {
+        if (Input.GetKeyDown(KeyCode.L))
+            EndGame();
+    }
+    public void StartGame() {//Prologue
+       
+        CharactersList = new List<PlayerController>(FindObjectsOfType<PlayerController>());
+ 
+        for (int i = 0; i < CharactersList.Count; i++) {
+            Debug.Log(CharactersList[i].CharacterPeriod.ToString());
+            CharactersDict[CharactersList[i].CharacterPeriod] = CharactersList[i];
+        }
+        enemies = new List<GameObject>() {
+            levelLoaded.enemy_L1_GO,
+            levelLoaded.enemy_L2_GO,
+            levelLoaded.enemy_L3_GO
+        };
+
+        ActivatePlayerX();
+    }
+    public void EndGame() {//epilogue
+
+        levelLoaded = null;
+        TeamList = null;
+        currentCharacter = 0;
+        nextChar = 1;
+        enemies.Clear();
+        CharactersDict.Clear();
+        CharactersList.Clear();
+        SceneManager.LoadScene("1_GameMenu");//which has index 1
 
 
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        if (scene.buildIndex<2 ) return;
         Debug.Log("OnSceneLoaded: " + scene.name);
-        Debug.Log(mode);
+        StartGame();
     }
 
     #endregion

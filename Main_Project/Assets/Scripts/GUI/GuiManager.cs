@@ -59,7 +59,7 @@ public class GUIManager : MonoBehaviour {
 
     public void CheckSelectedTeam() {
         if (GameManager.Instance.TeamList != null && GameManager.Instance.TeamList.Count == 3 && GameManager.Instance.levelLoaded)
-            GameManager.Instance.StartGame();
+            GameManager.Instance.LoadGame();
         else
             PlayButton.interactable = false;
 
