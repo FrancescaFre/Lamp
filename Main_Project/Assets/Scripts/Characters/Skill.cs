@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum AgeChar { PREHISTORY = 0, ORIENTAL, VICTORIAN, FUTURE }
-
-public abstract class Skill : MonoBehaviour {
-
+public class Skill : MonoBehaviour {
+    public PlayerController pc;
+    public virtual void Awake() {
+        pc = GetComponentInParent<PlayerController>();
+    }
     /// <summary>
     /// Activates the skill
     /// </summary>
-    public abstract void Activate();
+    public virtual void ActivateSkill() { }
 
     /// <summary>
     /// Turns off the skill
     /// </summary>
-    public abstract void Deactivate();
+    public virtual void DeactivateSkill() { }
         
 }

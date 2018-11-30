@@ -2,48 +2,64 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Painter : Skill {
+public class Painter : Skill
+{
 
     public GameObject prefab;
     GameObject objd;
     List<GameObject> painterTrail;
-    ParticleSystem ps;
-    PlayerController pc;
-    int skillTime; 
+    ParticleSystem particlesSystem;
+    PlayerController playerController;
+    int skillTime;
+    float timePassed;
 
 
-    override public void Activate() {
-        pc = GetComponent<PlayerController>();
-        ps = GetComponentInChildren<ParticleSystem>();
-        ps.gameObject.SetActive(true); //start the trail
+    override public void ActivateSkill()
+    {
+        playerController = GetComponentInParent<PlayerController>();
+        particlesSystem = GetComponent<ParticleSystem>();
+        particlesSystem.gameObject.SetActive(true); //start the trail
 
         //start caster
-        Invoke("DisablePainter",skillTime);
+        Invoke("DisablePainter", skillTime);
     }
 
-    void FixedUpdate()
+    public void Update()
     {
-        if (pc.usingSkill)
+        if (playerController.usingSkill)
         {
-            objd = Instantiate(prefab);
-            objd.layer = 11; //layer 11 = Obstacles
-            painterTrail.Add(objd);
+            DropPosition();
         }
     }
 
     //after x seconds or rpressing button of jolly skills
-    override public void Deactivate()
+    override public void DeactivateSkill()
     {
-        if (pc.usingSkill)
+        if (playerController.usingSkill)
         {
-            pc.usingSkill = false;
-            ps.gameObject.SetActive(false);
+            playerController.usingSkill = false;
+            particlesSystem.gameObject.SetActive(false);
             foreach (GameObject go in painterTrail)
                 Destroy(go);
 
             painterTrail.Clear();
         }
-        else return; 
+        else return;
     }
-  
+
+    private void DropPosition()
+    {
+        if (timePassed < 0.01f)
+            timePassed += Time.deltaTime;
+        else
+        {
+            objd = Instantiate(prefab);
+            //objd.layer = 11; //layer 11 = Obstacles
+            objd.transform.position = playerController.transform.position;
+            painterTrail.Add(objd);
+
+            Debug.Log("new painter trail " + painterTrail.Count);
+            timePassed = 0;
+        }
+    }
 }

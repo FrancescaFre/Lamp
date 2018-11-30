@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Robot : MonoBehaviour
+public class Robot : Skill
 {
 
     [Range(5, 10)]
@@ -28,7 +28,7 @@ public class Robot : MonoBehaviour
     /// <summary>
     /// Spawns the robot in front of the player
     /// </summary>
-    public void Activate()
+    public override void ActivateSkill()
     {
         transform.position = player.transform.position; // TODO
 
@@ -51,18 +51,24 @@ public class Robot : MonoBehaviour
     /// <summary>
     /// Shuts down the robot and returns control to the character
     /// </summary>
-    public void DisableRobot()
+   // public void DisableRobot()
+    public override void DeactivateSkill()
     {
-        enabled = false;
-        _cam.gameObject.SetActive(false);
-        _progress = 0f;
+        if (pc.usingSkill)
+        {
+            pc.usingSkill = false;
 
-        player.IsCasting = false;
-        player.enabled = true;
-        player.playerCamera.gameObject.SetActive(true);
+            enabled = false;
+            _cam.gameObject.SetActive(false);
+            _progress = 0f;
 
-        battery.gameObject.SetActive(false);
-        batteryProgress.fillAmount = 0;
+            player.IsCasting = false;
+            player.enabled = true;
+         //   player.playerCamera.gameObject.SetActive(true);
+
+            battery.gameObject.SetActive(false);
+            batteryProgress.fillAmount = 0;
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -96,7 +102,7 @@ public class Robot : MonoBehaviour
         batteryProgress.fillAmount += 1.0f / batteryDuration;
 
         if (_progress >= batteryDuration || Input.GetKeyDown(KeyCode.P))
-            DisableRobot();
+            DeactivateSkill();
     }
 
     /// <summary>

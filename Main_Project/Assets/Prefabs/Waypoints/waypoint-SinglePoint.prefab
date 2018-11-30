@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 135608520142732830}
   - component: {fileID: 54796073634622866}
   - component: {fileID: 114810083897379578}
+  - component: {fileID: 114007831834371668}
   m_Layer: 0
   m_Name: waypoint-SinglePoint
   m_TagString: Untagged
@@ -57,6 +58,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &114007831834371668
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1215731873283902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dbc11f661265304bb2f481115c22aaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  underALamp: 0
 --- !u!114 &114810083897379578
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -76,7 +89,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1215731873283902}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
