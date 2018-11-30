@@ -819,11 +819,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd968b195c7ad5741b1c22739752cb19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pc: {fileID: 0}
   walkSpeed: 8
   batteryDuration: 420
+  player: {fileID: 0}
+  pickable: 0
   battery: {fileID: 0}
   batteryProgress: {fileID: 0}
-  pickable: 0
 --- !u!137 &137902131902692568
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
