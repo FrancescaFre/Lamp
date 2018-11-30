@@ -139,7 +139,7 @@ public class Enemy : MonoBehaviour
         if (other.CompareTag("Player")) {
             //after a collide with a player, the enemy start his returns.
             player = null; ///WARNING!
-            Debug.Log("Player touched");
+           
             currentStatus = EnemyStatus.RETURN;
            
             if(hanselGretelGPS.Count>0)
