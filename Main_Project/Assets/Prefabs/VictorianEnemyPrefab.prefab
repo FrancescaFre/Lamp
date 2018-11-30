@@ -171,7 +171,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1953688963897732}
   m_LocalRotation: {x: -0.037105117, y: 0.95086217, z: 0.1257145, w: 0.28049996}
-  m_LocalPosition: {x: 0.38, y: 20, z: 3.55}
+  m_LocalPosition: {x: -0.7, y: 19.9, z: 4.4}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.30000016}
   m_Children:
   - {fileID: 4117736750535130}
@@ -582,7 +582,8 @@ MonoBehaviour:
   data_enemy: {fileID: 11400000, guid: a8e9a70d6258bab42a19589c0fdf2a13, type: 2}
   instant_curse: 0
   speed: 0.5
-  returnWaypointPrefab: {fileID: 0}
+  returnWaypointPrefab: {fileID: 1851448784903702, guid: fac114afe212b44468972e4fa2a267d4,
+    type: 2}
   player: {fileID: 0}
   path: {fileID: 4324646100249630, guid: e9d4a1690c5331f4fb561febb17ff979, type: 2}
   destination: {x: 0, y: 0, z: 0}
