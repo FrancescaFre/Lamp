@@ -36,13 +36,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1180277617239296}
-  m_LocalRotation: {x: 0.30070576, y: -0, z: -0, w: 0.953717}
-  m_LocalPosition: {x: 0, y: 23.25, z: -2.3999999}
+  m_LocalRotation: {x: 0.42492446, y: -0, z: -0, w: 0.9052288}
+  m_LocalPosition: {x: 0, y: 22.49, z: -3.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 35, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 50.292004, y: 0, z: 0}
 --- !u!20 &20634048570460312
 Camera:
   m_ObjectHideFlags: 1
@@ -51,8 +51,8 @@ Camera:
   m_GameObject: {fileID: 1180277617239296}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -128,12 +128,12 @@ MonoBehaviour:
       occlusionCullingAccuracy: 2
       enableTemporalReprojection: 1
       temporalReprojectionFactor: 0.9
-      resolution: {x: 160, y: 88, z: 128}
-      farClipPlaneDistance: 50
-      density: 0.8
-      anisotropy: 0.3
-      color: {r: 0.055562668, g: 0.012461156, b: 0.25, a: 1}
-      colorStrength: 0.11
+      resolution: {x: 320, y: 176, z: 128}
+      farClipPlaneDistance: 50.04
+      density: 0.2
+      anisotropy: 0
+      color: {r: 0.0070801973, g: 0, b: 0.25, a: 1}
+      colorStrength: 0
     _computeMaximumDepthComputeShader: {fileID: 7200000, guid: a5d52c8a306e8b746ab60b306575aa3e,
       type: 3}
     _processOcclusionMapShader: {fileID: 4800000, guid: b9b5b0990ea6cfa4d96c89a9c1cec3e9,

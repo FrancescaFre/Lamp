@@ -13,15 +13,23 @@ public class Painter : Skill
     int skillTime;
     float timePassed;
 
+    public void Start()
+    {
+        particlesSystem = GetComponent<ParticleSystem>();
+        particlesSystem.gameObject.SetActive(false);
+
+        playerController = GetComponentInParent<PlayerController>();
+        playerController.skill = this;
+
+        painterTrail = new List<GameObject>();
+    }
 
     override public void ActivateSkill()
     {
-        playerController = GetComponentInParent<PlayerController>();
-        particlesSystem = GetComponent<ParticleSystem>();
         particlesSystem.gameObject.SetActive(true); //start the trail
 
         //start caster
-        Invoke("DisablePainter", skillTime);
+        Invoke("DeactivateSkill", skillTime);
     }
 
     public void Update()
@@ -49,7 +57,7 @@ public class Painter : Skill
 
     private void DropPosition()
     {
-        if (timePassed < 0.01f)
+        if (timePassed < 0.1f)
             timePassed += Time.deltaTime;
         else
         {

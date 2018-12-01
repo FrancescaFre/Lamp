@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Robot : Skill
 {
-
     [Range(5, 10)]
     public float walkSpeed = 5f;
 
@@ -13,7 +12,7 @@ public class Robot : Skill
     public float batteryDuration = 420f;
     private float _progress = 0f;
 
-    public PlayerController player;
+    public PlayerController playerController;
     public bool pickable = false;
     public Image battery;
     public Image batteryProgress;
@@ -30,7 +29,7 @@ public class Robot : Skill
     /// </summary>
     public override void ActivateSkill()
     {
-        transform.position = player.transform.position; // TODO
+        transform.position = playerController.transform.position; // TODO
 
         gameObject.SetActive(true);
         enabled = true;
@@ -54,17 +53,19 @@ public class Robot : Skill
    // public void DisableRobot()
     public override void DeactivateSkill()
     {
-        if (pc.usingSkill)
+        if (playerController.usingSkill)
         {
-            pc.usingSkill = false;
+            playerController.usingSkill = false;
 
             enabled = false;
             _cam.gameObject.SetActive(false);
             _progress = 0f;
 
-            player.IsCasting = false;
-            player.enabled = true;
-         //   player.playerCamera.gameObject.SetActive(true);
+            playerController.IsCasting = false;
+            playerController.enabled = true;
+            //   player.playerCamera.gameObject.SetActive(true);
+
+            pickable = true;
 
             battery.gameObject.SetActive(false);
             batteryProgress.fillAmount = 0;
@@ -73,8 +74,10 @@ public class Robot : Skill
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject == player.gameObject)
-            pickable = true;
+        if (collision.collider.CompareTag("Player"))
+        {
+            PickUp();
+        }
     }
 
     void OnCollisionExit(Collision collision)
@@ -91,6 +94,8 @@ public class Robot : Skill
         _vert_axis = 0f;
         _cam = GetComponentInChildren<Camera>();
         _rb = GetComponent<Rigidbody>();
+        playerController = GetComponentInParent<PlayerController>();
+        playerController.skill = this;
     }
 
     // Update is called once per frame
@@ -117,5 +122,4 @@ public class Robot : Skill
         _movement = transform.TransformDirection(_moveDir) * walkSpeed * Time.deltaTime;
         _rb.MovePosition(_rb.position + _movement);
     }
-
 }

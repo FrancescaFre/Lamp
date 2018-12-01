@@ -202,7 +202,6 @@ public class Enemy : MonoBehaviour
     }
 
     private void ChangeDirection() {
-
         if (currentStatus == EnemyStatus.WANDERING)
         {
             
@@ -231,7 +230,6 @@ public class Enemy : MonoBehaviour
             //destination -> backtrace of the hansel_gretelGPS
             if (Vector3.Distance(destination, transform.position) < 0.3f)
             {
-               
                 if (hanselGretelGPS.Count != 0 && hanselGretelGPS.Peek()!=null)
                 {
                     while (hanselGretelGPS.Peek().GetComponent<SingleWaypoint>().underALamp)
@@ -255,7 +253,6 @@ public class Enemy : MonoBehaviour
                     toDestroy = hanselGretelGPS.Peek();
                     destination = hanselGretelGPS.Pop().position;
                 }
-
             }
         }
 
