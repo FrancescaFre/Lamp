@@ -15,9 +15,9 @@ public class LampGUI : MonoBehaviour {
     public Queue<Image> enemyQueue = new Queue<Image>();
 
     private void Start() {
-        if (allyLamp == 0)// to testi in edit mode
+        if (GameManager.Instance)// to test in edit mode
             allyLamp = GameManager.Instance.levelLoaded.allyLamps;
-        if (enemyLamp == 0)
+        if (GameManager.Instance)
             enemyLamp = GameManager.Instance.levelLoaded.enemyLamps;
         for (int i = 0; i < allyLamp; i++) {
            CreateIconQueue(allyQueue, Color.white);
