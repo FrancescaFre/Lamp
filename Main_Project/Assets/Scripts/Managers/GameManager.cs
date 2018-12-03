@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour {
 
 
 
-        //ActivatePlayerX(); //called when the scene has been loaded
+        
 
     }
 
@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour {
     public void SpawnNewPlayer() {
         currentCharacter = nextChar;
         if (LastAllyLamp)
-            // CharactersList[currentCharacter].transform.position = LastAllyLamp.transform.position/* + LastAllyLamp.transform.forward */+ CharactersList[currentCharacter].transform.forward;
+            
             CharactersDict[TeamList[currentCharacter]].transform.position = LastAllyLamp.transform.position/* + LastAllyLamp.transform.forward */+ CharactersDict[TeamList[currentCharacter]].transform.forward;
         else
             CharactersDict[TeamList[currentCharacter]].transform.position = levelLoaded.entryPoint;
@@ -129,6 +129,12 @@ public class GameManager : MonoBehaviour {
             levelLoaded.enemy_L2_GO,
             levelLoaded.enemy_L3_GO
         };
+        /*
+        for (int i = 0; i < levelLoaded.enemy_L1; i++) {
+            Enemy x = levelLoaded.enemy_L1_GO.GetComponent<Enemy>();
+            x.path = levelLoaded.PathList[i].transform;
+            Instantiate(levelLoaded.enemy_L1_GO);
+        }*/
 
         ActivatePlayerX();
     }
