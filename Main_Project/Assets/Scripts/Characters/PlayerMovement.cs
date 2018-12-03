@@ -5,7 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
     //-------------------------------------------------------------------------
 
-    [Range(5,10)]
+    [Range(5, 10)]
     [Tooltip("The player's walking speed")]
     public float walkSpeed = 8f;
 
@@ -21,13 +21,18 @@ public class PlayerMovement : MonoBehaviour
 
     //-------------------------------------------------------------------------
 
+    private bool _onWater; // True if player is walking on the water / mud
+    private bool _onLeaves; // True if player is walking on the leaves / noisy terrain
+    private bool _onIce; // True if player is walking on ice
+
     private PlayerController _player; // The PlayerController attached to the player 
 
     private Rigidbody _rb; // Player's rigidbody
     private Vector3 _movement; // Direction and magnitude of the movement in a frame
+    private Vector3 _movementOnIce; // Saves the last movement direction to use it on ice
     private float _horizInput, _vertInput; // Horizontal and Vertical inputs from analog sticks
-    private float _stepSpeed; // How fast is the player. Is always equal to walkSpeed or stealthSpeed
-      
+    private float _stepSpeed; // How fast is the player. Is always equal to walkSpeed or stealthSpeed 
+
     private Vector3 _screenForward, _screenRight, _screenUp; // Screen's global axes. They can have different impact based on the camera angle on the player
     private Vector3 _dummyOffset; // The distance between the player's and the dummy's positions
 
@@ -41,7 +46,11 @@ public class PlayerMovement : MonoBehaviour
         _player = GetComponent<PlayerController>();
         _rb = GetComponent<Rigidbody>();
         _movement = Vector3.zero;
+        _movementOnIce = Vector3.zero;
         _stepSpeed = walkSpeed;
+        _onWater = false;
+        _onLeaves = false;
+        _onIce = false;
         _dummyOffset = dummyPlayer.transform.position - transform.position;
         StartCoroutine(CorrectPlayerPositions());
         StartCoroutine(CorrectPlayerRotation());
@@ -49,15 +58,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_vertInput == 0 && _horizInput == 0)
+        if (_vertInput == 0 && _horizInput == 0 && !_onIce)
             return;
         else if (_player.CanMove())
         {
             CheckStealth();
+            if (_onWater || _onLeaves)
+                CheckTerrain();
             ComputeCamAxes();
             MovePlayer();
         }
-            
     }
 
     private void Update()
@@ -65,7 +75,31 @@ public class PlayerMovement : MonoBehaviour
         _horizInput = Input.GetAxis("Horizontal");
         _vertInput = Input.GetAxis("Vertical");
     }
-    
+
+    private void OnTriggerEnter(Collider terrain)
+    {
+        if (terrain.CompareTag("Water")) // If player entered in a water / mud pond
+            _onWater = true;
+
+        if (terrain.CompareTag("Leaves")) // If player is walking on a noisy terrain
+            _onLeaves = true;
+
+        if (terrain.CompareTag("Ice")) // If player is walking on ice
+            _onIce = true;
+    }
+
+    private void OnTriggerExit(Collider terrain)
+    {
+        if (terrain.CompareTag("Water")) // If player entered in a water / mud pond
+            _onWater = false;
+
+        if (terrain.CompareTag("Leaves")) // If player is walking on a noisy terrain
+            _onLeaves = false;
+
+        if (terrain.CompareTag("Ice")) // If player is walking on ice
+            _onIce = false;
+    }
+
     // USE THIS OR CorrectPlayerRotation() TO ROTATE THE PLAYER
     /*
     private void LateUpdate()
@@ -95,7 +129,18 @@ public class PlayerMovement : MonoBehaviour
             _player.isSneaking = false;
         }
     }
-    
+
+    /// <summary>
+    /// Checks if the player is walking on a particular terrain
+    /// </summary>
+    private void CheckTerrain()
+    {
+        if (_onWater)
+            _stepSpeed = stealthSpeed / 2f; // On the water, the player is slowed
+        else // _onLeaves
+            _player.isSneaking = false; // On the leaves, the player is noisy 
+    }
+
     /// <summary>
     /// Sets up the global screen axes with those of the DUMMY CAMERA
     /// </summary>
@@ -111,13 +156,17 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void MovePlayer()
     {
-        if (_vertInput > 0) // Pressing ↓ made the player literally jump backwards (so it's needed the _screenUp variable)
+        if (_onIce) // When walking on ice, there's no need to compute input's direction
+            _movement = _movementOnIce;
+        else if (_vertInput > 0) // Pressing ↓ made the player literally jump backwards (so it's needed the _screenUp variable)
             _movement = (_screenForward * _vertInput + _screenRight * _horizInput).normalized * _stepSpeed * Time.deltaTime; // Takes camera axes to correct the direction
         else
             _movement = (_screenUp * _vertInput + _screenRight * _horizInput).normalized * _stepSpeed * Time.deltaTime; // Same, but using _screenUp to go backwards correctly
 
         _rb.MovePosition(_rb.position + _movement); // Moves the player's rigidbody through physics
-        dummyPlayer.gameObject.GetComponent<Rigidbody>().MovePosition(dummyPlayer.gameObject.GetComponent<Rigidbody>().position + _movement); // Moves the dummy as well      
+        dummyPlayer.gameObject.GetComponent<Rigidbody>().MovePosition(dummyPlayer.gameObject.GetComponent<Rigidbody>().position + _movement); // Moves the dummy as well 
+
+        _movementOnIce = _movement; // Stores the movement direction to be used on ice
     }
 
     //-------------------------------------------------------------------------
@@ -137,7 +186,7 @@ public class PlayerMovement : MonoBehaviour
                 dummyPlayer.transform.position = transform.position + _dummyOffset; // More adjustments, but the player can now do the fuck it wants with its transform
             }
             yield return new WaitForFixedUpdate();
-        }       
+        }
     }
 
     /// <summary>
