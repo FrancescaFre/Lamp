@@ -22,12 +22,9 @@ public class Enemy : MonoBehaviour
 
     //---Cone of view parameters
     float cov_distance_wander;
-    float cov_distance_seek;
-    float cov_distance_search;
 
     float cov_angle_wander;
-    float cov_angle_seek;
-    float cov_angle_search;
+
 
     //---AI
     [Header("AI Variables")]
@@ -71,13 +68,9 @@ public class Enemy : MonoBehaviour
         speed = data_enemy.speed;
 
         cov_distance_wander = data_enemy.cov_distance_wander;
-        cov_distance_search = data_enemy.cov_distance_search;
-        cov_distance_seek = data_enemy.cov_distance_seek;
-
+        
         cov_angle_wander = data_enemy.cov_angle_wander;
-        cov_angle_search = data_enemy.cov_angle_search;
-        cov_angle_seek = data_enemy.cov_angle_seek;
-
+       
         stop_search_after_x_seconds = data_enemy.stop_search_after_x_seconds;
 
         currentStatus = data_enemy.enemy_initial_status;
