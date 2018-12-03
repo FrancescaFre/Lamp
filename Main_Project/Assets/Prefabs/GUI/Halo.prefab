@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198998976822543586}
   - component: {fileID: 199940948158106432}
   - component: {fileID: 222018751269190048}
-  - component: {fileID: 114996398877279014}
+  - component: {fileID: 114253526517843366}
   m_Layer: 5
   m_Name: Halo
   m_TagString: Untagged
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 198617636304006786}
   - component: {fileID: 199366632226842690}
   - component: {fileID: 222972682421330106}
-  - component: {fileID: 114890767925393754}
+  - component: {fileID: 114496405426735218}
   m_Layer: 5
   m_Name: Circle
   m_TagString: Untagged
@@ -49,18 +49,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &114890767925393754
+--- !u!114 &114253526517843366
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1290536995443242}
+  m_GameObject: {fileID: 1024891521478472}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2be204e84711f0f4ba1509d6c8df6cbe, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c04f36f25a2516428b3b46afecb48f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 937361ad77ac22e4c9527ff4b17b979b, type: 2}
+  m_Material: {fileID: 2100000, guid: 0b7a886e32cdf8c428133ae5267aca03, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
@@ -69,18 +69,18 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   fixedTime: 1
---- !u!114 &114996398877279014
+--- !u!114 &114496405426735218
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1024891521478472}
+  m_GameObject: {fileID: 1290536995443242}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2be204e84711f0f4ba1509d6c8df6cbe, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c04f36f25a2516428b3b46afecb48f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: cc021b0525f7cdb4cb10e42bc233aaad, type: 2}
+  m_Material: {fileID: 2100000, guid: a286b6a86550d364888b76b089ef80d9, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
@@ -1240,7 +1240,7 @@ ParticleSystem:
     curve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.7853981
+      scalar: 1.0471976
       minScalar: 0.7853982
       maxCurve:
         serializedVersion: 2
@@ -9162,7 +9162,7 @@ ParticleSystemRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1290536995443242}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -9171,7 +9171,7 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 937361ad77ac22e4c9527ff4b17b979b, type: 2}
+  - {fileID: 2100000, guid: a286b6a86550d364888b76b089ef80d9, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -9219,7 +9219,7 @@ ParticleSystemRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1024891521478472}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -9228,7 +9228,7 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: cc021b0525f7cdb4cb10e42bc233aaad, type: 2}
+  - {fileID: 2100000, guid: 0b7a886e32cdf8c428133ae5267aca03, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
