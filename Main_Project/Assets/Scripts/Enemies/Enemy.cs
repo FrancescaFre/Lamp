@@ -90,15 +90,9 @@ public class Enemy : MonoBehaviour
 
         pathIndex = 0;
         //destination = wanderPath[pathIndex].position;
-        for (int i = 0; i < path.childCount; i++)
-        {
-            DestroyImmediate (path.GetChild(i).transform.GetComponent<GravityBody>(), true);
-            DestroyImmediate (path.GetChild(i).transform.GetComponent<Rigidbody>(), true);
-        }
-
         destination = path.GetChild(0).position;
-
-
+        rb.position = destination;
+       
         hanselGretelGPS = new Stack<Transform>();
     }
 
@@ -120,7 +114,6 @@ public class Enemy : MonoBehaviour
         dirY = Vector3.ProjectOnPlane(destination - this.transform.position, transform.up);
         //Debug.DrawLine(this.transform.position, this.transform.position + dirY * 10f, Color.red);
        transform.LookAt(transform.position + dirY, transform.up);
-
     }
 
 
