@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour {
     public static GameManager Instance = null;
     public Level_SO levelLoaded;
     public LampBehaviour LastAllyLamp = null; //last lamp turned on
-
-
+    [Header("HUD of the lamps")]
+    public LampGUI lampGUI;
     #region  GameObjects
 
     [Header("Prefabs of the Enemies")]
@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour {
         if (!Instance) {
             Instance = this;
             DontDestroyOnLoad(Instance);
+            DontDestroyOnLoad(EventSystem.current);
         }
 
         SceneManager.sceneLoaded += OnSceneLoaded;  // add a delegate to be run everytime a scene is loaded
@@ -119,7 +120,7 @@ public class GameManager : MonoBehaviour {
     public void StartGame() {//Prologue
        
         CharactersList = new List<PlayerController>(FindObjectsOfType<PlayerController>());
- 
+        
         for (int i = 0; i < CharactersList.Count; i++) {
             Debug.Log(CharactersList[i].CharacterPeriod.ToString());
             CharactersDict[CharactersList[i].CharacterPeriod] = CharactersList[i];
@@ -135,11 +136,12 @@ public class GameManager : MonoBehaviour {
             x.path = levelLoaded.PathList[i].transform;
             Instantiate(levelLoaded.enemy_L1_GO);
         }*/
-
+        lampGUI = FindObjectOfType<LampGUI>();
         ActivatePlayerX();
     }
     public void EndGame() {//epilogue
 
+        lampGUI = null;
         levelLoaded = null;
         TeamList = null;
         currentCharacter = 0;

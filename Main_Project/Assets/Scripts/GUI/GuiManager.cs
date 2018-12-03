@@ -6,14 +6,12 @@ using UnityEngine.UI;
 
 public class GUIManager : MonoBehaviour {
     public static GUIManager GUIInstance;
-    public EventSystem eSystem;
-    [Header("Menu list")]
 
+    [Header("Menu list")]
     public GameObject Galaxies;
     public GameObject Characters;
 
     [Header("First selected object in each menu")]
-
     public GameObject firstSelectedGalaxy;
     public GameObject firstSelectedCharacter;
 
@@ -34,8 +32,8 @@ public class GUIManager : MonoBehaviour {
 
         Galaxies.SetActive(true);
         Characters.SetActive(false);
-        eSystem = FindObjectOfType<EventSystem>();
-        eSystem.SetSelectedGameObject(firstSelectedGalaxy, null);
+        
+        EventSystem.current.SetSelectedGameObject(firstSelectedGalaxy, null);
 
     }
 
@@ -54,7 +52,7 @@ public class GUIManager : MonoBehaviour {
     private void DelayNextButton() {
         Galaxies.SetActive(false);
         Characters.SetActive(true);
-        eSystem.SetSelectedGameObject(firstSelectedCharacter, null);
+        EventSystem.current.SetSelectedGameObject(firstSelectedCharacter, null);
     }
 
     public void CheckSelectedTeam() {
@@ -70,6 +68,6 @@ public class GUIManager : MonoBehaviour {
 
         Characters.SetActive(false);
         Galaxies.SetActive(true);
-        eSystem.SetSelectedGameObject(firstSelectedGalaxy, null);
+        EventSystem.current.SetSelectedGameObject(firstSelectedGalaxy, null);
     }
 }

@@ -66,10 +66,11 @@ public class LampBehaviour : MonoBehaviour {
 
         gameObject.layer = 11; //obstacle layer
         GameManager.Instance.levelLoaded.allyLamps--;
+        GameManager.Instance.lampGUI.DequeueAlly();
         if (GameManager.Instance.levelLoaded.allyLamps == 0) {
 
             //TODO crate a canvas as win condition
-            GameManager.Instance.EndGame();
+           Invoke( "GameManager.Instance.EndGame",10);
         }
         GameManager.Instance.LastAllyLamp = this;   //if the character dies, the next one will be spawned here
     }
@@ -80,7 +81,10 @@ public class LampBehaviour : MonoBehaviour {
             lightBulb[i].gameObject.SetActive(false);
             auraLight[i].enabled = false;
             Debug.Log("off: " + lightBulb[i].gameObject.name);
-            GameManager.Instance.levelLoaded.enemyLamps--;
+            
         }
+        GameManager.Instance.levelLoaded.enemyLamps--;
+        GameManager.Instance.lampGUI.DequeueAlly();
+
     }
 }

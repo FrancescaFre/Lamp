@@ -29,7 +29,7 @@ public class PlanetGUI : BaseButtonGUI {
         
         GameManager.Instance.levelLoaded = planetLevel;
         GUIManager.GUIInstance.nextButton.interactable = true;
-        GUIManager.GUIInstance.eSystem.SetSelectedGameObject(GUIManager.GUIInstance.nextButton.gameObject);
+        EventSystem.current.SetSelectedGameObject(GUIManager.GUIInstance.nextButton.gameObject);
         this.haloParticle.SetActive(true);
     }
     #region Event Handlers
@@ -58,7 +58,7 @@ public class PlanetGUI : BaseButtonGUI {
         GameManager.Instance.levelLoaded = null;
         GUIManager.GUIInstance.nextButton.interactable = false;
         descriptionGUIPanel.DescriptionPanel.SetActive(false);
-        GUIManager.GUIInstance.eSystem.SetSelectedGameObject(transform.parent.parent.gameObject, null);
+        EventSystem.current.SetSelectedGameObject(transform.parent.parent.gameObject, null);
      
         ///switch off all the halos of the planets
         for (int i = 0; i < this.haloParticle.transform.parent.childCount; i++) {
