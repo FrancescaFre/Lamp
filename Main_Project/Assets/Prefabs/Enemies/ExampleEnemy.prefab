@@ -745,19 +745,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data_enemy: {fileID: 11400000, guid: a8e9a70d6258bab42a19589c0fdf2a13, type: 2}
+  instant_curse: 0
   speed: 0.5
-  wanderPath:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  returnWaypointPrefab: {fileID: 0}
+  player: {fileID: 0}
   path: {fileID: 4324646100249630, guid: e9d4a1690c5331f4fb561febb17ff979, type: 2}
-  agent: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}
   pathIndex: 0
   currentStatus: 0
+  pathIndexReturn: 0
 --- !u!114 &114468711928544268
 MonoBehaviour:
   m_ObjectHideFlags: 1
