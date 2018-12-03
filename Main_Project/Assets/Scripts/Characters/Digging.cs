@@ -50,6 +50,7 @@ public class Digging : MonoBehaviour {
         // After digging
         StopDig();
         player.IsCasting = false;
+        player.digCount--;
 
     }
 

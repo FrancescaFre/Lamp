@@ -115,10 +115,7 @@ public class GameManager : MonoBehaviour {
 
        
     }
-    private void FixedUpdate() {
-        if (Input.GetKeyDown(KeyCode.L))
-            EndGame();
-    }
+
     public void StartGame() {//Prologue
        
         CharactersList = new List<PlayerController>(FindObjectsOfType<PlayerController>());

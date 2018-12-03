@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour {
     public CamManager MainCamera { get; set; }
  
     private Digging _dig;
+    public int digCount = 2;
     
     public bool usingSkill=false;
     public bool isSneaking = false;
@@ -206,10 +207,12 @@ public class PlayerController : MonoBehaviour {
         if (!IsCasting)
         {
             if ((Input.GetKeyDown(KeyCode.Alpha2) || Input.GetButtonDown("PS4_Button_Triangle")) && !IsZoneDigging) // [LDIG]
-                _dig.LinearDig();
+                if (digCount > 0)
+                    _dig.LinearDig();
 
             if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetButtonDown("PS4_Button_Square")) // [ZDIG]
-                _dig.ZoneDig();
+                if (digCount > 0)
+                    _dig.ZoneDig();
         }
     }
 }
