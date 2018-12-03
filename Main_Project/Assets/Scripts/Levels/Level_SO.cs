@@ -16,6 +16,7 @@ public class Level_SO : ScriptableObject {
     public int enemy_L1;
     public int enemy_L2;
     public int enemy_L3;
+    public List<GameObject> PathList;
     [Header("GameObject of each enemy type")]
     public GameObject enemy_L1_GO;
     public GameObject enemy_L2_GO;

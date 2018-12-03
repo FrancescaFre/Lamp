@@ -66,6 +66,11 @@ public class LampBehaviour : MonoBehaviour {
 
         gameObject.layer = 11; //obstacle layer
         GameManager.Instance.levelLoaded.allyLamps--;
+        if (GameManager.Instance.levelLoaded.allyLamps == 0) {
+
+            //TODO crate a canvas as win condition
+            GameManager.Instance.EndGame();
+        }
         GameManager.Instance.LastAllyLamp = this;   //if the character dies, the next one will be spawned here
     }
 
