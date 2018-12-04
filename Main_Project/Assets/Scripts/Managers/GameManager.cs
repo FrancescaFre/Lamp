@@ -12,11 +12,15 @@ public class GameManager : MonoBehaviour {
     public LampGUI lampGUI;
     #region  GameObjects
 
-    [Header("Prefabs of the Enemies")]
+    [Header(" Enemies")]
     public List<GameObject> enemies;
+    public int howManySeeing = 0;
+    public int howManyHearing = 0;
 
-    [Header("Prefabs of the Characters")]
+
+    [Header(" Characters")]
     public List<PlayerController> CharactersList = new List<PlayerController>();   //the gameobject that are present in the scene
+    public PlayerController currentPC;
     public int currentCharacter = 0;
     public int nextChar = 1;    //the 0 is the starting player
     public List<CharPeriod> TeamList;
@@ -56,14 +60,18 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     public void ActivatePlayerX() {
 
-        for (int i = 0; i < TeamList.Count; i++)
+        for (int i = 0; i < TeamList.Count; i++) {
             CharactersDict[TeamList[i]].gameObject.SetActive(i == currentCharacter);
 
+        }
 
+        currentPC = CharactersDict[TeamList[currentCharacter]];
 
         nextChar = currentCharacter < TeamList.Count ? currentCharacter + 1 : -1;
-        if (nextChar == -1)
+        if (nextChar == -1) {
             Debug.Log("gameover");
+            
+        }
 
 
     }
@@ -136,11 +144,11 @@ public class GameManager : MonoBehaviour {
             x.path = levelLoaded.PathList[i].transform;
             Instantiate(levelLoaded.enemy_L1_GO);
         }*/
-        lampGUI = FindObjectOfType<LampGUI>();
+        //lampGUI = FindObjectOfType<LampGUI>();
         ActivatePlayerX();
     }
     public void EndGame() {//epilogue
-
+        currentPC = null;
         lampGUI = null;
         levelLoaded = null;
         TeamList = null;

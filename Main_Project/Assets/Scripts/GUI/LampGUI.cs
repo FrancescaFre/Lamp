@@ -15,6 +15,8 @@ public class LampGUI : MonoBehaviour {
     public Queue<Image> enemyQueue = new Queue<Image>();
 
     private void Start() {
+        if (!GameManager.Instance.lampGUI)
+            GameManager.Instance.lampGUI = this;
         if (GameManager.Instance)// to test in edit mode
             allyLamp = GameManager.Instance.levelLoaded.allyLamps;
         if (GameManager.Instance)
@@ -42,13 +44,7 @@ public class LampGUI : MonoBehaviour {
         
 
     }
-    private void FixedUpdate() {
-        if (Input.GetKeyDown(KeyCode.M))
-            DequeueAlly();
-        if (Input.GetKeyDown(KeyCode.N))
-            DequeueEnemy();
-        
-    }
+
     public  void DequeueAlly() {
         OnDequeue(allyQueue, Color.yellow);
     }
