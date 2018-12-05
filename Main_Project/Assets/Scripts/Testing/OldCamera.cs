@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CameraManager : MonoBehaviour {//http://youtu.be/MFQhpwc6cKE
+public class OldCamera : MonoBehaviour {//http://youtu.be/MFQhpwc6cKE
     public Transform playerModel;// the model of the player, NOT the pivot
     public Transform planetModel;
 

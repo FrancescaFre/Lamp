@@ -16,12 +16,17 @@ public class Lantern : MonoBehaviour
     void Start()
     {
         _player = FindObjectOfType<PlayerController>();
-        _picked = false;
-        lanternGauge.gameObject.SetActive(true);
+        _picked = false; 
     }
 
     void Update()
     {
+        if (!_picked)
+        {
+            transform.position = transform.position + transform.up * Mathf.Sin(Time.time * 2f) * Time.deltaTime * 0.3f;
+            return;
+        }
+
         _progress++;
         lanternProgress.fillAmount += 1.0f / lightDuration;
 
@@ -36,11 +41,27 @@ public class Lantern : MonoBehaviour
     void OnCollisionEnter(Collision player)
     {
         if (!_picked && player.collider.CompareTag("Player"))
-        {
-            transform.SetParent(_player.transform);
-            transform.localPosition = new Vector3(0.5f, -0.5f, 0.5f);
-            transform.localScale = new Vector3(2, 2, 2);
-            Destroy(gameObject);
-        }
+            PickUp();
+    }
+
+    private void PickUp()
+    {
+        _picked = true;
+        _player.Lantern = this;
+        gameObject.SetActive(false);
+        Destroy(GetComponentInChildren<ParticleSystem>().gameObject);
+    }
+
+    public void Use()
+    {
+        transform.SetParent(_player.transform);
+        transform.localPosition = new Vector3(0.5f, -0.5f, 0.5f);
+        transform.rotation = _player.transform.rotation;
+        transform.localScale = new Vector3(2, 2, 2);
+
+        GetComponentInChildren<SphereCollider>().enabled = true;
+        GetComponentInChildren<Light>(includeInactive: true).gameObject.SetActive(true);
+        lanternGauge.gameObject.SetActive(true);
+        gameObject.SetActive(true);
     }
 }
