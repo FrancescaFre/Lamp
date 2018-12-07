@@ -187,8 +187,9 @@ public class PlayerController : MonoBehaviour {
             Debug.Log("lamp_switch");
             LampBehaviour lamp = other.GetComponentInParent<LampBehaviour>();
             Debug.Log("lamp_switch: ON "+lamp.transform.position);
-            if (lamp.isEnemyLamp && lamp.isTurnedOn) { //if it is an enemy lamp AND it is turned on
-                lamp.SwitchOffEnemyLamp();
+            if (lamp.isEnemyLamp  ) { //if it is an enemy lamp AND it is turned on
+                if(lamp.isTurnedOn)
+                    lamp.SwitchOffEnemyLamp();
                 return;
             }
             
@@ -196,7 +197,7 @@ public class PlayerController : MonoBehaviour {
                 lamp.hasMissingPart = false;
                 _missingParts--;
             }
-            else if (lamp.hasMissingPart) return;   //if the lamp is missing the light bulb 
+           
 
             if (IsMimicOrDash) return;
             if (lamp.isTurnedOn) return;    //if the lamp is already turned on, exit
