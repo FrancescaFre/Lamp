@@ -13,14 +13,14 @@ public class InGameHUD : MonoBehaviour {
 
     private void Start() {
         pManager = GetComponent<PauseManagerGUI>();
-       
+        InGameHUDPanel = lampHUDPanel.transform.parent.gameObject;
         lampHUDPanel.gameObject.SetActive(false);
     }
 
     private void FixedUpdate() {
         InGameHUDPanel.SetActive(!pManager.PausePanel.activeInHierarchy);   // mutual exclusion
 
-        if (Input.GetAxis("PS4_DPad_Y")>0 || Input.GetKeyDown(KeyCode.I)) {
+        if (Input.GetAxis("PS4_DPad_Y") > 0 || Input.GetKeyDown(KeyCode.I)) {
             lampHUDPanel.gameObject.SetActive(!lampHUDPanel.gameObject.activeInHierarchy);
         }
     }

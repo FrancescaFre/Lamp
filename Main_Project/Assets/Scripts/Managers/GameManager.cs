@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour {
     public LampHUD lampHUD;
     public int allyLamps;
     public int enemyLamps;
-    
+
     #region  GameObjects
 
     [Header("Enemies")]
@@ -49,11 +49,11 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Start() {
         items = new Dictionary<string, int>(6);
-        
 
 
 
-        
+
+
 
     }
 
@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour {
         nextChar = currentCharacter < TeamList.Count ? currentCharacter + 1 : -1;
         if (nextChar == -1) {
             Debug.Log("gameover");
-            
+
         }
 
 
@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour {
     public void SpawnNewPlayer() {
         currentCharacter = nextChar;
         if (LastAllyLamp)
-            
+
             CharactersDict[TeamList[currentCharacter]].transform.position = LastAllyLamp.transform.position/* + LastAllyLamp.transform.forward */+ CharactersDict[TeamList[currentCharacter]].transform.forward;
         else
             CharactersDict[TeamList[currentCharacter]].transform.position = levelLoaded.entryPoint;
@@ -126,11 +126,11 @@ public class GameManager : MonoBehaviour {
         SceneManager.LoadScene(levelLoaded.name);
 
 
-       
+
     }
 
     public void StartGame() {//Prologue
-       
+
         CharactersList = new List<PlayerController>(FindObjectsOfType<PlayerController>());
         CharactersDict = new Dictionary<CharPeriod, PlayerController>();
 
@@ -169,7 +169,7 @@ public class GameManager : MonoBehaviour {
 
     }
 
-     public void SpawnNewEnemy(int enemyLevel, Vector3 playerPosition, Transform enemyPath) {
+    public void SpawnNewEnemy(int enemyLevel, Vector3 playerPosition, Transform enemyPath) {
         Debug.Log("create the enemy ");
         GameObject enemyGO = enemiyGOList[enemyLevel]; //the levels are [1,3]
         enemyGO.GetComponent<Rigidbody>().position = playerPosition;
@@ -181,7 +181,7 @@ public class GameManager : MonoBehaviour {
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        if (scene.buildIndex<2 ) return;
+        if (scene.buildIndex < 2) return;
         Debug.Log("OnSceneLoaded: " + scene.name);
         StartGame();
     }
