@@ -10,9 +10,12 @@ public class GameManager : MonoBehaviour {
     public LampBehaviour LastAllyLamp = null; //last lamp turned on
     [Header("HUD of the lamps")]
     public LampGUI lampGUI;
+    public int allyLamps;
+    public int enemyLamps;
+    
     #region  GameObjects
 
-    [Header(" Enemies")]
+    [Header("Enemies")]
     public List<GameObject> enemies;
     public int howManySeeing = 0;
     public int howManyHearing = 0;
@@ -45,7 +48,7 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Start() {
         items = new Dictionary<string, int>(6);
-        CharactersDict = new Dictionary<CharPeriod, PlayerController>();
+        
 
 
 
@@ -128,7 +131,10 @@ public class GameManager : MonoBehaviour {
     public void StartGame() {//Prologue
        
         CharactersList = new List<PlayerController>(FindObjectsOfType<PlayerController>());
-        
+        CharactersDict = new Dictionary<CharPeriod, PlayerController>();
+
+        this.allyLamps = levelLoaded.allyLamps;
+        this.enemyLamps = levelLoaded.enemyLamps;
         for (int i = 0; i < CharactersList.Count; i++) {
             Debug.Log(CharactersList[i].CharacterPeriod.ToString());
             CharactersDict[CharactersList[i].CharacterPeriod] = CharactersList[i];

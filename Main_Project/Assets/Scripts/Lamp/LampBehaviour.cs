@@ -10,7 +10,7 @@ public class LampBehaviour : MonoBehaviour {
     [Header("Lamp Properties")]
     public bool isEnemyLamp = false;
     public bool isTurnedOn = false;
-
+    
     /// <summary>
     /// True if the lamp is missing a part.
     /// </summary>
@@ -23,9 +23,16 @@ public class LampBehaviour : MonoBehaviour {
           
 
         allColliders = GetComponentsInChildren<Collider>();
-
+        isTurnedOn = isEnemyLamp;
         for (int i = 0; i < lightBulb.Length; i++) {
-            lightBulb[i].gameObject.SetActive(false);
+            if (isEnemyLamp) 
+
+                lightBulb[i].color = GameManager.Instance.levelLoaded.enemyColor;
+            
+            else
+                lightBulb[i].color = GameManager.Instance.levelLoaded.allyColor;
+
+            lightBulb[i].gameObject.SetActive(isTurnedOn);
             auraLight[i].enabled = true;
         }
 
@@ -39,7 +46,8 @@ public class LampBehaviour : MonoBehaviour {
 
         }
 
-        isTurnedOn = isEnemyLamp;
+
+        
     }
 	
 	// Update is called once per frame
@@ -49,7 +57,7 @@ public class LampBehaviour : MonoBehaviour {
 
 
     public void SwitchOnAllyLamp() { //you cant turn on a lamp if there are any enemy lamp turned on
-        if (hasMissingPart && GameManager.Instance.levelLoaded.enemyLamps > 0) return;
+        if (hasMissingPart || GameManager.Instance.enemyLamps > 0) return;
 
         for (int i = 0; i < lightBulb.Length; i++) {
             lightBulb[i].gameObject.SetActive(true);
@@ -65,7 +73,7 @@ public class LampBehaviour : MonoBehaviour {
         isTurnedOn = true;
 
         gameObject.layer = 11; //obstacle layer
-        GameManager.Instance.levelLoaded.allyLamps--;
+        GameManager.Instance.allyLamps--;
         GameManager.Instance.lampGUI.DequeueAlly();
         if (GameManager.Instance.levelLoaded.allyLamps == 0) {
 
@@ -83,8 +91,8 @@ public class LampBehaviour : MonoBehaviour {
             Debug.Log("off: " + lightBulb[i].gameObject.name);
             
         }
-        GameManager.Instance.levelLoaded.enemyLamps--;
-        GameManager.Instance.lampGUI.DequeueAlly();
+        GameManager.Instance.enemyLamps--;
+        GameManager.Instance.lampGUI.DequeueEnemy();
 
     }
 }
