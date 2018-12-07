@@ -159,18 +159,13 @@ public class PlayerController : MonoBehaviour {
             if (CurseStatus == Status.NORMAL && !touchedEnemy.data_enemy.instant_curse)
             {
                 CurseStatus = Status.HALF_CURSED;
+                TeamHUD.Instance.HalfCurse();
                 Debug.Log("after " + CurseStatus);
                 return;
             }
-            Debug.Log("create the enemy ");
-            //if the enemy can curse the character instantly
-            GameObject enemyGO = GameManager.Instance.enemies[touchedEnemy.data_enemy.level - 1]; //the levels are [1,3]
-            enemyGO.GetComponent<Rigidbody>().position = _rb.position;
 
-            enemyGO.GetComponent<Enemy>().path = touchedEnemy.path;
+            GameManager.Instance.SpawnNewEnemy(touchedEnemy.data_enemy.level - 1, _rb.position, touchedEnemy.path);
 
-            GameManager.Instance.SpawnNewPlayer(); //destroys the character
-            Instantiate<GameObject>(enemyGO);//creates the enemy instead
         }
     }
 

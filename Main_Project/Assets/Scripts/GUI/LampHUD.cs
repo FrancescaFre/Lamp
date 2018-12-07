@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LampGUI : MonoBehaviour {
+public class LampHUD : MonoBehaviour {
 
     public GameObject IconPrefab;
     [Header("Good lamp Icons")]
@@ -14,9 +14,13 @@ public class LampGUI : MonoBehaviour {
     public int enemyLamp;
     public Queue<Image> enemyQueue = new Queue<Image>();
 
+    private void Awake() {
+        GetComponentInParent<PauseManagerGUI>().lampHUDPanel = this;
+        GetComponentInParent<InGameHUD>().lampHUDPanel = this;
+    }
     private void Start() {
-        if (!GameManager.Instance.lampGUI)
-            GameManager.Instance.lampGUI = this;
+        if (!GameManager.Instance.lampHUD)
+            GameManager.Instance.lampHUD = this;
         if (GameManager.Instance)// to test in edit mode
             allyLamp = GameManager.Instance.levelLoaded.allyLamps;
         if (GameManager.Instance)
@@ -25,6 +29,8 @@ public class LampGUI : MonoBehaviour {
            CreateIconQueue(allyQueue, Color.white);
           
         }
+
+        
 
         for (int i = 0; i < enemyLamp; i++) {
              CreateIconQueue(enemyQueue, Color.magenta);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class VisibleGUI : MonoBehaviour {
+public class VisibleHUD : MonoBehaviour {
 
     public Sprite Safe;
     public Sprite Seen;

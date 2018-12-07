@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -9,14 +10,14 @@ public class GameManager : MonoBehaviour {
     public Level_SO levelLoaded;
     public LampBehaviour LastAllyLamp = null; //last lamp turned on
     [Header("HUD of the lamps")]
-    public LampGUI lampGUI;
+    public LampHUD lampHUD;
     public int allyLamps;
     public int enemyLamps;
     
     #region  GameObjects
 
     [Header("Enemies")]
-    public List<GameObject> enemies;
+    public List<GameObject> enemiyGOList;
     public int howManySeeing = 0;
     public int howManyHearing = 0;
 
@@ -139,7 +140,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log(CharactersList[i].CharacterPeriod.ToString());
             CharactersDict[CharactersList[i].CharacterPeriod] = CharactersList[i];
         }
-        enemies = new List<GameObject>() {
+        enemiyGOList = new List<GameObject>() {
             levelLoaded.enemy_L1_GO,
             levelLoaded.enemy_L2_GO,
             levelLoaded.enemy_L3_GO
@@ -155,17 +156,28 @@ public class GameManager : MonoBehaviour {
     }
     public void EndGame() {//epilogue
         currentPC = null;
-        lampGUI = null;
+        lampHUD = null;
         levelLoaded = null;
         TeamList = null;
         currentCharacter = 0;
         nextChar = 1;
-        enemies.Clear();
+        enemiyGOList.Clear();
         CharactersDict.Clear();
         CharactersList.Clear();
         SceneManager.LoadScene("1_GameMenu");//which has index 1
 
 
+    }
+
+     public void SpawnNewEnemy(int enemyLevel, Vector3 playerPosition, Transform enemyPath) {
+        Debug.Log("create the enemy ");
+        GameObject enemyGO = enemiyGOList[enemyLevel]; //the levels are [1,3]
+        enemyGO.GetComponent<Rigidbody>().position = playerPosition;
+
+        enemyGO.GetComponent<Enemy>().path = enemyPath;
+        TeamHUD.Instance.Curse();
+        SpawnNewPlayer(); //destroys the character
+        Instantiate<GameObject>(enemyGO);//creates the enemy instead
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
