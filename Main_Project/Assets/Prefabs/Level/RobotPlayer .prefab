@@ -345,7 +345,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1859885774158550
 GameObject:
   m_ObjectHideFlags: 1
@@ -1083,13 +1083,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6462bdeb75922b40a5133b2a99e0b8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
   digYes: {fileID: 2100000, guid: a3827f10b46ed464b82b64db37f8a1ad, type: 2}
   digNo: {fileID: 2100000, guid: 30eeca49f9f277244af8997a80685650, type: 2}
-  caster: {fileID: 0}
   player: {fileID: 114912532184932624}
-  prefabToSpawn: {fileID: 4996178644466072, guid: a6986ec8d836a02489d419e6d5b12291,
-    type: 2}
+  castingTime: 0
+  caster: {fileID: 0}
+  bar: {fileID: 0}
 --- !u!114 &114912532184932624
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1102,9 +1101,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterPeriod: 0
+  skill: {fileID: 0}
+  digCount: 2
   usingSkill: 0
   isSneaking: 0
-  skill: {fileID: 0}
 --- !u!136 &136815678339286342
 CapsuleCollider:
   m_ObjectHideFlags: 1
