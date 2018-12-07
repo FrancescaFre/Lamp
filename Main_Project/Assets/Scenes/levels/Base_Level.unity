@@ -210,10 +210,75 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 224690967131885224, guid: 0ec04fd2ab18d7241ac558e5d7e2df82,
+    - target: {fileID: 114022831244803016, guid: 0ec04fd2ab18d7241ac558e5d7e2df82,
         type: 2}
-      propertyPath: m_AnchoredPosition.x
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114022831244803016, guid: 0ec04fd2ab18d7241ac558e5d7e2df82,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114351294767254006, guid: 0ec04fd2ab18d7241ac558e5d7e2df82,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114351294767254006, guid: 0ec04fd2ab18d7241ac558e5d7e2df82,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114724037770765604, guid: 0ec04fd2ab18d7241ac558e5d7e2df82,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114724037770765604, guid: 0ec04fd2ab18d7241ac558e5d7e2df82,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114306130297036576, guid: 0ec04fd2ab18d7241ac558e5d7e2df82,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114306130297036576, guid: 0ec04fd2ab18d7241ac558e5d7e2df82,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114587734234120402, guid: 0ec04fd2ab18d7241ac558e5d7e2df82,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114587734234120402, guid: 0ec04fd2ab18d7241ac558e5d7e2df82,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114592112149121382, guid: 0ec04fd2ab18d7241ac558e5d7e2df82,
+        type: 2}
+      propertyPath: teamCount
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114949128495725970, guid: 0ec04fd2ab18d7241ac558e5d7e2df82,
+        type: 2}
+      propertyPath: m_ChildControlWidth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114949128495725970, guid: 0ec04fd2ab18d7241ac558e5d7e2df82,
+        type: 2}
+      propertyPath: m_ChildControlHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114949128495725970, guid: 0ec04fd2ab18d7241ac558e5d7e2df82,
+        type: 2}
+      propertyPath: m_ChildAlignment
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ec04fd2ab18d7241ac558e5d7e2df82, type: 2}
@@ -276,6 +341,11 @@ Prefab:
     - target: {fileID: 4405821853632764, guid: 7dd73e4a80cb9744aa760f3a02d5a738, type: 2}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 114432920845342348, guid: 7dd73e4a80cb9744aa760f3a02d5a738,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7dd73e4a80cb9744aa760f3a02d5a738, type: 2}
@@ -382,7 +452,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &332424664
 Transform:
   m_ObjectHideFlags: 0
@@ -722,6 +792,11 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114938592696027744, guid: 71561a6712f03034d8cd1179ac12532e,
+        type: 2}
+      propertyPath: isEnemyLamp
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71561a6712f03034d8cd1179ac12532e, type: 2}
