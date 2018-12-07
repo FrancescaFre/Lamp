@@ -181,7 +181,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (dummyPlayer.transform.position - transform.position != _dummyOffset)
             {
-                Debug.Log(dummyPlayer.transform.position - transform.position);
                 //transform.position = dummyPlayer.transform.position - _dummyOffset; // Less adjustments, but harder to force teleports and transform movements outside
                 dummyPlayer.transform.position = transform.position + _dummyOffset; // More adjustments, but the player can now do the fuck it wants with its transform
             }

@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 224670633766156796}
   - component: {fileID: 222029620661613770}
   - component: {fileID: 114676372684766808}
-  - component: {fileID: 114688810212764866}
   m_Layer: 0
   m_Name: Caster
   m_TagString: Untagged
@@ -100,20 +99,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 2
---- !u!114 &114688810212764866
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1019830897370588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3823f03b42684344a7305449eed3277, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bar: {fileID: 114376933437241420}
-  digging: {fileID: 0}
-  castingTime: 60
 --- !u!222 &222029620661613770
 CanvasRenderer:
   m_ObjectHideFlags: 1

@@ -2,13 +2,7 @@
 
 public class LanternBody : MonoBehaviour
 {
-    private PlayerController _player;
     public GameObject lantern;
-
-    void Start()
-    {
-        _player = FindObjectOfType<PlayerController>();
-    }
 
     void Update()
     {

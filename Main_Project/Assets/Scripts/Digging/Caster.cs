@@ -7,17 +7,13 @@ using UnityEngine;
 public class Caster : MonoBehaviour
 {
     public Image bar; // The bar that fills when casting
-    private Digging _digging;
 
     [Range(1, 120)]
     public float castingTime; // Frames needed to charge (120 frames = 2 seconds)
 
-    private float _progress; // Actual progress
+    public VerticalDig Digger { get; set; } // This can be both a Digging or a ZoneDigger (polymorphic)
 
-    void Start()
-    {
-        _digging = FindObjectOfType<PlayerController>().GetComponentInChildren<Digging>(includeInactive:true);
-    }
+    private float _progress; // Actual progress
 
     void Update()
     {
@@ -26,7 +22,7 @@ public class Caster : MonoBehaviour
 
         if (_progress >= castingTime)
         {
-            _digging.Dig();
+            Digger.Dig(); // Polymorphic behaviour
             Cancel();
         }
     }
@@ -35,7 +31,7 @@ public class Caster : MonoBehaviour
     /// Awakens and sets the Caster for the actual dig
     /// </summary>
     /// <param name="digType"></param>
-    public void StartCircle(DigType digType)
+    public void StartCircle()
     {
         _progress = 0;
         gameObject.SetActive(true);

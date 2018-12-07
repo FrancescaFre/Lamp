@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CamManager : MonoBehaviour {
+public class CameraManager : MonoBehaviour {
 
     //[Tooltip("The dummy player's camera transform (must be dummy's child)")]
     private Transform _dummyCam; // The dummy camera is used to avoid 3-dimensional inverse revolutions
@@ -11,6 +11,7 @@ public class CamManager : MonoBehaviour {
     // Saves the distance between the original and the dummy camera
     void Start () {
         _dummyCam = GameObject.FindGameObjectWithTag("DummyCam").transform;
+        AlignCameras();
         _camOffset = transform.position - _dummyCam.position; 
     }
    
@@ -26,5 +27,16 @@ public class CamManager : MonoBehaviour {
     private void LateUpdate()
     {
         transform.SetPositionAndRotation(_dummyCam.position + _camOffset, _dummyCam.rotation); 
+    }
+
+    private void AlignCameras()
+    {
+        transform.SetParent(FindObjectOfType<PlayerController>().transform);
+        if (_dummyCam.localPosition != transform.localPosition || _dummyCam.localRotation != transform.localRotation)
+        {
+            _dummyCam.localPosition = transform.localPosition;
+            _dummyCam.localRotation = transform.localRotation;
+        }
+        transform.SetParent(null);
     }
 }
