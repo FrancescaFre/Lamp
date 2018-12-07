@@ -36,7 +36,6 @@ GameObject:
   - component: {fileID: 4943420850361406}
   - component: {fileID: 20296733401222204}
   - component: {fileID: 81961843904399992}
-  - component: {fileID: 114096809558243930}
   m_Layer: 0
   m_Name: Robot Camera
   m_TagString: MainCamera
@@ -779,23 +778,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114096809558243930
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1042407526836666}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44ec41572219a2f40a8c17bbd3cace56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerModel: {fileID: 0}
-  planetModel: {fileID: 0}
-  smoothSpeed: 10.25
-  playerOffset: {x: 0, y: 0, z: -10}
-  planetOffset_Z: 30
-  cameraRotation: 0
 --- !u!114 &114212567257531628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -819,10 +801,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd968b195c7ad5741b1c22739752cb19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pc: {fileID: 0}
   walkSpeed: 8
   batteryDuration: 420
-  player: {fileID: 0}
+  playerController: {fileID: 0}
   pickable: 0
   battery: {fileID: 0}
   batteryProgress: {fileID: 0}

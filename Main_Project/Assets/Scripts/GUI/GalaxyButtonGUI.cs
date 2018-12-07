@@ -28,8 +28,8 @@ public class GalaxyButtonGUI : BaseButtonGUI {
 
 
     public void SelectLevel() {
-        
-        GUIManager.GUIInstance.eSystem.SetSelectedGameObject(firstPlanet.gameObject, null);
+
+        EventSystem.current.SetSelectedGameObject(firstPlanet.gameObject, null);
         this.haloParticle.gameObject.SetActive(true);
     }
 

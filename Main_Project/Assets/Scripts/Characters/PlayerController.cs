@@ -25,27 +25,32 @@ ESC/PAUSE	PAUSE MENU
 public class PlayerController : MonoBehaviour {
 
     public CharPeriod CharacterPeriod;
+    public Skill skill;
 
-    public CamManager MainCamera { get; set; }
- 
-    private Digging _dig;
     public int digCount = 2;
     
-    public bool usingSkill=false;
+    public bool usingSkill = false;
     public bool isSneaking = false;
+
+    [SerializeField]
+    public Status CurseStatus { get; set; }
+    public Visibility Visible { get; set; }
+    public CameraManager MainCamera { get; set; }
+    public VerticalDig VDig { get; set; }
+    public ZoneDig ZDig { get; set; }
+
     public bool IsMimicOrDash { get; set; }
     public bool IsSafe { get;  set; }
     public bool IsZoneDigging { get; set; } 
     public bool IsCasting { get; set; } 
-    [SerializeField]
-    public Status CurseStatus { get;  set; }
-    public Visibility Visible { get;  set; }
-
-    public Skill skill;
 
     private Rigidbody _rb;
-    private int missingParts=0;
-    private int keys=0;
+    private int _missingParts = 0;
+    private int _keys = 0;
+
+    //TEST
+    public Lantern Lantern { get; set; }
+    //TEST
 
     //#####################################################################
 
@@ -59,8 +64,9 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start() {
         _rb = GetComponent<Rigidbody>();
-        _dig = GetComponentInChildren<Digging>(includeInactive:true);
-        MainCamera = FindObjectOfType<CamManager>();
+        VDig = GetComponentInChildren<VerticalDig>(includeInactive:true);
+        ZDig = GetComponentInChildren<ZoneDig>(includeInactive: true);
+        MainCamera = FindObjectOfType<CameraManager>();
 
         skill = GetComponentInChildren<Skill>();
     }
@@ -70,6 +76,9 @@ public class PlayerController : MonoBehaviour {
         this.CheckSkillInteraction();
         this.CheckItemInteraction();
         this.CheckDig();
+
+        if (Input.GetKeyDown(KeyCode.T)) // ITEM TEST
+            Lantern.Use();
     }
 
     //#####################################################################
@@ -122,13 +131,13 @@ public class PlayerController : MonoBehaviour {
     {
         if (other.CompareTag("MissingPart"))
         {
-            missingParts++;
+            _missingParts++;
             other.gameObject.SetActive(false);
             //------ WARNING: todo
         }
         else if (other.CompareTag("Key"))
         {
-            keys++;
+            _keys++;
             other.gameObject.SetActive(false);
             //------ WARNING: todo NON LO SO
         }
@@ -178,16 +187,17 @@ public class PlayerController : MonoBehaviour {
             Debug.Log("lamp_switch");
             LampBehaviour lamp = other.GetComponentInParent<LampBehaviour>();
             Debug.Log("lamp_switch: ON "+lamp.transform.position);
-            if (lamp.isEnemyLamp && lamp.isTurnedOn) { //if it is an enemy lamp AND it is turned on
-                lamp.SwitchOffEnemyLamp();
+            if (lamp.isEnemyLamp  ) { //if it is an enemy lamp AND it is turned on
+                if(lamp.isTurnedOn)
+                    lamp.SwitchOffEnemyLamp();
                 return;
             }
             
-            if (lamp.hasMissingPart && missingParts > 0) {
+            if (lamp.hasMissingPart && _missingParts > 0) {
                 lamp.hasMissingPart = false;
-                missingParts--;
+                _missingParts--;
             }
-            else if (lamp.hasMissingPart) return;   //if the lamp is missing the light bulb 
+           
 
             if (IsMimicOrDash) return;
             if (lamp.isTurnedOn) return;    //if the lamp is already turned on, exit
@@ -206,13 +216,13 @@ public class PlayerController : MonoBehaviour {
     {
         if (!IsCasting)
         {
-            if ((Input.GetKeyDown(KeyCode.Alpha2) || Input.GetButtonDown("PS4_Button_Triangle")) && !IsZoneDigging) // [LDIG]
+            if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetButtonDown("PS4_Button_Triangle")) // [VDIG]
                 if (digCount > 0)
-                    _dig.LinearDig();
+                    VDig.CheckInput();
 
             if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetButtonDown("PS4_Button_Square")) // [ZDIG]
                 if (digCount > 0)
-                    _dig.ZoneDig();
+                    ZDig.CheckInput();
         }
     }
 }

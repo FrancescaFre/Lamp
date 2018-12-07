@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,9 +9,12 @@ public class Level_SO : ScriptableObject {
     public string LevelName;
     public Season levelSeason;
     public string Description;
+    [Header("Lamp properties")]
     public int allyLamps;
+    public Color allyColor=Color.yellow;
     public int enemyLamps;
-    public Vector3 entryPoint;
+    public Color enemyColor=Color.magenta;
+    public Vector3 entryPoint=new Vector3(0f,21f,0);
     [Header("Number of enemy of each type")]
     public int enemy_L1;
     public int enemy_L2;

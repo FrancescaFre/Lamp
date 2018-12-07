@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
@@ -8,15 +8,22 @@ public class GameManager : MonoBehaviour {
     public static GameManager Instance = null;
     public Level_SO levelLoaded;
     public LampBehaviour LastAllyLamp = null; //last lamp turned on
-
-
+    [Header("HUD of the lamps")]
+    public LampGUI lampGUI;
+    public int allyLamps;
+    public int enemyLamps;
+    
     #region  GameObjects
 
-    [Header("Prefabs of the Enemies")]
+    [Header("Enemies")]
     public List<GameObject> enemies;
+    public int howManySeeing = 0;
+    public int howManyHearing = 0;
 
-    [Header("Prefabs of the Characters")]
+
+    [Header(" Characters")]
     public List<PlayerController> CharactersList = new List<PlayerController>();   //the gameobject that are present in the scene
+    public PlayerController currentPC;
     public int currentCharacter = 0;
     public int nextChar = 1;    //the 0 is the starting player
     public List<CharPeriod> TeamList;
@@ -30,6 +37,7 @@ public class GameManager : MonoBehaviour {
         if (!Instance) {
             Instance = this;
             DontDestroyOnLoad(Instance);
+            DontDestroyOnLoad(EventSystem.current);
         }
 
         SceneManager.sceneLoaded += OnSceneLoaded;  // add a delegate to be run everytime a scene is loaded
@@ -40,7 +48,7 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Start() {
         items = new Dictionary<string, int>(6);
-        CharactersDict = new Dictionary<CharPeriod, PlayerController>();
+        
 
 
 
@@ -55,14 +63,18 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     public void ActivatePlayerX() {
 
-        for (int i = 0; i < TeamList.Count; i++)
+        for (int i = 0; i < TeamList.Count; i++) {
             CharactersDict[TeamList[i]].gameObject.SetActive(i == currentCharacter);
 
+        }
 
+        currentPC = CharactersDict[TeamList[currentCharacter]];
 
         nextChar = currentCharacter < TeamList.Count ? currentCharacter + 1 : -1;
-        if (nextChar == -1)
+        if (nextChar == -1) {
             Debug.Log("gameover");
+            
+        }
 
 
     }
@@ -119,7 +131,10 @@ public class GameManager : MonoBehaviour {
     public void StartGame() {//Prologue
        
         CharactersList = new List<PlayerController>(FindObjectsOfType<PlayerController>());
- 
+        CharactersDict = new Dictionary<CharPeriod, PlayerController>();
+
+        this.allyLamps = levelLoaded.allyLamps;
+        this.enemyLamps = levelLoaded.enemyLamps;
         for (int i = 0; i < CharactersList.Count; i++) {
             Debug.Log(CharactersList[i].CharacterPeriod.ToString());
             CharactersDict[CharactersList[i].CharacterPeriod] = CharactersList[i];
@@ -135,11 +150,12 @@ public class GameManager : MonoBehaviour {
             x.path = levelLoaded.PathList[i].transform;
             Instantiate(levelLoaded.enemy_L1_GO);
         }*/
-
+        //lampGUI = FindObjectOfType<LampGUI>();
         ActivatePlayerX();
     }
     public void EndGame() {//epilogue
-
+        currentPC = null;
+        lampGUI = null;
         levelLoaded = null;
         TeamList = null;
         currentCharacter = 0;
