@@ -27,7 +27,7 @@ public class PauseManagerGUI : MonoBehaviour {
 
     void Start() {
         _isPaused = false;
-       // lampGUIInfo = GetComponentInChildren<LampGUI>();
+        lampGUIInfo = GetComponentInChildren<LampGUI>();
         PausePanel.SetActive(_isPaused);
     }
 
