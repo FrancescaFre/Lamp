@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 135862324441124276}
   m_Layer: 0
   m_Name: Oriental_Lamp_Enemy_3
-  m_TagString: Untagged
+  m_TagString: Lamp_Base
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -426,6 +426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightBulb: []
   auraLight: []
+  particleSystems: []
   allColliders: []
   isEnemyLamp: 1
   isTurnedOn: 0
