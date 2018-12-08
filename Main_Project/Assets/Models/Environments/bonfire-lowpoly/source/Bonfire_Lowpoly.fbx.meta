@@ -9,7 +9,12 @@ ModelImporter:
     2300000: //RootNode
     3300000: //RootNode
     4300000: Bonfire
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bonfire_Material
+    second: {fileID: 2100000, guid: 52a822ce5dd804a4d9d588174236107a, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
