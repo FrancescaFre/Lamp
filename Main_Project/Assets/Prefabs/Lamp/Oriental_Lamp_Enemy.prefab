@@ -192,6 +192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4811805321546938}
   - component: {fileID: 136136486666631628}
+  - component: {fileID: 114479764230242716}
   m_Layer: 0
   m_Name: Oriental_Lamp_Enemy
   m_TagString: Lamp_Base
@@ -394,7 +395,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1767931196679856}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.13, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4021157626540330}
@@ -985,6 +986,23 @@ MonoBehaviour:
     type: 3}
   storePointLightCookieMapShader: {fileID: 4800000, guid: 83815c326d7f2514884f3fc7a05b5aef,
     type: 3}
+--- !u!114 &114479764230242716
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1767931196679856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44d8c1e6980742a4c869ec3925e38e0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightBulb: []
+  auraLight: []
+  allColliders: []
+  isEnemyLamp: 1
+  isTurnedOn: 0
+  hasMissingPart: 0
 --- !u!114 &114527858044292856
 MonoBehaviour:
   m_ObjectHideFlags: 1

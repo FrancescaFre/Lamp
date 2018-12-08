@@ -39,7 +39,6 @@ GameObject:
   - component: {fileID: 33993525898646694}
   - component: {fileID: 23742908829818040}
   - component: {fileID: 65392210262678882}
-  - component: {fileID: 114481299604053844}
   m_Layer: 0
   m_Name: Oriental_Lamp_Model
   m_TagString: Lamp_Switch
@@ -73,6 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4318064439316570}
   - component: {fileID: 136942084586137870}
+  - component: {fileID: 114862535922031240}
   m_Layer: 0
   m_Name: Oriental_Lamp
   m_TagString: Lamp_Base
@@ -113,7 +113,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1741717778040544}
   m_LocalRotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.932}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.48535, y: 0.48535, z: 0.48535}
   m_Children:
   - {fileID: 4309310562189434}
@@ -302,23 +302,6 @@ MonoBehaviour:
     type: 3}
   storePointLightCookieMapShader: {fileID: 4800000, guid: 83815c326d7f2514884f3fc7a05b5aef,
     type: 3}
---- !u!114 &114481299604053844
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1519228890804464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44d8c1e6980742a4c869ec3925e38e0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lightBulb: []
-  auraLight: []
-  allColliders: []
-  isEnemyLamp: 0
-  isTurnedOn: 0
-  hasMissingPart: 0
 --- !u!114 &114814070739083652
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -358,6 +341,23 @@ MonoBehaviour:
     type: 3}
   storePointLightCookieMapShader: {fileID: 4800000, guid: 83815c326d7f2514884f3fc7a05b5aef,
     type: 3}
+--- !u!114 &114862535922031240
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1741717778040544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44d8c1e6980742a4c869ec3925e38e0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightBulb: []
+  auraLight: []
+  allColliders: []
+  isEnemyLamp: 0
+  isTurnedOn: 0
+  hasMissingPart: 0
 --- !u!136 &136942084586137870
 CapsuleCollider:
   m_ObjectHideFlags: 1

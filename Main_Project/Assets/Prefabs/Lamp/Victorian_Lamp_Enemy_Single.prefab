@@ -72,6 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4827687398548472}
   - component: {fileID: 136556081016042352}
+  - component: {fileID: 114998306885551278}
   m_Layer: 0
   m_Name: Victorian_Lamp_Enemy_Single
   m_TagString: Lamp_Base
@@ -280,7 +281,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1185496512726810}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.13}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.29999998, y: 0.3, z: 0.29999998}
   m_Children:
   - {fileID: 4672996890705082}
@@ -616,6 +617,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraToLookAt: {fileID: 0}
+--- !u!114 &114998306885551278
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1185496512726810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44d8c1e6980742a4c869ec3925e38e0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightBulb: []
+  auraLight: []
+  allColliders: []
+  isEnemyLamp: 1
+  isTurnedOn: 0
+  hasMissingPart: 0
 --- !u!136 &136556081016042352
 CapsuleCollider:
   m_ObjectHideFlags: 1

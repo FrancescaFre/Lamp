@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 65638270112473946}
   m_Layer: 0
   m_Name: CarvedPost2_double
-  m_TagString: Untagged
+  m_TagString: Lamp_Switch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,9 +137,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4459171230324982}
   - component: {fileID: 135955858280488554}
+  - component: {fileID: 114315601558474676}
   m_Layer: 0
   m_Name: Victorian_Lamp_Enemy_Double
-  m_TagString: Untagged
+  m_TagString: Lamp_Base
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -441,7 +442,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1475911652321960}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.37, y: 0, z: 2.19}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.29999998, y: 0.3, z: 0.29999998}
   m_Children:
   - {fileID: 4345035750757802}
@@ -1325,6 +1326,23 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114315601558474676
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1475911652321960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44d8c1e6980742a4c869ec3925e38e0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightBulb: []
+  auraLight: []
+  allColliders: []
+  isEnemyLamp: 1
+  isTurnedOn: 0
+  hasMissingPart: 0
 --- !u!114 &114363363104477700
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1434,7 +1452,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1475911652321960}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 5.2323847
