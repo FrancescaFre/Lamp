@@ -120,9 +120,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4092218474487890}
-  - component: {fileID: 135636954083769908}
   - component: {fileID: 114938592696027744}
   - component: {fileID: 54561744859297404}
+  - component: {fileID: 136472743516345760}
   m_Layer: 0
   m_Name: Victorian_Lamp
   m_TagString: Lamp_Base
@@ -136,9 +136,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1870700539297244}
-  m_LocalRotation: {x: 0.68188345, y: 0.018189216, z: 0.019498724, w: 0.73097473}
-  m_LocalPosition: {x: -0.97, y: 4.95, z: -0.2}
-  m_LocalScale: {x: 3.333333, y: 3.3333335, z: 3.3333335}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.26, y: 1.385, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4092218474487890}
   m_RootOrder: 2
@@ -151,7 +151,7 @@ Transform:
   m_GameObject: {fileID: 1945432150660676}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.29999998, y: 0.3, z: 0.29999998}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4365589354070058}
   - {fileID: 4403631186471458}
@@ -166,8 +166,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1152596582965842}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.17, z: -0.36}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 4989848027941548}
   - {fileID: 4541805939202694}
@@ -181,9 +181,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1006321099262722}
-  m_LocalRotation: {x: 0.6818834, y: 0.018189214, z: 0.019498723, w: 0.7309747}
-  m_LocalPosition: {x: 0.82, y: 5.02, z: -0.21}
-  m_LocalScale: {x: 3.333333, y: 3.3333344, z: 3.3333344}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.26, y: 1.385, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4092218474487890}
   m_RootOrder: 1
@@ -389,7 +389,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 0
-  m_Color: {r: 1, g: 0.9476352, b: 0.75, a: 1}
+  m_Color: {r: 1, g: 0.796875, b: 0, a: 1}
   m_Intensity: 2.5
   m_Range: 2
   m_SpotAngle: 70.8
@@ -412,7 +412,7 @@ Light:
   m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 0.52
+  m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -426,7 +426,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 0
-  m_Color: {r: 1, g: 0.9476352, b: 0.75, a: 1}
+  m_Color: {r: 1, g: 0.796875, b: 0, a: 1}
   m_Intensity: 2.5
   m_Range: 2
   m_SpotAngle: 70.8
@@ -449,7 +449,7 @@ Light:
   m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 0.52
+  m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -460,7 +460,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1870700539297244}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
   m_Name: 
@@ -494,7 +494,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1006321099262722}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
   m_Name: 
@@ -535,12 +535,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightBulb: []
   auraLight: []
+  particleSystems: []
   allColliders: []
   isEnemyLamp: 0
   isTurnedOn: 0
   hasMissingPart: 0
---- !u!135 &135636954083769908
-SphereCollider:
+--- !u!136 &136472743516345760
+CapsuleCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -548,6 +549,7 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 3.57
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 1
+  m_Height: 3
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}

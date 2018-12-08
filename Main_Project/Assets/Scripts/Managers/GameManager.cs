@@ -38,7 +38,11 @@ public class GameManager : MonoBehaviour {
         if (!Instance) {
             Instance = this;
             DontDestroyOnLoad(Instance);
-            
+
+        }
+        else { 
+            Destroy(gameObject);
+            return;
         }
 
         SceneManager.sceneLoaded += OnSceneLoaded;  // add a delegate to be run everytime a scene is loaded
