@@ -26,9 +26,7 @@ public class LampBehaviour : MonoBehaviour {
         isTurnedOn = isEnemyLamp;
         for (int i = 0; i < lightBulb.Length; i++) {
             if (isEnemyLamp)
-
                 lightBulb[i].color = GameManager.Instance.levelLoaded.enemyColor;
-
             else
                 lightBulb[i].color = GameManager.Instance.levelLoaded.allyColor;
 

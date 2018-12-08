@@ -157,6 +157,7 @@ GameObject:
   - component: {fileID: 4736897815854180}
   - component: {fileID: 108300372906819202}
   - component: {fileID: 114175728624755922}
+  - component: {fileID: 114815970547712124}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -539,7 +540,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 0.6332026, b: 0, a: 1}
-  m_Intensity: 2
+  m_Intensity: 3
   m_Range: 2
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -617,6 +618,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraToLookAt: {fileID: 0}
+--- !u!114 &114815970547712124
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1977670930154960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74eb290077a495b4f8489f895b2cc599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loop: 1
+  smoothFactor: 3
+  addIntensity: 5
 --- !u!114 &114998306885551278
 MonoBehaviour:
   m_ObjectHideFlags: 1

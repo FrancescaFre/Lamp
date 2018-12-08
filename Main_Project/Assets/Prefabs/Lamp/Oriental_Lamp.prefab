@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4228838386482730}
   - component: {fileID: 108995357478724966}
+  - component: {fileID: 114960557805182056}
   - component: {fileID: 114206488020149562}
   m_Layer: 0
   m_Name: DX_pointLight
@@ -55,6 +56,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4851485837030606}
   - component: {fileID: 108966382688721492}
+  - component: {fileID: 114927445045680000}
   - component: {fileID: 114814070739083652}
   m_Layer: 0
   m_Name: SX_pointLight
@@ -358,6 +360,34 @@ MonoBehaviour:
   isEnemyLamp: 0
   isTurnedOn: 0
   hasMissingPart: 0
+--- !u!114 &114927445045680000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1530066592426824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74eb290077a495b4f8489f895b2cc599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loop: 1
+  smoothFactor: 3
+  addIntensity: 5
+--- !u!114 &114960557805182056
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1272162913990484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74eb290077a495b4f8489f895b2cc599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loop: 1
+  smoothFactor: 3
+  addIntensity: 5
 --- !u!136 &136942084586137870
 CapsuleCollider:
   m_ObjectHideFlags: 1
