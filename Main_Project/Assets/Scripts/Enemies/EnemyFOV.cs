@@ -14,7 +14,9 @@ public class EnemyFOV : MonoBehaviour {
 
    /// [HideInInspector]
     public List<Transform> visibleTargets = new List<Transform>();
-
+    public List<Transform> earedTargets = new List<Transform>();
+    
+    public Collider[] targetsInViewRadius;
     public float meshResolution;
     public int edgeResolveIterations;
     public float edgeDstThreshold;
@@ -24,6 +26,9 @@ public class EnemyFOV : MonoBehaviour {
     public MeshFilter viewMeshFilter;
     Mesh viewMesh;
 
+    public Enemy parentEnemy;
+    private SphereCollider colliderEar;
+    
     void Start()
     {
         viewMesh = new Mesh();
@@ -31,6 +36,7 @@ public class EnemyFOV : MonoBehaviour {
         viewMeshFilter.mesh = viewMesh;
 
         StartCoroutine("FindTargetsWithDelay", .2f);
+
     }
 
     IEnumerator FindTargetsWithDelay(float delay)
@@ -41,30 +47,74 @@ public class EnemyFOV : MonoBehaviour {
             FindVisibleTargets();
         }
     }
-
-    void LateUpdate()
+/*
+    private void OnTriggerEnter(Collider other)
     {
-        DrawFieldOfView();
+        if (!other.transform.GetComponent<PlayerController>().isSneaking)
+        {
+            earedTargets.Add(other.transform);
+            GameManager.Instance.howManyHearing++;
+        }
+    }*/
+
+    private void OnTriggerStay(Collider other)
+    {//se il player entra da sneeky non viene cathcato dal ontrigger enter, ma se una volta dentro non è più sneaky non verrebbe più visto, quindi uso on stay
+
+
+        //se diventa safe quando è ancora dentro la visione, è giusto che si corregga
+        if (other.CompareTag("Player") && other.transform.GetComponent<PlayerController>().IsSafe && earedTargets.Contains(other.transform))
+        {
+            earedTargets.Remove(other.transform);
+            GameManager.Instance.howManyHearing--;
+        }
+
+        //se il player non è in sneaky e non è contenuto nella lista, allora gtfo
+        if (other.CompareTag("Player") && !other.transform.GetComponent<PlayerController>().isSneaking && !other.transform.GetComponent<PlayerController>().IsSafe && !earedTargets.Contains(other.transform))
+        {
+            earedTargets.Add(other.transform);
+            GameManager.Instance.howManyHearing++;
+        }
     }
 
+
+    private void OnTriggerExit(Collider other)
+    {//se non contiene quella transform vuol dire che il player è entrato e uscito come sneaky
+        if (other.CompareTag("Player") && earedTargets.Contains(other.transform))
+        {
+            earedTargets.Remove(other.transform);
+            GameManager.Instance.howManyHearing--;
+        }
+    }
+
+  /*void LateUpdate()
+   {
+        DrawFieldOfView();
+    }
+*/
     /// <summary>
     /// set parameters of FOV, first the radius (how long can see) and angle (how wide is the field of view)
     ///i don't use a property because with one call i can assign 2 values. 
     ///This is needed because my values (radius and angle) change during the game (Influenced by AI) 
     /// </summary>
-    public void FOVSetParameters(float radius, float angle) {
+    public void FOVSetParameters(float radius, float angle, Transform parentEnemy) {
         viewRadius = radius;
         viewAngle = angle;
+
+        //radius is 1/scale of the parent * how is big the fov
+        colliderEar = GetComponent<SphereCollider>();
+        colliderEar.radius = (1 / parentEnemy.transform.localScale.x)* viewRadius;
     }
 
     void FindVisibleTargets()
     {
         visibleTargets.Clear();
-        Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
+       
+        targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
 
         for (int i = 0; i < targetsInViewRadius.Length; i++)
         {
             Transform target = targetsInViewRadius[i].transform;
+        
             Vector3 dirToTarget = (target.position - transform.position).normalized;
             if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
             {
@@ -75,8 +125,9 @@ public class EnemyFOV : MonoBehaviour {
                 }
             }
         }
-    }
 
+    }
+    #region DRAW MESH
     void DrawFieldOfView()
     {
         int stepCount = Mathf.RoundToInt(viewAngle * meshResolution);
@@ -216,4 +267,5 @@ public class EnemyFOV : MonoBehaviour {
             pointB = _pointB;
         }
     }
+    #endregion
 }

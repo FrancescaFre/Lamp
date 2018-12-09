@@ -11,6 +11,23 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1953688963897732}
   m_IsPrefabAsset: 1
+--- !u!1 &1030734406313952
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4648736001926938}
+  - component: {fileID: 114714993636921504}
+  - component: {fileID: 135854488785032142}
+  m_Layer: 10
+  m_Name: Sense
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1159125129888276
 GameObject:
   m_ObjectHideFlags: 1
@@ -57,7 +74,7 @@ GameObject:
   - component: {fileID: 136184974153470772}
   m_Layer: 0
   m_Name: modelPivot
-  m_TagString: Enemy
+  m_TagString: EnemyBody
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,9 +123,8 @@ GameObject:
   - component: {fileID: 4252271155772420}
   - component: {fileID: 54785114143514786}
   - component: {fileID: 136112388689204086}
-  - component: {fileID: 114801585846744752}
   - component: {fileID: 114118508417276402}
-  - component: {fileID: 114870442633517914}
+  - component: {fileID: 114584553387938182}
   m_Layer: 10
   m_Name: VictorianEnemyPrefab
   m_TagString: Enemy
@@ -126,6 +142,7 @@ GameObject:
   - component: {fileID: 4201134741472652}
   - component: {fileID: 33503250952587888}
   - component: {fileID: 23168512639499314}
+  - component: {fileID: 114356433315743800}
   m_Layer: 0
   m_Name: enemyModel
   m_TagString: Untagged
@@ -140,7 +157,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1522873822087174}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.7, z: -0.03}
+  m_LocalPosition: {x: 0, y: 2.5, z: -0.03}
   m_LocalScale: {x: 30.000017, y: 30.000027, z: 30.00002}
   m_Children:
   - {fileID: 4456998069568364}
@@ -171,10 +188,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1953688963897732}
   m_LocalRotation: {x: -0.037105117, y: 0.95086217, z: 0.1257145, w: 0.28049996}
-  m_LocalPosition: {x: 0.38, y: 10.59, z: 3.55}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.30000016}
+  m_LocalPosition: {x: 0, y: 20, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 4117736750535130}
+  - {fileID: 4648736001926938}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -15.064001, y: 147.12901, z: -0.002}
@@ -216,6 +234,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4117736750535130}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4648736001926938
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1030734406313952}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4252271155772420}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4995561012746948
 Transform:
@@ -339,7 +370,7 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 0, g: 0.0377028, b: 1, a: 1}
-  m_Intensity: 6
+  m_Intensity: 7
   m_Range: 3.5
   m_SpotAngle: 85
   m_CookieSize: 10
@@ -504,6 +535,40 @@ MonoBehaviour:
     type: 3}
   storePointLightCookieMapShader: {fileID: 4800000, guid: 83815c326d7f2514884f3fc7a05b5aef,
     type: 3}
+--- !u!114 &114356433315743800
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1986949632838066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23fa698560b688845bf08bafe6dc1b28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AdditionalVertexStreamMesh: {fileID: 0}
+--- !u!114 &114584553387938182
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1953688963897732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 736a465d3d2433a44b52086d9e7f4f75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data_enemy: {fileID: 11400000, guid: a8e9a70d6258bab42a19589c0fdf2a13, type: 2}
+  instant_curse: 0
+  speed: 0.5
+  returnWaypointPrefab: {fileID: 1851448784903702, guid: fac114afe212b44468972e4fa2a267d4,
+    type: 2}
+  player: {fileID: 0}
+  path: {fileID: 4587250140414072, guid: c63d2f4859eabbc4a81052edc2077cf3, type: 2}
+  destination: {x: 0, y: 0, z: 0}
+  pathIndex: 0
+  currentStatus: 0
+  pathIndexReturn: 0
 --- !u!114 &114643893582794324
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -543,18 +608,18 @@ MonoBehaviour:
     type: 3}
   storePointLightCookieMapShader: {fileID: 4800000, guid: 83815c326d7f2514884f3fc7a05b5aef,
     type: 3}
---- !u!114 &114801585846744752
+--- !u!114 &114714993636921504
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1953688963897732}
+  m_GameObject: {fileID: 1030734406313952}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b41af289fc916064b8f03a030fe24ea9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 3
+  viewRadius: 1
   viewAngle: 75
   targetMask:
     serializedVersion: 2
@@ -563,33 +628,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   visibleTargets: []
+  earedTargets: []
+  targetsInViewRadius: []
   meshResolution: 1
   edgeResolveIterations: 4
   edgeDstThreshold: 4
   maskCutawayDst: 0.1
   viewMeshFilter: {fileID: 33132966542384952}
---- !u!114 &114870442633517914
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1953688963897732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 736a465d3d2433a44b52086d9e7f4f75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data_enemy: {fileID: 11400000, guid: a8e9a70d6258bab42a19589c0fdf2a13, type: 2}
-  instant_curse: 0
-  speed: 0.5
-  returnWaypointPrefab: {fileID: 1851448784903702, guid: fac114afe212b44468972e4fa2a267d4,
-    type: 2}
-  player: {fileID: 0}
-  path: {fileID: 4587250140414072, guid: c63d2f4859eabbc4a81052edc2077cf3, type: 2}
-  destination: {x: 0, y: 0, z: 0}
-  pathIndex: 0
-  currentStatus: 0
-  pathIndexReturn: 0
+  parentEnemy: {fileID: 0}
 --- !u!114 &114975591303365686
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -629,6 +675,18 @@ MonoBehaviour:
     type: 3}
   storePointLightCookieMapShader: {fileID: 4800000, guid: 83815c326d7f2514884f3fc7a05b5aef,
     type: 3}
+--- !u!135 &135854488785032142
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1030734406313952}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3.33
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136112388689204086
 CapsuleCollider:
   m_ObjectHideFlags: 1

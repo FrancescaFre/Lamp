@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour {
     #region  GameObjects
 
     [Header("Enemies")]
-    public List<GameObject> enemiyGOList;
+    public List<GameObject> enemyGOList;
     public int howManySeeing = 0;
     public int howManyHearing = 0;
 
@@ -49,12 +49,6 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Start() {
         items = new Dictionary<string, int>(6);
-
-
-
-
-
-
     }
 
 
@@ -140,7 +134,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log(CharactersList[i].CharacterPeriod.ToString());
             CharactersDict[CharactersList[i].CharacterPeriod] = CharactersList[i];
         }
-        enemiyGOList = new List<GameObject>() {
+        enemyGOList = new List<GameObject>() {
             levelLoaded.enemy_L1_GO,
             levelLoaded.enemy_L2_GO,
             levelLoaded.enemy_L3_GO
@@ -161,7 +155,7 @@ public class GameManager : MonoBehaviour {
         TeamList = null;
         currentCharacter = 0;
         nextChar = 1;
-        enemiyGOList.Clear();
+        enemyGOList.Clear();
         CharactersDict.Clear();
         CharactersList.Clear();
         SceneManager.LoadScene("1_GameMenu");//which has index 1
@@ -171,7 +165,7 @@ public class GameManager : MonoBehaviour {
 
     public void SpawnNewEnemy(int enemyLevel, Vector3 playerPosition, Transform enemyPath) {
         Debug.Log("create the enemy ");
-        GameObject enemyGO = enemiyGOList[enemyLevel]; //the levels are [1,3]
+        GameObject enemyGO = enemyGOList[enemyLevel]; //the levels are [1,3]
         enemyGO.GetComponent<Rigidbody>().position = playerPosition;
 
         enemyGO.GetComponent<Enemy>().path = enemyPath;

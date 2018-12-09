@@ -118,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void CheckStealth()
     {
-        if (Input.GetButton("PS4_L2") || Input.GetKey(KeyCode.T)) // Slows the movement if the player is pressing the stealth button
+        if (Input.GetButton("PS4_L2") || Input.GetKey(KeyCode.Space)) // Slows the movement if the player is pressing the stealth button
         {
             _stepSpeed = stealthSpeed;
             _player.isSneaking = true;

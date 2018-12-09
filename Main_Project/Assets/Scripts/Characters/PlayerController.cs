@@ -150,11 +150,12 @@ public class PlayerController : MonoBehaviour {
             IsSafe = true;
         }
 
-        else if (other.CompareTag("Enemy"))
+        else if (other.CompareTag("EnemyBody") && !IsSafe)
         {   //if the character touches an enemy trigger
             //READ AS: if an enemy curse the character
          
             Enemy touchedEnemy = other.GetComponentInParent<Enemy>();
+            touchedEnemy.PlayerTouched(this);
             Debug.Log("before " + CurseStatus);
             if (CurseStatus == Status.NORMAL && !touchedEnemy.data_enemy.instant_curse)
             {

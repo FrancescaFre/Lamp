@@ -58,6 +58,7 @@ public class Enemy : MonoBehaviour
     Vector3 velocity;
     float rotationSpeed = 2f;
     Vector3 dirY;
+    int randomInt=1;
 
     public void Start()
     {
@@ -78,8 +79,8 @@ public class Enemy : MonoBehaviour
         rb = this.gameObject.GetComponent<Rigidbody>();
 
         //assign the first set of values to FOV
-        fov = this.GetComponent<EnemyFOV>();
-        fov.FOVSetParameters(cov_distance_wander, cov_angle_wander);
+        fov = this.GetComponentInChildren<EnemyFOV>();
+        fov.FOVSetParameters(cov_distance_wander, cov_angle_wander, this.transform);
 
         pathIndex = 0;
         //destination = wanderPath[pathIndex].position;
@@ -93,10 +94,13 @@ public class Enemy : MonoBehaviour
     {
         ChangeStatus();
         ChangeDirection();
-        
+
         if (Vector3.Distance(destination, transform.position) > 0.3f)
         {
+            
             direction = (destination - transform.position).normalized;
+            
+
             //add adjust for floking
             velocity = direction * speed * Time.deltaTime;
             velocity = Vector3.ClampMagnitude(velocity, direction.magnitude);
@@ -106,42 +110,85 @@ public class Enemy : MonoBehaviour
         //THANKS Mister ANTONIO
         dirY = Vector3.ProjectOnPlane(destination - this.transform.position, transform.up);
         //Debug.DrawLine(this.transform.position, this.transform.position + dirY * 10f, Color.red);
-       transform.LookAt(transform.position + dirY, transform.up);
+        //transform.LookAt(transform.position + dirY, transform.up);
+        if (currentStatus != EnemyStatus.SEARCHING)
+        {
+            var targetRotation = Quaternion.LookRotation(dirY);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 2);
+        }
     }
 
-
     //when the enemy interact with a something
-    private void OnTriggerEnter(Collider other)
-    {
-        //collide with another enemy
-        if (other.CompareTag("Enemy"))
-        {
-            if (level < other.GetComponent<Enemy>().level)
-                if (Random.Range(0, 9) % 3 == 0)
-                    path = other.GetComponent<Enemy>().path;
-            //start following the path of touched enemy
-       }
+    /*  private void OnCollisionEnter(Collision other)
+      {
+          //collide with another enemy
+       /*   if (other.CompareTag("Enemy"))
+          {
+              if (level < other.GetComponent<Enemy>().level)
+                  if (Random.Range(0, 9) % 3 == 0)
+                      path = other.GetComponent<Enemy>().path;
+              //start following the path of touched enemy
 
-        if (other.CompareTag("Player")) {
-            //after a collide with a player, the enemy start his returns.
+
+          if (other.collider.CompareTag("Player"))
+          {
+              //after a collide with a player, the enemy start his returns.
+              player = null; ///WARNING!
+
+              if (hanselGretelGPS.Count > 0)
+              {
+                  currentStatus = EnemyStatus.RETURN;
+                  if (hanselGretelGPS.Count > 0)
+                      toDestroy = hanselGretelGPS.Peek();
+                  destination = hanselGretelGPS.Pop().position;
+              }
+              else
+              {
+                  currentStatus = EnemyStatus.WANDERING;
+                  destination = path.GetChild(pathIndex).position;
+              }
+          }
+      }*/
+
+    public void PlayerTouched(PlayerController playerT) {
+        if (player.Equals(playerT)){
             player = null; ///WARNING!
-           
-            currentStatus = EnemyStatus.RETURN;
-           
-            if(hanselGretelGPS.Count>0)
-                toDestroy = hanselGretelGPS.Peek();
-            destination = hanselGretelGPS.Pop().position;
+
+            if (hanselGretelGPS.Count > 0)
+            {
+                currentStatus = EnemyStatus.RETURN;
+                if (hanselGretelGPS.Count > 0)
+                    toDestroy = hanselGretelGPS.Peek();
+                destination = hanselGretelGPS.Pop().position;
+            }
+            else
+            {
+                currentStatus = EnemyStatus.WANDERING;
+                destination = path.GetChild(pathIndex).position;
+            }
         }
     }
 
     private void ChangeStatus() {
         //1- if the enemy is wandering or returning and it see an enemy and this is not safe--> seeking the player (player)
-        if ((currentStatus == EnemyStatus.WANDERING || currentStatus == EnemyStatus.RETURN) && fov.visibleTargets.Count > 0 && !fov.visibleTargets[0].GetComponent<PlayerController>().IsSafe)
+        if ((currentStatus == EnemyStatus.WANDERING || currentStatus == EnemyStatus.RETURN || currentStatus == EnemyStatus.SEARCHING) && fov.visibleTargets.Count > 0 && !fov.visibleTargets[0].GetComponent<PlayerController>().IsSafe)
         {
             player = fov.visibleTargets[0];
             timePassedToDrop = 0f;
 
+            GameManager.Instance.howManySeeing++;
             currentStatus = EnemyStatus.SEEKING;
+        }
+
+        else if (currentStatus == EnemyStatus.WANDERING && fov.earedTargets.Count > 0)
+        {
+            currentStatus = EnemyStatus.SEARCHING;
+            if (Random.Range(0, 1) == 0)
+                randomInt = 1;
+            else
+                randomInt = -1;
+            timePassed = 0;
+           // destination = this.transform.position;
         }
 
         //2- if the player isn't reachable by any rayCast, stop and start to Search
@@ -155,7 +202,15 @@ public class Enemy : MonoBehaviour
             //if the player is safe or the raycast can't reach the player (cause some obstacles), stop seek
             if (player.GetComponent<PlayerController>().IsSafe || !Physics.Raycast(transform.position, dirToTarget, dstToTarget, fov.targetMask))
             {
+                GameManager.Instance.howManySeeing--;
                 player = null; ///WARNING!
+                destination = lastPlayerPosition;
+
+                if (Random.Range(0, 1) == 0)
+                    randomInt = 1;
+                else
+                    randomInt = -1;
+
                 currentStatus = EnemyStatus.SEARCHING;
                 timePassed = 0;
             }
@@ -168,12 +223,18 @@ public class Enemy : MonoBehaviour
         }
         else if (currentStatus == EnemyStatus.SEARCHING && timePassed >= stop_search_after_x_seconds)
         {
-            currentStatus = EnemyStatus.RETURN;
-
-            if (toDestroy)
-                DestroyImmediate(toDestroy.gameObject);
-            toDestroy = hanselGretelGPS.Peek();
-            destination = hanselGretelGPS.Pop().position;
+            if (hanselGretelGPS.Count > 0)
+            {
+                currentStatus = EnemyStatus.RETURN;
+                if (toDestroy)
+                    DestroyImmediate(toDestroy.gameObject);
+                toDestroy = hanselGretelGPS.Peek();
+                destination = hanselGretelGPS.Pop().position;
+            }
+            else {
+                currentStatus = EnemyStatus.WANDERING;
+                destination = path.GetChild(pathIndex).position;
+            }
         }
 
         //4- if the enemy is correctly returned at the last waypoint
@@ -243,9 +304,9 @@ public class Enemy : MonoBehaviour
         }
 
         else if (currentStatus == EnemyStatus.SEARCHING) {
-            destination = lastPlayerPosition;
-            if (Vector3.Distance(destination, transform.position) > 0.3f) {
-                //rotate 360 on local y axis
+           
+            if (Vector3.Distance(destination, transform.position) < 0.3f) {
+                    transform.Rotate(new Vector3(0, randomInt * 360 / stop_search_after_x_seconds * Time.deltaTime, 0), Space.Self);
             }
         }
 
