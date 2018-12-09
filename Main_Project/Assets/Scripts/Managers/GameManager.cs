@@ -38,7 +38,11 @@ public class GameManager : MonoBehaviour {
         if (!Instance) {
             Instance = this;
             DontDestroyOnLoad(Instance);
-            DontDestroyOnLoad(EventSystem.current);
+
+        }
+        else { 
+            Destroy(gameObject);
+            return;
         }
 
         SceneManager.sceneLoaded += OnSceneLoaded;  // add a delegate to be run everytime a scene is loaded
@@ -177,6 +181,11 @@ public class GameManager : MonoBehaviour {
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         if (scene.buildIndex < 2) return;
         Debug.Log("OnSceneLoaded: " + scene.name);
+        if(!EventSystem.current) {
+            GameObject eventSystem = new GameObject("EventSystem", typeof(EventSystem));
+            eventSystem.AddComponent<StandaloneInputModule>();
+         
+        }
         StartGame();
     }
 

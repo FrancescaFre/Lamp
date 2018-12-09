@@ -143,22 +143,24 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Lamp_Base"))
-        {//if the character has entered the light of a lamp that is switched on
+    private void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("Lamp_Base")) {//if the character has entered the light of a lamp that is switched on
             IsSafe = true;
         }
+        else if (other.CompareTag("Enemy")) {   //if the character touches an enemy trigger
+                                                //READ AS: if an enemy curse the character
 
+<<<<<<< HEAD
         else if (other.CompareTag("EnemyBody") && !IsSafe)
         {   //if the character touches an enemy trigger
             //READ AS: if an enemy curse the character
          
+=======
+>>>>>>> cd01bee5bd10734fe4c0c9881b6016d6cf8f0de0
             Enemy touchedEnemy = other.GetComponentInParent<Enemy>();
             touchedEnemy.PlayerTouched(this);
             Debug.Log("before " + CurseStatus);
-            if (CurseStatus == Status.NORMAL && !touchedEnemy.data_enemy.instant_curse)
-            {
+            if (CurseStatus == Status.NORMAL && !touchedEnemy.data_enemy.instant_curse) {
                 CurseStatus = Status.HALF_CURSED;
                 TeamHUD.Instance.HalfCurse();
                 Debug.Log("after " + CurseStatus);
@@ -168,6 +170,7 @@ public class PlayerController : MonoBehaviour {
             GameManager.Instance.SpawnNewEnemy(touchedEnemy.data_enemy.level - 1, _rb.position, touchedEnemy.path);
 
         }
+
     }
 
     private void OnTriggerExit(Collider other) {

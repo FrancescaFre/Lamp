@@ -157,6 +157,7 @@ GameObject:
   - component: {fileID: 4736897815854180}
   - component: {fileID: 108300372906819202}
   - component: {fileID: 114175728624755922}
+  - component: {fileID: 114815970547712124}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -185,7 +186,7 @@ Transform:
   m_GameObject: {fileID: 1827527390835672}
   m_LocalRotation: {x: -0.000000081460335, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.602026, y: 2.757, z: 0.020334244}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 4782528183685646}
   - {fileID: 4676079544832834}
@@ -225,9 +226,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1951744994855004}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.6349343, y: 1.6349341, z: 1.6349343}
+  m_LocalScale: {x: 0.48686, y: 0.48686, z: 0.48686}
   m_Children:
   - {fileID: 4662655464134706}
   - {fileID: 4573392543199182}
@@ -255,7 +256,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1977670930154960}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.97, y: 3.97, z: 0}
+  m_LocalPosition: {x: 0.292, y: 1.213, z: 0.009}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4827687398548472}
@@ -280,9 +281,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1185496512726810}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.29999998, y: 0.3, z: 0.29999998}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4672996890705082}
   - {fileID: 4736897815854180}
@@ -539,7 +540,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 0.6332026, b: 0, a: 1}
-  m_Intensity: 2
+  m_Intensity: 3
   m_Range: 2
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -617,6 +618,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraToLookAt: {fileID: 0}
+--- !u!114 &114815970547712124
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1977670930154960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74eb290077a495b4f8489f895b2cc599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loop: 1
+  smoothFactor: 3
+  addIntensity: 5
 --- !u!114 &114998306885551278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -630,6 +645,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightBulb: []
   auraLight: []
+  particleSystems: []
   allColliders: []
   isEnemyLamp: 1
   isTurnedOn: 0
@@ -643,10 +659,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 4.646209
-  m_Height: 10.73741
+  m_Radius: 1.5
+  m_Height: 4
   m_Direction: 1
-  m_Center: {x: 1.2369295, y: -0.12707391, z: 0}
+  m_Center: {x: 0.3, y: 0, z: 0}
 --- !u!212 &212488338458836792
 SpriteRenderer:
   m_ObjectHideFlags: 1

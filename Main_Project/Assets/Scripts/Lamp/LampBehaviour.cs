@@ -2,10 +2,12 @@
 using AuraAPI;
 
 public class LampBehaviour : MonoBehaviour {
-
+    [Header("Light Sources")]
     public Light[] lightBulb;
     public AuraLight[] auraLight;
-
+    [Header("All Paricles")]
+    public ParticleSystem[] particleSystems;
+    [Header("All the Colliders")]
     public Collider[] allColliders;
     [Header("Lamp Properties")]
     public bool isEnemyLamp = false;
@@ -20,15 +22,29 @@ public class LampBehaviour : MonoBehaviour {
     void Start() {
         lightBulb = GetComponentsInChildren<Light>();                 //the light sources of the child GO
         auraLight = GetComponentsInChildren<AuraLight>();                 //the aura sources of the child GO
-
+        particleSystems = GetComponentsInChildren<ParticleSystem>();
 
         allColliders = GetComponentsInChildren<Collider>();
         isTurnedOn = isEnemyLamp;
+
+        for (int i = 0; i < particleSystems.Length; i++) {
+            if (particleSystems[i].rotationOverLifetime.enabled) {
+
+                ParticleSystem.MainModule main = particleSystems[i].main;
+
+                if (isEnemyLamp)
+                    main.startColor = GameManager.Instance.levelLoaded.enemyColor;
+                else
+                    main.startColor = GameManager.Instance.levelLoaded.allyColor;
+            }
+
+        }
+
+
+
         for (int i = 0; i < lightBulb.Length; i++) {
             if (isEnemyLamp)
-
                 lightBulb[i].color = GameManager.Instance.levelLoaded.enemyColor;
-
             else
                 lightBulb[i].color = GameManager.Instance.levelLoaded.allyColor;
 
@@ -39,11 +55,14 @@ public class LampBehaviour : MonoBehaviour {
 
 
         for (int i = 0; i < allColliders.Length; i++) {
-            if (allColliders[i].CompareTag("Lamp_Switch"))
+            if (allColliders[i].CompareTag("Lamp_Switch")) {
                 allColliders[i].enabled = true;
-            if (allColliders[i].CompareTag("Lamp_Base"))
+                allColliders[i].isTrigger = false;
+            }
+            if (allColliders[i].CompareTag("Lamp_Base")) {
                 allColliders[i].enabled = false;
-
+                allColliders[i].isTrigger = true;
+            }
         }
 
 
