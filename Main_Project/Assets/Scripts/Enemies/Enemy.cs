@@ -150,6 +150,10 @@ public class Enemy : MonoBehaviour
           }
       }*/
 
+    public void Allert(PlayerController pc) {
+        player = pc.transform;
+    }
+
     public void PlayerTouched(PlayerController playerT) {
         if (player.Equals(playerT)){
             player = null; ///WARNING!
@@ -171,9 +175,12 @@ public class Enemy : MonoBehaviour
 
     private void ChangeStatus() {
         //1- if the enemy is wandering or returning and it see an enemy and this is not safe--> seeking the player (player)
-        if ((currentStatus == EnemyStatus.WANDERING || currentStatus == EnemyStatus.RETURN || currentStatus == EnemyStatus.SEARCHING) && fov.visibleTargets.Count > 0 && !fov.visibleTargets[0].GetComponent<PlayerController>().IsSafe)
+        if (currentStatus != EnemyStatus.SEEKING && ((fov.visibleTargets.Count > 0 && 
+            !fov.visibleTargets[0].GetComponent<PlayerController>().IsSafe) || (player && !player.GetComponent<PlayerController>().IsSafe)))
         {
-            player = fov.visibleTargets[0];
+            if (fov.visibleTargets.Count > 0 && !fov.visibleTargets[0].GetComponent<PlayerController>().IsSafe)
+                player = fov.visibleTargets[0];
+
             timePassedToDrop = 0f;
 
             GameManager.Instance.howManySeeing++;
@@ -183,10 +190,8 @@ public class Enemy : MonoBehaviour
         else if (currentStatus == EnemyStatus.WANDERING && fov.earedTargets.Count > 0)
         {
             currentStatus = EnemyStatus.SEARCHING;
-            if (Random.Range(0, 1) == 0)
-                randomInt = 1;
-            else
-                randomInt = -1;
+            randomInt = Random.Range(0, 1) == 0 ? 1 : -1;
+      
             timePassed = 0;
            // destination = this.transform.position;
         }
@@ -206,10 +211,7 @@ public class Enemy : MonoBehaviour
                 player = null; ///WARNING!
                 destination = lastPlayerPosition;
 
-                if (Random.Range(0, 1) == 0)
-                    randomInt = 1;
-                else
-                    randomInt = -1;
+                randomInt = Random.Range(0, 1) == 0 ? 1 : -1;
 
                 currentStatus = EnemyStatus.SEARCHING;
                 timePassed = 0;
