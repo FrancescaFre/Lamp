@@ -27,16 +27,16 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1790725464685392
+--- !u!1 &1357353826547330
 GameObject:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4632706156793290}
-  - component: {fileID: 33808608260590434}
-  - component: {fileID: 23190779955704536}
+  - component: {fileID: 4831137873369836}
+  - component: {fileID: 33733010409872880}
+  - component: {fileID: 23308317761578200}
   m_Layer: 0
   m_Name: default
   m_TagString: Untagged
@@ -44,14 +44,14 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1894678275843800
+--- !u!1 &1747866956172294
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4508164277435534}
+  - component: {fileID: 4109315660591166}
   m_Layer: 0
   m_Name: Cave_bear-best-exported
   m_TagString: Untagged
@@ -59,31 +59,31 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4508164277435534
+--- !u!4 &4109315660591166
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1894678275843800}
+  m_GameObject: {fileID: 1747866956172294}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.014215097, y: 0.014215097, z: 0.014215097}
+  m_LocalScale: {x: 0.0142151, y: 0.014215107, z: 0.014215107}
   m_Children:
-  - {fileID: 4632706156793290}
+  - {fileID: 4831137873369836}
   m_Father: {fileID: 4929751528227946}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!4 &4632706156793290
+--- !u!4 &4831137873369836
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1790725464685392}
+  m_GameObject: {fileID: 1357353826547330}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4508164277435534}
+  m_Father: {fileID: 4109315660591166}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4929751528227946
@@ -96,16 +96,16 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4508164277435534}
+  - {fileID: 4109315660591166}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23190779955704536
+--- !u!23 &23308317761578200
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1790725464685392}
+  m_GameObject: {fileID: 1357353826547330}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -115,10 +115,10 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 0b32803f8300f1c4bb2e2ec477029639, type: 3}
-  - {fileID: 2100002, guid: 0b32803f8300f1c4bb2e2ec477029639, type: 3}
-  - {fileID: 2100004, guid: 0b32803f8300f1c4bb2e2ec477029639, type: 3}
-  - {fileID: 2100006, guid: 0b32803f8300f1c4bb2e2ec477029639, type: 3}
+  - {fileID: 2100000, guid: 034d24bb119d0be49836019f328f8c10, type: 2}
+  - {fileID: 2100000, guid: 78d1dab1d16dafb44b269f499e913219, type: 2}
+  - {fileID: 2100000, guid: b8aecde785d794b4aa14b1b44c4a3c2e, type: 2}
+  - {fileID: 2100000, guid: a5ccf77f86ef6f0418d7de52e6a053d3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -138,12 +138,12 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33808608260590434
+--- !u!33 &33733010409872880
 MeshFilter:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1790725464685392}
+  m_GameObject: {fileID: 1357353826547330}
   m_Mesh: {fileID: 4300000, guid: 0b32803f8300f1c4bb2e2ec477029639, type: 3}
 --- !u!136 &136878557610299002
 CapsuleCollider:

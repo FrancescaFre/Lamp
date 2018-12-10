@@ -43,8 +43,10 @@ public class LampBehaviour : MonoBehaviour {
 
 
         for (int i = 0; i < lightBulb.Length; i++) {
-            if (isEnemyLamp)
+            if (isEnemyLamp) {
                 lightBulb[i].color = GameManager.Instance.levelLoaded.enemyColor;
+                lightBulb[i].range = 1f;
+            }
             else
                 lightBulb[i].color = GameManager.Instance.levelLoaded.allyColor;
 
