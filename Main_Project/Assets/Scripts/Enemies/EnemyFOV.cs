@@ -28,7 +28,9 @@ public class EnemyFOV : MonoBehaviour {
 
     public Enemy parentEnemy;
     private SphereCollider colliderEar;
-    
+
+    public ParticleSystem hearingParticle;
+
     void Start()
     {
         viewMesh = new Mesh();
@@ -37,6 +39,10 @@ public class EnemyFOV : MonoBehaviour {
 
         StartCoroutine("FindTargetsWithDelay", .2f);
 
+        foreach (ParticleSystem ps in transform.GetComponentsInChildren<ParticleSystem>())
+            if (ps.CompareTag("HearingAreaEnemy"))
+                hearingParticle = ps;
+        //todo: settare il raggio
     }
 
     IEnumerator FindTargetsWithDelay(float delay)

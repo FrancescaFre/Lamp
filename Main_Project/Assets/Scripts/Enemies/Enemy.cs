@@ -60,6 +60,10 @@ public class Enemy : MonoBehaviour
     Vector3 dirY;
     int randomInt=1;
 
+    public ParticleSystem teleportParticles;
+    public ParticleSystem searchingParticles;
+
+
     public void Start()
     {
         //Initialize with scriptable obeject data
@@ -88,6 +92,23 @@ public class Enemy : MonoBehaviour
         rb.position = destination;
        
         hanselGretelGPS = new Stack<Transform>();
+
+        foreach (ParticleSystem ps in transform.GetComponentsInChildren<ParticleSystem>())
+        {
+            if (ps.CompareTag("TeleportEnemy"))
+            {
+                teleportParticles = ps;
+                teleportParticles.Stop();
+            }
+            if (ps.CompareTag("SearchingStatusEnemy"))
+            {
+                searchingParticles = ps;
+                searchingParticles.Stop();
+            }
+           
+        }
+
+
     }
 
     public void Update()
@@ -96,12 +117,8 @@ public class Enemy : MonoBehaviour
         ChangeDirection();
 
         if (Vector3.Distance(destination, transform.position) > 0.3f)
-        {
-            
+        { 
             direction = (destination - transform.position).normalized;
-            
-
-            //add adjust for floking
             velocity = direction * speed * Time.deltaTime;
             velocity = Vector3.ClampMagnitude(velocity, direction.magnitude);
             rb.MovePosition(rb.position + velocity);
@@ -110,9 +127,9 @@ public class Enemy : MonoBehaviour
         //THANKS Mister ANTONIO
         dirY = Vector3.ProjectOnPlane(destination - this.transform.position, transform.up);
         //Debug.DrawLine(this.transform.position, this.transform.position + dirY * 10f, Color.red);
-        //transform.LookAt(transform.position + dirY, transform.up);
         if (currentStatus != EnemyStatus.SEARCHING)
         {
+            //transform.LookAt(transform.position + dirY, transform.up);
             var targetRotation = Quaternion.LookRotation(dirY);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 2);
         }
@@ -190,8 +207,9 @@ public class Enemy : MonoBehaviour
         else if (currentStatus == EnemyStatus.WANDERING && fov.earedTargets.Count > 0)
         {
             currentStatus = EnemyStatus.SEARCHING;
-            randomInt = Random.Range(0, 1) == 0 ? 1 : -1;
-      
+            randomInt = Random.Range(0, 2) == 0 ? 1 : -1;
+            searchingParticles.Play(); 
+
             timePassed = 0;
            // destination = this.transform.position;
         }
@@ -211,7 +229,7 @@ public class Enemy : MonoBehaviour
                 player = null; ///WARNING!
                 destination = lastPlayerPosition;
 
-                randomInt = Random.Range(0, 1) == 0 ? 1 : -1;
+                randomInt = Random.Range(0, 2) == 0 ? 1 : -1;
 
                 currentStatus = EnemyStatus.SEARCHING;
                 timePassed = 0;
@@ -225,6 +243,8 @@ public class Enemy : MonoBehaviour
         }
         else if (currentStatus == EnemyStatus.SEARCHING && timePassed >= stop_search_after_x_seconds)
         {
+            searchingParticles.Stop();
+
             if (hanselGretelGPS.Count > 0)
             {
                 currentStatus = EnemyStatus.RETURN;
@@ -266,6 +286,8 @@ public class Enemy : MonoBehaviour
                 {
                     //animation for the teleport HERE
                     this.rb.position = path.GetChild(pathIndex).position;
+                    teleportParticles.Play();
+
                     destination = path.GetChild(pathIndex).position;
                     teleport = false; 
                 }
@@ -293,6 +315,7 @@ public class Enemy : MonoBehaviour
                 {
                     //animation for the teleport HERE
                     this.rb.position = hanselGretelGPS.Pop().position;
+                    teleportParticles.Play();
                     teleport = false;
                 }
                 else
