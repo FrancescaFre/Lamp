@@ -96,6 +96,11 @@ public class Robot : Skill
         _rb = GetComponent<Rigidbody>();
         playerController = GetComponentInParent<PlayerController>();
         playerController.skill = this;
+
+        battery = InGameHUD.Instance.InGameHUDPanel.transform.Find("Gauge Panel").Find("Battery").GetComponent<Image>();
+        batteryProgress = battery.transform.GetChild(0).GetComponent<Image>();
+        battery.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame

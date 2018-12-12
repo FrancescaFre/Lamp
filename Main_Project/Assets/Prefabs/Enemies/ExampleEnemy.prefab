@@ -728,18 +728,21 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   visibleTargets: []
+  earedTargets: []
+  targetsInViewRadius: []
   meshResolution: 1
   edgeResolveIterations: 4
   edgeDstThreshold: 4
   maskCutawayDst: 0.1
   viewMeshFilter: {fileID: 33768410931388434}
+  parentEnemy: {fileID: 0}
 --- !u!114 &114357523840025324
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1958372417013980}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 736a465d3d2433a44b52086d9e7f4f75, type: 3}
   m_Name: 

@@ -6,16 +6,27 @@ using UnityEngine.UI;
  */
 
 public class InGameHUD : MonoBehaviour {
-
+    public static InGameHUD Instance;
     public GameObject InGameHUDPanel;
     public LampHUD lampHUDPanel;
     public PauseManagerGUI pManager;
 
-    private void Start() {
+    private void Awake() {
+        if (!Instance) {
+            Instance = this;
+        }
+        else {
+            Destroy(gameObject);
+            return;
+        }
+
+
         pManager = GetComponent<PauseManagerGUI>();
         InGameHUDPanel = lampHUDPanel.transform.parent.gameObject;
         lampHUDPanel.gameObject.SetActive(false);
     }
+
+    
 
     private void FixedUpdate() {
         InGameHUDPanel.SetActive(!pManager.PausePanel.activeInHierarchy);   // mutual exclusion

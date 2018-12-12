@@ -20,6 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4217184632604714}
   - component: {fileID: 135136264947226242}
+  - component: {fileID: 114494526329180338}
+  - component: {fileID: 114583371327400220}
   m_Layer: 0
   m_Name: VictorianKey
   m_TagString: Key
@@ -50,27 +52,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1913064700591838}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 0.00042659, y: 0.00042659, z: 0.00042659}
   m_Children: []
   m_Father: {fileID: 4217184632604714}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!4 &4217184632604714
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1463552872558568}
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.5438709, y: 20.361, z: 1.6966368}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4000518345417762}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23451217110846742
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -113,6 +115,36 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1913064700591838}
   m_Mesh: {fileID: 4300000, guid: 8eba385c3d3afec47af0e8b2713d74be, type: 3}
+--- !u!114 &114494526329180338
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1463552872558568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f70ff73275f1c4c947215a3ba8edeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frequency: 2
+  speed: 0.3
+--- !u!114 &114583371327400220
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1463552872558568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c20de9ecc8bde41b5ed3a66a8071a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spin: 1
+  spinParent: 0
+  speed: 50
+  clockwise: 1
+  direction: 1
+  directionChangeSpeed: 2
 --- !u!135 &135136264947226242
 SphereCollider:
   m_ObjectHideFlags: 1

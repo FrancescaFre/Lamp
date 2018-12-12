@@ -16,16 +16,17 @@ public class Lantern : MonoBehaviour
     void Start()
     {
         _player = FindObjectOfType<PlayerController>();
-        _picked = false; 
+        _picked = false;
+
+        lanternGauge = InGameHUD.Instance.InGameHUDPanel.transform.Find("Gauge Panel").Find("Lantern").GetComponent<Image>();
+        lanternProgress = lanternGauge.transform.GetChild(0).GetComponent<Image>();
+        lanternGauge.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     void Update()
     {
-        if (!_picked)
-        {
-            transform.position = transform.position + transform.up * Mathf.Sin(Time.time * 2f) * Time.deltaTime * 0.3f;
-            return;
-        }
+
 
         _progress++;
         lanternProgress.fillAmount += 1.0f / lightDuration;

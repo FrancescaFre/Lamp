@@ -15,6 +15,8 @@ public abstract class Digging : MonoBehaviour {
     protected bool canDig = true;
 
     protected int _progress; // Actual casting progress  
+   
+    #region Trigger Interaction
 
     protected void OnTriggerEnter(Collider obstacle)
     {
@@ -37,6 +39,14 @@ public abstract class Digging : MonoBehaviour {
             canDig = true;
         }
     }
+    #endregion
+
+    private void Start() {
+        caster = InGameHUD.Instance.InGameHUDPanel.transform.Find("Gauge Panel").Find("Caster").GetComponent<Image>();
+        bar = caster.transform.GetChild(0).GetComponent<Image>();
+        caster.gameObject.SetActive(false);
+        gameObject.SetActive(false);
+    }
 
     protected virtual void Update()
     {
@@ -49,7 +59,10 @@ public abstract class Digging : MonoBehaviour {
     /// <summary>
     /// Performs the digging action (called by caster)
     /// </summary>
-    public abstract void Dig();
+    public virtual void Dig() {
+        player.digEffect.gameObject.SetActive(true);
+        player.digEffect.Play();
+    }
 
     /// <summary>
     /// Enables the digging circle
