@@ -12,6 +12,7 @@ public class ZoneDig : Digging {
     /// </summary>
     override public void Dig()
     {
+        base.Dig();
         player.GetComponent<Rigidbody>().MovePosition(_movingCircle.transform.position); // Moves the player right on top of the target
 
         // After digging

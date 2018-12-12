@@ -1422,7 +1422,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1377875397492368}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c04f36f25a2516428b3b46afecb48f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 8c52c46d0e057bb4cadf5b9347b5d3b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 3fa73ed9de9b4894fad13c2bccb0c7b5, type: 2}
@@ -1445,9 +1445,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f751dd3b597427847add2b10606cdfe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InGameHUDPanel: {fileID: 0}
-  lampHUDPanel: {fileID: 0}
-  pManager: {fileID: 0}
+  InGameHUDPanel: {fileID: 1934365855492596}
+  lampHUDPanel: {fileID: 114803442212722782}
+  pManager: {fileID: 114743730296099792}
 --- !u!114 &114535954094526450
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1510,7 +1510,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1063954899537164}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c04f36f25a2516428b3b46afecb48f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 8c52c46d0e057bb4cadf5b9347b5d3b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: a51484e7dbe41504eae3eaa7c8add353, type: 2}
@@ -1885,7 +1885,7 @@ MonoBehaviour:
   _isPaused: 0
   PausePanel: {fileID: 1625759846567478}
   firstButtonSelected: {fileID: 114497902371478110}
-  lampHUDPanel: {fileID: 0}
+  lampHUDPanel: {fileID: 114803442212722782}
   allyText: {fileID: 114587734234120402}
   enemyText: {fileID: 114306130297036576}
 --- !u!114 &114803442212722782

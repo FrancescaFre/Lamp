@@ -48,6 +48,9 @@ public class PlayerController : MonoBehaviour {
     private int _missingParts = 0;
     private int _keys = 0;
 
+    public ParticleSystem halfCurseEffect;
+    public ParticleSystem fullCurseEffect;
+    public ParticleSystem digEffect;
     //TEST
     public Lantern Lantern { get; set; }
     //TEST
@@ -69,6 +72,20 @@ public class PlayerController : MonoBehaviour {
         MainCamera = FindObjectOfType<CameraManager>();
 
         skill = GetComponentInChildren<Skill>();
+
+        var particles =GetComponentsInChildren<CFX_AutoDestructShuriken>(); 
+        foreach(var part in particles) {
+
+            if (part.CompareTag("Half_Curse"))
+                halfCurseEffect = part.GetComponent<ParticleSystem>();
+            else if(part.CompareTag("Full_Curse"))
+                fullCurseEffect = part.GetComponent<ParticleSystem>();
+            else if(part.CompareTag("Dig_Effect"))
+                digEffect = part.GetComponent<ParticleSystem>();
+            part.gameObject.SetActive(false);
+        }
+        
+       
     }
     
     // Update is called once per frame
@@ -156,11 +173,14 @@ public class PlayerController : MonoBehaviour {
             Debug.Log("before " + CurseStatus);
             if (CurseStatus == Status.NORMAL && !touchedEnemy.data_enemy.instant_curse) {
                 CurseStatus = Status.HALF_CURSED;
+                halfCurseEffect.gameObject.SetActive(true);
+                halfCurseEffect.Play();
                 TeamHUD.Instance.HalfCurse();
                 Debug.Log("after " + CurseStatus);
                 return;
             }
-
+            fullCurseEffect.gameObject.SetActive(true);
+            fullCurseEffect.Play();
             GameManager.Instance.SpawnNewEnemy(touchedEnemy.data_enemy.level - 1, _rb.position, touchedEnemy.path);
         }
 

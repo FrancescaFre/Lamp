@@ -7,6 +7,7 @@ public class VerticalDig : Digging
     /// </summary>
     override public void Dig()
     {
+        base.Dig();
         player.GetComponent<Rigidbody>().MovePosition(-(player.transform.position)); // Moves the player on the other side of the world
       
         // After digging
