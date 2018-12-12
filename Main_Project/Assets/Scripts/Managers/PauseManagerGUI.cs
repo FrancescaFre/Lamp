@@ -74,6 +74,8 @@ public class PauseManagerGUI : MonoBehaviour {
     }
 
     public void LevelSelection() {
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = _originalFixedTime;
 
         GameManager.Instance.EndGame();
     }

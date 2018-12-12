@@ -45,29 +45,24 @@ public class GUIManager : MonoBehaviour {
 
     }
 
-
+    /// <summary>
+    /// Change the panel to the team selection
+    /// </summary>
     public void CheckSelectedLevel() {
         if (GameManager.Instance.levelLoaded == null) {
             nextButton.interactable = false;
             return;
         }
 
-        //Invoke("DelayNextButton", 1f);//allows the SFX to end.
+        
         Galaxies.SetActive(false);
         Characters.SetActive(true);
         EventSystem.current.SetSelectedGameObject(firstSelectedCharacter, null);
         Source.PlayOneShot(ConfirmSound);
 
     }
-    /// <summary>
-    /// Change the panel to the team selection
-    /// </summary>
-    private void DelayNextButton() {
-        
-        Galaxies.SetActive(false);
-        Characters.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(firstSelectedCharacter, null);
-    }
+    
+
 
     public void CheckSelectedTeam() {
         if (GameManager.Instance.TeamList != null && GameManager.Instance.TeamList.Count == 3 && GameManager.Instance.levelLoaded)
@@ -77,7 +72,7 @@ public class GUIManager : MonoBehaviour {
 
     }
 
-    //to turn backonce reached the team selection
+    //to turn back once reached the team selection
     public void BackToGalaxySelect() {
 
         Characters.SetActive(false);
