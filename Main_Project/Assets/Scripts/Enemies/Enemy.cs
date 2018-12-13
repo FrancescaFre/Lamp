@@ -196,7 +196,7 @@ public class Enemy : MonoBehaviour
     }
 
     public void PlayerTouched(PlayerController playerT) {
-        if (player.Equals(playerT)){
+       
             player = null; ///WARNING!
 
             if (hanselGretelGPS.Count > 0)
@@ -211,7 +211,7 @@ public class Enemy : MonoBehaviour
                 currentStatus = EnemyStatus.WANDERING;
                 destination = path.GetChild(pathIndex).position;
             }
-        }
+       
     }
 
     private void ChangeStatus() {
