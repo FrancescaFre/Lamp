@@ -32,6 +32,8 @@ public class Enemy : MonoBehaviour
     GameObject objDrop;
     Transform toDestroy;
 
+   
+
     float stop_search_after_x_seconds;
     public Transform player;
 
@@ -48,7 +50,8 @@ public class Enemy : MonoBehaviour
 
     private Vector3 lastPlayerPosition;
 
-    bool teleport = false;
+    public bool teleport = false;
+    public float timeToTeleport = 0;
 
     //---Object
     private Rigidbody rb;
@@ -59,9 +62,11 @@ public class Enemy : MonoBehaviour
     float rotationSpeed = 2f;
     Vector3 dirY;
     int randomInt=1;
+   
 
     public ParticleSystem teleportParticles;
     public ParticleSystem searchingParticles;
+    public ParticleSystem earingParticles;
 
 
     public void Start()
@@ -105,10 +110,25 @@ public class Enemy : MonoBehaviour
                 searchingParticles = ps;
                 searchingParticles.Stop();
             }
-           
+
+            if (ps.CompareTag("HearingAreaEnemy"))
+            {
+                earingParticles = ps;
+                ParticleSystem.MainModule circle = earingParticles.main; //DarkMagicAura
+                circle.startSize = fov.viewRadius*3;  //sets the size of the root particle system
+
+                for (int i = 0; i < earingParticles.transform.childCount; i++)
+                {//children of DarkMagicAura
+                    Debug.Log(" index " + i);
+                    ParticleSystem.ShapeModule shape = earingParticles.transform.GetChild(i).GetComponent<ParticleSystem>().shape;
+                    shape.radius = fov.viewRadius*3;  //sets the radius of the child particle system
+                }
+                if (Random.Range(0, 2) == 1)
+                {
+                    earingParticles.Stop();
+                }
+            }
         }
-
-
     }
 
     public void Update()
@@ -223,8 +243,7 @@ public class Enemy : MonoBehaviour
             float dstToTarget = Vector3.Distance(transform.position, player.position);
 
             //if the player is safe or the raycast can't reach the player (cause some obstacles), stop seek
-            Debug.Log("inside enemy " + Physics.Raycast(transform.position, dirToTarget, dstToTarget * 5, LayerMask.GetMask("Obstacles"))); 
-            if (player.GetComponent<PlayerController>().IsSafe || Physics.Raycast(transform.position, dirToTarget, dstToTarget*5, LayerMask.GetMask("Obstacles")))    
+            if (player.GetComponent<PlayerController>().IsSafe || Physics.Raycast(transform.position, dirToTarget, dstToTarget*5, LayerMask.GetMask("Obstacle")))    
             {
                 Debug.Log("hidden" +  Physics.Raycast(transform.position, dirToTarget, dstToTarget, fov.obstacleMask));
                 GameManager.Instance.howManySeeing--;
@@ -271,29 +290,36 @@ public class Enemy : MonoBehaviour
             }
         }
     }
-
+    
     private void ChangeDirection() {
         if (currentStatus == EnemyStatus.WANDERING)
         {
-            
             if (Vector3.Distance(path.GetChild(pathIndex).position, transform.position) < 0.3f)
             {
+                Debug.Log("AAAAA");
                 pathIndex = (pathIndex + 1) % path.childCount;
-                while (path.GetChild(pathIndex).GetComponent<SingleWaypoint>().underALamp)
+                while (path.GetChild(pathIndex).GetComponent<SingleWaypoint>().underALamp && !teleport)
                 {
                     pathIndex = (pathIndex + 1) % path.childCount;
                     teleport = true;
+                    timeToTeleport = 0;
+                    teleportParticles.Play();
                 }
-                if (teleport)
+
+                if (teleport && timeToTeleport >= 1)
                 {
                     //animation for the teleport HERE
+
                     this.rb.position = path.GetChild(pathIndex).position;
                     teleportParticles.Play();
 
                     destination = path.GetChild(pathIndex).position;
-                    teleport = false; 
+                    teleport = false;
                 }
-                else
+                else if (teleport && timeToTeleport < 1)
+                    timeToTeleport += Time.deltaTime;
+
+                else if(!teleport)
                     destination = path.GetChild(pathIndex).position;
             }
         }
@@ -305,21 +331,27 @@ public class Enemy : MonoBehaviour
             {
                 if (hanselGretelGPS.Count != 0 && hanselGretelGPS.Peek()!=null)
                 {
-                    while (hanselGretelGPS.Peek().GetComponent<SingleWaypoint>().underALamp)
+                    while (hanselGretelGPS.Peek().GetComponent<SingleWaypoint>().underALamp && !teleport)
                     {
                         DestroyImmediate(toDestroy.gameObject);
                         toDestroy = hanselGretelGPS.Peek();
-                        teleport = true; 
+                        teleport = true;
+                        teleportParticles.Play();
+                        timeToTeleport = 0;
                     }
                 }
 
-                if (teleport)
+                if (teleport && timeToTeleport >= 1)
                 {
                     //animation for the teleport HERE
                     this.rb.position = hanselGretelGPS.Pop().position;
                     teleportParticles.Play();
                     teleport = false;
                 }
+
+                else if (teleport && timeToTeleport < 1)
+                    timeToTeleport += Time.deltaTime;
+
                 else
                 {
                     if (toDestroy)

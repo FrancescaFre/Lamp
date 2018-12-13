@@ -117,6 +117,7 @@ public class EnemyFOV : MonoBehaviour {
             {
                 float dstToTarget = Vector3.Distance(transform.position, target.position);
                 //if i hit an obstacle = TRUE, don't add this target else add it
+                Debug.DrawRay(transform.position, dirToTarget, Color.blue);
                 if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("Obstacle")))
                 {
                     Debug.Log("RAY CAST WOT " + Physics.Raycast(transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("Obstacle")));
