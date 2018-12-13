@@ -71,8 +71,8 @@ public class GameManager : MonoBehaviour {
 
         nextChar = currentCharacter < TeamList.Count ? currentCharacter + 1 : -1;
         if (nextChar == -1) {
+            BadEndGame();
             Debug.Log("gameover");
-
         }
 
 
@@ -155,7 +155,7 @@ public class GameManager : MonoBehaviour {
 
         ActivatePlayerX();
     }
-    public void EndGame() {//epilogue
+    private void EndGame() {//epilogue
         currentPC = null;
         lampHUD = null;
         levelLoaded = null;
@@ -168,6 +168,18 @@ public class GameManager : MonoBehaviour {
         SceneManager.LoadScene("1_GameMenu");//which has index 1
         AudioManager.Instance.PlayAudio();
 
+    }
+
+    public void BadEndGame()
+    {
+        InGameHUD.Instance.defeat.gameObject.SetActive(true);
+        Invoke("EndGame", 5);
+    }
+
+    public void GoodEndGame()
+    {
+        InGameHUD.Instance.victory.gameObject.SetActive(true);
+        Invoke("EndGame", 5);
     }
 
     public void SpawnNewEnemy(int enemyLevel, Vector3 playerPosition, Transform enemyPath) {

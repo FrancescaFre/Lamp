@@ -10,6 +10,7 @@ public class InGameHUD : MonoBehaviour {
     public GameObject InGameHUDPanel;
     public LampHUD lampHUDPanel;
     public PauseManagerGUI pManager;
+    public Image victory, defeat;
 
     private void Awake() {
         if (!Instance) {
