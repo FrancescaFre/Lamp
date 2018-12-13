@@ -26,7 +26,7 @@ public class ElementSoundGUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
         HoverSource.clip = hoverSound;
         ClickSource.clip = clickSound;
         CancelSource.clip = clickSound;
-
+        HoverSource.volume = .5f;
         HoverSource.playOnAwake = false;
         ClickSource.playOnAwake = false;
         CancelSource.playOnAwake = false;

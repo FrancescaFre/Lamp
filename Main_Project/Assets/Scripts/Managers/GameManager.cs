@@ -149,7 +149,10 @@ public class GameManager : MonoBehaviour {
             x.path = levelLoaded.PathList[i].transform;
             Instantiate(levelLoaded.enemy_L1_GO);
         }*/
-        //lampGUI = FindObjectOfType<LampGUI>();
+
+        if (levelLoaded.levelMusic)
+            AudioManager.Instance.PlayAudio(levelLoaded.levelMusic);
+
         ActivatePlayerX();
     }
     public void EndGame() {//epilogue
@@ -163,7 +166,7 @@ public class GameManager : MonoBehaviour {
         CharactersDict.Clear();
         CharactersList.Clear();
         SceneManager.LoadScene("1_GameMenu");//which has index 1
-
+        AudioManager.Instance.PlayAudio();
 
     }
 
