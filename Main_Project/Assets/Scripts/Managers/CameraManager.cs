@@ -2,28 +2,28 @@
 
 public class CameraManager : MonoBehaviour {
 
-    [Tooltip("Minimum field of view reached zooming in")]
-    public float minZoom = 15f;
+    [Tooltip("Minimum distance from the player when zooming in")]
+    [Range(1,2)]
+    public float nearZoom = 1;
 
-    [Tooltip("Maximum field of view reached zooming out")]
-    public float maxZoom = 90f;
+    [Tooltip("Maximum distance from the player when zooming out")]
+    [Range(6,8)]
+    public float farZoom = 7;
 
     [Tooltip("How fast are min and max reached")]
-    [Range(15f, 25f)]
-    public float sensitivity = 20f;
-
-    [Tooltip("True to zoom out scrolling up and vice-versa")]
-    public bool inverseZoom = false;
+    [Range(.05f, .20f)]
+    public float sensitivity = .10f;
 
     private Transform _dummyCam; // The dummy camera is used to avoid 3-dimensional inverse revolutions
     private Vector3 _camOffset; // Difference in position between the main camera and the dummy one
     private float yPosition = 0; // Position on Y of the rotating camera (starts from zero)
+    
 
     // Saves the distance between the original and the dummy camera
     void Start () {
         _dummyCam = GameObject.FindGameObjectWithTag("DummyCam").transform;
         AlignCameras();
-        _camOffset = transform.position - _dummyCam.position; 
+        _camOffset = transform.position - _dummyCam.position;
     }
 
     // Rotates the camera as the right analog stick is pressed
@@ -33,19 +33,26 @@ public class CameraManager : MonoBehaviour {
         //yPosition += Input.GetAxis("RightStick X") * Time.deltaTime * 90f; // Real one with the joypad analog stick
         _dummyCam.parent.localRotation = Quaternion.Euler(_dummyCam.parent.localRotation.x, yPosition, _dummyCam.parent.localRotation.z);
 
-        float fov = Camera.main.fieldOfView;
-        if (inverseZoom)
-            fov += Input.GetAxis("Mouse ScrollWheel") * sensitivity;
-        else
-            fov -= Input.GetAxis("Mouse ScrollWheel") * sensitivity;
-        fov = Mathf.Clamp(fov, minZoom, maxZoom);
-        Camera.main.fieldOfView = fov;
+        if (Input.GetAxisRaw("Mouse ScrollWheel") != 0 || Input.GetKey(KeyCode.J) || Input.GetKey(KeyCode.K)) // [ZOOM keys]
+            CheckZoom();
     }
 
     // Every frame takes the same position as the dummy camera, in relation to the player
     private void LateUpdate()
     {
         transform.SetPositionAndRotation(_dummyCam.position + _camOffset, _dummyCam.rotation); 
+    }
+
+    private void CheckZoom()
+    {
+        if ((Input.GetAxisRaw("Mouse ScrollWheel") > 0 && Vector3.Distance(transform.position, GameManager.Instance.currentPC.transform.position) > nearZoom) ||
+            (Input.GetAxisRaw("Mouse ScrollWheel") < 0 && Vector3.Distance(transform.position, GameManager.Instance.currentPC.transform.position) < farZoom))
+            _dummyCam.transform.Translate(0, 0, Input.GetAxis("Mouse ScrollWheel"), Space.Self);
+
+        if (Input.GetKey(KeyCode.J) && Vector3.Distance(transform.position, GameManager.Instance.currentPC.transform.position) > nearZoom)
+            _dummyCam.transform.Translate(0, 0, sensitivity, Space.Self);
+        else if (Input.GetKey(KeyCode.K) && Vector3.Distance(transform.position, GameManager.Instance.currentPC.transform.position) < farZoom)
+            _dummyCam.transform.Translate(0, 0, -sensitivity, Space.Self);
     }
 
     private void AlignCameras()

@@ -9,7 +9,6 @@ public class Bait : MonoBehaviour {
     public Image baitGauge;
     public Image baitProgress;
 
-    private PlayerController _player;
     private bool _picked;
     private bool _placed;
 
@@ -17,7 +16,6 @@ public class Bait : MonoBehaviour {
 
     void Start()
     {
-        _player = FindObjectOfType<PlayerController>();
         _picked = false;
         _placed = false;
 
@@ -45,7 +43,7 @@ public class Bait : MonoBehaviour {
     public void Place()
     {
         _placed = true;
-        transform.SetPositionAndRotation(_player.transform.position, _player.transform.rotation);
+        transform.SetPositionAndRotation(GameManager.Instance.currentPC.transform.position, GameManager.Instance.currentPC.transform.rotation);
         gameObject.SetActive(true);
         LureEnemy();
     }

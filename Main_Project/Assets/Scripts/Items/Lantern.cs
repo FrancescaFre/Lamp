@@ -11,11 +11,9 @@ public class Lantern : MonoBehaviour
 
     private float _progress = 0f;
     private bool _picked;
-    private PlayerController _player;
 
     void Start()
     {
-        _player = FindObjectOfType<PlayerController>();
         _picked = false;
 
         lanternGauge = InGameHUD.Instance.InGameHUDPanel.transform.Find("Gauge Panel").Find("Lantern").GetComponent<Image>();
@@ -48,16 +46,16 @@ public class Lantern : MonoBehaviour
     private void PickUp()
     {
         _picked = true;
-        _player.Lantern = this;
+        GameManager.Instance.currentPC.Lantern = this;
         gameObject.SetActive(false);
         Destroy(GetComponentInChildren<ParticleSystem>().gameObject);
     }
 
     public void Use()
     {
-        transform.SetParent(_player.transform);
+        transform.SetParent(GameManager.Instance.currentPC.transform);
         transform.localPosition = new Vector3(0.5f, -0.5f, 0.5f);
-        transform.rotation = _player.transform.rotation;
+        transform.rotation = GameManager.Instance.currentPC.transform.rotation;
         transform.localScale = new Vector3(2, 2, 2);
 
         GetComponentInChildren<SphereCollider>().enabled = true;
