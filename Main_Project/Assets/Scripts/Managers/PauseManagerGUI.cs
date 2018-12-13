@@ -34,8 +34,8 @@ public class PauseManagerGUI : MonoBehaviour {
     // Update is called once per frame
     void Update() {
 
-        allyText.text = string.Format("{0}/{1}",GameManager.Instance.allyLamps.ToString("00"),lampHUDPanel.allyLamp.ToString("00"));
-        enemyText.text = string.Format("{0}/{1}",GameManager.Instance.enemyLamps.ToString("00"), lampHUDPanel.enemyLamp.ToString("00"));
+        allyText.text = string.Format("{0}/{1}",GameManager.Instance.allyLamps.ToString("00"), GameManager.Instance.levelLoaded.allyLamps.ToString("00"));
+        enemyText.text = string.Format("{0}/{1}",GameManager.Instance.enemyLamps.ToString("00"), GameManager.Instance.levelLoaded.enemyLamps.ToString("00"));
 
         if (Input.GetKeyUp(KeyCode.Escape) || Input.GetButtonUp("PS4_Button_OPTIONS")) {//once the button has JUST been released
                                                                                  //switches on and off the pause menu

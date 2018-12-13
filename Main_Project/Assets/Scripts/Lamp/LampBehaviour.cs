@@ -91,7 +91,7 @@ public class LampBehaviour : MonoBehaviour {
         gameObject.layer = 11; //obstacle layer
         GameManager.Instance.allyLamps--;
         GameManager.Instance.lampHUD.DequeueAlly();
-        if (GameManager.Instance.levelLoaded.allyLamps == 0) {
+        if (GameManager.Instance.allyLamps == 0) {
 
             //TODO crate a canvas as win condition
             Invoke("GameManager.Instance.EndGame", 10);
