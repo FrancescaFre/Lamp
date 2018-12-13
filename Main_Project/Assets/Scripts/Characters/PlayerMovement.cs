@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public float stealthSpeed = 3f;
 
     //[Tooltip("The dummy player's transform")]
-    private Transform dummyPlayer;
+    public Transform DummyPlayer { get; set; }
 
     //[Tooltip("The dummy player's camera transform (must be dummy's child")]
     private Transform dummyCam;
@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        dummyPlayer = GameObject.FindGameObjectWithTag("DummyPlayer").transform;
+        DummyPlayer = GameObject.FindGameObjectWithTag("DummyPlayer").transform;
         dummyCam = GameObject.FindGameObjectWithTag("DummyCam").transform;
 
         _player = GetComponent<PlayerController>();
@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
         _onWater = false;
         _onLeaves = false;
         _onIce = false;
-        _dummyOffset = dummyPlayer.transform.position - transform.position;
+        _dummyOffset = DummyPlayer.transform.position - transform.position;
         StartCoroutine(CorrectPlayerPositions());
         StartCoroutine(CorrectPlayerRotation());
     }
@@ -179,9 +179,20 @@ public class PlayerMovement : MonoBehaviour
             _movement = (_screenUp * _vertInput + _screenRight * _horizInput).normalized * _stepSpeed * Time.deltaTime; // Same, but using _screenUp to go backwards correctly
 
         _rb.MovePosition(_rb.position + _movement); // Moves the player's rigidbody through physics
-        dummyPlayer.gameObject.GetComponent<Rigidbody>().MovePosition(dummyPlayer.gameObject.GetComponent<Rigidbody>().position + _movement); // Moves the dummy as well 
+        DummyPlayer.gameObject.GetComponent<Rigidbody>().MovePosition(DummyPlayer.gameObject.GetComponent<Rigidbody>().position + _movement); // Moves the dummy as well 
 
         _movementOnIce = _movement; // Stores the movement direction to be used on ice
+    }
+
+    /// <summary>
+    /// Changes the dummyplayer's position with the new character's one
+    /// </summary>
+    /// <param name="other"></param>
+    public void BatonPass(PlayerMovement other)
+    {
+        DummyPlayer.position = other.gameObject.transform.position + _dummyOffset;
+        other.DummyPlayer = DummyPlayer;
+        DummyPlayer = null;
     }
 
     //-------------------------------------------------------------------------
@@ -194,10 +205,10 @@ public class PlayerMovement : MonoBehaviour
     {
         while (true)
         {
-            if (dummyPlayer.transform.position - transform.position != _dummyOffset)
+            if (DummyPlayer.transform.position - transform.position != _dummyOffset)
             {
                 //transform.position = dummyPlayer.transform.position - _dummyOffset; // Less adjustments, but harder to force teleports and transform movements outside
-                dummyPlayer.transform.position = transform.position + _dummyOffset; // More adjustments, but the player can now do the fuck it wants with its transform
+                DummyPlayer.transform.position = transform.position + _dummyOffset; // More adjustments, but the player can now do the fuck it wants with its transform
             }
             yield return new WaitForFixedUpdate();
         }

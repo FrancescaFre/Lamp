@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour {
     public ParticleSystem fullCurseEffect;
     public ParticleSystem digEffect;
     //TEST
+    public GameObject otherplayer;
     public Lantern Lantern { get; set; }
     //TEST
 
@@ -93,9 +94,6 @@ public class PlayerController : MonoBehaviour {
         this.CheckSkillInteraction();
         this.CheckItemInteraction();
         this.CheckDig();
-
-        if (Input.GetKeyDown(KeyCode.T)) // ITEM TEST
-            Lantern.Use();
     }
 
     //#####################################################################

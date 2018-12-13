@@ -85,6 +85,7 @@ public class GameManager : MonoBehaviour {
             CharactersDict[TeamList[currentCharacter]].transform.position = LastAllyLamp.transform.position/* + LastAllyLamp.transform.forward */+ CharactersDict[TeamList[currentCharacter]].transform.forward;
         else
             CharactersDict[TeamList[currentCharacter]].transform.position = levelLoaded.entryPoint;
+        CharactersDict[TeamList[currentCharacter - 1]].GetComponent<PlayerMovement>().BatonPass(CharactersDict[TeamList[currentCharacter]].GetComponent<PlayerMovement>());
         ActivatePlayerX();
 
 
