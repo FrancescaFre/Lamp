@@ -39,12 +39,14 @@ public class AudioManager : MonoBehaviour {
     public void PlayAudio(AudioClip audio = null) {
         //StartCoroutine(FadeOut());
         Source.Stop();
-        if (!audio) { 
-            Source.PlayOneShot(MenuClip);
+        if (!audio) {
+            Source.clip = MenuClip;
+            Source.Play();
            // StartCoroutine(FadeIn());
         }
         else {
-            Source.PlayOneShot(audio);
+            Source.clip = audio;
+            Source.Play();
            // StartCoroutine(FadeIn());
         }
 
