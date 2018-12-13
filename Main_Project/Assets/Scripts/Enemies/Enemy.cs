@@ -68,9 +68,8 @@ public class Enemy : MonoBehaviour
     public ParticleSystem searchingParticles;
     public ParticleSystem earingParticles;
 
+    public void Awake() {
 
-    public void Start()
-    {
         //Initialize with scriptable obeject data
         level = data_enemy.level;
         instant_curse = data_enemy.instant_curse;
@@ -78,23 +77,28 @@ public class Enemy : MonoBehaviour
         speed = data_enemy.speed;
 
         cov_distance_wander = data_enemy.cov_distance_wander;
-        
+
         cov_angle_wander = data_enemy.cov_angle_wander;
-       
+
         stop_search_after_x_seconds = data_enemy.stop_search_after_x_seconds;
 
         currentStatus = data_enemy.enemy_initial_status;
 
         rb = this.gameObject.GetComponent<Rigidbody>();
 
+
+        destination = path.GetChild(0).position;
+        rb.position = destination;
+    }
+    public void Start()
+    {
         //assign the first set of values to FOV
         fov = this.GetComponentInChildren<EnemyFOV>();
         fov.FOVSetParameters(cov_distance_wander, cov_angle_wander, this.transform);
 
         pathIndex = 0;
         //destination = wanderPath[pathIndex].position;
-        destination = path.GetChild(0).position;
-        rb.position = destination;
+        
        
         hanselGretelGPS = new Stack<Transform>();
 

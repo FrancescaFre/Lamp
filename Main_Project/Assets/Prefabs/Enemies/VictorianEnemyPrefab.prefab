@@ -664,8 +664,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1953688963897732}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 22, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 22, y: 22, z: 22}
   m_LocalScale: {x: 0.29999998, y: 0.29999998, z: 0.29999998}
   m_Children:
   - {fileID: 4117736750535130}
@@ -1182,7 +1182,7 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 0, g: 0.0377028, b: 1, a: 1}
-  m_Intensity: 7
+  m_Intensity: 20
   m_Range: 3.5
   m_SpotAngle: 85
   m_CookieSize: 10
@@ -1391,7 +1391,7 @@ MonoBehaviour:
   returnWaypointPrefab: {fileID: 1851448784903702, guid: fac114afe212b44468972e4fa2a267d4,
     type: 2}
   player: {fileID: 0}
-  path: {fileID: 4254900189220768, guid: d6dee65452de1f4439a9216d553a941c, type: 2}
+  path: {fileID: 4926044281012170, guid: fac15cadf414cb64cabe6db0c4f5c509, type: 2}
   destination: {x: 0, y: 0, z: 0}
   pathIndex: 0
   currentStatus: 0
@@ -1407,7 +1407,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1159125129888276}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
   m_Name: 

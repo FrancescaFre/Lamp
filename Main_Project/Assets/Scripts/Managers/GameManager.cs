@@ -137,6 +137,7 @@ public class GameManager : MonoBehaviour {
         for (int i = 0; i < CharactersList.Count; i++) {
             Debug.Log(CharactersList[i].CharacterPeriod.ToString());
             CharactersDict[CharactersList[i].CharacterPeriod] = CharactersList[i];
+            CharactersList[i].gameObject.SetActive(false);
         }
         enemyGOList = new List<GameObject>() {
             levelLoaded.enemy_L1_GO,
