@@ -155,7 +155,7 @@ public class GameManager : MonoBehaviour {
 
         ActivatePlayerX();
     }
-    private void EndGame() {//epilogue
+    public void EndGame() {//epilogue
         currentPC = null;
         lampHUD = null;
         levelLoaded = null;
