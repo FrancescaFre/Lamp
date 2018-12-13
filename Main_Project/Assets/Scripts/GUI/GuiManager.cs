@@ -19,13 +19,21 @@ public class GUIManager : MonoBehaviour {
     public Button nextButton;
     public Button PlayButton;
 
-
-
+    [Header("Confirm")]
+    public AudioClip ConfirmSound;
+    public AudioClip AbortSound;
+    private AudioSource Source { get { return GetComponent<AudioSource>(); } }
     private void Awake() {
         if (!GUIInstance)
             GUIInstance = this;
-        else
+        else {
             Destroy(gameObject);
+            return;
+        }
+
+        gameObject.AddComponent<AudioSource>();
+        //Source.clip = ConfirmSound;
+        Source.playOnAwake = false;
         
     }
     private void Start() {
@@ -37,23 +45,24 @@ public class GUIManager : MonoBehaviour {
 
     }
 
-
+    /// <summary>
+    /// Change the panel to the team selection
+    /// </summary>
     public void CheckSelectedLevel() {
         if (GameManager.Instance.levelLoaded == null) {
             nextButton.interactable = false;
             return;
         }
 
-        Invoke("DelayNextButton", 1f);//allows the SFX to end
-    }
-    /// <summary>
-    /// Change the panel to the team selection
-    /// </summary>
-    private void DelayNextButton() {
+        
         Galaxies.SetActive(false);
         Characters.SetActive(true);
         EventSystem.current.SetSelectedGameObject(firstSelectedCharacter, null);
+        Source.PlayOneShot(ConfirmSound);
+
     }
+    
+
 
     public void CheckSelectedTeam() {
         if (GameManager.Instance.TeamList != null && GameManager.Instance.TeamList.Count == 3 && GameManager.Instance.levelLoaded)
@@ -63,11 +72,12 @@ public class GUIManager : MonoBehaviour {
 
     }
 
-    //to turn backonce reached the team selection
+    //to turn back once reached the team selection
     public void BackToGalaxySelect() {
 
         Characters.SetActive(false);
         Galaxies.SetActive(true);
         EventSystem.current.SetSelectedGameObject(firstSelectedGalaxy, null);
+        Source.PlayOneShot(AbortSound);
     }
 }

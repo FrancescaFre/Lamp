@@ -164,23 +164,30 @@ public class PlayerController : MonoBehaviour {
         if (other.CompareTag("Lamp_Base")) {//if the character has entered the light of a lamp that is switched on
             IsSafe = true;
         }
-       //if the character touches an enemy trigger
-         //READ AS: if an enemy curse the character
-        else if (other.CompareTag("EnemyBody") && !IsSafe) { 
+        //if the character touches an enemy trigger
+        //READ AS: if an enemy curse the character
+        else if (other.CompareTag("EnemyBody") && !IsSafe) {
 
             Enemy touchedEnemy = other.GetComponentInParent<Enemy>();
             touchedEnemy.PlayerTouched(this);
             Debug.Log("before " + CurseStatus);
             if (CurseStatus == Status.NORMAL && !touchedEnemy.data_enemy.instant_curse) {
                 CurseStatus = Status.HALF_CURSED;
-                halfCurseEffect.gameObject.SetActive(true);
-                halfCurseEffect.Play();
+                if (halfCurseEffect) {
+                    halfCurseEffect.gameObject.SetActive(true);
+                    halfCurseEffect.Play();
+                }
+
                 TeamHUD.Instance.HalfCurse();
                 Debug.Log("after " + CurseStatus);
                 return;
             }
-            fullCurseEffect.gameObject.SetActive(true);
-            fullCurseEffect.Play();
+
+            if (fullCurseEffect) {
+                fullCurseEffect.gameObject.SetActive(true);
+                fullCurseEffect.Play();
+            }
+           
             GameManager.Instance.SpawnNewEnemy(touchedEnemy.data_enemy.level - 1, _rb.position, touchedEnemy.path);
         }
 

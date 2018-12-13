@@ -6,35 +6,30 @@ using UnityEngine.UI;
 public class LampHUD : MonoBehaviour {
 
     public GameObject IconPrefab;
-    [Header("Good lamp Icons")]
-    public int allyLamp;
+
     public Queue<Image> allyQueue = new Queue<Image>();
-    [Header("Bad lamp Icons")]
-    public int enemyLamp;
+
     public Queue<Image> enemyQueue = new Queue<Image>();
 
     private void Awake() {
         GetComponentInParent<PauseManagerGUI>().lampHUDPanel = this;
         GetComponentInParent<InGameHUD>().lampHUDPanel = this;
     }
+
     private void Start() {
-        if (!GameManager.Instance.lampHUD)
+        if (!GameManager.Instance.lampHUD) 
             GameManager.Instance.lampHUD = this;
-        if (GameManager.Instance)// to test in edit mode
-            allyLamp = GameManager.Instance.levelLoaded.allyLamps;
-        if (GameManager.Instance)
-            enemyLamp = GameManager.Instance.levelLoaded.enemyLamps;
-        for (int i = 0; i < allyLamp; i++) {
-           CreateIconQueue(allyQueue, Color.white);
-          
+
+        for (int i = 0; i < GameManager.Instance.levelLoaded.allyLamps; i++) {
+            CreateIconQueue(allyQueue, Color.white);
+
         }
 
-        
+        for (int i = 0; i < GameManager.Instance.levelLoaded.enemyLamps; i++) {
+            CreateIconQueue(enemyQueue, Color.magenta);
 
-        for (int i = 0; i < enemyLamp; i++) {
-             CreateIconQueue(enemyQueue, Color.magenta);
-          
         }
+        gameObject.SetActive(false);
         
     }
 
@@ -55,7 +50,7 @@ public class LampHUD : MonoBehaviour {
     }
     public void DequeueEnemy() {
         OnDequeue(enemyQueue, Color.gray);
-        //Destroy(icon.gameObject);
+        
     }
 
     private void OnDequeue(Queue<Image> queue, Color col) {

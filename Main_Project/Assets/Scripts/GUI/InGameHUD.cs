@@ -22,8 +22,7 @@ public class InGameHUD : MonoBehaviour {
 
 
         pManager = GetComponent<PauseManagerGUI>();
-        InGameHUDPanel = lampHUDPanel.transform.parent.gameObject;
-        lampHUDPanel.gameObject.SetActive(false);
+        InGameHUDPanel = lampHUDPanel.transform.parent.gameObject;        
     }
 
     

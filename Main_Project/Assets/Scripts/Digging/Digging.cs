@@ -60,8 +60,10 @@ public abstract class Digging : MonoBehaviour {
     /// Performs the digging action (called by caster)
     /// </summary>
     public virtual void Dig() {
-        player.digEffect.gameObject.SetActive(true);
-        player.digEffect.Play();
+        if (player.digEffect) {
+            player.digEffect.gameObject.SetActive(true);
+            player.digEffect.Play();
+        }
     }
 
     /// <summary>
