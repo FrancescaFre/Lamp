@@ -41,7 +41,7 @@ public abstract class Digging : MonoBehaviour {
     }
     #endregion
 
-    private void Start() {
+    protected void Start() {
         caster = InGameHUD.Instance.InGameHUDPanel.transform.Find("Gauge Panel").Find("Caster").GetComponent<Image>();
         bar = caster.transform.GetChild(0).GetComponent<Image>();
         caster.gameObject.SetActive(false);

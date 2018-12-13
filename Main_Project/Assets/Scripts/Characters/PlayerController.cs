@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour {
     public CharPeriod CharacterPeriod;
     public Skill skill;
 
-    public int digCount = 2;
+    public int digCount = 10;
     
     public bool usingSkill = false;
     public bool isSneaking = false;
@@ -237,11 +237,17 @@ public class PlayerController : MonoBehaviour {
         {
             if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetButtonDown("PS4_Button_Triangle")) // [VDIG]
                 if (digCount > 0)
+                {
                     VDig.CheckInput();
+                    AnimationManager.Anim_StarDigging(transform);
+                }
 
             if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetButtonDown("PS4_Button_Square")) // [ZDIG]
                 if (digCount > 0)
+                {
                     ZDig.CheckInput();
+                    AnimationManager.Anim_StarDigging(transform);
+                }
         }
     }
 }

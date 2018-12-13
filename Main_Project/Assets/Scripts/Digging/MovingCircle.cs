@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class MovingCircle : ZoneDig {
 
@@ -8,6 +9,12 @@ public class MovingCircle : ZoneDig {
     private Rigidbody _rb;
     private float _speed;
     private float _horizInput, _vertInput;
+
+    new void Start()
+    {
+        caster = InGameHUD.Instance.InGameHUDPanel.transform.Find("Gauge Panel").Find("Caster").GetComponent<Image>();
+        bar = caster.transform.GetChild(0).GetComponent<Image>();
+    }
 
     public void Setup(Transform start, PlayerController player)
     {
