@@ -666,9 +666,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1953688963897732}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 22, z: 0}
-  m_LocalScale: {x: 0.29999998, y: 0.29999998, z: 0.30000013}
+  m_LocalScale: {x: 0.29999998, y: 0.29999998, z: 0.29999998}
   m_Children:
   - {fileID: 4117736750535130}
   - {fileID: 4648736001926938}
@@ -1193,9 +1193,9 @@ Light:
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
+    m_Bias: 0
+    m_NormalBias: 0
+    m_NearPlane: 0.035
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
@@ -1405,7 +1405,7 @@ MonoBehaviour:
   returnWaypointPrefab: {fileID: 1851448784903702, guid: fac114afe212b44468972e4fa2a267d4,
     type: 2}
   player: {fileID: 0}
-  path: {fileID: 4587250140414072, guid: c63d2f4859eabbc4a81052edc2077cf3, type: 2}
+  path: {fileID: 4678681882035176, guid: 9e41742e59eef9a4297e94fa305e3e87, type: 2}
   destination: {x: 0, y: 0, z: 0}
   pathIndex: 0
   currentStatus: 0

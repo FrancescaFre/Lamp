@@ -58,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        CheckStealth();
         if (_vertInput == 0 && _horizInput == 0 && !_onIce)
             return;
         else if (_player.CanMove())
@@ -74,9 +75,23 @@ public class PlayerMovement : MonoBehaviour
     {
         _horizInput = Input.GetAxis("Horizontal");
         _vertInput = Input.GetAxis("Vertical");
+
+        AnimationUpdate();
     }
 
     private void OnTriggerEnter(Collider terrain)
+    {
+        if (terrain.CompareTag("Water")) // If player entered in a water / mud pond
+            _onWater = true;
+
+        if (terrain.CompareTag("Leaves")) // If player is walking on a noisy terrain
+            _onLeaves = true;
+
+        if (terrain.CompareTag("Ice")) // If player is walking on ice
+            _onIce = true;
+    }
+
+    private void OnTriggerStay(Collider terrain)
     {
         if (terrain.CompareTag("Water")) // If player entered in a water / mud pond
             _onWater = true;
@@ -202,6 +217,25 @@ public class PlayerMovement : MonoBehaviour
                 transform.Rotate(-88, 0, 0, Space.Self); // DON'T ASK ME WHY 88 WORKS BETTER
             }
             yield return new WaitForFixedUpdate();
+        }
+    }
+
+    //----------- ANIMATION MANAGER -------------
+    private void AnimationUpdate()
+    {
+        if ((_horizInput != 0 || _vertInput != 0))
+            if (_player.isSneaking)
+                AnimationManager.Anim_StartMovingSneaky(this.transform);
+            else if (AnimationManager.Anim_CheckBool(this.transform, "IsMovingSneaky") && !_player.isSneaking)
+                AnimationManager.Anim_StopMovingSneaky(this.transform);
+            else
+                AnimationManager.Anim_StartMovingStanding(this.transform);
+        else
+        {
+            if(_player.isSneaking && !AnimationManager.Anim_CheckBool(this.transform, "IsMovingStanding"))
+            AnimationManager.Anim_StopMovingSneaky(this.transform);
+
+            AnimationManager.Anim_StopMovingStanding(this.transform);
         }
     }
 }

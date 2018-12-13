@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour {
 
     private Rigidbody _rb;
     private int _missingParts = 0;
-    private int _keys = 0;
+    public int keys = 0;
 
     public ParticleSystem halfCurseEffect;
     public ParticleSystem fullCurseEffect;
@@ -154,7 +154,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if (other.CompareTag("Key"))
         {
-            _keys++;
+            keys++;
             other.gameObject.SetActive(false);
             //------ WARNING: todo NON LO SO
         }

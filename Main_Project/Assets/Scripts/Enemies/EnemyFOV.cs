@@ -53,15 +53,6 @@ public class EnemyFOV : MonoBehaviour {
             FindVisibleTargets();
         }
     }
-/*
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!other.transform.GetComponent<PlayerController>().isSneaking)
-        {
-            earedTargets.Add(other.transform);
-            GameManager.Instance.howManyHearing++;
-        }
-    }*/
 
     private void OnTriggerStay(Collider other)
     {//se il player entra da sneeky non viene cathcato dal ontrigger enter, ma se una volta dentro non è più sneaky non verrebbe più visto, quindi uso on stay
@@ -92,8 +83,8 @@ public class EnemyFOV : MonoBehaviour {
         }
     }
 
-  /*void LateUpdate()
-   {
+ /* void LateUpdate()
+    {
         DrawFieldOfView();
     }
 */
@@ -125,8 +116,10 @@ public class EnemyFOV : MonoBehaviour {
             if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
             {
                 float dstToTarget = Vector3.Distance(transform.position, target.position);
-                if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))
+                //if i hit an obstacle = TRUE, don't add this target else add it
+                if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("Obstacle")))
                 {
+                    Debug.Log("RAY CAST WOT " + Physics.Raycast(transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("Obstacle")));
                     visibleTargets.Add(target);
                 }
             }

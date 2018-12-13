@@ -129,9 +129,9 @@ public class Enemy : MonoBehaviour
         //Debug.DrawLine(this.transform.position, this.transform.position + dirY * 10f, Color.red);
         if (currentStatus != EnemyStatus.SEARCHING)
         {
-            //transform.LookAt(transform.position + dirY, transform.up);
-            var targetRotation = Quaternion.LookRotation(dirY);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 2);
+            transform.LookAt(transform.position + dirY, transform.up);
+            //var targetRotation = Quaternion.LookRotation(dirY);
+            //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 2);
         }
     }
 
@@ -223,8 +223,10 @@ public class Enemy : MonoBehaviour
             float dstToTarget = Vector3.Distance(transform.position, player.position);
 
             //if the player is safe or the raycast can't reach the player (cause some obstacles), stop seek
-            if (player.GetComponent<PlayerController>().IsSafe || !Physics.Raycast(transform.position, dirToTarget, dstToTarget, fov.targetMask))
+            Debug.Log("inside enemy " + Physics.Raycast(transform.position, dirToTarget, dstToTarget * 5, LayerMask.GetMask("Obstacles"))); 
+            if (player.GetComponent<PlayerController>().IsSafe || Physics.Raycast(transform.position, dirToTarget, dstToTarget*5, LayerMask.GetMask("Obstacles")))    
             {
+                Debug.Log("hidden" +  Physics.Raycast(transform.position, dirToTarget, dstToTarget, fov.obstacleMask));
                 GameManager.Instance.howManySeeing--;
                 player = null; ///WARNING!
                 destination = lastPlayerPosition;

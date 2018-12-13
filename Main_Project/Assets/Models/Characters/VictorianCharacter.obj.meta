@@ -1,27 +1,22 @@
 fileFormatVersion: 2
-guid: cbb78e7e0a75bbf4285a2ac467a9678e
+guid: bc4228fe9d8256947b54dd5f2b6ae582
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: "Cinema4D_\u7F16\u8F91\u5668"
-    100004: pCube20
-    400000: //RootNode
-    400002: "Cinema4D_\u7F16\u8F91\u5668"
-    400004: pCube20
-    2000000: "Cinema4D_\u7F16\u8F91\u5668"
-    2100000: lambert7
-    2100002: lambert2
-    2100004: lambert5
-    2100006: blinn1
-    2100008: lambert3
-    2100010: blinn3
-    2100012: lambert6
-    2100014: lambert4
-    2300000: pCube20
-    3300000: pCube20
-    4300000: pCube20
-  externalObjects: {}
+    100000: default
+    100002: //RootNode
+    400000: default
+    400002: //RootNode
+    2100000: defaultMat
+    2300000: default
+    3300000: default
+    4300000: default
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: defaultMat
+    second: {fileID: 2100000, guid: 8d56f3b374ca5c746b9bdb9d56bbdbd5, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
