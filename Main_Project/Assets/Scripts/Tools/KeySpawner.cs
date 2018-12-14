@@ -9,6 +9,10 @@ public class KeySpawner : MonoBehaviour {
     private void Update()
     {
         if (GameManager.Instance.allyLamps == 7)
+        {
             key.SetActive(true);
+            Destroy(this);
+        }
+
     }
 }

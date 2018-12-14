@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour {
     public CharPeriod CharacterPeriod;
     public Skill skill;
 
-    public int digCount = 10;
+    public int digCount = 100;
     
     public bool usingSkill = false;
     public bool isSneaking = false;
@@ -67,6 +67,8 @@ public class PlayerController : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+
+        digCount = 100;
         _rb = GetComponent<Rigidbody>();
         VDig = GetComponentInChildren<VerticalDig>(includeInactive:true);
         ZDig = GetComponentInChildren<ZoneDig>(includeInactive: true);
