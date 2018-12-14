@@ -18,6 +18,7 @@ public class Door_Controller : MonoBehaviour {
                     anim.SetBool("OpenTheGate", true);
                     anim.GetComponent<Collider>().isTrigger = true;
                 }
+                GameObject.Find("WASD").GetComponent<Autodestruct>().DieNow = true;
                 this.GetComponent<Collider>().isTrigger = true; 
             }
         }
