@@ -11,25 +11,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e068f2e38a56aea46bf48baccb83c320, type: 3}
   m_Name: Base_Level
   m_EditorClassIdentifier: 
-  LevelName: Livello1
+  LevelName: baseLevel
   levelSeason: 0
   Description: 'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod
     tempor incidunt ut labore et dolore magna aliqua. '
-  allyLamps: 10
+  levelMusic: {fileID: 0}
+  allyLamps: 0
   allyColor: {r: 1, g: 0.8227806, b: 0, a: 1}
-  enemyLamps: 1
+  enemyLamps: 0
   enemyColor: {r: 0.7138634, g: 0, b: 1, a: 1}
   entryPoint: {x: 0, y: 21, z: 0}
   enemy_L1: 0
   enemy_L2: 0
   enemy_L3: 0
   PathList: []
-  enemy_L1_GO: {fileID: 1953688963897732, guid: 0c084fedf45ab5e419a73c79b896f090,
-    type: 2}
-  enemy_L2_GO: {fileID: 1953688963897732, guid: 0c084fedf45ab5e419a73c79b896f090,
-    type: 2}
-  enemy_L3_GO: {fileID: 1953688963897732, guid: 0c084fedf45ab5e419a73c79b896f090,
-    type: 2}
+  enemy_L1_GO: {fileID: 0}
+  enemy_L2_GO: {fileID: 0}
+  enemy_L3_GO: {fileID: 0}
   challenge_1: 0
   subQuest_1: THIS IS QUEST 1
   challenge_2: 0
