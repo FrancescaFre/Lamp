@@ -13,15 +13,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelName: livello2
   levelSeason: 1
+  Description: 
+  levelMusic: []
   allyLamps: 3
+  allyColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   enemyLamps: 4
+  enemyColor: {r: 1, g: 0, b: 1, a: 1}
+  entryPoint: {x: 0, y: 21, z: 0}
   enemy_L1: 0
   enemy_L2: 0
   enemy_L3: 0
+  PathList: []
   enemy_L1_GO: {fileID: 1953688963897732, guid: 0c084fedf45ab5e419a73c79b896f090,
     type: 2}
   enemy_L2_GO: {fileID: 1953688963897732, guid: 0c084fedf45ab5e419a73c79b896f090,
     type: 2}
   enemy_L3_GO: {fileID: 1953688963897732, guid: 0c084fedf45ab5e419a73c79b896f090,
     type: 2}
-  SubQuest: []
+  challenge_1: 0
+  subQuest_1: 
+  challenge_2: 0
+  subQuest_2: 
+  challenge_3: 0
+  subQuest_3: 

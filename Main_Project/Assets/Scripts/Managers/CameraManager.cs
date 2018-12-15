@@ -14,10 +14,16 @@ public class CameraManager : MonoBehaviour {
     [Range(.05f, .20f)]
     public float sensitivity = .10f;
 
+    [Tooltip("The speed at which the camera revolves around the player")]
+    [Range(0f,200f)]
+    public float cameraSpeed = 90f;
+
     private Transform _dummyCam; // The dummy camera is used to avoid 3-dimensional inverse revolutions
     private Vector3 _camOffset; // Difference in position between the main camera and the dummy one
     private float yPosition = 0; // Position on Y of the rotating camera (starts from zero)
-    
+
+    private float _input;
+
 
     // Saves the distance between the original and the dummy camera
     void Start () {
@@ -29,8 +35,9 @@ public class CameraManager : MonoBehaviour {
     // Rotates the camera as the right analog stick is pressed
     private void FixedUpdate()
     {
-        yPosition += Input.GetAxis("Mouse X") * Time.deltaTime * 180f; // TESTING
-        //yPosition += Input.GetAxis("RightStick X") * Time.deltaTime * 90f; // Real one with the joypad analog stick
+        yPosition += _input * Time.deltaTime * cameraSpeed; 
+       // yPosition += Input.GetAxis("Mouse X") * Time.deltaTime * cameraSpeed; // TESTING
+        // yPosition += Input.GetAxis("PS4_RStick_X") * Time.deltaTime * cameraSpeed; // Real one with the joypad analog stick
         _dummyCam.parent.localRotation = Quaternion.Euler(_dummyCam.parent.localRotation.x, yPosition, _dummyCam.parent.localRotation.z);
 
         if (Input.GetAxisRaw("Mouse ScrollWheel") != 0 || Input.GetKey(KeyCode.J) || Input.GetKey(KeyCode.K)) // [ZOOM keys]
@@ -40,6 +47,7 @@ public class CameraManager : MonoBehaviour {
     // Every frame takes the same position as the dummy camera, in relation to the player
     private void LateUpdate()
     {
+        _input = Input.GetAxis("PS4_RStick_X") + Input.GetAxis("Mouse X");      //if one is zero the other one will not
         transform.SetPositionAndRotation(_dummyCam.position + _camOffset, _dummyCam.rotation); 
     }
 

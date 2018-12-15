@@ -152,7 +152,7 @@ public class GameManager : MonoBehaviour {
             Instantiate(levelLoaded.enemy_L1_GO);
         }*/
 
-        if (levelLoaded.levelMusic)
+        if (levelLoaded.levelMusic!=null)
             AudioManager.Instance.PlayAudio(levelLoaded.levelMusic);
 
         ActivatePlayerX();

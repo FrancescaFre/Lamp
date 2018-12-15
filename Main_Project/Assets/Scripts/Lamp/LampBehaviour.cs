@@ -13,10 +13,17 @@ public class LampBehaviour : MonoBehaviour {
     public bool isEnemyLamp = false;
     public bool isTurnedOn = false;
 
+    private AudioSource _source;
     /// <summary>
     /// True if the lamp is missing a part.
     /// </summary>
     public bool hasMissingPart = false;
+
+    private void Awake() {
+        _source=gameObject.AddComponent<AudioSource>();
+        _source.playOnAwake=false;
+        _source.volume = .3f;
+    }
 
     // Use this for initialization
     void Start() {
@@ -84,6 +91,8 @@ public class LampBehaviour : MonoBehaviour {
                 allColliders[i].enabled = true;
         }
 
+        _source.PlayOneShot(GameManager.Instance.levelLoaded.switchSFX);
+
         isTurnedOn = true;
         Debug.Log("lamp_switch: ON ");
         gameObject.layer = 11; //obstacle layer
@@ -104,6 +113,6 @@ public class LampBehaviour : MonoBehaviour {
         }
         GameManager.Instance.enemyLamps--;
         GameManager.Instance.lampHUD.DequeueEnemy();
-
+        _source.PlayOneShot(GameManager.Instance.levelLoaded.switchSFX);
     }
 }

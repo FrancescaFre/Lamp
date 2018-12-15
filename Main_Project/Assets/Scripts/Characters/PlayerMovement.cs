@@ -5,7 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
     //-------------------------------------------------------------------------
 
-    [Range(5, 10)]
+    [Range(0, 10)]
     [Tooltip("The player's walking speed")]
     public float walkSpeed = 8f;
 

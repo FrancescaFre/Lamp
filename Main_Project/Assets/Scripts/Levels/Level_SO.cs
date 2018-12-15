@@ -10,7 +10,9 @@ public class Level_SO : ScriptableObject {
     public Season levelSeason;
     public string Description;
     [Header("Music level")]
-    public AudioClip levelMusic;
+    public List<AudioClip> levelMusic;
+    [Header("Lamp switch SFX")]
+    public AudioClip switchSFX;
     [Header("Lamp properties")]
     public int allyLamps;
     public Color allyColor=Color.yellow;

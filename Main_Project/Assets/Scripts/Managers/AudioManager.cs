@@ -36,16 +36,19 @@ public class AudioManager : MonoBehaviour {
     /// Plays the level music
     /// </summary>
     /// <param name="audio">Music to play (default null plays menu music)</param>
-    public void PlayAudio(AudioClip audio = null) {
+    public void PlayAudio(List<AudioClip> audio = null) {
         //StartCoroutine(FadeOut());
         Source.Stop();
-        if (!audio) {
+        if (audio==null) {
             Source.clip = MenuClip;
             Source.Play();
            // StartCoroutine(FadeIn());
         }
         else {
-            Source.clip = audio;
+            int i = Random.Range(0,audio.Count);
+
+
+            Source.clip = audio[i];
             Source.Play();
            // StartCoroutine(FadeIn());
         }

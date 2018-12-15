@@ -20,14 +20,14 @@ public class PauseManagerGUI : MonoBehaviour {
     public TextMeshProUGUI allyText;
     public TextMeshProUGUI enemyText;
 
-
+    private OptionsGUI options;
     void Awake() {
         this._originalFixedTime = Time.fixedDeltaTime;
     }
 
     void Start() {
         _isPaused = false;
-       // lampHUDInfo = GetComponentInChildren<LampHUD>();
+        options = GetComponentInChildren<OptionsGUI>(includeInactive:true);
         PausePanel.SetActive(_isPaused);
     }
 
@@ -38,8 +38,12 @@ public class PauseManagerGUI : MonoBehaviour {
         enemyText.text = string.Format("{0}/{1}",GameManager.Instance.enemyLamps.ToString("00"), GameManager.Instance.levelLoaded.enemyLamps.ToString("00"));
 
         if (Input.GetKeyUp(KeyCode.Escape) || Input.GetButtonUp("PS4_Button_OPTIONS")) {//once the button has JUST been released
-                                                                                 //switches on and off the pause menu
-
+                                                                                        //switches on and off the pause menu
+            if (options.gameObject.activeInHierarchy) {
+                options.gameObject.SetActive(false);
+                PausePanel.SetActive(true);
+                return;
+            }
             this.ChangePauseStatus();
 
         }
