@@ -19,6 +19,11 @@ public class LampBehaviour : MonoBehaviour {
     /// </summary>
     public bool hasMissingPart = false;
 
+    //----- evolution of enemylamp
+    private Collider[] colliders;
+    public int radius;
+    public bool canBeSwtichedOn = true; 
+
     private void Awake() {
         _source=gameObject.AddComponent<AudioSource>();
         _source.playOnAwake=false;
@@ -47,8 +52,6 @@ public class LampBehaviour : MonoBehaviour {
 
         }
 
-
-
         for (int i = 0; i < lightBulb.Length; i++) {
             if (isEnemyLamp) {
                 lightBulb[i].color = GameManager.Instance.levelLoaded.enemyColor;
@@ -74,11 +77,21 @@ public class LampBehaviour : MonoBehaviour {
             }
         }
 
+// ------------- Evolution of enemy lamp
+        if (isEnemyLamp)
+        {
+            colliders = Physics.OverlapSphere(this.transform.position, radius, LayerMask.GetMask("Lamp_Base"));
+
+            foreach (Collider lamp in colliders)
+                if (!lamp.GetComponent<LampBehaviour>().isEnemyLamp)
+                    lamp.GetComponent<LampBehaviour>().canBeSwtichedOn = false; 
+        }
     }
 
 
     public void SwitchOnAllyLamp() { //you cant turn on a lamp if there are any enemy lamp turned on
-        if (hasMissingPart || GameManager.Instance.enemyLamps > 0) return;
+       // if (hasMissingPart || GameManager.Instance.enemyLamps > 0 ) return;
+        if (hasMissingPart || !canBeSwtichedOn) return;
 
         for (int i = 0; i < lightBulb.Length; i++) {
             lightBulb[i].gameObject.SetActive(true);
@@ -96,9 +109,9 @@ public class LampBehaviour : MonoBehaviour {
         isTurnedOn = true;
         Debug.Log("lamp_switch: ON ");
         gameObject.layer = 11; //obstacle layer
-        GameManager.Instance.allyLamps--;
+        GameManager.Instance.allyLamps++;
         GameManager.Instance.lampHUD.DequeueAlly();
-        if (GameManager.Instance.allyLamps == 0) 
+        if (GameManager.Instance.allyLamps == GameManager.Instance.levelLoaded.allyLamps)
             GameManager.Instance.GoodEndGame();
         GameManager.Instance.LastAllyLamp = this;   //if the character dies, the next one will be spawned here
     }
@@ -109,10 +122,16 @@ public class LampBehaviour : MonoBehaviour {
             lightBulb[i].gameObject.SetActive(false);
             auraLight[i].enabled = false;
             Debug.Log("off: " + lightBulb[i].gameObject.name);
-
         }
-        GameManager.Instance.enemyLamps--;
+
+        GameManager.Instance.enemyLamps++;
         GameManager.Instance.lampHUD.DequeueEnemy();
         _source.PlayOneShot(GameManager.Instance.levelLoaded.switchSFX);
+
+//----------- Evolution of enemy lamp
+        colliders = Physics.OverlapSphere(this.transform.position, radius, LayerMask.GetMask("Lamp_Base"));
+        foreach (Collider lamp in colliders)
+            lamp.GetComponent<LampBehaviour>().canBeSwtichedOn = true;
+
     }
 }

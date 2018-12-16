@@ -42,7 +42,8 @@ public class PlayerController : MonoBehaviour {
     public bool IsMimicOrDash { get; set; }
     public bool IsSafe { get;  set; }
     public bool IsZoneDigging { get; set; } 
-    public bool IsCasting { get; set; } 
+    public bool IsCasting { get; set; }
+    public bool runningAnimation = false;
 
     private Rigidbody _rb;
     private int _missingParts = 0;
@@ -51,6 +52,7 @@ public class PlayerController : MonoBehaviour {
     public ParticleSystem halfCurseEffect;
     public ParticleSystem fullCurseEffect;
     public ParticleSystem digEffect;
+
     //TEST
     public GameObject otherplayer;
     public Lantern Lantern { get; set; }
@@ -105,7 +107,7 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     public bool CanMove()
     {
-        return !(IsZoneDigging || IsCasting);
+        return !(IsZoneDigging || IsCasting || runningAnimation);
     }
 
     //#####################################################################
@@ -239,7 +241,6 @@ public class PlayerController : MonoBehaviour {
                 if (digCount > 0)
                 {
                     VDig.CheckInput();
-                    AnimationManager.Anim_StarDigging(transform);
                 }
 
             if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetButtonDown("PS4_Button_Square")) // [ZDIG]

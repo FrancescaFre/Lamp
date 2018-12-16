@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI; //needed for NavMeshAgent
+using AuraAPI;
 
 
 public enum EnemyStatus { WANDERING = 0, SEEKING, SEARCHING, RETURN}
@@ -62,7 +63,9 @@ public class Enemy : MonoBehaviour
     float rotationSpeed = 2f;
     Vector3 dirY;
     int randomInt=1;
-   
+
+    public Light[] lights;
+    public AuraLight[] auraLight;
 
     public ParticleSystem teleportParticles;
     public ParticleSystem searchingParticles;
@@ -70,20 +73,14 @@ public class Enemy : MonoBehaviour
 
     public void Awake() {
 
-        //Initialize with scriptable obeject data
+//-------------------- Initialize with scriptable obeject data
         level = data_enemy.level;
         instant_curse = data_enemy.instant_curse;
-
         speed = data_enemy.speed;
-
         cov_distance_wander = data_enemy.cov_distance_wander;
-
         cov_angle_wander = data_enemy.cov_angle_wander;
-
         stop_search_after_x_seconds = data_enemy.stop_search_after_x_seconds;
-
         currentStatus = data_enemy.enemy_initial_status;
-
         rb = this.gameObject.GetComponent<Rigidbody>();
 
 
@@ -92,16 +89,25 @@ public class Enemy : MonoBehaviour
     }
     public void Start()
     {
-        //assign the first set of values to FOV
+//-------------------- Setup Aura Lights
+        lights = GetComponentsInChildren<Light>();                 //the light sources of the child GO
+        auraLight = GetComponentsInChildren<AuraLight>();                 //the aura sources of the child GO
+
+
+        for (int i = 0; i < auraLight.Length; i++)
+        {
+            auraLight[i].enabled = true;
+        }
+
+//-------------------- Assign the first set of values to FOV
         fov = this.GetComponentInChildren<EnemyFOV>();
         fov.FOVSetParameters(cov_distance_wander, cov_angle_wander, this.transform);
 
         pathIndex = 0;
         //destination = wanderPath[pathIndex].position;
-        
-       
-        hanselGretelGPS = new Stack<Transform>();
 
+//-------------------- Setup Particles System
+        hanselGretelGPS = new Stack<Transform>();
         foreach (ParticleSystem ps in transform.GetComponentsInChildren<ParticleSystem>())
         {
             if (ps.CompareTag("TeleportEnemy"))
@@ -115,23 +121,18 @@ public class Enemy : MonoBehaviour
                 searchingParticles.Stop();
             }
 
-            if (ps.CompareTag("HearingAreaEnemy"))
+          /*  if (ps.CompareTag("HearingAreaEnemy"))
             {
                 earingParticles = ps;
                 ParticleSystem.MainModule circle = earingParticles.main; //DarkMagicAura
                 circle.startSize = fov.viewRadius*3;  //sets the size of the root particle system
-
+                
                 for (int i = 0; i < earingParticles.transform.childCount; i++)
                 {//children of DarkMagicAura
-                    Debug.Log(" index " + i);
                     ParticleSystem.ShapeModule shape = earingParticles.transform.GetChild(i).GetComponent<ParticleSystem>().shape;
                     shape.radius = fov.viewRadius*3;  //sets the radius of the child particle system
-                }
-                if (Random.Range(0, 2) == 1)
-                {
-                    earingParticles.Stop();
-                }
             }
+           */
         }
     }
 
@@ -141,7 +142,8 @@ public class Enemy : MonoBehaviour
         ChangeDirection();
 
         if (Vector3.Distance(destination, transform.position) > 0.3f)
-        { 
+        {
+//-------------------- Movement of enemy
             direction = (destination - transform.position).normalized;
             velocity = direction * speed * Time.deltaTime;
             velocity = Vector3.ClampMagnitude(velocity, direction.magnitude);
@@ -153,6 +155,7 @@ public class Enemy : MonoBehaviour
         //Debug.DrawLine(this.transform.position, this.transform.position + dirY * 10f, Color.red);
         if (currentStatus != EnemyStatus.SEARCHING)
         {
+//-------------------- Rotation of enemy
             transform.LookAt(transform.position + dirY, transform.up);
             //var targetRotation = Quaternion.LookRotation(dirY);
             //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 2);
@@ -211,9 +214,9 @@ public class Enemy : MonoBehaviour
                 currentStatus = EnemyStatus.WANDERING;
                 destination = path.GetChild(pathIndex).position;
             }
-       
     }
 
+//-------------------- Change state of the enemy
     private void ChangeStatus() {
         //1- if the enemy is wandering or returning and it see an enemy and this is not safe--> seeking the player (player)
         if (currentStatus != EnemyStatus.SEEKING && ((fov.visibleTargets.Count > 0 && 
@@ -294,7 +297,8 @@ public class Enemy : MonoBehaviour
             }
         }
     }
-    
+
+//-------------------- Change direction according to the status of the enemy
     private void ChangeDirection() {
         if (currentStatus == EnemyStatus.WANDERING)
         {
@@ -383,6 +387,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
+//-------------------- Drop waypoints to return
     private void DropPosition() {
         if ((currentStatus == EnemyStatus.SEEKING && player!=null) || currentStatus == EnemyStatus.SEARCHING)
         {
@@ -399,7 +404,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-
+//-------------------- Gizmo for return_path and path
     #region GIZMO
     private void OnDrawGizmos()
     {
