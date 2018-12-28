@@ -160,6 +160,10 @@ public class PlayerController : MonoBehaviour {
             other.gameObject.SetActive(false);
             //------ WARNING: todo NON LO SO
         }
+        else if (other.CompareTag("Drill")) {
+            digCount++;
+            other.gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other) {
