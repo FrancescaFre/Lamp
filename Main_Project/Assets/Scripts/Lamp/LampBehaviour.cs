@@ -11,6 +11,7 @@ public class LampBehaviour : MonoBehaviour {
     public Collider[] allColliders;
     [Header("Lamp Properties")]
     public bool isEnemyLamp = false;
+    [Tooltip("DO NOT MODIFY! \nDepends on wether the lamp is an enemy or not")]
     public bool isTurnedOn = false;
 
     private AudioSource _source;
@@ -20,9 +21,12 @@ public class LampBehaviour : MonoBehaviour {
     public bool hasMissingPart = false;
 
     //----- evolution of enemylamp
-    private Collider[] colliders;
+    private Collider[] nearByLampColliders;
+    [Tooltip("DO NOT MODIFY! \nDepends on wether the lamp has missing parts or not")]
+    public bool canBeSwtichedOn = false;
+    public ParticleSystem goodSpirits;
     public int radius;
-    public bool canBeSwtichedOn = true; 
+   
 
     private void Awake() {
         _source=gameObject.AddComponent<AudioSource>();
@@ -38,7 +42,7 @@ public class LampBehaviour : MonoBehaviour {
 
         allColliders = GetComponentsInChildren<Collider>();
         isTurnedOn = isEnemyLamp;
-
+        canBeSwtichedOn = !hasMissingPart;
         for (int i = 0; i < particleSystems.Length; i++) {
             if (particleSystems[i].rotationOverLifetime.enabled) {
 
@@ -49,7 +53,8 @@ public class LampBehaviour : MonoBehaviour {
                 else
                     main.startColor = GameManager.Instance.levelLoaded.allyColor;
             }
-
+            else if (particleSystems[i].noise.enabled)
+                goodSpirits = particleSystems[i];
         }
 
         for (int i = 0; i < lightBulb.Length; i++) {
@@ -80,12 +85,14 @@ public class LampBehaviour : MonoBehaviour {
 // ------------- Evolution of enemy lamp
         if (isEnemyLamp)
         {
-            colliders = Physics.OverlapSphere(this.transform.position, radius, LayerMask.GetMask("Lamp_Base"));
+            nearByLampColliders = Physics.OverlapSphere(this.transform.position, radius, LayerMask.GetMask("Lamp_Base"));
 
-            foreach (Collider lamp in colliders)
+            foreach (Collider lamp in nearByLampColliders)
                 if (!lamp.GetComponent<LampBehaviour>().isEnemyLamp)
-                    lamp.GetComponent<LampBehaviour>().canBeSwtichedOn = false; 
+                    lamp.GetComponent<LampBehaviour>().IsSwitchable (false); 
         }
+
+        IsSwitchable(canBeSwtichedOn);
     }
 
 
@@ -105,7 +112,9 @@ public class LampBehaviour : MonoBehaviour {
         }
 
         _source.PlayOneShot(GameManager.Instance.levelLoaded.switchSFX);
-
+        var temp = goodSpirits.main;
+        temp.loop = false;
+        
         isTurnedOn = true;
         Debug.Log("lamp_switch: ON ");
         gameObject.layer = 11; //obstacle layer
@@ -129,9 +138,24 @@ public class LampBehaviour : MonoBehaviour {
         _source.PlayOneShot(GameManager.Instance.levelLoaded.switchSFX);
 
 //----------- Evolution of enemy lamp
-        colliders = Physics.OverlapSphere(this.transform.position, radius, LayerMask.GetMask("Lamp_Base"));
-        foreach (Collider lamp in colliders)
-            lamp.GetComponent<LampBehaviour>().canBeSwtichedOn = true;
+        nearByLampColliders = Physics.OverlapSphere(this.transform.position, radius, LayerMask.GetMask("Lamp_Base"));
+        foreach (Collider lamp in nearByLampColliders)
+            lamp.GetComponent<LampBehaviour>().IsSwitchable (true);
+
+    }
+
+    public void IsSwitchable(bool condition) {
+        canBeSwtichedOn = condition;
+        if (canBeSwtichedOn) {
+            //TODO: switch on FX
+            goodSpirits.gameObject.SetActive(true);
+            goodSpirits.Play();
+        }
+        else {
+            //TODO: switch off FX
+            goodSpirits.Stop();
+            goodSpirits.gameObject.SetActive(false);
+        }
 
     }
 }

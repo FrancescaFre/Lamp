@@ -133,8 +133,8 @@ public class GameManager : MonoBehaviour {
         CharactersList = new List<PlayerController>(FindObjectsOfType<PlayerController>());
         CharactersDict = new Dictionary<CharPeriod, PlayerController>();
 
-        this.allyLamps = levelLoaded.allyLamps;
-        this.enemyLamps = levelLoaded.enemyLamps;
+        this.allyLamps = 0;
+        this.enemyLamps = 0;
         for (int i = 0; i < CharactersList.Count; i++) {
             Debug.Log(CharactersList[i].CharacterPeriod.ToString());
             CharactersDict[CharactersList[i].CharacterPeriod] = CharactersList[i];
