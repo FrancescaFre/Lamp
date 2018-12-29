@@ -66,6 +66,7 @@ public class CameraManager : MonoBehaviour {
     private void AlignCameras()
     {
         transform.SetParent(FindObjectOfType<PlayerController>().transform);
+        //transform.SetParent(GameManager.Instance.currentPC.transform);
         if (_dummyCam.localPosition != transform.localPosition || _dummyCam.localRotation != transform.localRotation)
         {
             _dummyCam.localPosition = transform.localPosition;
