@@ -4564,6 +4564,11 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 136472743516345760, guid: 71561a6712f03034d8cd1179ac12532e,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71561a6712f03034d8cd1179ac12532e, type: 2}
   m_IsPrefabAsset: 0
@@ -5496,37 +5501,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!84 &399264485
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 256
-  m_Height: 256
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1001 &401306423
 Prefab:
   m_ObjectHideFlags: 0
@@ -6790,37 +6764,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4730270462268182, guid: 9890ec3f7020d884f9360d2122e65412,
     type: 2}
   m_PrefabInternal: {fileID: 476717798}
---- !u!84 &477461035
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 512
-  m_Height: 256
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!4 &491218828 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4730528072321464, guid: 72434008d9c644f42b689b8813c38df4,
@@ -6874,13 +6817,18 @@ Prefab:
         type: 2}
       propertyPath: shadowMapRenderTexture
       value: 
-      objectReference: {fileID: 930354531}
+      objectReference: {fileID: 0}
     - target: {fileID: 114584553387938182, guid: 0c084fedf45ab5e419a73c79b896f090,
         type: 2}
       propertyPath: path
       value: 
       objectReference: {fileID: 4332137388574646, guid: 3f560aaae6fdbe5479fff1fddb4ba80a,
         type: 2}
+    - target: {fileID: 114643893582794324, guid: 0c084fedf45ab5e419a73c79b896f090,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c084fedf45ab5e419a73c79b896f090, type: 2}
   m_IsPrefabAsset: 0
@@ -8263,37 +8211,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9483e64c7ddfbd4f8cc97886f20092b, type: 2}
   m_IsPrefabAsset: 0
---- !u!84 &596681763
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 256
-  m_Height: 256
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1001 &597833006
 Prefab:
   m_ObjectHideFlags: 0
@@ -9795,7 +9712,7 @@ Prefab:
         type: 2}
       propertyPath: shadowMapRenderTexture
       value: 
-      objectReference: {fileID: 596681763}
+      objectReference: {fileID: 0}
     - target: {fileID: 1953688963897732, guid: 0c084fedf45ab5e419a73c79b896f090, type: 2}
       propertyPath: m_Name
       value: VictorianEnemyPrefab (2)
@@ -9806,6 +9723,11 @@ Prefab:
       value: 
       objectReference: {fileID: 4143011435446418, guid: 9370af84d6254da4ea3eb181e6e886c1,
         type: 2}
+    - target: {fileID: 114643893582794324, guid: 0c084fedf45ab5e419a73c79b896f090,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c084fedf45ab5e419a73c79b896f090, type: 2}
   m_IsPrefabAsset: 0
@@ -13274,68 +13196,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72434008d9c644f42b689b8813c38df4, type: 2}
   m_IsPrefabAsset: 0
---- !u!84 &930354531
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 256
-  m_Height: 256
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
---- !u!84 &937037808
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 512
-  m_Height: 256
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!4 &945425479 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4224075983516076, guid: 1e760671fd1af624291a746464db5ac4,
@@ -14200,7 +14060,7 @@ Prefab:
         type: 2}
       propertyPath: shadowMapRenderTexture
       value: 
-      objectReference: {fileID: 937037808}
+      objectReference: {fileID: 0}
     - target: {fileID: 1463552872558568, guid: bb31e3d3340f38c41a231da506504bd5, type: 2}
       propertyPath: m_Name
       value: VictorianKey (1)
@@ -14216,6 +14076,11 @@ Prefab:
     - target: {fileID: 4217184632604714, guid: bb31e3d3340f38c41a231da506504bd5, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 3.749
+      objectReference: {fileID: 0}
+    - target: {fileID: 114954561895590794, guid: bb31e3d3340f38c41a231da506504bd5,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb31e3d3340f38c41a231da506504bd5, type: 2}
@@ -14556,7 +14421,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1046536698}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b142c931e4f39c429a012dc68ba0659, type: 3}
   m_Name: 
@@ -18425,7 +18290,7 @@ Prefab:
         type: 2}
       propertyPath: shadowMapRenderTexture
       value: 
-      objectReference: {fileID: 399264485}
+      objectReference: {fileID: 0}
     - target: {fileID: 1953688963897732, guid: 0c084fedf45ab5e419a73c79b896f090, type: 2}
       propertyPath: m_Name
       value: VictorianEnemyPrefab (1)
@@ -18436,6 +18301,11 @@ Prefab:
       value: 
       objectReference: {fileID: 4797327729334980, guid: 6a719275729dba441be7375ca9ea37d3,
         type: 2}
+    - target: {fileID: 114643893582794324, guid: 0c084fedf45ab5e419a73c79b896f090,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c084fedf45ab5e419a73c79b896f090, type: 2}
   m_IsPrefabAsset: 0
@@ -19750,37 +19620,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4060091748475880, guid: 7242d872e8f251b46b4627257b4b89fc,
     type: 2}
   m_PrefabInternal: {fileID: 1322176033}
---- !u!84 &1325864663
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 256
-  m_Height: 256
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!4 &1325931289 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4730528072321464, guid: 72434008d9c644f42b689b8813c38df4,
@@ -30374,7 +30213,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 1945432150660676, guid: 71561a6712f03034d8cd1179ac12532e, type: 2}
       propertyPath: m_Name
-      value: Victorian_Lamp(Clone)
+      value: Victorian_Lamp(Clone) 1
       objectReference: {fileID: 0}
     - target: {fileID: 4092218474487890, guid: 71561a6712f03034d8cd1179ac12532e, type: 2}
       propertyPath: m_LocalRotation.x
@@ -32897,7 +32736,7 @@ Prefab:
         type: 2}
       propertyPath: shadowMapRenderTexture
       value: 
-      objectReference: {fileID: 1325864663}
+      objectReference: {fileID: 0}
     - target: {fileID: 1953688963897732, guid: 0c084fedf45ab5e419a73c79b896f090, type: 2}
       propertyPath: m_Name
       value: VictorianEnemyPrefab (3)
@@ -32908,6 +32747,11 @@ Prefab:
       value: 
       objectReference: {fileID: 4227952923177534, guid: 1ba3108e85e13f14b9c33c18f45e70e8,
         type: 2}
+    - target: {fileID: 114643893582794324, guid: 0c084fedf45ab5e419a73c79b896f090,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c084fedf45ab5e419a73c79b896f090, type: 2}
   m_IsPrefabAsset: 0

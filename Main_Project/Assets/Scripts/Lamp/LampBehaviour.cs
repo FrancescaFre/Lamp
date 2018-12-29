@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using AuraAPI;
 
 public class LampBehaviour : MonoBehaviour {
@@ -22,16 +23,21 @@ public class LampBehaviour : MonoBehaviour {
 
     //----- evolution of enemylamp
     private Collider[] nearByLampColliders;
+    public List<LampBehaviour> lampsInDomain = null;
     [Tooltip("DO NOT MODIFY! \nDepends on wether the lamp has missing parts or not")]
-    public bool canBeSwtichedOn = false;
+    public bool canBeSwitchedOn = false;
     public ParticleSystem goodSpirits;
     public int radius;
    
 
-    private void Awake() {
+    void Awake() {
         _source=gameObject.AddComponent<AudioSource>();
         _source.playOnAwake=false;
         _source.volume = .3f;
+        canBeSwitchedOn = !hasMissingPart;
+        isTurnedOn = isEnemyLamp;
+        if (isEnemyLamp)
+            lampsInDomain = new List<LampBehaviour>();
     }
 
     // Use this for initialization
@@ -41,8 +47,8 @@ public class LampBehaviour : MonoBehaviour {
         particleSystems = GetComponentsInChildren<ParticleSystem>();
 
         allColliders = GetComponentsInChildren<Collider>();
-        isTurnedOn = isEnemyLamp;
-        canBeSwtichedOn = !hasMissingPart;
+        
+        
         for (int i = 0; i < particleSystems.Length; i++) {
             if (particleSystems[i].rotationOverLifetime.enabled) {
 
@@ -53,7 +59,7 @@ public class LampBehaviour : MonoBehaviour {
                 else
                     main.startColor = GameManager.Instance.levelLoaded.allyColor;
             }
-            else if (particleSystems[i].noise.enabled)
+            else if (particleSystems[i].noise.enabled && !isEnemyLamp)
                 goodSpirits = particleSystems[i];
         }
 
@@ -81,24 +87,31 @@ public class LampBehaviour : MonoBehaviour {
                 allColliders[i].isTrigger = true;
             }
         }
-
+        
+        
 // ------------- Evolution of enemy lamp
         if (isEnemyLamp)
         {
-            nearByLampColliders = Physics.OverlapSphere(this.transform.position, radius, LayerMask.GetMask("Lamp_Base"));
+            nearByLampColliders = Physics.OverlapSphere(this.transform.position, radius/*,LayerMask.GetMask("Lamp_Switch")*/);
 
-            foreach (Collider lamp in nearByLampColliders)
-                if (!lamp.GetComponent<LampBehaviour>().isEnemyLamp)
-                    lamp.GetComponent<LampBehaviour>().IsSwitchable (false); 
-        }
+            foreach (Collider l in nearByLampColliders) {
+                LampBehaviour lamp = l.GetComponent<LampBehaviour>();
+                if (lamp && !lamp.isEnemyLamp) {
+                    lampsInDomain.Add(lamp);
+                    lamp.IsSwitchable(false);
+                    print(lamp.name);
+                }
+            }
+        }else
+            IsSwitchable(canBeSwitchedOn);
 
-        IsSwitchable(canBeSwtichedOn);
+
     }
 
 
     public void SwitchOnAllyLamp() { //you cant turn on a lamp if there are any enemy lamp turned on
        // if (hasMissingPart || GameManager.Instance.enemyLamps > 0 ) return;
-        if (hasMissingPart || !canBeSwtichedOn) return;
+        if (hasMissingPart || !canBeSwitchedOn) return;
 
         for (int i = 0; i < lightBulb.Length; i++) {
             lightBulb[i].gameObject.SetActive(true);
@@ -137,22 +150,31 @@ public class LampBehaviour : MonoBehaviour {
         GameManager.Instance.lampHUD.DequeueEnemy();
         _source.PlayOneShot(GameManager.Instance.levelLoaded.switchSFX);
 
-//----------- Evolution of enemy lamp
-        nearByLampColliders = Physics.OverlapSphere(this.transform.position, radius, LayerMask.GetMask("Lamp_Base"));
-        foreach (Collider lamp in nearByLampColliders)
-            lamp.GetComponent<LampBehaviour>().IsSwitchable (true);
+        //----------- Evolution of enemy lamp
+        foreach (var lamp in lampsInDomain) {
+                lamp.IsSwitchable(true);
+        }
 
     }
-
     public void IsSwitchable(bool condition) {
-        canBeSwtichedOn = condition;
-        if (canBeSwtichedOn) {
+        canBeSwitchedOn = condition;
+        if (!goodSpirits) {
+            if (particleSystems.Length == 0)
+                particleSystems = GetComponentsInChildren<ParticleSystem>();
+            foreach (var part in particleSystems) {
+                if (part.noise.enabled)
+                    goodSpirits = part;
+            }
+        }
+
+        if (canBeSwitchedOn) {
             //TODO: switch on FX
             goodSpirits.gameObject.SetActive(true);
             goodSpirits.Play();
         }
         else {
             //TODO: switch off FX
+
             goodSpirits.Stop();
             goodSpirits.gameObject.SetActive(false);
         }
