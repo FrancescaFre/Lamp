@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Compass : MonoBehaviour {
+public class CompassHUD : MonoBehaviour {
 
     public GameObject arrow, altimeter;
 
@@ -25,7 +25,8 @@ public class Compass : MonoBehaviour {
     {
         player = GameManager.Instance.currentPC.transform;
         Vector3 playerToNorth = north - player.position;
-        float angle = Vector3.SignedAngle(player.forward, Vector3.ProjectOnPlane(playerToNorth, player.up), player.up);
+        //float angle = Vector3.SignedAngle(player.forward, Vector3.ProjectOnPlane(playerToNorth, player.up), player.up); // BASED ON THE PLAYER FORWARD
+        float angle = Vector3.SignedAngle(Camera.main.transform.forward, Vector3.ProjectOnPlane(playerToNorth, player.up), player.up); // BASED ON THE CAMERA FORWARD
 
         arrow.transform.rotation = Quaternion.Euler(0, 0, angle);
     }
