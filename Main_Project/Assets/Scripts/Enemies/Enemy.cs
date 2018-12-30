@@ -456,7 +456,7 @@ public class Enemy : MonoBehaviour
             if (light[1].color != Color.red)
                 this.GetComponent<ColorChanger>().ReverseLerp();
 
-    */
-    }
+   
+    }*/
 }
 

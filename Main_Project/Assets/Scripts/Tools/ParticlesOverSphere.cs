@@ -8,13 +8,13 @@ public class ParticlesOverSphere : MonoBehaviour {
     
 	// Use this for initialization
 	void Start () {
-        
 
+        ps = GetComponent<ParticleSystem>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        ps.Emit(new ParticleSystem.EmitParams() { position = Random.onUnitSphere*21}, 1);
+     // ps.Emit(new ParticleSystem.EmitParams() { position = Random.onUnitSphere*21}, 1);
 
 	}
 }
