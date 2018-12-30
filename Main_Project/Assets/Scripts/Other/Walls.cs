@@ -5,21 +5,25 @@ using UnityEngine;
 public class Walls : MonoBehaviour {
 
     private List<Light> lights = new List<Light>();
-  public LayerMask layer; 
+    public bool t = false; 
     private void Start()
     {
-        layer = gameObject.layer;
+      //  layer = this.gameObject.layer;
         foreach (Light light in this.transform.GetComponentsInChildren<Light>())
-                if (light.transform.CompareTag("DigLight"))
-                    lights.Add(light);
+            if (light.transform.CompareTag("DigLight"))
+                lights.Add(light);
 
         foreach (Light light in lights)
             light.enabled = false;
-      //--------------DA CORREGGERE
-       // if (this.gameObject.layer != LayerMask.GetMask("Obstacle"))
-         //    GetComponent<Walls>().enabled = false;
+        //--------------DA CORREGGERE
 
 
+        if ( !(((1 << gameObject.layer) & LayerMask.GetMask("Obstacle")) != 0))
+        {
+            Debug.Log("INSIDE IF");
+            t = true;
+            Destroy(GetComponent<Walls>()); //.enabled = false;
+        }
     }
     
     private void OnTriggerEnter(Collider other)
@@ -31,7 +35,7 @@ public class Walls : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {
-        if (this.gameObject.layer == LayerMask.GetMask("Obstacle") && other.GetComponentInParent<PlayerController>() && other.GetComponentInParent<PlayerController>().CompareTag("Player"))
+        if (other.GetComponentInParent<PlayerController>() && other.GetComponentInParent<PlayerController>().CompareTag("Player"))
             foreach (Light light in lights)
                 light.enabled = false;
     }
