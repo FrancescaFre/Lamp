@@ -157,6 +157,7 @@ public class PlayerController : MonoBehaviour {
         else if (other.CompareTag("Key"))
         {
             keys++;
+            AudioManager.Instance.SFXSource.PlayOneShot(GameManager.Instance.levelLoaded.keySFX);
             other.gameObject.SetActive(false);
             //------ WARNING: todo NON LO SO
         }

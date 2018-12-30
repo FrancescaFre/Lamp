@@ -5,13 +5,19 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour {
 
     public static AudioManager Instance;
-    public AudioSource Source { get { return GetComponent<AudioSource>(); } }
-
+    public AudioSource musicSource;
+    public AudioSource SFXSource;
+    public AudioSource ambienceSource;
+    [Range(0f,1f)]
+    public float volumeMusic=.8f;
+    [Range(0f, 1f)]
+    public float volumeSFX=.5f;
+    [Range(0f, 1f)]
+    public float volumeAmbience=.5f;
     public AudioClip MenuClip;
     [Range(0f, 1f)]
     public float speed = 0f;
-    [Range(0f, 1f)]
-    public float maxVolume = 0f;
+
 
     private void Awake() {
         if (!Instance) {
@@ -22,12 +28,12 @@ public class AudioManager : MonoBehaviour {
             Destroy(gameObject);
             return;
         }
-
-        Source.clip = MenuClip;
-        Source.loop = true;
+        musicSource = GetComponent<AudioSource>();
+        musicSource.clip = MenuClip;
+        musicSource.loop = true;
         //StartCoroutine(FadeIn());
-        Source.volume = .8f;
-        Source.Play();
+        musicSource.volume = volumeMusic;
+        musicSource.Play();
         
         
     }
@@ -35,21 +41,21 @@ public class AudioManager : MonoBehaviour {
     /// <summary>
     /// Plays the level music
     /// </summary>
-    /// <param name="audio">Music to play (default null plays menu music)</param>
-    public void PlayAudio(List<AudioClip> audio = null) {
+    /// <param name="musicList">Music to play (default null plays menu music)</param>
+    public void PlayMusic(List<AudioClip> musicList = null) {
         //StartCoroutine(FadeOut());
-        Source.Stop();
-        if (audio==null) {
-            Source.clip = MenuClip;
-            Source.Play();
+        musicSource.Stop();
+        if (musicList==null) {
+            musicSource.clip = MenuClip;
+            musicSource.Play();
            // StartCoroutine(FadeIn());
         }
         else {
-            int i = Random.Range(0,audio.Count);
+            int i = Random.Range(0,musicList.Count);
 
 
-            Source.clip = audio[i];
-            Source.Play();
+            musicSource.clip = musicList[i];
+            musicSource.Play();
            // StartCoroutine(FadeIn());
         }
 
@@ -90,4 +96,23 @@ public class AudioManager : MonoBehaviour {
 
     }
     */
+
+    public void OnStartGame() {
+        SFXSource = gameObject.AddComponent<AudioSource>();
+        SFXSource.playOnAwake = false;
+        SFXSource.volume = volumeSFX;
+
+        ambienceSource = gameObject.AddComponent<AudioSource>();
+        ambienceSource.clip = GameManager.Instance.levelLoaded.ambienceSFX;
+        ambienceSource.loop = true;
+        ambienceSource.volume = volumeAmbience;
+        ambienceSource.Play();
+        
+    }
+
+    public void OnEndGame() {
+
+        Destroy(SFXSource);
+        Destroy(ambienceSource);
+    }
 }

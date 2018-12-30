@@ -153,7 +153,7 @@ public class GameManager : MonoBehaviour {
         }*/
 
         if (levelLoaded.levelMusic!=null)
-            AudioManager.Instance.PlayAudio(levelLoaded.levelMusic);
+            AudioManager.Instance.PlayMusic(levelLoaded.levelMusic);
 
         ActivatePlayerX();
     }
@@ -168,7 +168,7 @@ public class GameManager : MonoBehaviour {
         CharactersDict.Clear();
         CharactersList.Clear();
         SceneManager.LoadScene("1_GameMenu");//which has index 1
-        AudioManager.Instance.PlayAudio();
+        AudioManager.Instance.PlayMusic();
 
     }
 
@@ -203,7 +203,10 @@ public class GameManager : MonoBehaviour {
             eventSystem.AddComponent<StandaloneInputModule>();
          
         }
+
+        AudioManager.Instance.OnStartGame();
         StartGame();
+
     }
 
     #endregion

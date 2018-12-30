@@ -11,8 +11,11 @@ public class Level_SO : ScriptableObject {
     public string Description;
     [Header("Music level")]
     public List<AudioClip> levelMusic;
-    [Header("Lamp switch SFX")]
-    public AudioClip switchSFX;
+    [Header("SFX")]
+    public AudioClip ambienceSFX;
+    public AudioClip lampSwitchSFX;
+    public AudioClip keySFX;
+    public List<AudioClip> stepSFX;
     [Header("Lamp properties")]
     public int allyLamps;
     public Color allyColor=Color.yellow;

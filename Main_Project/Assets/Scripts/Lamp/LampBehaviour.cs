@@ -15,7 +15,7 @@ public class LampBehaviour : MonoBehaviour {
     [Tooltip("DO NOT MODIFY! \nDepends on wether the lamp is an enemy or not")]
     public bool isTurnedOn = false;
 
-    private AudioSource _source;
+
     /// <summary>
     /// True if the lamp is missing a part.
     /// </summary>
@@ -31,9 +31,7 @@ public class LampBehaviour : MonoBehaviour {
    
 
     void Awake() {
-        _source=gameObject.AddComponent<AudioSource>();
-        _source.playOnAwake=false;
-        _source.volume = .3f;
+
         canBeSwitchedOn = !hasMissingPart;
         isTurnedOn = isEnemyLamp;
         if (isEnemyLamp)
@@ -92,14 +90,14 @@ public class LampBehaviour : MonoBehaviour {
 // ------------- Evolution of enemy lamp
         if (isEnemyLamp)
         {
-            nearByLampColliders = Physics.OverlapSphere(this.transform.position, radius/*,LayerMask.GetMask("Lamp_Switch")*/);
+            nearByLampColliders = Physics.OverlapSphere(this.transform.position, radius);
 
             foreach (Collider l in nearByLampColliders) {
-                LampBehaviour lamp = l.GetComponent<LampBehaviour>();
+                LampBehaviour lamp = l.GetComponentInParent<LampBehaviour>();
                 if (lamp && !lamp.isEnemyLamp) {
                     lampsInDomain.Add(lamp);
                     lamp.IsSwitchable(false);
-                    print(lamp.name);
+                    
                 }
             }
         }else
@@ -124,7 +122,7 @@ public class LampBehaviour : MonoBehaviour {
                 allColliders[i].enabled = true;
         }
 
-        _source.PlayOneShot(GameManager.Instance.levelLoaded.switchSFX);
+        AudioManager.Instance.SFXSource.PlayOneShot(GameManager.Instance.levelLoaded.lampSwitchSFX);
         var temp = goodSpirits.main;
         temp.loop = false;
         
@@ -136,6 +134,8 @@ public class LampBehaviour : MonoBehaviour {
         if (GameManager.Instance.allyLamps == GameManager.Instance.levelLoaded.allyLamps)
             GameManager.Instance.GoodEndGame();
         GameManager.Instance.LastAllyLamp = this;   //if the character dies, the next one will be spawned here
+
+  
     }
 
     public void SwitchOffEnemyLamp() {
@@ -148,7 +148,7 @@ public class LampBehaviour : MonoBehaviour {
 
         GameManager.Instance.enemyLamps++;
         GameManager.Instance.lampHUD.DequeueEnemy();
-        _source.PlayOneShot(GameManager.Instance.levelLoaded.switchSFX);
+        AudioManager.Instance.SFXSource.PlayOneShot(GameManager.Instance.levelLoaded.lampSwitchSFX);
 
         //----------- Evolution of enemy lamp
         foreach (var lamp in lampsInDomain) {
