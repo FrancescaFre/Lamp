@@ -141,6 +141,8 @@ public class Enemy : MonoBehaviour
         ChangeStatus();
         ChangeDirection();
 
+        //CheckColorLerp();
+
         if (Vector3.Distance(destination, transform.position) > 0.3f)
         {
 //-------------------- Movement of enemy
@@ -440,5 +442,21 @@ public class Enemy : MonoBehaviour
         }
     }
     #endregion
+
+  /*  private void CheckColorLerp() {
+
+        Light[] light = this.GetComponentsInChildren<Light>();
+
+        
+        if (currentStatus == EnemyStatus.SEEKING || currentStatus == EnemyStatus.SEARCHING)
+            if (light[1].color == Color.blue)
+                this.GetComponent<ColorChanger>().Lerp();
+       
+        if (currentStatus == EnemyStatus.RETURN || currentStatus == EnemyStatus.WANDERING)
+            if (light[1].color != Color.red)
+                this.GetComponent<ColorChanger>().ReverseLerp();
+
+    */
+    }
 }
 

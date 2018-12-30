@@ -7,6 +7,18 @@ public class ZoneDig : Digging {
     public GameObject movingCirclePrefab;
     private MovingCircle _movingCircle;
 
+    public float radius = 10f; 
+    public SphereCollider sphereC;
+  public  Collider[] colliders; 
+
+    private void Awake()
+    { 
+        sphereC = this.gameObject.AddComponent<SphereCollider>();
+        sphereC.isTrigger = true;
+        sphereC.radius = radius;
+        sphereC.enabled = false; 
+    }
+
     /// <summary>
     /// Performs the digging action (called by caster)
     /// </summary>
@@ -23,6 +35,8 @@ public class ZoneDig : Digging {
 
     override public void CheckInput()
     {
+        sphereC.enabled = true;
+
         if (player.IsZoneDigging) // If you already pressed [ZDIG] 2 times (activate -> valid start -> now)
             if (_movingCircle.canDig)
             {
@@ -30,7 +44,9 @@ public class ZoneDig : Digging {
                 player.IsCasting = true;
             }
             else
+            {
                 Cancel();
+            }
 
         else if (isActiveAndEnabled) // If you already pressed [ZDIG] (activate -> now)
             if (canDig)
@@ -40,10 +56,14 @@ public class ZoneDig : Digging {
                 player.IsZoneDigging = true;
             }
             else
+            {
                 Cancel();
+            }
 
         else if (player.VDig.isActiveAndEnabled) // If you already pressed [VDIG]
-            player.VDig.Cancel();
+        {
+            player.VDig.Cancel();    
+        }
 
         else // First time the player presses [ZDIG]
         {
@@ -61,6 +81,16 @@ public class ZoneDig : Digging {
         }
 
         gameObject.SetActive(false);
+        SwitchOffCollider();
+       
+    }
 
+    private void SwitchOffCollider()
+    {
+        colliders = Physics.OverlapSphere(this.transform.position, radius);
+        foreach (Collider collider in colliders)
+            if (collider.GetComponent<Walls>())
+                collider.GetComponent<Walls>().SwitchOff();
+        sphereC.enabled = false;
     }
 }

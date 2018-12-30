@@ -64,7 +64,10 @@ public class PlayerController : MonoBehaviour {
         IsSafe = false;
         CurseStatus = Status.NORMAL;
         Visible = Visibility.INVISIBLE;
-        IsZoneDigging = false;      
+        IsZoneDigging = false;   
+
+
+        
     }
 
     // Use this for initialization
