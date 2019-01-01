@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 4119664579020230}
   - component: {fileID: 135735145396936178}
   - component: {fileID: 114259567422170754}
+  - component: {fileID: 114235794073298822}
   m_Layer: 0
   m_Name: Oriental_Lamp_2
   m_TagString: Lamp_Base
@@ -289,6 +290,21 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114235794073298822
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1880510982378358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc0fa0bb3d81fd43a35f0c2476e754a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  maxAudibleDistance: 100
+  is2D_or3D: 1
+  clip: {fileID: 8300000, guid: bf6f06869c81c0143a5ccbfb76c22fb1, type: 3}
 --- !u!114 &114259567422170754
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -307,8 +323,11 @@ MonoBehaviour:
   isEnemyLamp: 0
   isTurnedOn: 0
   hasMissingPart: 0
+  lampsInDomain: []
+  canBeSwitchedOn: 0
+  goodSpirits: {fileID: 0}
   radius: 0
-  canBeSwtichedOn: 0
+  emitter: {fileID: 0}
 --- !u!114 &114875756408439766
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -372,7 +391,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.6027694
+  m_Radius: 2.5
   m_Center: {x: 0, y: 0, z: -0.008728504}
 --- !u!198 &198333990098935356
 ParticleSystem:

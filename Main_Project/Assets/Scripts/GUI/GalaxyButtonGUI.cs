@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.UI;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using System;
+using UnityEngine.SceneManagement;
 
 public class GalaxyButtonGUI : BaseButtonGUI {
 
@@ -61,7 +59,9 @@ public class GalaxyButtonGUI : BaseButtonGUI {
 
 
     public override void OnCancel(BaseEventData eventData) {
-
+        if(!GameManager.Instance.levelLoaded) {
+            SceneManager.LoadScene(0);
+        }
         GameManager.Instance.levelLoaded = null;
         GUIManager.GUIInstance.nextButton.interactable = false;
         transform.GetChild(0).gameObject.SetActive(false);

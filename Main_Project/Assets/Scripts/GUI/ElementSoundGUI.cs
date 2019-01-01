@@ -14,22 +14,12 @@ public class ElementSoundGUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     public bool enableClickSound = true;
     public bool isSelectable=true;
 
-
-    private AudioSource HoverSource { get { return GetComponent<AudioSource>(); } }
-    private AudioSource ClickSource { get { return GetComponent<AudioSource>(); } }
-    private AudioSource CancelSource { get { return GetComponent<AudioSource>(); } }
     private Button isButton;
 
     void Start() {
         gameObject.AddComponent<AudioSource>(); //adds the audiosource at runtime
         isButton = GetComponent<Button>();  // get the button component (if any)
-        HoverSource.clip = hoverSound;
-        ClickSource.clip = clickSound;
-        CancelSource.clip = clickSound;
-        HoverSource.volume = .5f;
-        HoverSource.playOnAwake = false;
-        ClickSource.playOnAwake = false;
-        CancelSource.playOnAwake = false;
+
     }
 
 
@@ -63,13 +53,13 @@ public class ElementSoundGUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     /// </summary>
     private void HoverSound() {
         if (!isButton) {
-            if (enableHoverSound && HoverSource) {
-                HoverSource.PlayOneShot(hoverSound);
+            if (enableHoverSound) {
+                AudioManager.Instance.SFXSource.PlayOneShot(hoverSound);
             }
         }
         else {
-            if (isButton.interactable && HoverSource) {
-                HoverSource.PlayOneShot(hoverSound);
+            if (isButton.interactable ) {
+                AudioManager.Instance.SFXSource.PlayOneShot(hoverSound); 
             }
         }
     }
@@ -84,13 +74,13 @@ public class ElementSoundGUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
         if (isButton) {
 
-            if (isButton.interactable &&ClickSource)
-                ClickSource.PlayOneShot(clickSound);
+            if (isButton.interactable )
+                AudioManager.Instance.SFXSource.PlayOneShot(clickSound);
         }
     }
 
     private void CancelSound() {
-        CancelSource.PlayOneShot(cancelSound);
+        AudioManager.Instance.SFXSource.PlayOneShot(cancelSound);
     }
 
 }

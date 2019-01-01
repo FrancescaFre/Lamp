@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 114112305977965522}
   - component: {fileID: 114524935340456570}
   - component: {fileID: 114936668029946474}
+  - component: {fileID: 114156654563077092}
   m_Layer: 9
   m_Name: Oriental_Player
   m_TagString: Player
@@ -350,7 +351,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1574525948600028}
   m_LocalRotation: {x: -0, y: -0.55476755, z: -0, w: 0.83200544}
-  m_LocalPosition: {x: -1.478, y: 21, z: 0.293}
+  m_LocalPosition: {x: 0, y: 21, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 4702996682687656}
@@ -740,6 +741,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 5
   stealthSpeed: 3
+--- !u!114 &114156654563077092
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1574525948600028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b27d4d8c08118044a7df269251c0913, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stepsFX: []
 --- !u!114 &114164411615400212
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -771,6 +784,9 @@ MonoBehaviour:
   bar: {fileID: 0}
   movingCirclePrefab: {fileID: 1805591998086222, guid: a6986ec8d836a02489d419e6d5b12291,
     type: 2}
+  radius: 10
+  sphereC: {fileID: 0}
+  colliders: []
 --- !u!114 &114321943018512864
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -787,10 +803,12 @@ MonoBehaviour:
   digCount: 2
   usingSkill: 0
   isSneaking: 0
+  runningAnimation: 0
   keys: 0
   halfCurseEffect: {fileID: 0}
   fullCurseEffect: {fileID: 0}
   digEffect: {fileID: 0}
+  otherplayer: {fileID: 0}
 --- !u!114 &114346936954027012
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -9,9 +9,9 @@ public class Level_SO : ScriptableObject {
     public string LevelName;
     public Season levelSeason;
     public string Description;
-    [Header("Music level")]
+    [Header("Music clips")]
     public List<AudioClip> levelMusic;
-    [Header("SFX")]
+    [Header("SFX clips")]
     public AudioClip ambienceSFX;
     public AudioClip lampSwitchSFX;
     public AudioClip keySFX;

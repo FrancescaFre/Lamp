@@ -28,10 +28,11 @@ public class LampBehaviour : MonoBehaviour {
     public bool canBeSwitchedOn = false;
     public ParticleSystem goodSpirits;
     public int radius;
-   
+
+    public SFXEmitter emitter;
 
     void Awake() {
-
+        
         canBeSwitchedOn = !hasMissingPart;
         isTurnedOn = isEnemyLamp;
         if (isEnemyLamp)
@@ -40,6 +41,8 @@ public class LampBehaviour : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+        emitter = GetComponent<SFXEmitter>();
+
         lightBulb = GetComponentsInChildren<Light>();                 //the light sources of the child GO
         auraLight = GetComponentsInChildren<AuraLight>();                 //the aura sources of the child GO
         particleSystems = GetComponentsInChildren<ParticleSystem>();
@@ -85,11 +88,13 @@ public class LampBehaviour : MonoBehaviour {
                 allColliders[i].isTrigger = true;
             }
         }
+
         
-        
-// ------------- Evolution of enemy lamp
+        emitter.source.Stop();
+        // ------------- Evolution of enemy lamp
         if (isEnemyLamp)
         {
+            emitter.source.Play();
             nearByLampColliders = Physics.OverlapSphere(this.transform.position, radius);
 
             foreach (Collider l in nearByLampColliders) {
@@ -135,7 +140,8 @@ public class LampBehaviour : MonoBehaviour {
             GameManager.Instance.GoodEndGame();
         GameManager.Instance.LastAllyLamp = this;   //if the character dies, the next one will be spawned here
 
-  
+        emitter.source.Play();
+
     }
 
     public void SwitchOffEnemyLamp() {
@@ -149,7 +155,7 @@ public class LampBehaviour : MonoBehaviour {
         GameManager.Instance.enemyLamps++;
         GameManager.Instance.lampHUD.DequeueEnemy();
         AudioManager.Instance.SFXSource.PlayOneShot(GameManager.Instance.levelLoaded.lampSwitchSFX);
-
+        emitter.source.Stop();
         //----------- Evolution of enemy lamp
         foreach (var lamp in lampsInDomain) {
                 lamp.IsSwitchable(true);
@@ -168,12 +174,12 @@ public class LampBehaviour : MonoBehaviour {
         }
 
         if (canBeSwitchedOn) {
-            //TODO: switch on FX
+            //TODO: switch on particleFX
             goodSpirits.gameObject.SetActive(true);
             goodSpirits.Play();
         }
         else {
-            //TODO: switch off FX
+            //TODO: switch off particleFX
 
             goodSpirits.Stop();
             goodSpirits.gameObject.SetActive(false);

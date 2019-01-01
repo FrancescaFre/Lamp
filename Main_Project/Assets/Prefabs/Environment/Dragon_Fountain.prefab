@@ -87,6 +87,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4458337839046600}
   - component: {fileID: 136653631963773858}
+  - component: {fileID: 114719642386091132}
   m_Layer: 0
   m_Name: Dragon_Fountain
   m_TagString: Untagged
@@ -453,6 +454,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114719642386091132
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1349815239123770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc0fa0bb3d81fd43a35f0c2476e754a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  clip: {fileID: 8300000, guid: fe9b8feeb9fd796468718d52d69732aa, type: 3}
 --- !u!136 &136653631963773858
 CapsuleCollider:
   m_ObjectHideFlags: 1

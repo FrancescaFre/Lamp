@@ -145,6 +145,7 @@ GameObject:
   - component: {fileID: 114024155788294024}
   - component: {fileID: 114606519350539274}
   - component: {fileID: 114076863430986224}
+  - component: {fileID: 114041340041072132}
   m_Layer: 9
   m_Name: Prehistoric_Player
   m_TagString: Player
@@ -713,11 +714,24 @@ MonoBehaviour:
   digCount: 2
   usingSkill: 0
   isSneaking: 0
+  runningAnimation: 0
   keys: 0
   halfCurseEffect: {fileID: 0}
   fullCurseEffect: {fileID: 0}
   digEffect: {fileID: 0}
   otherplayer: {fileID: 0}
+--- !u!114 &114041340041072132
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1430089822043282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b27d4d8c08118044a7df269251c0913, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stepsFX: []
 --- !u!114 &114076863430986224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -749,6 +763,9 @@ MonoBehaviour:
   bar: {fileID: 0}
   movingCirclePrefab: {fileID: 1805591998086222, guid: a6986ec8d836a02489d419e6d5b12291,
     type: 2}
+  radius: 10
+  sphereC: {fileID: 0}
+  colliders: []
 --- !u!114 &114270390029656282
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -140,6 +140,7 @@ GameObject:
   - component: {fileID: 114938592696027744}
   - component: {fileID: 54561744859297404}
   - component: {fileID: 136472743516345760}
+  - component: {fileID: 114024499855585656}
   m_Layer: 0
   m_Name: Victorian_Lamp
   m_TagString: Lamp_Base
@@ -485,6 +486,21 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114024499855585656
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1945432150660676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc0fa0bb3d81fd43a35f0c2476e754a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  maxAudibleDistance: 100
+  is2D_or3D: 1
+  clip: {fileID: 8300000, guid: eab6629b1b476dd41914c00c10bce1da, type: 3}
 --- !u!114 &114307822178521740
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -571,8 +587,11 @@ MonoBehaviour:
   isEnemyLamp: 0
   isTurnedOn: 0
   hasMissingPart: 0
+  lampsInDomain: []
+  canBeSwitchedOn: 0
+  goodSpirits: {fileID: 0}
   radius: 0
-  canBeSwtichedOn: 0
+  emitter: {fileID: 0}
 --- !u!136 &136472743516345760
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+
 
 public class GUIManager : MonoBehaviour {
     public static GUIManager GUIInstance;
@@ -22,7 +21,7 @@ public class GUIManager : MonoBehaviour {
     [Header("Confirm")]
     public AudioClip ConfirmSound;
     public AudioClip AbortSound;
-    private AudioSource Source { get { return GetComponent<AudioSource>(); } }
+
     private void Awake() {
         if (!GUIInstance)
             GUIInstance = this;
@@ -31,9 +30,7 @@ public class GUIManager : MonoBehaviour {
             return;
         }
 
-        gameObject.AddComponent<AudioSource>();
-        //Source.clip = ConfirmSound;
-        Source.playOnAwake = false;
+
         
     }
     private void Start() {
@@ -58,7 +55,7 @@ public class GUIManager : MonoBehaviour {
         Galaxies.SetActive(false);
         Characters.SetActive(true);
         EventSystem.current.SetSelectedGameObject(firstSelectedCharacter, null);
-        Source.PlayOneShot(ConfirmSound);
+        AudioManager.Instance.SFXSource.PlayOneShot(ConfirmSound);
 
     }
     
@@ -74,10 +71,10 @@ public class GUIManager : MonoBehaviour {
 
     //to turn back once reached the team selection
     public void BackToGalaxySelect() {
-
+        
         Characters.SetActive(false);
         Galaxies.SetActive(true);
         EventSystem.current.SetSelectedGameObject(firstSelectedGalaxy, null);
-        Source.PlayOneShot(AbortSound);
+        AudioManager.Instance.SFXSource.PlayOneShot(AbortSound);
     }
 }

@@ -18,8 +18,10 @@ public class OptionsGUI : MonoBehaviour {
 
         cameraSpeed.value = _camManager.cameraSpeed;
 
-        musicVolume.value = AudioManager.Instance.musicSource.volume;
-        ambienceVolume.value = AudioManager.Instance.ambienceSource.volume;
+        musicVolume.value = AudioManager.Instance.volumeMusic;
+        SFXVolume.value = AudioManager.Instance.volumeSFX;
+        ambienceVolume.value = AudioManager.Instance.volumeAmbience;
+
 
         gameObject.SetActive(false);
 	}
@@ -33,11 +35,19 @@ public class OptionsGUI : MonoBehaviour {
     public void OnUpdateMusicVolume() {
         AudioManager.Instance.musicSource.volume = musicVolume.value;
     }
+
     public void OnUpdateAmbienceVolume() {
-        AudioManager.Instance.ambienceSource.volume = ambienceVolume.value;
+     
+
+        foreach (var s in AudioManager.Instance.ambienceSourceList)
+            s.volume = ambienceVolume.value;
     }
+
     public void OnUpdateGenericSFXVolume() {
         AudioManager.Instance.SFXSource.volume = SFXVolume.value;
+
+        foreach (var s in AudioManager.Instance.SFXSourceList)
+            s.volume = SFXVolume.value;
     }
     
 }

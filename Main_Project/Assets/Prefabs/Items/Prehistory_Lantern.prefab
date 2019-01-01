@@ -130,6 +130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4035621317334644}
   - component: {fileID: 114850976690139930}
+  - component: {fileID: 114235508086434416}
   m_Layer: 0
   m_Name: Prehistory_Lantern
   m_TagString: Untagged
@@ -425,6 +426,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frequency: 2
   speed: 0.3
+--- !u!114 &114235508086434416
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1433521553276496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc0fa0bb3d81fd43a35f0c2476e754a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  maxAudibleDistance: 100
+  is2D_or3D: 1
+  clip: {fileID: 8300000, guid: 9c20e0ba84c19c642be36d0e267a8d98, type: 3}
 --- !u!114 &114304529093321610
 MonoBehaviour:
   m_ObjectHideFlags: 1

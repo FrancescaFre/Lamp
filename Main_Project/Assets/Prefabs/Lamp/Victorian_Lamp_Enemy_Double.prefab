@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 4459171230324982}
   - component: {fileID: 135955858280488554}
   - component: {fileID: 114315601558474676}
+  - component: {fileID: 114029543144795968}
   m_Layer: 0
   m_Name: Victorian_Lamp_Enemy_Double
   m_TagString: Lamp_Base
@@ -1124,6 +1125,21 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114029543144795968
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1475911652321960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc0fa0bb3d81fd43a35f0c2476e754a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  maxAudibleDistance: 100
+  is2D_or3D: 1
+  clip: {fileID: 8300000, guid: ca7c11207d54f1946aa9352f05cf28db, type: 3}
 --- !u!114 &114279594278045638
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1154,6 +1170,11 @@ MonoBehaviour:
   isEnemyLamp: 1
   isTurnedOn: 0
   hasMissingPart: 0
+  lampsInDomain: []
+  canBeSwitchedOn: 0
+  goodSpirits: {fileID: 0}
+  radius: 0
+  emitter: {fileID: 0}
 --- !u!114 &114363363104477700
 MonoBehaviour:
   m_ObjectHideFlags: 1

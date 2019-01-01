@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 4561254500249206}
   - component: {fileID: 114961128520307180}
   - component: {fileID: 135862324441124276}
+  - component: {fileID: 114050436909169496}
   m_Layer: 0
   m_Name: Oriental_Lamp_Enemy_3
   m_TagString: Lamp_Base
@@ -150,8 +151,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1056318794954576}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.629, z: 0.504}
-  m_LocalScale: {x: 0.09679, y: 0.09679006, z: 0.09679006}
+  m_LocalPosition: {x: 0, y: 0.629, z: -0.0069999695}
+  m_LocalScale: {x: 0.09679, y: 0.096790165, z: 0.096790165}
   m_Children:
   - {fileID: 4760403396470324}
   m_Father: {fileID: 4561254500249206}
@@ -164,7 +165,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1066813755599664}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.52, z: 0}
+  m_LocalPosition: {x: 0, y: 0.52, z: -0.511}
   m_LocalScale: {x: 0.07465353, y: 0.07465353, z: 0.07465353}
   m_Children:
   - {fileID: 4031906261633358}
@@ -360,6 +361,21 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114050436909169496
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1712299780288912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc0fa0bb3d81fd43a35f0c2476e754a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  maxAudibleDistance: 100
+  is2D_or3D: 1
+  clip: {fileID: 8300000, guid: bf6f06869c81c0143a5ccbfb76c22fb1, type: 3}
 --- !u!114 &114118090564622436
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -431,6 +447,11 @@ MonoBehaviour:
   isEnemyLamp: 1
   isTurnedOn: 0
   hasMissingPart: 0
+  lampsInDomain: []
+  canBeSwitchedOn: 0
+  goodSpirits: {fileID: 0}
+  radius: 0
+  emitter: {fileID: 0}
 --- !u!135 &135862324441124276
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -442,7 +463,7 @@ SphereCollider:
   m_Enabled: 0
   serializedVersion: 2
   m_Radius: 2.5
-  m_Center: {x: 0, y: 0, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &198616298610227298
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -277,6 +277,7 @@ GameObject:
   - component: {fileID: 4811805321546938}
   - component: {fileID: 136136486666631628}
   - component: {fileID: 114479764230242716}
+  - component: {fileID: 114587998721221890}
   m_Layer: 0
   m_Name: Oriental_Lamp_Enemy_2
   m_TagString: Lamp_Base
@@ -324,7 +325,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1037243900171708}
-  m_LocalRotation: {x: -0.000000081460335, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.439, z: 0}
   m_LocalScale: {x: 0.5273572, y: 0.5273572, z: 0.5273572}
   m_Children:
@@ -332,15 +333,15 @@ Transform:
   - {fileID: 4562300314268758}
   m_Father: {fileID: 4811805321546938}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &4081144980488728
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1479846278664170}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.398, z: -0.461}
+  m_LocalRotation: {x: 0.00000005760116, y: 0.7071068, z: -0.00000005760116, w: 0.7071068}
+  m_LocalPosition: {x: -0.4609999, y: 1.398, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4811805321546938}
@@ -418,8 +419,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1499604965620570}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.398, z: 0.45}
+  m_LocalRotation: {x: 0.00000005760116, y: 0.7071068, z: -0.00000005760116, w: 0.7071068}
+  m_LocalPosition: {x: 0.45000017, y: 1.3979999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4811805321546938}
@@ -1270,10 +1271,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightBulb: []
   auraLight: []
+  particleSystems: []
   allColliders: []
   isEnemyLamp: 1
   isTurnedOn: 0
   hasMissingPart: 0
+  lampsInDomain: []
+  canBeSwitchedOn: 0
+  goodSpirits: {fileID: 0}
+  radius: 0
+  emitter: {fileID: 0}
 --- !u!114 &114502685011905084
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1288,6 +1295,21 @@ MonoBehaviour:
   loop: 1
   smoothFactor: 3
   addIntensity: 5
+--- !u!114 &114587998721221890
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1767931196679856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc0fa0bb3d81fd43a35f0c2476e754a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  maxAudibleDistance: 100
+  is2D_or3D: 1
+  clip: {fileID: 8300000, guid: ca7c11207d54f1946aa9352f05cf28db, type: 3}
 --- !u!114 &114734872642278032
 MonoBehaviour:
   m_ObjectHideFlags: 1

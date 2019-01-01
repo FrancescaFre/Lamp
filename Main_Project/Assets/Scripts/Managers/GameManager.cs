@@ -158,6 +158,7 @@ public class GameManager : MonoBehaviour {
         ActivatePlayerX();
     }
     public void EndGame() {//epilogue
+        AudioManager.Instance.OnEndGame();
         currentPC = null;
         lampHUD = null;
         levelLoaded = null;

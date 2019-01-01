@@ -118,6 +118,7 @@ GameObject:
   - component: {fileID: 23799985217745914}
   - component: {fileID: 65247855147157894}
   - component: {fileID: 114035324402259220}
+  - component: {fileID: 114452336177989848}
   m_Layer: 11
   m_Name: Prihimitive_Wall_with_Enemy_Light
   m_TagString: Untagged
@@ -483,6 +484,11 @@ MonoBehaviour:
   isEnemyLamp: 1
   isTurnedOn: 0
   hasMissingPart: 0
+  lampsInDomain: []
+  canBeSwitchedOn: 0
+  goodSpirits: {fileID: 0}
+  radius: 0
+  emitter: {fileID: 0}
 --- !u!114 &114197766460182468
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -536,6 +542,21 @@ MonoBehaviour:
     type: 3}
   storePointLightCookieMapShader: {fileID: 4800000, guid: 83815c326d7f2514884f3fc7a05b5aef,
     type: 3}
+--- !u!114 &114452336177989848
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1486840351061436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc0fa0bb3d81fd43a35f0c2476e754a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  maxAudibleDistance: 100
+  is2D_or3D: 1
+  clip: {fileID: 8300000, guid: 9c20e0ba84c19c642be36d0e267a8d98, type: 3}
 --- !u!136 &136546001489271734
 CapsuleCollider:
   m_ObjectHideFlags: 1

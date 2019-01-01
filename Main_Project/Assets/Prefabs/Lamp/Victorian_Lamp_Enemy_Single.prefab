@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 4827687398548472}
   - component: {fileID: 136556081016042352}
   - component: {fileID: 114998306885551278}
+  - component: {fileID: 114760580093671772}
   m_Layer: 0
   m_Name: Victorian_Lamp_Enemy_Single
   m_TagString: Lamp_Base
@@ -618,6 +619,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraToLookAt: {fileID: 0}
+--- !u!114 &114760580093671772
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1185496512726810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc0fa0bb3d81fd43a35f0c2476e754a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  maxAudibleDistance: 100
+  is2D_or3D: 1
+  clip: {fileID: 8300000, guid: ca7c11207d54f1946aa9352f05cf28db, type: 3}
 --- !u!114 &114815970547712124
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -650,6 +666,11 @@ MonoBehaviour:
   isEnemyLamp: 1
   isTurnedOn: 0
   hasMissingPart: 0
+  lampsInDomain: []
+  canBeSwitchedOn: 0
+  goodSpirits: {fileID: 0}
+  radius: 0
+  emitter: {fileID: 0}
 --- !u!136 &136556081016042352
 CapsuleCollider:
   m_ObjectHideFlags: 1

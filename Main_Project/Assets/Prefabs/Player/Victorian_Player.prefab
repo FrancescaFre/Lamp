@@ -354,6 +354,7 @@ GameObject:
   - component: {fileID: 114723311410898316}
   - component: {fileID: 114286890773045684}
   - component: {fileID: 95558100632698728}
+  - component: {fileID: 114012934529191362}
   m_Layer: 9
   m_Name: Victorian_Player
   m_TagString: Player
@@ -2484,7 +2485,7 @@ Animator:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1292449621356456}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: ba92f3490919a3b4c8ba825844e55610, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 95a3c6b8b9cd0f7439ea808dfe9c6081, type: 3}
   m_Controller: {fileID: 9100000, guid: 2b66cfd1ad5a4cf418556fa49cb19c8d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -2568,6 +2569,18 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114012934529191362
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1292449621356456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b27d4d8c08118044a7df269251c0913, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stepsFX: []
 --- !u!114 &114133270962486748
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2587,6 +2600,9 @@ MonoBehaviour:
   bar: {fileID: 0}
   movingCirclePrefab: {fileID: 1805591998086222, guid: a6986ec8d836a02489d419e6d5b12291,
     type: 2}
+  radius: 10
+  sphereC: {fileID: 0}
+  colliders: []
 --- !u!114 &114286890773045684
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2644,6 +2660,7 @@ MonoBehaviour:
   digCount: 10
   usingSkill: 0
   isSneaking: 0
+  runningAnimation: 0
   keys: 0
   halfCurseEffect: {fileID: 0}
   fullCurseEffect: {fileID: 0}

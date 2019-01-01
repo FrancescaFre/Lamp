@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 4318064439316570}
   - component: {fileID: 136942084586137870}
   - component: {fileID: 114862535922031240}
+  - component: {fileID: 114153541673258904}
   m_Layer: 0
   m_Name: Oriental_Lamp
   m_TagString: Lamp_Base
@@ -296,6 +297,21 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114153541673258904
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1741717778040544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc0fa0bb3d81fd43a35f0c2476e754a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  maxAudibleDistance: 100
+  is2D_or3D: 1
+  clip: {fileID: 8300000, guid: ca7c11207d54f1946aa9352f05cf28db, type: 3}
 --- !u!114 &114206488020149562
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -392,8 +408,11 @@ MonoBehaviour:
   isEnemyLamp: 0
   isTurnedOn: 0
   hasMissingPart: 0
+  lampsInDomain: []
+  canBeSwitchedOn: 0
+  goodSpirits: {fileID: 0}
   radius: 0
-  canBeSwtichedOn: 0
+  emitter: {fileID: 0}
 --- !u!114 &114927445045680000
 MonoBehaviour:
   m_ObjectHideFlags: 1
