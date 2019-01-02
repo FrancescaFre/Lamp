@@ -14099,7 +14099,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 291985654}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
   m_Name: 
@@ -53439,7 +53439,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1046536698}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b142c931e4f39c429a012dc68ba0659, type: 3}
   m_Name: 
@@ -61292,15 +61292,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4804857801687132, guid: 4d991546e04c9b04c812b8480c793d13, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 16.73
+      value: 16.64
       objectReference: {fileID: 0}
     - target: {fileID: 4804857801687132, guid: 4d991546e04c9b04c812b8480c793d13, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 5.58
+      value: 5.56
       objectReference: {fileID: 0}
     - target: {fileID: 4804857801687132, guid: 4d991546e04c9b04c812b8480c793d13, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -8.65
+      value: -8.61
       objectReference: {fileID: 0}
     - target: {fileID: 4804857801687132, guid: 4d991546e04c9b04c812b8480c793d13, type: 2}
       propertyPath: m_LocalRotation.x
@@ -70445,6 +70445,7 @@ GameObject:
   - component: {fileID: 1509002827}
   - component: {fileID: 1509002826}
   - component: {fileID: 1509002825}
+  - component: {fileID: 1509002830}
   m_Layer: 0
   m_Name: BasePlanet
   m_TagString: Planet
@@ -70535,6 +70536,22 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1509002824}
   m_Mesh: {fileID: 4300000, guid: b82e0d2b8cc9ee64cacfa0b6e51ff1a3, type: 3}
+--- !u!114 &1509002830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1509002824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17abdef2aa58e14daa4d99f25a2e03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  maxAudibleDistance: 100
+  is2D_or3D: 1
+  clip: {fileID: 8300000, guid: b3595ec20e9ab7c4d9d7a9b0af5d5735, type: 3}
+  playOnStartGame: 1
 --- !u!1001 &1510389892
 Prefab:
   m_ObjectHideFlags: 0
