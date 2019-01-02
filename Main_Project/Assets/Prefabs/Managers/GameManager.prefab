@@ -51,17 +51,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6c80c32c994e7c47b893b79b3cdd6b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelLoaded: {fileID: 11400000, guid: 461a97705cf6fec4b9047153356d7be9, type: 2}
+  levelLoaded: {fileID: 0}
+  winAudio: {fileID: 8300000, guid: 11803921b8e57e04c851849bc66d8500, type: 3}
+  loseAudio: {fileID: 8300000, guid: a998ad611fd345044a31f6944194c52f, type: 3}
   LastAllyLamp: {fileID: 0}
-  enemies:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  lampHUD: {fileID: 0}
+  allyLamps: 0
+  enemyLamps: 0
+  enemyGOList: []
+  howManySeeing: 0
+  howManyHearing: 0
   CharactersList:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  currentPC: {fileID: 0}
   currentCharacter: 0
   nextChar: 1
   TeamList: 

@@ -87,9 +87,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4510110200672964}
+  - component: {fileID: 135187729726565206}
+  - component: {fileID: 114376744991155832}
   m_Layer: 0
   m_Name: Water
-  m_TagString: Untagged
+  m_TagString: Water
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2642,6 +2644,26 @@ MonoBehaviour:
   loop: 1
   smoothFactor: 4
   addIntensity: 0.5
+--- !u!114 &114376744991155832
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1073289998028944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a25a9a0d7db7a7b46b921efe8d636e12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footOnSurfaceList:
+  - {fileID: 8300000, guid: dc59fc033eaca3c4bb2c6934d82c5bc9, type: 3}
+  - {fileID: 8300000, guid: 3d89c813c15dad84c8c432b32e417f74, type: 3}
+  - {fileID: 8300000, guid: 51827670aa457ec49aa2323cef76cf12, type: 3}
+  - {fileID: 8300000, guid: 148ea9e946f9daa4b82919fc7bc78e22, type: 3}
+  - {fileID: 8300000, guid: 32a062ce244700a428abf9e1f8c2570a, type: 3}
+  - {fileID: 8300000, guid: 100d36d00fdba2a4a930404dc00c023f, type: 3}
+  - {fileID: 8300000, guid: bc3526cadd5e85a45bfa48f07eaab3cb, type: 3}
+  - {fileID: 8300000, guid: c763f544ee81d834482d365d2da20e2b, type: 3}
 --- !u!114 &114387951242887576
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2793,6 +2815,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraToLookAt: {fileID: 0}
+--- !u!135 &135187729726565206
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1073289998028944}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.67764544
+  m_Center: {x: 0.04681099, y: 0, z: 0.13083446}
 --- !u!135 &135944027740071636
 SphereCollider:
   m_ObjectHideFlags: 1

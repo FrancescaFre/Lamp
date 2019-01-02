@@ -4093,6 +4093,7 @@ GameObject:
   - component: {fileID: 4704456178589464}
   - component: {fileID: 65781189138081276}
   - component: {fileID: 114249120208980414}
+  - component: {fileID: 114682540579299180}
   m_Layer: 0
   m_Name: pile_of_Leaf
   m_TagString: Leaves
@@ -30428,3 +30429,24 @@ MonoBehaviour:
   radiusNotSneaking: 3
   radius: 0
   walkSpeedInWater: 0
+--- !u!114 &114682540579299180
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1520357276711392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a25a9a0d7db7a7b46b921efe8d636e12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footOnSurfaceList:
+  - {fileID: 8300000, guid: b59d78749721a954d9c5a91883294bfd, type: 3}
+  - {fileID: 8300000, guid: 9fb09f2757181f948b927939d9a8fe80, type: 3}
+  - {fileID: 8300000, guid: 4beee6b7a67a5c34b80c96f188da1853, type: 3}
+  - {fileID: 8300000, guid: 8b10b3982121aec40aa35716375b3fac, type: 3}
+  - {fileID: 8300000, guid: 8e606642ea768e14ea0b0f194993445f, type: 3}
+  - {fileID: 8300000, guid: db31a714dd5d1eb4eafe420b8d997c78, type: 3}
+  - {fileID: 8300000, guid: fc121b676e1a7fc4fb748eb268f8d7ce, type: 3}
+  - {fileID: 8300000, guid: 932db4a6e11c9a44ca5bd950635832ed, type: 3}
+  - {fileID: 8300000, guid: ad2a58e20827be94c9820a37233da0c6, type: 3}

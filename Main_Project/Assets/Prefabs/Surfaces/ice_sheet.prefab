@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33341691725557072}
   - component: {fileID: 23638322453605668}
   - component: {fileID: 65318948370165522}
+  - component: {fileID: 114738404805834354}
   m_Layer: 0
   m_Name: ice_sheet
   m_TagString: Untagged
@@ -125,3 +126,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.1535499, y: 3.2223558, z: 1.1182249}
   m_Center: {x: -0.009062376, y: -0.6313669, z: 0.0005696287}
+--- !u!114 &114738404805834354
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1612226034422230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a25a9a0d7db7a7b46b921efe8d636e12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footOnSurfaceList:
+  - {fileID: 8300000, guid: ebb7cc1fd69d2114e92d355a5ae8beb6, type: 3}
+  - {fileID: 8300000, guid: 6a2d5f4f921c48344a242166f5aca3d2, type: 3}
+  - {fileID: 8300000, guid: c224679684cfd724eb24d4f9104f06b7, type: 3}
+  - {fileID: 8300000, guid: 9888d7f7f7d53ab458c12abc620f7301, type: 3}
+  - {fileID: 8300000, guid: 45333384a9a15ec4ab46da3041889b50, type: 3}
+  - {fileID: 8300000, guid: 7b5b8ac0790f3d941b89488a1581937a, type: 3}
+  - {fileID: 8300000, guid: 6c6332f09335ca9419d3a42578369cb8, type: 3}
+  - {fileID: 8300000, guid: 45d7c5261ee9f6348b25514dc9f5e8d7, type: 3}

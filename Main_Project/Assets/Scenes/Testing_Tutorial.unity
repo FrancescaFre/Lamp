@@ -36821,6 +36821,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114462293350559906, guid: b9483e64c7ddfbd4f8cc97886f20092b,
+        type: 2}
+      propertyPath: winAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 11803921b8e57e04c851849bc66d8500, type: 3}
+    - target: {fileID: 114462293350559906, guid: b9483e64c7ddfbd4f8cc97886f20092b,
+        type: 2}
+      propertyPath: loseAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: a998ad611fd345044a31f6944194c52f, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9483e64c7ddfbd4f8cc97886f20092b, type: 2}
   m_IsPrefabAsset: 0
@@ -82080,7 +82090,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b27d4d8c08118044a7df269251c0913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stepsFX: []
+  stepsFXList: []
+  sneakAudioReduction: 0.6
 --- !u!1001 &1660926704
 Prefab:
   m_ObjectHideFlags: 0

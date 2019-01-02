@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿
 public class AmbienceEmitter : AudioEmitter {
 
 
@@ -9,7 +6,7 @@ public class AmbienceEmitter : AudioEmitter {
 
         base.Start();
         source.volume = AudioManager.Instance.volumeAmbience;
-
+        
 
         AudioManager.Instance.ambienceSourceList.Add(source);
     }

@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager Instance = null;
     public Level_SO levelLoaded;
+    public AudioClip winAudio, loseAudio;
     public LampBehaviour LastAllyLamp = null; //last lamp turned on
     [Header("HUD of the lamps")]
     public LampHUD lampHUD;
@@ -175,12 +176,14 @@ public class GameManager : MonoBehaviour {
 
     public void BadEndGame()
     {
+        AudioManager.Instance.SFXSource.PlayOneShot(loseAudio);
         InGameHUD.Instance.defeat.gameObject.SetActive(true);
         Invoke("EndGame", 5);
     }
 
     public void GoodEndGame()
     {
+        AudioManager.Instance.SFXSource.PlayOneShot(winAudio);
         InGameHUD.Instance.victory.gameObject.SetActive(true);
         Invoke("EndGame", 5);
     }

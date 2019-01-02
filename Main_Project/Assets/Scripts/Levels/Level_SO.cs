@@ -12,10 +12,9 @@ public class Level_SO : ScriptableObject {
     [Header("Music clips")]
     public List<AudioClip> levelMusic;
     [Header("SFX clips")]
-    public AudioClip ambienceSFX;
     public AudioClip lampSwitchSFX;
     public AudioClip keySFX;
-    public List<AudioClip> stepSFX;
+    public List<AudioClip> footStepsSFX;
     [Header("Lamp properties")]
     public int allyLamps;
     public Color allyColor=Color.yellow;

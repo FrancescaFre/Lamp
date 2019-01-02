@@ -790,6 +790,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4579906316971538}
+  - component: {fileID: 114453464886985572}
   m_Layer: 0
   m_Name: group2
   m_TagString: Untagged
@@ -5055,6 +5056,22 @@ MonoBehaviour:
     type: 3}
   storePointLightCookieMapShader: {fileID: 4800000, guid: 83815c326d7f2514884f3fc7a05b5aef,
     type: 3}
+--- !u!114 &114453464886985572
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1458386734142766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17abdef2aa58e14daa4d99f25a2e03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  maxAudibleDistance: 100
+  is2D_or3D: 1
+  clip: {fileID: 8300000, guid: 7d44f4321b685424a81310e1da7ca24a, type: 3}
+  playOnStartGame: 1
 --- !u!114 &114522237132836056
 MonoBehaviour:
   m_ObjectHideFlags: 1

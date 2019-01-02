@@ -5,6 +5,7 @@ using UnityEngine;
  * there are 2 different audiosource for SFX 
  * the single one for immediate audio that are nearby the player 
  * (click of the lamp, key picked, ecc), that are in the level_SO
+ * 
  * the list is for the 3D SFX (water in a fountain, enemies verse and so on)
  */
 
@@ -14,7 +15,6 @@ public class AudioManager : MonoBehaviour {
     public static AudioManager Instance;
     public AudioSource musicSource;
     public AudioSource SFXSource;
-   // public AudioSource ambienceSource;
     public List <AudioSource> ambienceSourceList;
     public List <AudioSource> SFXSourceList;
 
@@ -25,8 +25,7 @@ public class AudioManager : MonoBehaviour {
     [Range(0f, 1f)]
     public float volumeAmbience=.5f;
     public AudioClip MenuClip;
-    [Range(0f, 1f)]
-    public float speed = 0f;
+
 
 
     private void Awake() {
@@ -113,13 +112,6 @@ public class AudioManager : MonoBehaviour {
 
     public void OnStartGame() {
 
-
-       /* ambienceSource = gameObject.AddComponent<AudioSource>();
-        ambienceSource.clip = GameManager.Instance.levelLoaded.ambienceSFX;
-        ambienceSource.loop = true;
-        ambienceSource.volume = volumeAmbience;*/
-        // ambienceSource.Play();
-
         ambienceSourceList = new List<AudioSource>();
         SFXSourceList = new List<AudioSource>();
 
@@ -127,8 +119,6 @@ public class AudioManager : MonoBehaviour {
 
     public void OnEndGame() {
 
-        Destroy(SFXSource);
-       // Destroy(ambienceSource);
 
         ambienceSourceList = null;
         SFXSourceList = null;

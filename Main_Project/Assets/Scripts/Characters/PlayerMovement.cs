@@ -152,8 +152,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_onWater)
             _stepSpeed = stealthSpeed / 2f; // On the water, the player is slowed
-        else // _onLeaves
-            _player.isSneaking = false; // On the leaves, the player is noisy 
+
     }
 
     /// <summary>
