@@ -9,7 +9,6 @@ public class InGameHUD : MonoBehaviour {
     public static InGameHUD Instance;
     public GameObject InGameHUDPanel;
     public LampHUD lampHUDPanel;
-    public TutorialHUD tutorialHUD;
     public PauseManagerGUI pManager;
     public Image victory, defeat;
 
