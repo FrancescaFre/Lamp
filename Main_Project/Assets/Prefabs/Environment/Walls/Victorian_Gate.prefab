@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 33867794561644412}
   - component: {fileID: 23472950738425058}
   - component: {fileID: 65332363244440808}
+  - component: {fileID: 95799234249228396}
   m_Layer: 0
   m_Name: MetObj_Fence2 (2)
   m_TagString: Untagged
@@ -77,6 +78,7 @@ GameObject:
   - component: {fileID: 33881291962831390}
   - component: {fileID: 23468224355142106}
   - component: {fileID: 65660326360930186}
+  - component: {fileID: 95867667757667192}
   m_Layer: 0
   m_Name: MetObj_Fence2 (1)
   m_TagString: Untagged
@@ -110,6 +112,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4590611150594526}
+  - component: {fileID: 65757848673710826}
+  - component: {fileID: 114729103708387946}
+  - component: {fileID: 114726275891944068}
   m_Layer: 0
   m_Name: Victorian_Gate
   m_TagString: Untagged
@@ -181,7 +186,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1649676455792838}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 20, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.0787407, y: 0.0787407, z: 0.0787407}
   m_Children:
   - {fileID: 4871329707092822}
@@ -558,6 +563,54 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.008639235, y: 0.08594814, z: 0.07753621}
   m_Center: {x: 0.00037894258, y: 0.00052287604, z: 0.0010838897}
+--- !u!65 &65757848673710826
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1649676455792838}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.3800387, y: 30.468815, z: 34.418}
+  m_Center: {x: -4.9780483, y: 14.73434, z: 0.77233595}
+--- !u!95 &95799234249228396
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1192903994435056}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6be893c4a1faf4e48864c98260e2e211, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!95 &95867667757667192
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1315275469948232}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 01cf6d3196bcec947962b545be8675ae, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114134600882987424
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -570,3 +623,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AdditionalVertexStreamMesh: {fileID: 0}
+--- !u!114 &114726275891944068
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1649676455792838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc0fa0bb3d81fd43a35f0c2476e754a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  minAudibleDistance: 1
+  maxAudibleDistance: 100
+  is2D_or3D: 1
+  baseClip: {fileID: 8300000, guid: 230460bb08887924394ecfbe30b1bff0, type: 3}
+  playOnStartGame: 0
+  doesLoop: 0
+--- !u!114 &114729103708387946
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1649676455792838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa703c0175bd6d42affc6b184e3bded, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

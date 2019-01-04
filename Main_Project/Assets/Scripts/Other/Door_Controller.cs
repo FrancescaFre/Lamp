@@ -36,6 +36,7 @@ public class Door_Controller : MonoBehaviour {
         this.GetComponent<Collider>().isTrigger = true;
         foreach (Animator anim in this.transform.GetComponentsInChildren<Animator>())
         {
+            GetComponent<SFXEmitter>().PlayOneShot();
             anim.SetBool("OpenTheGate", true);
             anim.GetComponent<Collider>().isTrigger = true;
             Invoke("UnlockMovement", 1f);
