@@ -37,7 +37,7 @@ public class PlayerSFXEmitter : MonoBehaviour {
     #endregion
 
     private void _playSFX(List<AudioClip> SFXList) {
-        AudioClip clip = SFXList[Random.Range(0, stepsFXList.Count)];
+        AudioClip clip = SFXList[Random.Range(0, SFXList.Count)];
         _source.PlayOneShot(clip);
     }
 }
