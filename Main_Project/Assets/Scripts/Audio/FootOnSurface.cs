@@ -8,7 +8,7 @@ public class FootOnSurface : MonoBehaviour {
 
     public  void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
-            FootSteps foot = other.GetComponentInParent<FootSteps>();
+            PlayerSFXEmitter foot = other.GetComponentInParent<PlayerSFXEmitter>();
             foot.stepsFXList = footOnSurfaceList;
 
 
@@ -17,7 +17,7 @@ public class FootOnSurface : MonoBehaviour {
 
     private void OnTriggerExit(Collider other) {
         if (other.CompareTag("Player")) {
-            FootSteps foot = other.GetComponentInParent<FootSteps>();
+            PlayerSFXEmitter foot = other.GetComponentInParent<PlayerSFXEmitter>();
             foot.stepsFXList = GameManager.Instance.levelLoaded.footStepsSFX;
 
 

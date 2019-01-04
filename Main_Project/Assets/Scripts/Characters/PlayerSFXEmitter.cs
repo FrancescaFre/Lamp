@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FootSteps : MonoBehaviour {
+public class PlayerSFXEmitter : MonoBehaviour {
     private AudioSource _source;
+    public List<AudioClip> digAudioList;
     public List<AudioClip> stepsFXList;
     [Range(0f,1f)]
     public float sneakAudioReduction = .6f;
@@ -16,17 +17,27 @@ public class FootSteps : MonoBehaviour {
         AudioManager.Instance.SFXSourceList.Add(this._source);
     }
 
+
+    public void DigEffect() {
+        _source.volume = AudioManager.Instance.volumeSFX;
+        _playSFX(digAudioList);
+    }
+
+    #region FootSteps
     public void Step() {
         _source.volume = AudioManager.Instance.volumeSFX;
-        _Play();
+        _playSFX(stepsFXList);
     }
     public void SneakStep() {
         _source.volume = AudioManager.Instance.volumeSFX * sneakAudioReduction;
-        _Play();
+        _playSFX(stepsFXList);
     }
 
-    private void _Play() {
-        AudioClip clip = stepsFXList[Random.Range(0, stepsFXList.Count)];
+
+    #endregion
+
+    private void _playSFX(List<AudioClip> SFXList) {
+        AudioClip clip = SFXList[Random.Range(0, stepsFXList.Count)];
         _source.PlayOneShot(clip);
     }
 }

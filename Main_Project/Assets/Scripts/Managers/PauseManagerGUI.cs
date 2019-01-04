@@ -33,10 +33,7 @@ public class PauseManagerGUI : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (GameManager.Instance) {
-            allyText.text = string.Format("{0}/{1}", GameManager.Instance.allyLamps.ToString("00"), GameManager.Instance.levelLoaded.allyLamps.ToString("00"));
-            enemyText.text = string.Format("{0}/{1}", GameManager.Instance.enemyLamps.ToString("00"), GameManager.Instance.levelLoaded.enemyLamps.ToString("00"));
-        }
+
         if (Input.GetKeyUp(KeyCode.Escape) || Input.GetButtonUp("PS4_Button_OPTIONS")) {//once the button has JUST been released
                                                                                         //switches on and off the pause menu
             if (options.gameObject.activeInHierarchy) {
@@ -46,6 +43,12 @@ public class PauseManagerGUI : MonoBehaviour {
             }
             this.ChangePauseStatus();
 
+        }
+    }
+    private void LateUpdate() {
+        if (GameManager.Instance) {
+            allyText.text = string.Format("{0}/{1}", GameManager.Instance.allyLamps.ToString("00"), GameManager.Instance.levelLoaded.allyLamps.ToString("00"));
+            enemyText.text = string.Format("{0}/{1}", GameManager.Instance.enemyLamps.ToString("00"), GameManager.Instance.levelLoaded.enemyLamps.ToString("00"));
         }
     }
 

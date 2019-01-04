@@ -63,6 +63,7 @@ public abstract class Digging : MonoBehaviour {
         if (player.digEffect) {
             player.digEffect.gameObject.SetActive(true);
             player.digEffect.Play();
+            player.GetComponent<PlayerSFXEmitter>().DigEffect();//plays dig audio
         }
     }
 

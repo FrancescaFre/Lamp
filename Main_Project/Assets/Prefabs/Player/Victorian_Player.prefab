@@ -2580,7 +2580,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b27d4d8c08118044a7df269251c0913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stepsFX: []
+  digAudioList:
+  - {fileID: 8300000, guid: 4336f9d85eafc7545b054a7d076e1aff, type: 3}
+  - {fileID: 8300000, guid: a85db651288339a4b9570f92a5d02549, type: 3}
+  - {fileID: 8300000, guid: 94e52da083fa28446bf5d9afce4f3970, type: 3}
+  - {fileID: 8300000, guid: 38f019e72e7a0cf4ebc336ad230f3911, type: 3}
+  stepsFXList: []
+  sneakAudioReduction: 0.6
 --- !u!114 &114133270962486748
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2692,8 +2698,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbbde431513499c4bbecdfa3341a49ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 5
-  stealthSpeed: 3
+  walkSpeed: 2
+  stealthSpeed: 1
 --- !u!114 &114773650521072910
 MonoBehaviour:
   m_ObjectHideFlags: 1

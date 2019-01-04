@@ -8,6 +8,7 @@ public class AudioEmitter : MonoBehaviour {
     public float is2D_or3D = 1f;
     public AudioClip clip;
     public bool playOnStartGame=false;
+    public bool doesLoop = true;
 
     public void Awake() {
         source = gameObject.AddComponent<AudioSource>();
@@ -20,7 +21,7 @@ public class AudioEmitter : MonoBehaviour {
         
 
         source.maxDistance = maxAudibleDistance;
-        source.loop = true;
+        source.loop = doesLoop;
         source.spatialBlend = is2D_or3D;
         if (playOnStartGame)
             source.Play();
