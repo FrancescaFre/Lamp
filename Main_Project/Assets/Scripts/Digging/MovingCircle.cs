@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 public class MovingCircle : ZoneDig {
 
+    private float distanceRadius = 10f;
+    private PlayerController pc;
+
     private Transform _cam;
     private Transform _digCam;
     private Vector3 _movement;
@@ -14,12 +17,14 @@ public class MovingCircle : ZoneDig {
     {
         caster = InGameHUD.Instance.InGameHUDPanel.transform.Find("Gauge Panel").Find("Caster").GetComponent<Image>();
         bar = caster.transform.GetChild(0).GetComponent<Image>();
+        pc = GameManager.Instance.currentPC;
     }
 
     public void Setup(Transform start, PlayerController player)
     {
         transform.position = start.position;
-        transform.rotation = start.rotation;
+        transform.rotation = player.transform.rotation;
+        transform.Translate(transform.forward * 0.6f);
         this.player = player;
 
         _cam = FindObjectOfType<CameraManager>().transform;
@@ -43,7 +48,8 @@ public class MovingCircle : ZoneDig {
             else
                 _movement = (_cam.up * _vertInput + _cam.right * _horizInput).normalized * _speed * Time.deltaTime;
 
-            _rb.MovePosition(_rb.position + _movement);
+            if (Vector3.Distance(_rb.position + _movement, pc.transform.position) < distanceRadius)
+                _rb.MovePosition(_rb.position + _movement);
         }
     }
 
