@@ -1309,8 +1309,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 0}
-  minAudibleDistance: 1
-  maxAudibleDistance: 100
+  minAudibleDistance: 0.5
+  maxAudibleDistance: 15
   is2D_or3D: 1
   wanderingList:
   - {fileID: 8300000, guid: 8db819715cb96234094d30464461b891, type: 3}
@@ -1321,6 +1321,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 83db733fef1097c428c461d6f8130b2d, type: 3}
   - {fileID: 8300000, guid: 951920ed271e1494ab505cbac664a4c7, type: 3}
   - {fileID: 8300000, guid: 9343dfb8f24f44e42aebd013c7b72199, type: 3}
+  - {fileID: 8300000, guid: 4c6c16f1474a692488b561bca0b49e1c, type: 3}
 --- !u!114 &114118508417276402
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1416,7 +1417,7 @@ MonoBehaviour:
   returnWaypointPrefab: {fileID: 1851448784903702, guid: fac114afe212b44468972e4fa2a267d4,
     type: 2}
   player: {fileID: 0}
-  path: {fileID: 4678681882035176, guid: 9e41742e59eef9a4297e94fa305e3e87, type: 2}
+  path: {fileID: 4851115330645960, guid: 1bc21b2a7c0ba4c498e815adc45b5335, type: 2}
   destination: {x: 0, y: 0, z: 0}
   pathIndex: 0
   currentStatus: 0
