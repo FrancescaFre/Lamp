@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _onWater; // True if player is walking on the water / mud
     private bool _onLeaves; // True if player is walking on the leaves / noisy terrain
     private bool _onIce; // True if player is walking on ice
+    private bool _wallOnIce; // True if player is sliding on ice and hits a wall
 
     private PlayerController _player; // The PlayerController attached to the player 
 
@@ -51,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
         _onWater = false;
         _onLeaves = false;
         _onIce = false;
+        _wallOnIce = false;
         _dummyOffset = DummyPlayer.transform.position - transform.position;
         StartCoroutine(CorrectPlayerPositions());
         StartCoroutine(CorrectPlayerRotation());
@@ -115,6 +117,25 @@ public class PlayerMovement : MonoBehaviour
             _onIce = false;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (_onIce && collision.gameObject.layer == 11) // If hits an obstacle while on ice
+            _wallOnIce = true;
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (_onIce && collision.gameObject.layer == 11) // If hits an obstacle while on ice
+            _wallOnIce = true;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (_onIce && collision.gameObject.layer == 11) // If hits an obstacle while on ice
+            _wallOnIce = false;
+
+    }
+
     // USE THIS OR CorrectPlayerRotation() TO ROTATE THE PLAYER
     /*
     private void LateUpdate()
@@ -170,7 +191,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void MovePlayer()
     {
-        if (_onIce) // When walking on ice, there's no need to compute input's direction
+        if (_onIce && !_wallOnIce) // When walking on ice, there's no need to compute input's direction
             _movement = _movementOnIce;
         else if (_vertInput > 0) // Pressing ↓ made the player literally jump backwards (so it's needed the _screenUp variable)
             _movement = (_screenForward * _vertInput + _screenRight * _horizInput).normalized * _stepSpeed * Time.deltaTime; // Takes camera axes to correct the direction
