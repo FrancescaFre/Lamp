@@ -551,6 +551,7 @@ GameObject:
   - component: {fileID: 114118508417276402}
   - component: {fileID: 114584553387938182}
   - component: {fileID: 114103297284724684}
+  - component: {fileID: 114764871287301776}
   m_Layer: 10
   m_Name: VictorianEnemyPrefab
   m_TagString: Enemy
@@ -1497,6 +1498,20 @@ MonoBehaviour:
   viewMeshFilter: {fileID: 33132966542384952}
   parentEnemy: {fileID: 0}
   hearingParticle: {fileID: 0}
+--- !u!114 &114764871287301776
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1953688963897732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292c9f700a98e804cbd859264f0d4918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allLights: []
+  endColor: {r: 1, g: 0, b: 0.11753893, a: 0}
+  fadeTime: 5
 --- !u!114 &114975591303365686
 MonoBehaviour:
   m_ObjectHideFlags: 1
