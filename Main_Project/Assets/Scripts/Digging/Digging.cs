@@ -12,38 +12,49 @@ public abstract class Digging : MonoBehaviour {
     public Image caster; // The caster to pop up
     public Image bar; // The bar that fills when casting
 
-    protected bool canDig = true;
-
+    protected PlayerMovement _pm;
     protected int _progress; // Actual casting progress  
    
-    #region Trigger Interaction
+    /*#region Trigger Interaction
 
-    protected void OnTriggerEnter(Collider obstacle)
+    protected void OnTriggerEnter(Collider terrain)
     {
-        if (obstacle.gameObject.CompareTag("Solid") ||
-            obstacle.gameObject.CompareTag("Water") ||
-            obstacle.gameObject.CompareTag("Ice") ||
-            obstacle.gameObject.CompareTag("Leaves"))
+        if (terrain.gameObject.CompareTag("Solid") ||
+            terrain.gameObject.CompareTag("Water") ||
+            terrain.gameObject.CompareTag("Ice") ||
+            terrain.gameObject.CompareTag("Leaves"))
         {
             canDig = false;
         }
     }
 
-    protected void OnTriggerExit(Collider obstacle)
+    protected void OnTriggerStay(Collider terrain)
     {
-        if (obstacle.gameObject.CompareTag("Solid") ||
-            obstacle.gameObject.CompareTag("Water") ||
-            obstacle.gameObject.CompareTag("Ice") ||
-            obstacle.gameObject.CompareTag("Leaves"))
+        if (terrain.gameObject.CompareTag("Solid") ||
+            terrain.gameObject.CompareTag("Water") ||
+            terrain.gameObject.CompareTag("Ice") ||
+            terrain.gameObject.CompareTag("Leaves"))
+        {
+            canDig = false;
+        }
+    }
+
+    protected void OnTriggerExit(Collider terrain)
+    {
+        if (terrain.gameObject.CompareTag("Solid") ||
+            terrain.gameObject.CompareTag("Water") ||
+            terrain.gameObject.CompareTag("Ice") ||
+            terrain.gameObject.CompareTag("Leaves"))
         {
             canDig = true;
         }
     }
-    #endregion
+    #endregion*/
 
-    protected void Start() {
+    protected virtual void Start() {
         caster = InGameHUD.Instance.InGameHUDPanel.transform.Find("Gauge Panel").Find("Caster").GetComponent<Image>();
         bar = caster.transform.GetChild(0).GetComponent<Image>();
+        _pm = player.GetComponent<PlayerMovement>();
         caster.gameObject.SetActive(false);
         gameObject.SetActive(false);
     }
@@ -77,12 +88,24 @@ public abstract class Digging : MonoBehaviour {
     /// </summary>
     protected void ChangeColor()
     {
-        if (canDig)
+        if (CanDig())
             GetComponent<MeshRenderer>().material = digYes;
         else
             GetComponent<MeshRenderer>().material = digNo;
     }
 
+    /// <summary>
+    /// Checks if the terrain under the player is ok to be dug
+    /// </summary>
+    /// <returns></returns>
+    protected virtual bool CanDig()
+    {
+        return !(_pm.OnIce || _pm.OnLeaves || _pm.OnWater || _pm.OnSolidFloor);
+    }
+
+    /// <summary>
+    /// Casts the dig during the casting update
+    /// </summary>
     protected void CastDig()
     {
         _progress++;

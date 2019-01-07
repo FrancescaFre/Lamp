@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class MovingCircle : ZoneDig {
 
-    private float distanceRadius = 10f;
+    private float distanceRadius = 8f;
     private PlayerController pc;
 
     private Transform _cam;
@@ -27,6 +27,7 @@ public class MovingCircle : ZoneDig {
         transform.Translate(transform.forward * 0.6f);
         this.player = player;
 
+        _pm = player.GetComponent<PlayerMovement>();
         _cam = FindObjectOfType<CameraManager>().transform;
         _digCam = transform.GetChild(0);
         _movement = Vector3.zero;

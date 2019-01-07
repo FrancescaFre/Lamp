@@ -9,7 +9,7 @@ public class ZoneDig : Digging {
 
     public float radius = 10f; 
     public SphereCollider sphereC;
-  public  Collider[] colliders; 
+    public  Collider[] colliders; 
 
     private void Awake()
     { 
@@ -36,9 +36,10 @@ public class ZoneDig : Digging {
     override public void CheckInput()
     {
         sphereC.enabled = true;
+        gameObject.layer = 14; // TESTING -> custom layer for SphereC
 
         if (player.IsZoneDigging) // If you already pressed [ZDIG] 2 times (activate -> valid start -> now)
-            if (_movingCircle.canDig)
+            if (_movingCircle.CanDig())
             {
                 StartCasting();
                 player.IsCasting = true;
@@ -49,7 +50,7 @@ public class ZoneDig : Digging {
             }
 
         else if (isActiveAndEnabled) // If you already pressed [ZDIG] (activate -> now)
-            if (canDig)
+            if (CanDig())
             {
                 _movingCircle = Instantiate(movingCirclePrefab).GetComponent<MovingCircle>();
                 _movingCircle.Setup(transform, player);
