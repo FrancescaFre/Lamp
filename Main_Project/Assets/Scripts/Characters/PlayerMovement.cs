@@ -254,7 +254,7 @@ public class PlayerMovement : MonoBehaviour
     //----------- ANIMATION MANAGER -------------
     private void AnimationUpdate()
     {
-        if ((_horizInput != 0 || _vertInput != 0))
+        if ((_horizInput != 0 || _vertInput != 0) && !_player.IsZoneDigging)
             if (_player.isSneaking)
                 AnimationManager.Anim_StartMovingSneaky(this.transform);
             else if (AnimationManager.Anim_CheckBool(this.transform, "IsMovingSneaky") && !_player.isSneaking)
