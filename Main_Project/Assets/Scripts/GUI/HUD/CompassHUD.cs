@@ -25,14 +25,14 @@ public class CompassHUD : MonoBehaviour {
     {
         player = GameManager.Instance.currentPC.transform;
         Vector3 playerToNorth = north - player.position;
-        //float angle = Vector3.SignedAngle(player.forward, Vector3.ProjectOnPlane(playerToNorth, player.up), player.up); // BASED ON THE PLAYER FORWARD
-        float angle = Vector3.SignedAngle(Camera.main.transform.forward, Vector3.ProjectOnPlane(playerToNorth, player.up), player.up); // BASED ON THE CAMERA FORWARD
+        float angle = Vector3.SignedAngle(player.forward, Vector3.ProjectOnPlane(playerToNorth, player.up), player.up); // BASED ON THE PLAYER FORWARD
+        //float angle = Vector3.SignedAngle(Camera.main.transform.forward, Vector3.ProjectOnPlane(playerToNorth, player.up), player.up); // BASED ON THE CAMERA FORWARD
 
         arrow.transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
     private void MoveAltimeter()
     {
-        altimeter.transform.localPosition = new Vector3(0, player.position.y * 100 / planetRadius, 0);
+        altimeter.transform.localPosition = new Vector3(0, player.position.y * 75 / planetRadius, 0);
     }
 }
