@@ -221,8 +221,8 @@ public class Enemy : MonoBehaviour
 //-------------------- Change state of the enemy
     private void ChangeStatus() {
         //1- if the enemy is wandering or returning and it see an enemy and this is not safe--> seeking the player (player)
-        if (currentStatus != EnemyStatus.SEEKING && ((fov.visibleTargets.Count > 0 && 
-            !fov.visibleTargets[0].GetComponent<PlayerController>().IsSafe) || (player && !player.GetComponent<PlayerController>().IsSafe)))
+        if (currentStatus != EnemyStatus.SEEKING && ((fov.visibleTargets.Count > 0 
+            && !fov.visibleTargets[0].GetComponent<PlayerController>().IsSafe) || (player && !player.GetComponent<PlayerController>().IsSafe)))
         {
             if (fov.visibleTargets.Count > 0 && !fov.visibleTargets[0].GetComponent<PlayerController>().IsSafe)
                 player = fov.visibleTargets[0];
