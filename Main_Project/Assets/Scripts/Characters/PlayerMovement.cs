@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -21,9 +22,10 @@ public class PlayerMovement : MonoBehaviour
 
     //-------------------------------------------------------------------------
 
-    private bool _onWater; // True if player is walking on the water / mud
-    private bool _onLeaves; // True if player is walking on the leaves / noisy terrain
-    private bool _onIce; // True if player is walking on ice
+    public bool OnWater { get; set; }  // True if player is walking on the water / mud
+    public bool OnLeaves { get; set; } // True if player is walking on the leaves / noisy terrain
+    public bool OnIce { get; set; } // True if player is walking on ice
+    public bool OnSolidFloor { get; set; } // True if player is walking on a solid floor
     private bool _wallOnIce; // True if player is sliding on ice and hits a wall
 
     private PlayerController _player; // The PlayerController attached to the player 
@@ -37,6 +39,13 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _screenForward, _screenRight, _screenUp; // Screen's global axes. They can have different impact based on the camera angle on the player
     private Vector3 _dummyOffset; // The distance between the player's and the dummy's positions
 
+    /*
+    private BoxCollider _verticalCollider; // The long vertical collider to check triggers on the other side of the world
+    private SphereCollider _zoneCollider; // The spherical collider in ZoneDig to check lights on walls
+    private CapsuleCollider _playerCollider; // The player's collider
+    private List<Collider> _collisions; // When colliding with something, memorizes all the colliders involved
+    */
+
     //-------------------------------------------------------------------------
 
     void Start()
@@ -49,24 +58,34 @@ public class PlayerMovement : MonoBehaviour
         _movement = Vector3.zero;
         _movementOnIce = Vector3.zero;
         _stepSpeed = walkSpeed;
-        _onWater = false;
-        _onLeaves = false;
-        _onIce = false;
+        OnWater = false;
+        OnLeaves = false;
+        OnIce = false;
+        OnSolidFloor = false;
         _wallOnIce = false;
         _dummyOffset = DummyPlayer.transform.position - transform.position;
+        
+
         StartCoroutine(CorrectPlayerPositions());
         StartCoroutine(CorrectPlayerRotation());
+
+        /*
+        _verticalCollider = GetComponentInChildren<VerticalDig>().GetComponent<BoxCollider>();
+        _zoneCollider = GetComponentInChildren<ZoneDig>().GetComponent<SphereCollider>();
+        _playerCollider = GetComponent<CapsuleCollider>();
+        _collisions = new List<Collider>();
+        */
     }
 
     private void FixedUpdate()
     {
         CheckStealth();
-        if (_vertInput == 0 && _horizInput == 0 && !_onIce)
+        if (_vertInput == 0 && _horizInput == 0 && !OnIce)
             return;
         else if (_player.CanMove())
         {
             CheckStealth();
-            if (_onWater || _onLeaves)
+            if (OnWater || OnLeaves)
                 CheckTerrain();
             ComputeCamAxes();
             MovePlayer();
@@ -81,57 +100,67 @@ public class PlayerMovement : MonoBehaviour
         AnimationUpdate();
     }
 
+    
     private void OnTriggerEnter(Collider terrain)
     {
         if (terrain.CompareTag("Water")) // If player entered in a water / mud pond
-            _onWater = true;
+            OnWater = true;
 
         if (terrain.CompareTag("Leaves")) // If player is walking on a noisy terrain
-            _onLeaves = true;
+            OnLeaves = true;
 
         if (terrain.CompareTag("Ice")) // If player is walking on ice
-            _onIce = true;
+            OnIce = true;
+
+        if (terrain.CompareTag("Solid")) // If player is walking on a solid floor
+            OnSolidFloor = true;
     }
 
     private void OnTriggerStay(Collider terrain)
     {
         if (terrain.CompareTag("Water")) // If player entered in a water / mud pond
-            _onWater = true;
+            OnWater = true;
 
         if (terrain.CompareTag("Leaves")) // If player is walking on a noisy terrain
-            _onLeaves = true;
+            OnLeaves = true;
 
         if (terrain.CompareTag("Ice")) // If player is walking on ice
-            _onIce = true;
+            OnIce = true;
+
+        if (terrain.CompareTag("Solid")) // If player is walking on a solid floor
+            OnSolidFloor = true;
     }
 
     private void OnTriggerExit(Collider terrain)
     {
         if (terrain.CompareTag("Water")) // If player entered in a water / mud pond
-            _onWater = false;
+            OnWater = false;
 
         if (terrain.CompareTag("Leaves")) // If player is walking on a noisy terrain
-            _onLeaves = false;
+            OnLeaves = false;
 
         if (terrain.CompareTag("Ice")) // If player is walking on ice
-            _onIce = false;
+            OnIce = false;
+
+        if (terrain.CompareTag("Solid")) // If player is walking on a solid floor
+            OnSolidFloor = false;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (_onIce && collision.gameObject.layer == 11) // If hits an obstacle while on ice
+        if (OnIce && collision.gameObject.layer == 11) // If hits an obstacle while on ice
             _wallOnIce = true;
     }
 
     private void OnCollisionStay(Collision collision)
     {
-        if (_onIce && collision.gameObject.layer == 11) // If hits an obstacle while on ice
+        if (OnIce && collision.gameObject.layer == 11) // If hits an obstacle while on ice
             _wallOnIce = true;
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        if (_onIce && collision.gameObject.layer == 11) // If hits an obstacle while on ice
+        if (OnIce && collision.gameObject.layer == 11) // If hits an obstacle while on ice
             _wallOnIce = false;
 
     }
@@ -147,12 +176,12 @@ public class PlayerMovement : MonoBehaviour
         //transform.forward = transform.TransformDirection(_horizInput, 0, _vertInput); // BROKEN
     } */
 
-    //-------------------------------------------------------------------------
+        //-------------------------------------------------------------------------
 
-    /// <summary>
-    /// Checks if the player is stealthing or not
-    /// </summary>
-    private void CheckStealth()
+        /// <summary>
+        /// Checks if the player is stealthing or not
+        /// </summary>
+        private void CheckStealth()
     {
         if (Input.GetButton("PS4_L2") || Input.GetKey(KeyCode.Space)) // Slows the movement if the player is pressing the stealth button
         {
@@ -171,7 +200,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void CheckTerrain()
     {
-        if (_onWater)
+        if (OnWater)
             _stepSpeed = stealthSpeed / 2f; // On the water, the player is slowed
 
     }
@@ -191,7 +220,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void MovePlayer()
     {
-        if (_onIce && !_wallOnIce) // When walking on ice, there's no need to compute input's direction
+        if (OnIce && !_wallOnIce) // When walking on ice, there's no need to compute input's direction
             _movement = _movementOnIce;
         else if (_vertInput > 0) // Pressing ↓ made the player literally jump backwards (so it's needed the _screenUp variable)
             _movement = (_screenForward * _vertInput + _screenRight * _horizInput).normalized * _stepSpeed * Time.deltaTime; // Takes camera axes to correct the direction
