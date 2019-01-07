@@ -231,6 +231,9 @@ public class Enemy : MonoBehaviour
 
             GameManager.Instance.howManySeeing++;
             currentStatus = EnemyStatus.SEEKING;
+
+            //---------
+            GetComponent<ColorChanger>().Lerp();
         }
 
         else if (currentStatus == EnemyStatus.WANDERING && fov.earedTargets.Count > 0)
@@ -274,7 +277,7 @@ public class Enemy : MonoBehaviour
         else if (currentStatus == EnemyStatus.SEARCHING && timePassed >= stop_search_after_x_seconds)
         {
             searchingParticles.Stop();
-
+            GetComponent<ColorChanger>().ReverseLerp();
             if (hanselGretelGPS.Count > 0)
             {
                 currentStatus = EnemyStatus.RETURN;
@@ -284,6 +287,7 @@ public class Enemy : MonoBehaviour
                 destination = hanselGretelGPS.Pop().position;
             }
             else {
+            
                 currentStatus = EnemyStatus.WANDERING;
                 destination = path.GetChild(pathIndex).position;
             }

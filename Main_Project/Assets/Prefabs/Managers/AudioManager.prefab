@@ -147,6 +147,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38b3f20811c1f394c86dde86e8df3254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  musicSource: {fileID: 0}
+  SFXSource: {fileID: 0}
+  ambienceSourceList: []
+  SFXSourceList: []
+  volumeMusic: 0.5
+  volumeSFX: 0.5
+  volumeAmbience: 0.5
   MenuClip: {fileID: 8300000, guid: 8c08dd1e7020b93448713d8ba8874b4c, type: 3}
-  speed: 0.05
-  maxVolume: 0.8

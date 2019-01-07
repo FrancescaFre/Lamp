@@ -414,7 +414,11 @@ Prefab:
         type: 2}
     - target: {fileID: 1968296720508532, guid: 657f8ffcd5c714147b7fab7c97ecb381, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1608984198701184, guid: 657f8ffcd5c714147b7fab7c97ecb381, type: 2}
+      propertyPath: m_Name
+      value: 'Every menu need to be active at the beginning '
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 657f8ffcd5c714147b7fab7c97ecb381, type: 2}
