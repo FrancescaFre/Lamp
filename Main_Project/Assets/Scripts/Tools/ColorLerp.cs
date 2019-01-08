@@ -21,7 +21,7 @@ public class ColorLerp  {
     }
 
     private IEnumerator<float> _LerpAtoB() {
-        Timing.KillCoroutines("ReverseLerp");
+        //Timing.KillCoroutines("ReverseLerp");
         for (float t = 0.01f; t < fadeTime; t+=0.1f) {
             lightSource.color = Color.Lerp(startColor,endColor,t/fadeTime);
             yield return Timing.WaitForOneFrame;
@@ -34,7 +34,7 @@ public class ColorLerp  {
     }
 
     private IEnumerator<float> _LerpBtoA() {
-        Timing.KillCoroutines("Lerp");
+        //Timing.KillCoroutines("Lerp");
         for (float t = 0.01f; t < fadeTime; t+=0.1f) {
             lightSource.color = Color.Lerp(endColor, startColor, t/fadeTime);
             yield return Timing.WaitForOneFrame;

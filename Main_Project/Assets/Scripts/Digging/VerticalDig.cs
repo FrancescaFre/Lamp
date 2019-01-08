@@ -2,6 +2,58 @@
 
 public class VerticalDig : Digging
 {
+    private bool otherSideIsWrong = false;
+
+    private void OnTriggerEnter(Collider terrain)
+    {
+        if (terrain.CompareTag("Water") ||
+            terrain.CompareTag("Leaves") ||
+            terrain.CompareTag("Ice") ||
+            terrain.CompareTag("Solid") ||
+            terrain.gameObject.layer == 11)
+
+            otherSideIsWrong = true;
+    }
+
+    private void OnTriggerStay(Collider terrain)
+    {
+        if (terrain.CompareTag("Water") ||
+            terrain.CompareTag("Leaves") ||
+            terrain.CompareTag("Ice") ||
+            terrain.CompareTag("Solid") ||
+            terrain.gameObject.layer == 11)
+
+            otherSideIsWrong = true;
+    }
+
+    private void OnTriggerExit(Collider terrain)
+    {
+        if (terrain.CompareTag("Water") ||
+            terrain.CompareTag("Leaves") ||
+            terrain.CompareTag("Ice") ||
+            terrain.CompareTag("Solid") ||
+            terrain.gameObject.layer == 11)
+
+            otherSideIsWrong = false;
+    }
+
+    // DEBUGGING
+    override protected void Start()
+    {
+        base.Start();
+        GetComponent<BoxCollider>().enabled = false;
+    }
+    // DEBUGGING
+
+    /// <summary>
+    /// Checks if the terrain under the player is ok to be dug
+    /// </summary>
+    /// <returns></returns>
+    override protected bool CanDig()
+    {
+        return !(_pm.OnIce || _pm.OnLeaves || _pm.OnWater || _pm.OnSolidFloor || otherSideIsWrong);
+    }
+
     /// <summary>
     /// Performs the digging action (called by caster)
     /// </summary>
@@ -22,7 +74,7 @@ public class VerticalDig : Digging
     override public void CheckInput ()
     {
         if (isActiveAndEnabled) // If you already pressed [VDIG]
-            if (canDig)
+            if (CanDig())
             {
                 StartCasting();
                 player.IsCasting = true;
@@ -35,5 +87,11 @@ public class VerticalDig : Digging
 
         else // If it's the first time you press [VDIG]
             gameObject.SetActive(true); 
+    }
+
+    override public void Cancel()
+    {
+        base.Cancel();
+        otherSideIsWrong = false;
     }
 }
