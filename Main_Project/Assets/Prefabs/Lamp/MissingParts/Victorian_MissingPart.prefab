@@ -36,7 +36,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4192211961169812}
-  - component: {fileID: 135977230160134386}
   m_Layer: 0
   m_Name: lamp_hipoly
   m_TagString: MissingPart
@@ -123,13 +122,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4369768476523220}
+  - component: {fileID: 135886076185910166}
   m_Layer: 0
   m_Name: Victorian_MissingPart
   m_TagString: MissingPart
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1802114757787308
 GameObject:
   m_ObjectHideFlags: 1
@@ -196,15 +196,15 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1801988080816004}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.67308444, y: -0, z: -0, w: 0.73956573}
+  m_LocalPosition: {x: 0.78640366, y: 6.823, z: 19.101}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4327617235926610}
   - {fileID: 4473154137810088}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 84.61101, y: 0, z: 0}
 --- !u!4 &4439322660489510
 Transform:
   m_ObjectHideFlags: 1
@@ -473,12 +473,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AdditionalVertexStreamMesh: {fileID: 0}
---- !u!135 &135977230160134386
+--- !u!135 &135886076185910166
 SphereCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1288377271459316}
+  m_GameObject: {fileID: 1801988080816004}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
