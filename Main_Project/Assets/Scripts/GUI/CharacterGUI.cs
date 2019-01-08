@@ -65,7 +65,7 @@ public class CharacterGUI : BaseButtonGUI {
         }
         else {  //if the list is empty goes back to galaxy selection
             Debug.Log("BACK TO GALAXY");
-            GUIManager.GUIInstance.BackToGalaxySelect();
+            GuiManager.GUIInstance.BackToGalaxySelect();
 
         }
 

@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Start() {
         items = new Dictionary<string, int>(6);
-        Cursor.visible = false;
+        
     }
 
 
@@ -140,7 +140,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void StartGame() {//Prologue
-
+        Cursor.visible = false;
         CharactersList = new List<PlayerController>(FindObjectsOfType<PlayerController>());
         CharactersDict = new Dictionary<CharPeriod, PlayerController>();
 
@@ -169,6 +169,7 @@ public class GameManager : MonoBehaviour {
         ActivatePlayerX();
     }
     public void EndGame() {//epilogue
+        Cursor.visible = true;
         AudioManager.Instance.OnEndGame();
         currentPC = null;
         lampHUD = null;

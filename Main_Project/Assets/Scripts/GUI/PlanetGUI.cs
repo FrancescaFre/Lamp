@@ -28,8 +28,8 @@ public class PlanetGUI : BaseButtonGUI {
     private void LevelSelected() {
         
         GameManager.Instance.levelLoaded = planetLevel;
-        GUIManager.GUIInstance.nextButton.interactable = true;
-        EventSystem.current.SetSelectedGameObject(GUIManager.GUIInstance.nextButton.gameObject);
+        GuiManager.GUIInstance.nextButton.interactable = true;
+        EventSystem.current.SetSelectedGameObject(GuiManager.GUIInstance.nextButton.gameObject);
         this.haloParticle.SetActive(true);
     }
     #region Event Handlers
@@ -56,7 +56,7 @@ public class PlanetGUI : BaseButtonGUI {
         base.OnCancel(eventData);
 
         GameManager.Instance.levelLoaded = null;
-        GUIManager.GUIInstance.nextButton.interactable = false;
+        GuiManager.GUIInstance.nextButton.interactable = false;
         descriptionGUIPanel.DescriptionPanel.SetActive(false);
         EventSystem.current.SetSelectedGameObject(transform.parent.parent.gameObject, null);
      

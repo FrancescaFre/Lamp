@@ -3,8 +3,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
-public class GUIManager : MonoBehaviour {
-    public static GUIManager GUIInstance;
+public class GuiManager : MonoBehaviour {
+    public static GuiManager GUIInstance;
 
     [Header("Menu list")]
     public GameObject Galaxies;

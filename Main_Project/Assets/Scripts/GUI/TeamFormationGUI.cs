@@ -64,13 +64,13 @@ public class TeamFormationGUI : MonoBehaviour {
         if (teamList.Count > 2 && teamList[2] >= 0) {
             Third.gameObject.SetActive(true);
             Third.sprite = PlayerGroupGUI.SharedCharacterInfo[teamList[2]].CharSprite;
-            GUIManager.GUIInstance.PlayButton.interactable = true;
+            GuiManager.GUIInstance.PlayButton.interactable = true;
 
         }
         else {
             Third.sprite = null;
             Third.gameObject.SetActive(false);
-            GUIManager.GUIInstance.PlayButton.interactable = false;
+            GuiManager.GUIInstance.PlayButton.interactable = false;
             
 
         }

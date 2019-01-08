@@ -63,7 +63,7 @@ public class GalaxyButtonGUI : BaseButtonGUI {
             SceneManager.LoadScene(0);
         }
         GameManager.Instance.levelLoaded = null;
-        GUIManager.GUIInstance.nextButton.interactable = false;
+        GuiManager.GUIInstance.nextButton.interactable = false;
         transform.GetChild(0).gameObject.SetActive(false);
     }
 
