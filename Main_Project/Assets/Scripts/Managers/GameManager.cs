@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Start() {
         items = new Dictionary<string, int>(6);
+        Cursor.visible = false;
     }
 
 
