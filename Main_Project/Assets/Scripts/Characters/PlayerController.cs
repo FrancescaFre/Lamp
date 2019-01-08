@@ -223,6 +223,7 @@ public class PlayerController : MonoBehaviour {
             
             if (lamp.hasMissingPart && _missingParts > 0) {
                 lamp.hasMissingPart = false;
+                lamp.canBeSwitchedOn = true; 
                 _missingParts--;
             }
            
