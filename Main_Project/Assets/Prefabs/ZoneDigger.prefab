@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4345752196769016}
+  - component: {fileID: 114733465658600928}
   m_Layer: 0
   m_Name: DigCam
   m_TagString: MainCamera
@@ -173,3 +174,18 @@ MonoBehaviour:
   caster: {fileID: 0}
   bar: {fileID: 0}
   movingCirclePrefab: {fileID: 0}
+  radius: 10
+  sphereC: {fileID: 0}
+  colliders: []
+--- !u!114 &114733465658600928
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1171487894061418}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c36d65f6e2a9d04385267539897c0bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pivot: {fileID: 1805591998086222}
