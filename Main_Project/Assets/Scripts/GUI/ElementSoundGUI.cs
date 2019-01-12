@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 public class ElementSoundGUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,ISelectHandler,ISubmitHandler,ICancelHandler {
     [Header("RESOURCES")]
     public AudioClip hoverSound;
-    public AudioClip clickSound;
+    public AudioClip confirmSound;
     public AudioClip cancelSound;
 
 
@@ -17,7 +17,7 @@ public class ElementSoundGUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     private Button isButton;
 
     void Start() {
-        gameObject.AddComponent<AudioSource>(); //adds the audiosource at runtime
+       
         isButton = GetComponent<Button>();  // get the button component (if any)
 
     }
@@ -75,7 +75,7 @@ public class ElementSoundGUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
         if (isButton) {
 
             if (isButton.interactable )
-                AudioManager.Instance.SFXSource.PlayOneShot(clickSound);
+                AudioManager.Instance.SFXSource.PlayOneShot(confirmSound);
         }
     }
 

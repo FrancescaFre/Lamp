@@ -15,6 +15,7 @@ public class CharacterGUI : BaseButtonGUI {
         base.Awake();
         descriptionGUIPanel = GetComponentInParent<DescriptionGUI>();
         teamGUI = descriptionGUIPanel.GetComponentInChildren<TeamFormationGUI>();
+        displayModel.SetActive(false);
     }
 
     private void HideInfo() {
@@ -56,15 +57,15 @@ public class CharacterGUI : BaseButtonGUI {
 
 
     public override void OnCancel(BaseEventData eventData) {
-
+        base.OnCancel(eventData);
         if (teamGUI.teamList.Count > 0) {// remove one by one the team members
             teamGUI.SetCharacter(teamGUI.teamList[teamGUI.teamList.Count - 1]);
             //TODO clear team in GAMEMANAGER
-            Debug.Log("CANCEL TEAM");
+            
 
         }
         else {  //if the list is empty goes back to galaxy selection
-            Debug.Log("BACK TO GALAXY");
+            
             GuiManager.GUIInstance.BackToGalaxySelect();
 
         }

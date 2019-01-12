@@ -19,6 +19,7 @@ public class GuiManager : MonoBehaviour {
     public Button PlayButton;
 
     [Header("Confirm")]
+    public AudioClip HoverSound;
     public AudioClip ConfirmSound;
     public AudioClip AbortSound;
 
@@ -40,6 +41,13 @@ public class GuiManager : MonoBehaviour {
         
         EventSystem.current.SetSelectedGameObject(firstSelectedGalaxy, null);
 
+        var x = GetComponentsInChildren<ElementSoundGUI>(includeInactive:true);
+
+        foreach(var el in x) {
+            el.hoverSound = HoverSound;
+            el.confirmSound = ConfirmSound;
+            el.cancelSound = AbortSound;
+        }
     }
 
     /// <summary>
@@ -48,6 +56,7 @@ public class GuiManager : MonoBehaviour {
     public void CheckSelectedLevel() {
         if (GameManager.Instance.levelLoaded == null) {
             nextButton.interactable = false;
+            nextButton.transform.GetChild(0).gameObject.SetActive(nextButton.interactable);
             return;
         }
 
@@ -64,9 +73,10 @@ public class GuiManager : MonoBehaviour {
     public void CheckSelectedTeam() {
         if (GameManager.Instance.TeamList != null && GameManager.Instance.TeamList.Count == 3 && GameManager.Instance.levelLoaded)
             GameManager.Instance.LoadGame();
-        else
+        else {
             PlayButton.interactable = false;
-
+            PlayButton.transform.GetChild(0).gameObject.SetActive(PlayButton.interactable);
+        }
     }
 
     //to turn back once reached the team selection
@@ -74,7 +84,7 @@ public class GuiManager : MonoBehaviour {
         
         Characters.SetActive(false);
         Galaxies.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(firstSelectedGalaxy, null);
+        EventSystem.current.SetSelectedGameObject(nextButton.gameObject, null);
         AudioManager.Instance.SFXSource.PlayOneShot(AbortSound);
     }
 }

@@ -27,8 +27,16 @@ public class PlanetGUI : BaseButtonGUI {
 
     private void LevelSelected() {
         
+        if(GuiManager.GUIInstance.nextButton.GetComponent<NextGUI>().selectedPlanet)
+            GuiManager.GUIInstance.nextButton.GetComponent<NextGUI>().selectedPlanet.ForceRelease();
+
         GameManager.Instance.levelLoaded = planetLevel;
         GuiManager.GUIInstance.nextButton.interactable = true;
+
+        
+
+        GuiManager.GUIInstance.nextButton.transform.GetChild(0).gameObject.SetActive(GuiManager.GUIInstance.nextButton.interactable);
+        GuiManager.GUIInstance.nextButton.GetComponent<NextGUI>().selectedPlanet = this;
         EventSystem.current.SetSelectedGameObject(GuiManager.GUIInstance.nextButton.gameObject);
         this.haloParticle.SetActive(true);
     }
@@ -36,11 +44,13 @@ public class PlanetGUI : BaseButtonGUI {
     public override void OnPointerClick(PointerEventData eventData) {
         base.OnPointerClick(eventData);
         LevelSelected();
+        
     }
 
     public override void OnSubmit(BaseEventData eventData) {
         base.OnSubmit(eventData);
         LevelSelected();
+        
     }
     public override void OnPointerEnter(PointerEventData eventData) {    //allows to decide what happens when hovered 
         base.OnPointerEnter(eventData);
@@ -57,6 +67,7 @@ public class PlanetGUI : BaseButtonGUI {
 
         GameManager.Instance.levelLoaded = null;
         GuiManager.GUIInstance.nextButton.interactable = false;
+        GuiManager.GUIInstance.nextButton.transform.GetChild(0).gameObject.SetActive(GuiManager.GUIInstance.nextButton.interactable);
         descriptionGUIPanel.DescriptionPanel.SetActive(false);
         EventSystem.current.SetSelectedGameObject(transform.parent.parent.gameObject, null);
      

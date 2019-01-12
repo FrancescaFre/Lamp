@@ -65,6 +65,7 @@ public class TeamFormationGUI : MonoBehaviour {
             Third.gameObject.SetActive(true);
             Third.sprite = PlayerGroupGUI.SharedCharacterInfo[teamList[2]].CharSprite;
             GuiManager.GUIInstance.PlayButton.interactable = true;
+            
 
         }
         else {
@@ -73,8 +74,9 @@ public class TeamFormationGUI : MonoBehaviour {
             GuiManager.GUIInstance.PlayButton.interactable = false;
             
 
+
         }
-       
+        GuiManager.GUIInstance.PlayButton.transform.GetChild(0).gameObject.SetActive(GuiManager.GUIInstance.PlayButton.interactable);
     }
 
     /// <summary>

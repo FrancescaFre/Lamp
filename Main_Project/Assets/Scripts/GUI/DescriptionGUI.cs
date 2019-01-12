@@ -23,8 +23,10 @@ public class DescriptionGUI : MonoBehaviour {
     public TMP_Text SubQuest2;
     public TMP_Text SubQuest3;
 
- 
-    
+    private void Start() {
+        DescriptionPanel.SetActive(false);
+    }
+
     /// <summary>
     /// Shows the information of the selected character
     /// </summary>

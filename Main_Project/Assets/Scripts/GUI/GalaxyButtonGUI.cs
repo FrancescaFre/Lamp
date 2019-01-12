@@ -50,20 +50,24 @@ public class GalaxyButtonGUI : BaseButtonGUI {
 
     #region Event Handlers
     public override void OnSubmit(BaseEventData eventData) {
+        base.OnSubmit(eventData);
         SelectLevel();
     }
 
     public override void OnPointerClick(PointerEventData eventData) {
+        base.OnPointerClick(eventData);
         SelectLevel();
     }
 
 
     public override void OnCancel(BaseEventData eventData) {
+        base.OnCancel(eventData);
         if(!GameManager.Instance.levelLoaded) {
             SceneManager.LoadScene(0);
         }
         GameManager.Instance.levelLoaded = null;
         GuiManager.GUIInstance.nextButton.interactable = false;
+        GuiManager.GUIInstance.nextButton.transform.GetChild(0).gameObject.SetActive(GuiManager.GUIInstance.nextButton.interactable);
         transform.GetChild(0).gameObject.SetActive(false);
     }
 
