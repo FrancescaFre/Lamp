@@ -24,7 +24,7 @@ GameObject:
   m_TagString: DigLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1352003477430002
 GameObject:
@@ -40,7 +40,7 @@ GameObject:
   m_TagString: DigLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1382845659010874
 GameObject:
@@ -56,7 +56,7 @@ GameObject:
   m_TagString: DigLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1790432214202212
 GameObject:
@@ -76,7 +76,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4060091748475880
 Transform:
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1202325d119ebc4b8f7ccf0be1272c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lights: []
+  t: 0
 --- !u!114 &114866492909300900
 MonoBehaviour:
   m_ObjectHideFlags: 1

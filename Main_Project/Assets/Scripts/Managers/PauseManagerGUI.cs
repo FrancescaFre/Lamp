@@ -62,7 +62,7 @@ public class PauseManagerGUI : MonoBehaviour {
             Time.timeScale = 1f;
             Time.fixedDeltaTime = _originalFixedTime;
         }
-
+        Cursor.visible = _isPaused;
         PausePanel.SetActive(_isPaused);    //the activation of the panel depends on whether it is paused or not
     }
 
