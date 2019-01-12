@@ -20,7 +20,7 @@ public class OptionsGUI : MonoBehaviour {
         SFXVolume.value = AudioManager.Instance.volumeSFX;
         ambienceVolume.value = AudioManager.Instance.volumeAmbience;
 
-
+        
         gameObject.SetActive(false);
 	}
 	

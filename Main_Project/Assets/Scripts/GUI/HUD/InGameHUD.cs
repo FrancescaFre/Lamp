@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 /*I/DPAD_UP show/hide the lamp panel
  */
 
@@ -11,6 +11,8 @@ public class InGameHUD : MonoBehaviour {
     public LampHUD lampHUDPanel;
     public PauseManagerGUI pManager;
     public Image victory, defeat;
+    public TextMeshProUGUI allyLampCounter;
+    public TextMeshProUGUI enemyLampCounter;
 
     private void Awake() {
         if (!Instance) {
@@ -26,10 +28,15 @@ public class InGameHUD : MonoBehaviour {
         InGameHUDPanel = lampHUDPanel.transform.parent.gameObject;        
     }
 
-    
 
+    private void LateUpdate() {
+        if (GameManager.Instance) {
+            allyLampCounter.text = string.Format("{0}/{1}", GameManager.Instance.allyLamps.ToString("00"), GameManager.Instance.levelLoaded.allyLamps.ToString("00"));
+            enemyLampCounter.text = string.Format("{0}/{1}", GameManager.Instance.enemyLamps.ToString("00"), GameManager.Instance.levelLoaded.enemyLamps.ToString("00"));
+        }
+    }
     private void FixedUpdate() {
-        InGameHUDPanel.SetActive(!pManager.PausePanel.activeInHierarchy);   // mutual exclusion
+        
 
         if (Input.GetAxis("PS4_DPad_Y") > 0 || Input.GetKeyDown(KeyCode.I)) {
             lampHUDPanel.gameObject.SetActive(!lampHUDPanel.gameObject.activeInHierarchy);

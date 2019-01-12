@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using TMPro;
+
 
 
 /*
@@ -13,22 +13,25 @@ public class PauseManagerGUI : MonoBehaviour {
     [SerializeField]
     private bool _isPaused;
     public GameObject PausePanel;
-    public Button firstButtonSelected;
+    public GameObject firstButtonSelected;
     private float _originalFixedTime;   //this way it is possible to restore the previous value
+    public GameObject firstOptionSelected;
 
-    public LampHUD lampHUDPanel;
-    public TextMeshProUGUI allyText;
-    public TextMeshProUGUI enemyText;
 
-    private OptionsGUI options;
+
+    private OptionsGUI optionsGUI;
+
     void Awake() {
         this._originalFixedTime = Time.fixedDeltaTime;
     }
 
     void Start() {
         _isPaused = false;
-        options = GetComponentInChildren<OptionsGUI>(includeInactive:true);
+        optionsGUI = GetComponentInChildren<OptionsGUI>(includeInactive:true);
         PausePanel.SetActive(_isPaused);
+        firstButtonSelected = PausePanel.transform.GetChild(0).gameObject;
+        firstOptionSelected = optionsGUI.transform.GetChild(0).gameObject;
+
     }
 
     // Update is called once per frame
@@ -36,34 +39,33 @@ public class PauseManagerGUI : MonoBehaviour {
 
         if (Input.GetKeyUp(KeyCode.Escape) || Input.GetButtonUp("PS4_Button_OPTIONS")) {//once the button has JUST been released
                                                                                         //switches on and off the pause menu
-            if (options.gameObject.activeInHierarchy) {
-                options.gameObject.SetActive(false);
-                PausePanel.SetActive(true);
+            if (optionsGUI.gameObject.activeInHierarchy) {
+                OptionsToPause();
+                
                 return;
             }
             this.ChangePauseStatus();
 
         }
     }
-    private void LateUpdate() {
-        if (GameManager.Instance) {
-            allyText.text = string.Format("{0}/{1}", GameManager.Instance.allyLamps.ToString("00"), GameManager.Instance.levelLoaded.allyLamps.ToString("00"));
-            enemyText.text = string.Format("{0}/{1}", GameManager.Instance.enemyLamps.ToString("00"), GameManager.Instance.levelLoaded.enemyLamps.ToString("00"));
-        }
-    }
+
 
     private void _UpdateGamePause(){
+        GetComponent<InGameHUD>().InGameHUDPanel.SetActive(!_isPaused);
+        PausePanel.SetActive(_isPaused);    //the activation of the panel depends on whether it is paused or not
+        Cursor.visible = _isPaused;
+        
+        
         if (_isPaused) {//stops time
             Time.timeScale = 0f;
             Time.fixedDeltaTime = .2f * Time.timeScale;
-            EventSystem.current.SetSelectedGameObject(firstButtonSelected.gameObject, null);
+            EventSystem.current.SetSelectedGameObject(firstButtonSelected, null);
         }
         else {//restores time
             Time.timeScale = 1f;
             Time.fixedDeltaTime = _originalFixedTime;
         }
-        Cursor.visible = _isPaused;
-        PausePanel.SetActive(_isPaused);    //the activation of the panel depends on whether it is paused or not
+        
     }
 
     /// <summary>
@@ -71,7 +73,7 @@ public class PauseManagerGUI : MonoBehaviour {
     /// </summary>
     public void ChangePauseStatus() {// this allows to press a button and call this function to resume
         _isPaused = !_isPaused;
-        //Invoke("_UpdateGamePause",.5f);
+        
         this._UpdateGamePause();
     }
 
@@ -86,4 +88,18 @@ public class PauseManagerGUI : MonoBehaviour {
 
         GameManager.Instance.EndGame();
     }
+
+    public void PauseToOptions() {
+        PausePanel.SetActive(false);
+        optionsGUI.gameObject.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(firstOptionSelected,null);
+    }
+    public void OptionsToPause() {
+        optionsGUI.gameObject.SetActive(false);
+        PausePanel.SetActive(true);
+        
+        EventSystem.current.SetSelectedGameObject(firstButtonSelected, null);
+    }
+
+    
 }
