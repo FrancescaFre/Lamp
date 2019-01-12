@@ -3,12 +3,12 @@
 public class CameraManager : MonoBehaviour {
 
     [Tooltip("Minimum distance from the player when zooming in")]
-    [Range(1,2)]
+    [Range(1,3)]
     public float nearZoom = 1;
 
     [Tooltip("Maximum distance from the player when zooming out")]
-    [Range(6,8)]
-    public float farZoom = 7;
+    [Range(4,8)]
+    public float farZoom = 5;
 
     [Tooltip("How fast are min and max reached")]
     [Range(.05f, .20f)]
