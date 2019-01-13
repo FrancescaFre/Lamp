@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4221183270294178}
   - component: {fileID: 108376970095634956}
   - component: {fileID: 114126193730482318}
+  - component: {fileID: 114987556190654542}
   m_Layer: 0
   m_Name: World_Fog_Light
   m_TagString: Untagged
@@ -103,3 +104,15 @@ MonoBehaviour:
   NoiseIntensityOffset: 0.3
   NoiseVelocity: {x: 0.1, y: 0.1}
   MaxRayLength: 400
+--- !u!114 &114987556190654542
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1458663006220176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 322976ad452b96e43b92393ae8330eb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  error: 0.001

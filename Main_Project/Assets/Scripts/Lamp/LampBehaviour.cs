@@ -135,7 +135,9 @@ public class LampBehaviour : MonoBehaviour {
         Debug.Log("lamp_switch: ON ");
         gameObject.layer = 11; //obstacle layer
         GameManager.Instance.allyLamps++;
-        GameManager.Instance.lampHUD.DequeueAlly();
+        GameManager.Instance.worldLight.Enlight();
+
+        InGameHUD.Instance.lampHUDPanel.DequeueAlly();
         if (GameManager.Instance.allyLamps == GameManager.Instance.levelLoaded.allyLamps)
             GameManager.Instance.GoodEndGame();
         GameManager.Instance.LastAllyLamp = this;   //if the character dies, the next one will be spawned here
@@ -153,7 +155,7 @@ public class LampBehaviour : MonoBehaviour {
         }
 
         GameManager.Instance.enemyLamps++;
-        GameManager.Instance.lampHUD.DequeueEnemy();
+        InGameHUD.Instance.lampHUDPanel.DequeueEnemy();
         AudioManager.Instance.SFXSource.PlayOneShot(GameManager.Instance.levelLoaded.lampSwitchSFX);
         emitter.source.Stop();
         //----------- Evolution of enemy lamp

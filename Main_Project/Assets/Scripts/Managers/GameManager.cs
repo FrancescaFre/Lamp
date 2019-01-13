@@ -11,11 +11,12 @@ public class GameManager : MonoBehaviour {
     public AudioClip winAudio, loseAudio;
 
     public LampBehaviour LastAllyLamp = null; //last lamp turned on
-    [Header("HUD of the lamps")]
-    public LampHUD lampHUD;
+    [Header("Info of the lamps")]  
     public int allyLamps;
     public int enemyLamps;
 
+    [Header("Light of the world")]
+    public WorldEnlighter worldLight;
     #region  GameObjects
 
     [Header("Enemies")]
@@ -24,7 +25,7 @@ public class GameManager : MonoBehaviour {
     public int howManyHearing = 0;
 
 
-    [Header(" Characters")]
+    [Header("Characters")]
     public List<PlayerController> CharactersList = new List<PlayerController>();   //the gameobject that are present in the scene
     public PlayerController currentPC;
     public int currentCharacter = 0;
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour {
     public static Dictionary<CharPeriod, PlayerController> CharactersDict;
     #endregion
 
-
+    
     public Dictionary<string, int> items;
 
     private void Awake() {
@@ -172,7 +173,7 @@ public class GameManager : MonoBehaviour {
         Cursor.visible = true;
         AudioManager.Instance.OnEndGame();
         currentPC = null;
-        lampHUD = null;
+        
         levelLoaded = null;
         TeamList = null;
         currentCharacter = 0;

@@ -17,8 +17,7 @@ public class LampHUD : MonoBehaviour {
     }
 
     private void Start() {
-        if (!GameManager.Instance.lampHUD) 
-            GameManager.Instance.lampHUD = this;
+
 
         for (int i = 0; i < GameManager.Instance.levelLoaded.allyLamps; i++) {
             CreateIconQueue(allyQueue, Color.white);
