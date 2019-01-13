@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4403631186471458}
   - component: {fileID: 108129133151527196}
+  - component: {fileID: 114019034363177936}
   m_Layer: 0
   m_Name: ' DX_spotLight'
   m_TagString: Untagged
@@ -103,6 +104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4073290834012240}
   - component: {fileID: 108824500316089588}
+  - component: {fileID: 114886828226775202}
   m_Layer: 0
   m_Name: ' SX_spotLight'
   m_TagString: Untagged
@@ -484,6 +486,31 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114019034363177936
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1006321099262722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 47
+  ScatteringCoef: 1
+  ExtinctionCoef: 0.0203
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 1
+  NoiseScale: 0.5
+  NoiseIntensity: 10
+  NoiseIntensityOffset: 0.4
+  NoiseVelocity: {x: 1, y: -1}
+  MaxRayLength: 400
 --- !u!114 &114024499855585656
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -502,6 +529,31 @@ MonoBehaviour:
   baseClip: {fileID: 0}
   playOnStartGame: 0
   doesLoop: 1
+--- !u!114 &114886828226775202
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1870700539297244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 47
+  ScatteringCoef: 1
+  ExtinctionCoef: 0.0203
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 1
+  NoiseScale: 0.5
+  NoiseIntensity: 10
+  NoiseIntensityOffset: 0.4
+  NoiseVelocity: {x: 1, y: -1}
+  MaxRayLength: 400
 --- !u!114 &114938592696027744
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -514,7 +566,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightBulb: []
-  auraLight: []
   particleSystems: []
   allColliders: []
   isEnemyLamp: 0

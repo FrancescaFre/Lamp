@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 4895134231947198}
   - component: {fileID: 108157511389970972}
   - component: {fileID: 114060983792088856}
+  - component: {fileID: 114571029666748394}
   m_Layer: 0
   m_Name: Light (2)
   m_TagString: Untagged
@@ -93,7 +94,7 @@ GameObject:
   m_Layer: 0
   m_Name: Oriental_Lamp_Enemy
   m_TagString: Lamp_Base
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
@@ -107,6 +108,7 @@ GameObject:
   - component: {fileID: 4138681084354398}
   - component: {fileID: 108360385234606242}
   - component: {fileID: 114615233364123442}
+  - component: {fileID: 114053052416154744}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -174,6 +176,7 @@ GameObject:
   - component: {fileID: 4369778751158216}
   - component: {fileID: 108273748449470252}
   - component: {fileID: 114082521098287556}
+  - component: {fileID: 114622034304814668}
   m_Layer: 0
   m_Name: Light (3)
   m_TagString: Untagged
@@ -208,6 +211,7 @@ GameObject:
   - component: {fileID: 4466124804265382}
   - component: {fileID: 108124345330760080}
   - component: {fileID: 114946435406366594}
+  - component: {fileID: 114493010241112454}
   m_Layer: 0
   m_Name: Light (1)
   m_TagString: Untagged
@@ -768,6 +772,31 @@ MonoBehaviour:
   baseClip: {fileID: 0}
   playOnStartGame: 0
   doesLoop: 1
+--- !u!114 &114053052416154744
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1462916459741640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 47
+  ScatteringCoef: 0.4
+  ExtinctionCoef: 0.0138
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0.4
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 0
+  NoiseScale: 0.5
+  NoiseIntensity: 1
+  NoiseIntensityOffset: 0.3
+  NoiseVelocity: {x: 1, y: -1}
+  MaxRayLength: 400
 --- !u!114 &114060983792088856
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -808,7 +837,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightBulb: []
-  auraLight: []
   particleSystems: []
   allColliders: []
   isEnemyLamp: 1
@@ -819,6 +847,56 @@ MonoBehaviour:
   goodSpirits: {fileID: 0}
   radius: 0
   emitter: {fileID: 0}
+--- !u!114 &114493010241112454
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1735037387657118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 47
+  ScatteringCoef: 0.4
+  ExtinctionCoef: 0.0138
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0.4
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 0
+  NoiseScale: 0.5
+  NoiseIntensity: 1
+  NoiseIntensityOffset: 0.3
+  NoiseVelocity: {x: 1, y: -1}
+  MaxRayLength: 400
+--- !u!114 &114571029666748394
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1189110861657958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 47
+  ScatteringCoef: 0.4
+  ExtinctionCoef: 0.0138
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0.4
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 0
+  NoiseScale: 0.5
+  NoiseIntensity: 1
+  NoiseIntensityOffset: 0.3
+  NoiseVelocity: {x: 1, y: -1}
+  MaxRayLength: 400
 --- !u!114 &114615233364123442
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -833,6 +911,31 @@ MonoBehaviour:
   loop: 1
   smoothFactor: 4
   addIntensity: 0.5
+--- !u!114 &114622034304814668
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1673344508923454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 47
+  ScatteringCoef: 0.4
+  ExtinctionCoef: 0.0138
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0.4
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 0
+  NoiseScale: 0.5
+  NoiseIntensity: 1
+  NoiseIntensityOffset: 0.3
+  NoiseVelocity: {x: 1, y: -1}
+  MaxRayLength: 400
 --- !u!114 &114946435406366594
 MonoBehaviour:
   m_ObjectHideFlags: 1

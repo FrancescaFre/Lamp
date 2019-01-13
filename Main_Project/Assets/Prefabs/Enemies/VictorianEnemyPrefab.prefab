@@ -88,6 +88,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4995561012746948}
   - component: {fileID: 108227465033545972}
+  - component: {fileID: 114561553755759440}
   m_Layer: 10
   m_Name: Aura Spot Light
   m_TagString: Untagged
@@ -291,6 +292,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4295472817823794}
   - component: {fileID: 108421017148090990}
+  - component: {fileID: 114974912454326106}
   m_Layer: 0
   m_Name: leftEye
   m_TagString: Untagged
@@ -358,6 +360,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4299307687099126}
   - component: {fileID: 108923199615009620}
+  - component: {fileID: 114663853134869068}
   m_Layer: 0
   m_Name: rightEye
   m_TagString: Untagged
@@ -664,7 +667,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1953688963897732}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 22, y: 22, z: 22}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.29999998, y: 0.29999998, z: 0.29999998}
   m_Children:
   - {fileID: 4117736750535130}
@@ -1200,7 +1203,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -1223,7 +1226,7 @@ Light:
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -1237,7 +1240,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -1260,7 +1263,7 @@ Light:
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -1274,7 +1277,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -1359,6 +1362,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AdditionalVertexStreamMesh: {fileID: 0}
+--- !u!114 &114561553755759440
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1159125129888276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 8
+  ScatteringCoef: 1
+  ExtinctionCoef: 0.01
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 1
+  NoiseScale: 0.3
+  NoiseIntensity: 1
+  NoiseIntensityOffset: 0.3
+  NoiseVelocity: {x: 0.1, y: 0.1}
+  MaxRayLength: 400
 --- !u!114 &114584553387938182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1384,10 +1412,34 @@ MonoBehaviour:
   teleport: 0
   timeToTeleport: 0
   lights: []
-  auraLight: []
   teleportParticles: {fileID: 0}
   searchingParticles: {fileID: 0}
   earingParticles: {fileID: 0}
+--- !u!114 &114663853134869068
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1638566509970966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 29
+  ScatteringCoef: 1
+  ExtinctionCoef: 0.0522
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0.1
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 0
+  NoiseScale: 0.015
+  NoiseIntensity: 1
+  NoiseIntensityOffset: 0.3
+  NoiseVelocity: {x: 3, y: 3}
+  MaxRayLength: 400
 --- !u!114 &114714993636921504
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1429,8 +1481,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allLights: []
-  endColor: {r: 1, g: 0, b: 0.11753893, a: 0}
+  endColor: {r: 1, g: 0, b: 0.11753893, a: 0.6156863}
   fadeTime: 5
+--- !u!114 &114974912454326106
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1555236112816458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 29
+  ScatteringCoef: 1
+  ExtinctionCoef: 0.0522
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0.1
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 0
+  NoiseScale: 0.015
+  NoiseIntensity: 1
+  NoiseIntensityOffset: 0.3
+  NoiseVelocity: {x: 3, y: 3}
+  MaxRayLength: 400
 --- !u!135 &135854488785032142
 SphereCollider:
   m_ObjectHideFlags: 1

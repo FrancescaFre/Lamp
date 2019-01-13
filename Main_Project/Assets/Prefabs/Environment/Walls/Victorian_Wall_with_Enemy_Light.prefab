@@ -54,6 +54,7 @@ GameObject:
   - component: {fileID: 4511409540402122}
   - component: {fileID: 108517263331115108}
   - component: {fileID: 114911141912748192}
+  - component: {fileID: 114367707736506190}
   m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
@@ -780,6 +781,31 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114367707736506190
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1395535346425154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 8
+  ScatteringCoef: 0.495
+  ExtinctionCoef: 0.0253
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0.736
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 0
+  NoiseScale: 0.5
+  NoiseIntensity: 1
+  NoiseIntensityOffset: 0.3
+  NoiseVelocity: {x: 1, y: 1}
+  MaxRayLength: 400
 --- !u!114 &114397311117940604
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -816,7 +842,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightBulb: []
-  auraLight: []
   particleSystems: []
   allColliders: []
   isEnemyLamp: 1

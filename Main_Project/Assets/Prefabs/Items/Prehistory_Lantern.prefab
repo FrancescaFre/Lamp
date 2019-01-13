@@ -99,6 +99,9 @@ GameObject:
   - component: {fileID: 4025059621890644}
   - component: {fileID: 198695355212080498}
   - component: {fileID: 199586394530774750}
+  - component: {fileID: 108946054861377710}
+  - component: {fileID: 114492614997717362}
+  - component: {fileID: 114827421468989758}
   m_Layer: 0
   m_Name: CFX4 Fire
   m_TagString: Untagged
@@ -131,8 +134,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4584626743472090}
-  - component: {fileID: 108102363912209146}
-  - component: {fileID: 114304529093321610}
   - component: {fileID: 114905918207185914}
   - component: {fileID: 114055493122593762}
   m_Layer: 0
@@ -346,12 +347,12 @@ Transform:
   m_Father: {fileID: 4971163886630274}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!108 &108102363912209146
+--- !u!108 &108946054861377710
 Light:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1464830890356006}
+  m_GameObject: {fileID: 1386227466936762}
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 2
@@ -414,12 +415,37 @@ MonoBehaviour:
   baseClip: {fileID: 0}
   playOnStartGame: 0
   doesLoop: 1
---- !u!114 &114304529093321610
+--- !u!114 &114492614997717362
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1464830890356006}
+  m_GameObject: {fileID: 1386227466936762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 37
+  ScatteringCoef: 1
+  ExtinctionCoef: 0.0253
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0.69
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 0
+  NoiseScale: 0.5
+  NoiseIntensity: 1
+  NoiseIntensityOffset: 0.3
+  NoiseVelocity: {x: 1, y: 1}
+  MaxRayLength: 400
+--- !u!114 &114827421468989758
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1386227466936762}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74eb290077a495b4f8489f895b2cc599, type: 3}

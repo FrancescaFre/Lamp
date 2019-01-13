@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 4081144980488728}
   - component: {fileID: 108885868339108270}
   - component: {fileID: 114502685011905084}
+  - component: {fileID: 114554370787294410}
   m_Layer: 0
   m_Name: DX_Light
   m_TagString: Untagged
@@ -209,6 +210,7 @@ GameObject:
   - component: {fileID: 4481110031687884}
   - component: {fileID: 108901037310493638}
   - component: {fileID: 114117679930013084}
+  - component: {fileID: 114301085102595352}
   m_Layer: 0
   m_Name: SX_Light
   m_TagString: Untagged
@@ -1178,6 +1180,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraToLookAt: {fileID: 0}
+--- !u!114 &114301085102595352
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1499604965620570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 47
+  ScatteringCoef: 0.502
+  ExtinctionCoef: 0.0138
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0.315
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 0
+  NoiseScale: 0.5
+  NoiseIntensity: 1
+  NoiseIntensityOffset: 0.3
+  NoiseVelocity: {x: 1, y: -1}
+  MaxRayLength: 400
 --- !u!114 &114479764230242716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1190,7 +1217,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightBulb: []
-  auraLight: []
   particleSystems: []
   allColliders: []
   isEnemyLamp: 1
@@ -1215,6 +1241,31 @@ MonoBehaviour:
   loop: 1
   smoothFactor: 3
   addIntensity: 5
+--- !u!114 &114554370787294410
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1479846278664170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 47
+  ScatteringCoef: 0.502
+  ExtinctionCoef: 0.0138
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0.315
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 0
+  NoiseScale: 0.5
+  NoiseIntensity: 1
+  NoiseIntensityOffset: 0.3
+  NoiseVelocity: {x: 1, y: -1}
+  MaxRayLength: 400
 --- !u!114 &114587998721221890
 MonoBehaviour:
   m_ObjectHideFlags: 1

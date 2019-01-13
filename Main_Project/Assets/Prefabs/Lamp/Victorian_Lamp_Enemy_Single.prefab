@@ -158,6 +158,7 @@ GameObject:
   - component: {fileID: 4736897815854180}
   - component: {fileID: 108300372906819202}
   - component: {fileID: 114815970547712124}
+  - component: {fileID: 114106451874383200}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -567,6 +568,31 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114106451874383200
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1977670930154960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 47
+  ScatteringCoef: 0.467
+  ExtinctionCoef: 0.0203
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0.27
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 1
+  NoiseScale: 0.5
+  NoiseIntensity: 10
+  NoiseIntensityOffset: 0.4
+  NoiseVelocity: {x: 0.1, y: -0.1}
+  MaxRayLength: 400
 --- !u!114 &114410060062733628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -609,8 +635,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loop: 1
-  smoothFactor: 3
-  addIntensity: 5
+  smoothFactor: 2
+  addIntensity: 2
 --- !u!114 &114998306885551278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -623,7 +649,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightBulb: []
-  auraLight: []
   particleSystems: []
   allColliders: []
   isEnemyLamp: 1

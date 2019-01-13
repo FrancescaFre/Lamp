@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4100157529800098}
   - component: {fileID: 108408626053172764}
   - component: {fileID: 114118090564622436}
+  - component: {fileID: 114962309088035736}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -404,7 +405,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightBulb: []
-  auraLight: []
   particleSystems: []
   allColliders: []
   isEnemyLamp: 1
@@ -415,6 +415,31 @@ MonoBehaviour:
   goodSpirits: {fileID: 0}
   radius: 0
   emitter: {fileID: 0}
+--- !u!114 &114962309088035736
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1056318794954576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 47
+  ScatteringCoef: 0.502
+  ExtinctionCoef: 0.0138
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0.522
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 0
+  NoiseScale: 0.5
+  NoiseIntensity: 1
+  NoiseIntensityOffset: 0.3
+  NoiseVelocity: {x: 1, y: -1}
+  MaxRayLength: 400
 --- !u!135 &135862324441124276
 SphereCollider:
   m_ObjectHideFlags: 1

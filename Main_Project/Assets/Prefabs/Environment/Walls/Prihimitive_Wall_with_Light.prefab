@@ -164,6 +164,7 @@ GameObject:
   - component: {fileID: 4075199171295230}
   - component: {fileID: 108393296929103722}
   - component: {fileID: 114146202478821900}
+  - component: {fileID: 114505084241694652}
   m_Layer: 0
   m_Name: fire
   m_TagString: Untagged
@@ -509,7 +510,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightBulb: []
-  auraLight: []
   particleSystems: []
   allColliders: []
   isEnemyLamp: 0
@@ -520,6 +520,31 @@ MonoBehaviour:
   goodSpirits: {fileID: 0}
   radius: 0
   emitter: {fileID: 0}
+--- !u!114 &114505084241694652
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1919165371581960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 8
+  ScatteringCoef: 0.386
+  ExtinctionCoef: 0.0253
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0.435
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 0
+  NoiseScale: 0.5
+  NoiseIntensity: 1
+  NoiseIntensityOffset: 0.3
+  NoiseVelocity: {x: 1, y: 1}
+  MaxRayLength: 400
 --- !u!136 &136651770831899872
 CapsuleCollider:
   m_ObjectHideFlags: 1

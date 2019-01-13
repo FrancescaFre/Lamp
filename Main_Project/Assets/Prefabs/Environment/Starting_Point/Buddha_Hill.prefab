@@ -327,6 +327,7 @@ GameObject:
   - component: {fileID: 4596822503630226}
   - component: {fileID: 108858703525897278}
   - component: {fileID: 114033105164559788}
+  - component: {fileID: 114537766206532264}
   m_Layer: 0
   m_Name: Aura Point Light (5)
   m_TagString: Untagged
@@ -607,6 +608,7 @@ GameObject:
   - component: {fileID: 4976341970420110}
   - component: {fileID: 108529423591659068}
   - component: {fileID: 114803531877078732}
+  - component: {fileID: 114026738200301134}
   m_Layer: 0
   m_Name: Aura Point Light (6)
   m_TagString: Untagged
@@ -674,6 +676,7 @@ GameObject:
   - component: {fileID: 4201638468300668}
   - component: {fileID: 108831263559711672}
   - component: {fileID: 114604037362314482}
+  - component: {fileID: 114219010629357414}
   m_Layer: 0
   m_Name: Aura Point Light (4)
   m_TagString: Untagged
@@ -837,6 +840,7 @@ GameObject:
   - component: {fileID: 4385803238612656}
   - component: {fileID: 108815599949833426}
   - component: {fileID: 114990131294825254}
+  - component: {fileID: 114021219875553886}
   m_Layer: 0
   m_Name: Aura Point Light (1)
   m_TagString: Untagged
@@ -1308,6 +1312,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4389551633447942}
   - component: {fileID: 108963623395150932}
+  - component: {fileID: 114872951604533298}
   m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
@@ -1426,6 +1431,7 @@ GameObject:
   - component: {fileID: 4425868393459668}
   - component: {fileID: 108969537502496680}
   - component: {fileID: 114664141359457878}
+  - component: {fileID: 114616558076552010}
   m_Layer: 0
   m_Name: Aura Point Light (3)
   m_TagString: Untagged
@@ -1507,6 +1513,7 @@ GameObject:
   - component: {fileID: 4764049839076074}
   - component: {fileID: 108211698167590908}
   - component: {fileID: 114645382334240130}
+  - component: {fileID: 114246262276978432}
   m_Layer: 0
   m_Name: Aura Point Light (2)
   m_TagString: Untagged
@@ -4918,6 +4925,56 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114021219875553886
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1499769646573006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 40
+  ScatteringCoef: 1
+  ExtinctionCoef: 0.1
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0.325
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 0
+  NoiseScale: 0.3
+  NoiseIntensity: 1
+  NoiseIntensityOffset: 0.01
+  NoiseVelocity: {x: 0, y: 0}
+  MaxRayLength: 400
+--- !u!114 &114026738200301134
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1334032196694034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 40
+  ScatteringCoef: 1
+  ExtinctionCoef: 0.1
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0.325
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 0
+  NoiseScale: 0.3
+  NoiseIntensity: 1
+  NoiseIntensityOffset: 0.01
+  NoiseVelocity: {x: 0, y: 0}
+  MaxRayLength: 400
 --- !u!114 &114033105164559788
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4930,8 +4987,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loop: 1
-  smoothFactor: 4
+  smoothFactor: 2
   addIntensity: 3
+--- !u!114 &114219010629357414
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1400920320921680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 40
+  ScatteringCoef: 1
+  ExtinctionCoef: 0.1
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0.325
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 0
+  NoiseScale: 0.3
+  NoiseIntensity: 1
+  NoiseIntensityOffset: 0.01
+  NoiseVelocity: {x: 0, y: 0}
+  MaxRayLength: 400
+--- !u!114 &114246262276978432
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1976491055378924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 40
+  ScatteringCoef: 1
+  ExtinctionCoef: 0.1
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0.325
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 0
+  NoiseScale: 0.3
+  NoiseIntensity: 1
+  NoiseIntensityOffset: 0.01
+  NoiseVelocity: {x: 0, y: 0}
+  MaxRayLength: 400
 --- !u!114 &114453464886985572
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4950,6 +5057,31 @@ MonoBehaviour:
   baseClip: {fileID: 0}
   playOnStartGame: 1
   doesLoop: 1
+--- !u!114 &114537766206532264
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1200528948133874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 40
+  ScatteringCoef: 1
+  ExtinctionCoef: 0.1
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0.325
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 0
+  NoiseScale: 0.3
+  NoiseIntensity: 1
+  NoiseIntensityOffset: 0.01
+  NoiseVelocity: {x: 0, y: 0}
+  MaxRayLength: 400
 --- !u!114 &114604037362314482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4963,7 +5095,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loop: 1
   smoothFactor: 4
-  addIntensity: 3
+  addIntensity: 1
+--- !u!114 &114616558076552010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1920376985554406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 40
+  ScatteringCoef: 1
+  ExtinctionCoef: 0.1
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0.325
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 0
+  NoiseScale: 0.3
+  NoiseIntensity: 1
+  NoiseIntensityOffset: 0.01
+  NoiseVelocity: {x: 0, y: 0}
+  MaxRayLength: 400
 --- !u!114 &114645382334240130
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4977,7 +5134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loop: 1
   smoothFactor: 4
-  addIntensity: 3
+  addIntensity: 1
 --- !u!114 &114664141359457878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4990,7 +5147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loop: 1
-  smoothFactor: 4
+  smoothFactor: 2
   addIntensity: 3
 --- !u!114 &114803531877078732
 MonoBehaviour:
@@ -5005,7 +5162,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loop: 1
   smoothFactor: 4
-  addIntensity: 3
+  addIntensity: 1
+--- !u!114 &114872951604533298
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1891085094264920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 40
+  ScatteringCoef: 1
+  ExtinctionCoef: 0.1
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0.325
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 0
+  NoiseScale: 0.3
+  NoiseIntensity: 1
+  NoiseIntensityOffset: 0.01
+  NoiseVelocity: {x: 0, y: 0}
+  MaxRayLength: 400
 --- !u!114 &114990131294825254
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5019,7 +5201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loop: 1
   smoothFactor: 2
-  addIntensity: 1
+  addIntensity: 3
 --- !u!135 &135925604985853942
 SphereCollider:
   m_ObjectHideFlags: 1

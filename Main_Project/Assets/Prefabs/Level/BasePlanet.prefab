@@ -347,6 +347,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4402250461987510}
   - component: {fileID: 108695739959233198}
+  - component: {fileID: 114985750641368624}
   m_Layer: 0
   m_Name: Aura Point Light
   m_TagString: Untagged
@@ -1126,6 +1127,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravity: -10
+--- !u!114 &114985750641368624
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1743765380239000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 8
+  ScatteringCoef: 0.5
+  ExtinctionCoef: 0.01
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0.1
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 0
+  NoiseScale: 0.015
+  NoiseIntensity: 1
+  NoiseIntensityOffset: 0.3
+  NoiseVelocity: {x: 3, y: 3}
+  MaxRayLength: 400
 --- !u!135 &135819098645662856
 SphereCollider:
   m_ObjectHideFlags: 1

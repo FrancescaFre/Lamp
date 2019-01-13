@@ -1030,7 +1030,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4093610162891798, guid: c6b1a4e7db96bee4e813686488700ce1, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6b1a4e7db96bee4e813686488700ce1, type: 2}
@@ -4420,84 +4420,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AdditionalVertexStreamMesh: {fileID: 0}
---- !u!1 &291985654
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 291985655}
-  - component: {fileID: 291985657}
-  - component: {fileID: 291985658}
-  m_Layer: 0
-  m_Name: Aura Point Light
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &291985655
+--- !u!4 &291985655 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 291985654}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 50, y: 50, z: 50}
-  m_Children: []
-  m_Father: {fileID: 1377558520}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!108 &291985657
-Light:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 291985654}
-  m_Enabled: 1
-  serializedVersion: 8
-  m_Type: 2
-  m_Color: {r: 0.7058824, g: 0.42745098, b: 1, a: 1}
-  m_Intensity: 4
-  m_Range: 25
-  m_SpotAngle: 30
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 0
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_Lightmapping: 1
-  m_LightShadowCasterMode: 0
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
---- !u!114 &291985658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 291985654}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17d8fd45ccd1b3048817f7d9290972f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_CorrespondingSourceObject: {fileID: 4221183270294178, guid: 4be1337add55a4b4e875f4c3a504083a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1464949416}
 --- !u!1001 &295873298
 Prefab:
   m_ObjectHideFlags: 0
@@ -15337,103 +15264,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b142c931e4f39c429a012dc68ba0659, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volumeShape:
-    shape: 3
-    fading:
-      falloffExponent: 2.75
-      xPositiveCubeFade: 0.25
-      xNegativeCubeFade: 0.25
-      yPositiveCubeFade: 0.25
-      yNegativeCubeFade: 0.25
-      zPositiveCubeFade: 0.25
-      zNegativeCubeFade: 0.25
-      angularConeFade: 0.25
-      distanceConeFade: 0.25
-      widthCylinderFade: 0.25
-      yNegativeCylinderFade: 0.25
-      yPositiveCylinderFade: 0.25
-      heightPlaneFade: 1
-      distanceSphereFade: 0.25
-  textureMask:
-    clipComputationBasedOnAlpha: 0
-    clippingThreshold: 0.5
-    enable: 0
-    filterMode: 2
-    texture: {fileID: 0}
-    textureIndex: -1
-    transform:
-      space: 1
-      position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-      animatePosition: 0
-      positionSpeed: {x: 0, y: 0, z: 0}
-      animateRotation: 0
-      rotationSpeed: {x: 0, y: 0, z: 0}
-    wrapMode: 2
-  noiseMask:
-    enable: 1
-    speed: 0.125
-    offset: 0
-    transform:
-      space: 0
-      position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-      animatePosition: 0
-      positionSpeed: {x: 0, y: 0, z: 0}
-      animateRotation: 0
-      rotationSpeed: {x: 0, y: 0, z: 0}
-  density:
-    injectionParameters:
-      enable: 1
-      strength: 1
-      textureMaskLevelParameters:
-        levelLowThreshold: 0
-        levelHiThreshold: 1
-        outputLowValue: 0
-        outputHiValue: 1
-        contrast: 1
-      noiseMaskLevelParameters:
-        levelLowThreshold: 0
-        levelHiThreshold: 1
-        outputLowValue: 0
-        outputHiValue: 1
-        contrast: 1
-  anisotropy:
-    injectionParameters:
-      enable: 1
-      strength: 0.1
-      textureMaskLevelParameters:
-        levelLowThreshold: 0
-        levelHiThreshold: 1
-        outputLowValue: 0
-        outputHiValue: 1
-        contrast: 1
-      noiseMaskLevelParameters:
-        levelLowThreshold: 0
-        levelHiThreshold: 1
-        outputLowValue: 0
-        outputHiValue: 1
-        contrast: 1
-  color:
-    injectionParameters:
-      enable: 1
-      strength: 1
-      textureMaskLevelParameters:
-        levelLowThreshold: 0
-        levelHiThreshold: 1
-        outputLowValue: 0
-        outputHiValue: 1
-        contrast: 1
-      noiseMaskLevelParameters:
-        levelLowThreshold: 0
-        levelHiThreshold: 1
-        outputLowValue: 0
-        outputHiValue: 1
-        contrast: 1
-    color: {r: 0.14291191, g: 0, b: 1, a: 1}
-  gizmoColor: {r: 0.5, g: 0.72419906, b: 1, a: 1}
 --- !u!114 &1046536701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21775,6 +21605,48 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4896051043435246, guid: 86022ef36e314bc4698839fa0d749f4e,
     type: 2}
   m_PrefabInternal: {fileID: 1463410416}
+--- !u!1001 &1464949416
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1377558520}
+    m_Modifications:
+    - target: {fileID: 4221183270294178, guid: 4be1337add55a4b4e875f4c3a504083a, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221183270294178, guid: 4be1337add55a4b4e875f4c3a504083a, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221183270294178, guid: 4be1337add55a4b4e875f4c3a504083a, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221183270294178, guid: 4be1337add55a4b4e875f4c3a504083a, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221183270294178, guid: 4be1337add55a4b4e875f4c3a504083a, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221183270294178, guid: 4be1337add55a4b4e875f4c3a504083a, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221183270294178, guid: 4be1337add55a4b4e875f4c3a504083a, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221183270294178, guid: 4be1337add55a4b4e875f4c3a504083a, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4be1337add55a4b4e875f4c3a504083a, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &1466695338
 Prefab:
   m_ObjectHideFlags: 0

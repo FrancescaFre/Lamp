@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 4487511059341074}
   - component: {fileID: 108232762866036994}
   - component: {fileID: 114966445912475692}
+  - component: {fileID: 114152999659798444}
   m_Layer: 0
   m_Name: DX_Light
   m_TagString: Untagged
@@ -278,6 +279,7 @@ GameObject:
   - component: {fileID: 4732277138084088}
   - component: {fileID: 108431025352680118}
   - component: {fileID: 114515822951152724}
+  - component: {fileID: 114985632534246832}
   m_Layer: 0
   m_Name: SX_Light
   m_TagString: Untagged
@@ -1141,6 +1143,31 @@ MonoBehaviour:
   baseClip: {fileID: 0}
   playOnStartGame: 0
   doesLoop: 1
+--- !u!114 &114152999659798444
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1191292942064654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 47
+  ScatteringCoef: 0.467
+  ExtinctionCoef: 0.0203
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0.27
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 1
+  NoiseScale: 0.5
+  NoiseIntensity: 10
+  NoiseIntensityOffset: 0.4
+  NoiseVelocity: {x: 0.1, y: -0.1}
+  MaxRayLength: 400
 --- !u!114 &114279594278045638
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1165,7 +1192,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightBulb: []
-  auraLight: []
   particleSystems: []
   allColliders: []
   isEnemyLamp: 1
@@ -1188,7 +1214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loop: 1
-  smoothFactor: 2
+  smoothFactor: 2.5
   addIntensity: 2
 --- !u!114 &114718874968630522
 MonoBehaviour:
@@ -1216,6 +1242,31 @@ MonoBehaviour:
   loop: 1
   smoothFactor: 2
   addIntensity: 2
+--- !u!114 &114985632534246832
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1944978107486520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 47
+  ScatteringCoef: 0.467
+  ExtinctionCoef: 0.0203
+  SkyboxExtinctionCoef: 0.9
+  MieG: 0.27
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 1
+  NoiseScale: 0.5
+  NoiseIntensity: 10
+  NoiseIntensityOffset: 0.4
+  NoiseVelocity: {x: 0.1, y: -0.1}
+  MaxRayLength: 400
 --- !u!135 &135955858280488554
 SphereCollider:
   m_ObjectHideFlags: 1
