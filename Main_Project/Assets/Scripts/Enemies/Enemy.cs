@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI; //needed for NavMeshAgent
-using AuraAPI;
+//using AuraAPI;
 
 
 public enum EnemyStatus { WANDERING = 0, SEEKING, SEARCHING, RETURN}
@@ -65,7 +65,7 @@ public class Enemy : MonoBehaviour
     int randomInt=1;
 
     public Light[] lights;
-    public AuraLight[] auraLight;
+    //public AuraLight[] auraLight;
 
     public ParticleSystem teleportParticles;
     public ParticleSystem searchingParticles;
@@ -91,14 +91,14 @@ public class Enemy : MonoBehaviour
     {
 //-------------------- Setup Aura Lights
         lights = GetComponentsInChildren<Light>();                 //the light sources of the child GO
-        auraLight = GetComponentsInChildren<AuraLight>();                 //the aura sources of the child GO
+        /*auraLight = GetComponentsInChildren<AuraLight>();                 //the aura sources of the child GO
 
 
         for (int i = 0; i < auraLight.Length; i++)
         {
             auraLight[i].enabled = true;
         }
-
+        */
 //-------------------- Assign the first set of values to FOV
         fov = this.GetComponentInChildren<EnemyFOV>();
         fov.FOVSetParameters(cov_distance_wander, cov_angle_wander, this.transform);

@@ -106,21 +106,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1413760682556032
-GameObject:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4088236472240124}
-  m_Layer: 0
-  m_Name: AudioSource
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1433521553276496
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +133,6 @@ GameObject:
   - component: {fileID: 4584626743472090}
   - component: {fileID: 108102363912209146}
   - component: {fileID: 114304529093321610}
-  - component: {fileID: 114636481379481444}
   - component: {fileID: 114905918207185914}
   - component: {fileID: 114055493122593762}
   m_Layer: 0
@@ -249,20 +233,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4971163886630274}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4088236472240124
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1413760682556032}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 0.11680124, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4971163886630274}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4145070019349806
 Transform:
@@ -356,7 +327,6 @@ Transform:
   m_LocalPosition: {x: 0.0047261044, y: -0.009039025, z: 0}
   m_LocalScale: {x: 0.028571436, y: 0.028571378, z: 0.028571377}
   m_Children:
-  - {fileID: 4088236472240124}
   - {fileID: 4977571264817072}
   - {fileID: 4074806504497140}
   m_Father: {fileID: 4584626743472090}
@@ -374,7 +344,7 @@ Transform:
   m_Children:
   - {fileID: 4632926639910580}
   m_Father: {fileID: 4971163886630274}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &108102363912209146
 Light:
@@ -438,9 +408,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 0}
+  minAudibleDistance: 1
   maxAudibleDistance: 100
   is2D_or3D: 1
-  clip: {fileID: 8300000, guid: 9c20e0ba84c19c642be36d0e267a8d98, type: 3}
+  baseClip: {fileID: 0}
+  playOnStartGame: 0
+  doesLoop: 1
 --- !u!114 &114304529093321610
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -455,45 +428,6 @@ MonoBehaviour:
   loop: 1
   smoothFactor: 4
   addIntensity: 0.5
---- !u!114 &114636481379481444
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1464830890356006}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  strength: 0.5
-  overrideColor: 0
-  overridingColor: {r: 0.9999, g: 0.9999, b: 0.9999, a: 0.9999}
-  useShadow: 1
-  shadowMapRenderTexture: {fileID: 0}
-  useCookie: 1
-  cookieMapRenderTexture: {fileID: 0}
-  enableOutOfPhaseColor: 0
-  outOfPhaseColorStrength: 0.1
-  outOfPhaseColor: {r: 0, g: 1, b: 1, a: 1}
-  storeShadowDataShader: {fileID: 4800000, guid: fff19db2423616b4dbabe995cd97279e,
-    type: 3}
-  shadowDataRenderTexture: {fileID: 0}
-  customDistanceFalloffThreshold: 0.5
-  customDistanceFalloffPower: 2
-  storeDirectionalSpotLightCookieMapShader: {fileID: 4800000, guid: ffdac5434c39f7545b910c253007c8fc,
-    type: 3}
-  customCookieDistanceFalloffStartThreshold: 0.1
-  customCookieDistanceFalloffEndThreshold: 0.25
-  customCookieDistanceFalloffPower: 2
-  customAngularFalloffThreshold: 0.8
-  customAngularFalloffPower: 2
-  storePointLightShadowMapShader: {fileID: 4800000, guid: f1531a9bd4087ff468de8de09f6ba126,
-    type: 3}
-  storePointLightShadowMapMesh: {fileID: 4300000, guid: d68bec3f4c08e40468fad98606344ea6,
-    type: 3}
-  storePointLightCookieMapShader: {fileID: 4800000, guid: 83815c326d7f2514884f3fc7a05b5aef,
-    type: 3}
 --- !u!114 &114850976690139930
 MonoBehaviour:
   m_ObjectHideFlags: 1

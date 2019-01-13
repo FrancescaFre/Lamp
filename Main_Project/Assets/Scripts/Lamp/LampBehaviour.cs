@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using AuraAPI;
+//using AuraAPI;
 
 public class LampBehaviour : MonoBehaviour {
     [Header("Light Sources")]
     public Light[] lightBulb;
-    public AuraLight[] auraLight;
+    //public AuraLight[] auraLight;
     [Header("All Paricles")]
     public ParticleSystem[] particleSystems;
     [Header("All the Colliders")]
@@ -44,7 +44,7 @@ public class LampBehaviour : MonoBehaviour {
         emitter = GetComponent<SFXEmitter>();
 
         lightBulb = GetComponentsInChildren<Light>();                 //the light sources of the child GO
-        auraLight = GetComponentsInChildren<AuraLight>();                 //the aura sources of the child GO
+        //auraLight = GetComponentsInChildren<AuraLight>();                 //the aura sources of the child GO
         particleSystems = GetComponentsInChildren<ParticleSystem>();
 
         allColliders = GetComponentsInChildren<Collider>();
@@ -73,7 +73,7 @@ public class LampBehaviour : MonoBehaviour {
                 lightBulb[i].color = GameManager.Instance.levelLoaded.allyColor;
 
             lightBulb[i].gameObject.SetActive(isTurnedOn);
-            auraLight[i].enabled = true;
+            //auraLight[i].enabled = true;
         }
 
 
@@ -118,7 +118,7 @@ public class LampBehaviour : MonoBehaviour {
 
         for (int i = 0; i < lightBulb.Length; i++) {
             lightBulb[i].gameObject.SetActive(true);
-            auraLight[i].enabled = true;
+           // auraLight[i].enabled = true;
         }
 
         for (int i = 0; i < allColliders.Length; i++) {
@@ -148,7 +148,7 @@ public class LampBehaviour : MonoBehaviour {
         isTurnedOn = false;
         for (int i = 0; i < lightBulb.Length; i++) {
             lightBulb[i].gameObject.SetActive(false);
-            auraLight[i].enabled = false;
+          //  auraLight[i].enabled = false;
             Debug.Log("off: " + lightBulb[i].gameObject.name);
         }
 
