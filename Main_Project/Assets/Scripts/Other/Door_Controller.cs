@@ -8,7 +8,7 @@ public class Door_Controller : MonoBehaviour {
     // Use this for initialization
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Player")) {
+        if (collision.collider.CompareTag(Tags.Player)) {
             Debug.Log("Player collider");
             if (collision.collider.GetComponent<PlayerController>().keys > 0)
             {

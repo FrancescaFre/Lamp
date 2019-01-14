@@ -9,7 +9,7 @@ public class DrillPlus : MonoBehaviour {
 
     void OnCollisionEnter(Collision player)
     {
-        if (player.collider.CompareTag("Player"))
+        if (player.collider.CompareTag(Tags.Player))
         {
             GameManager.Instance.currentPC.digCount++;
             Destroy(gameObject);

@@ -11,7 +11,7 @@ public class LanternBody : MonoBehaviour
 
     void OnCollisionEnter(Collision player)
     {
-        if (player.collider.CompareTag("Player"))
+        if (player.collider.CompareTag(Tags.Player))
         {
             // TODO: ADD ITEM TO INVENTORY
             lantern.SetActive(true); // REPLACE THIS

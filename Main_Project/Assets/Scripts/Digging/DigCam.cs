@@ -21,6 +21,6 @@ public class DigCam : MonoBehaviour {
     // Every frame takes the same position as the dummy camera, in relation to the player
     private void LateUpdate()
     {
-        _input = Input.GetAxis("PS4_RStick_X") + Input.GetAxis("Mouse X");      //if one is zero the other one will not
+        _input = Input.GetAxis(Controllers.PS4_RStick_X) + Input.GetAxis("Mouse X");      //if one is zero the other one will not
     }
 }

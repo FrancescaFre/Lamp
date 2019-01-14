@@ -8,7 +8,7 @@ public class EnterArea : MonoBehaviour {
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag(Tags.Player))
             related.DieNow = true;
     }
 }

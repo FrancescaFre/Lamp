@@ -28,8 +28,8 @@ public class DummyPlayer : MonoBehaviour
 
     private void Update()
     {
-        _horizInput = Input.GetAxis("Horizontal");
-        _vertInput = Input.GetAxis("Vertical");
+        _horizInput = Input.GetAxis(Controllers.Horizontal);
+        _vertInput = Input.GetAxis(Controllers.Vertical);
     }
 
     private void FixedUpdate()
@@ -45,7 +45,7 @@ public class DummyPlayer : MonoBehaviour
     /// </summary>
     private bool CanMove()
     {
-        if (Input.GetButton("PS4_L2") || Input.GetKey(KeyCode.T)) // Slows the movement if the player is pressing the stealth button
+        if (Input.GetButton(Controllers.PS4_L2) || Input.GetKey(KeyCode.T)) // Slows the movement if the player is pressing the stealth button
             _stepSpeed = _stealthSpeed;
         else // Otherwise, it's normal speed
             _stepSpeed = _walkSpeed;

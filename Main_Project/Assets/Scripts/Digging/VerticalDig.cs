@@ -6,10 +6,10 @@ public class VerticalDig : Digging
 
     private void OnTriggerEnter(Collider terrain)
     {
-        if (terrain.CompareTag("Water") ||
-            terrain.CompareTag("Leaves") ||
-            terrain.CompareTag("Ice") ||
-            terrain.CompareTag("Solid") ||
+        if (terrain.CompareTag(Tags.Water) ||
+            terrain.CompareTag(Tags.Leaves) ||
+            terrain.CompareTag(Tags.Ice) ||
+            terrain.CompareTag(Tags.Solid) ||
             terrain.gameObject.layer == 11)
 
             otherSideIsWrong = true;
@@ -17,10 +17,10 @@ public class VerticalDig : Digging
 
     private void OnTriggerStay(Collider terrain)
     {
-        if (terrain.CompareTag("Water") ||
-            terrain.CompareTag("Leaves") ||
-            terrain.CompareTag("Ice") ||
-            terrain.CompareTag("Solid") ||
+        if (terrain.CompareTag(Tags.Water) ||
+            terrain.CompareTag(Tags.Leaves) ||
+            terrain.CompareTag(Tags.Ice) ||
+            terrain.CompareTag(Tags.Solid) ||
             terrain.gameObject.layer == 11)
 
             otherSideIsWrong = true;
@@ -28,10 +28,10 @@ public class VerticalDig : Digging
 
     private void OnTriggerExit(Collider terrain)
     {
-        if (terrain.CompareTag("Water") ||
-            terrain.CompareTag("Leaves") ||
-            terrain.CompareTag("Ice") ||
-            terrain.CompareTag("Solid") ||
+        if (terrain.CompareTag(Tags.Water) ||
+            terrain.CompareTag(Tags.Leaves) ||
+            terrain.CompareTag(Tags.Ice) ||
+            terrain.CompareTag(Tags.Solid) ||
             terrain.gameObject.layer == 11)
 
             otherSideIsWrong = false;

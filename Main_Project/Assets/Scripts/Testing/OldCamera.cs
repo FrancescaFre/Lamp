@@ -34,15 +34,15 @@ public class OldCamera : MonoBehaviour {//http://youtu.be/MFQhpwc6cKE
     /// If a button is clicked, enables/disables the control of the camera around the player
     /// </summary>
     private void CheckCameraMovement() {
-        if (Input.GetButtonDown("PS4_Button_RStickClick") || Input.GetKeyDown(KeyCode.Tab)) {
+        if (Input.GetButtonDown(Controllers.PS4_Button_RStickClick) || Input.GetKeyDown(KeyCode.Tab)) {
             Debug.Log("before " + IsFollowingPlayer);
             this.SetCamera();
 
             Debug.Log("after " + IsFollowingPlayer);
         }
 
-        float rStickX = Input.GetAxis("PS4_RStick_X");
-        float rStickY = Input.GetAxis("PS4_RStick_Y");
+        float rStickX = Input.GetAxis(Controllers.PS4_RStick_X);
+        float rStickY = Input.GetAxis(Controllers.PS4_RStick_Y);
 
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");

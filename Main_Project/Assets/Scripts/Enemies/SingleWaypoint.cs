@@ -11,7 +11,7 @@ public class SingleWaypoint : MonoBehaviour
    
     private void OnTriggerEnter (Collider other)
     { 
-        if (other.CompareTag("Lamp_Base"))
+        if (other.CompareTag(Tags.Lamp_Base))
         {
             Debug.Log("Under a lamp");
             underALamp = true;

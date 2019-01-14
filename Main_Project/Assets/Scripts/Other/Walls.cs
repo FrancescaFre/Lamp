@@ -10,7 +10,7 @@ public class Walls : MonoBehaviour {
     {
       //  layer = this.gameObject.layer;
         foreach (Light light in this.transform.GetComponentsInChildren<Light>())
-            if (light.transform.CompareTag("DigLight"))
+            if (light.transform.CompareTag(Tags.DigLight))
                 lights.Add(light);
 
         foreach (Light light in lights)
@@ -28,14 +28,14 @@ public class Walls : MonoBehaviour {
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponentInParent<PlayerController>() && other.GetComponentInParent<PlayerController>().CompareTag("Player") && lights.Count >0)
+        if (other.GetComponentInParent<PlayerController>() && other.GetComponentInParent<PlayerController>().CompareTag(Tags.Player) && lights.Count >0)
             foreach (Light light in lights)
                light.enabled = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.GetComponentInParent<PlayerController>() && other.GetComponentInParent<PlayerController>().CompareTag("Player"))
+        if (other.GetComponentInParent<PlayerController>() && other.GetComponentInParent<PlayerController>().CompareTag(Tags.Player))
             foreach (Light light in lights)
                 light.enabled = false;
     }

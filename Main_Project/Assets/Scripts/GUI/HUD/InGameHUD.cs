@@ -38,7 +38,7 @@ public class InGameHUD : MonoBehaviour {
     private void FixedUpdate() {
         
 
-        if (Input.GetAxis("PS4_DPad_Y") > 0 || Input.GetKeyDown(KeyCode.I)) {
+        if (Input.GetAxis(Controllers.PS4_DPad_Y) > 0 || Input.GetKeyDown(KeyCode.I)) {
             lampHUDPanel.gameObject.SetActive(!lampHUDPanel.gameObject.activeInHierarchy);
         }
     }

@@ -28,8 +28,8 @@ public class MovToCamera : MonoBehaviour
 
     private void Update()
     {
-        horizInput = Input.GetAxis("Horizontal");
-        vertInput = Input.GetAxis("Vertical");
+        horizInput = Input.GetAxis(Controllers.Horizontal);
+        vertInput = Input.GetAxis(Controllers.Vertical);
     }
 
     private void FixedUpdate()

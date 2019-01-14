@@ -83,11 +83,11 @@ public class PlayerController : MonoBehaviour {
         var particles =GetComponentsInChildren<CFX_AutoDestructShuriken>(); 
         foreach(var part in particles) {
 
-            if (part.CompareTag("Half_Curse"))
+            if (part.CompareTag(Tags.Half_Curse))
                 halfCurseEffect = part.GetComponent<ParticleSystem>();
-            else if(part.CompareTag("Full_Curse"))
+            else if(part.CompareTag(Tags.Full_Curse))
                 fullCurseEffect = part.GetComponent<ParticleSystem>();
-            else if(part.CompareTag("Dig_Effect"))
+            else if(part.CompareTag(Tags.Dig_Effect))
                 digEffect = part.GetComponent<ParticleSystem>();
             part.gameObject.SetActive(false);
         }
@@ -119,7 +119,7 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     private void CheckSkillInteraction() {
  
-        if (Input.GetButtonDown("PS4_Button_O") || Input.GetKeyDown(KeyCode.Q)) {
+        if (Input.GetButtonDown(Controllers.PS4_Button_O) || Input.GetKeyDown(KeyCode.Q)) {
             if (usingSkill)
             {
                 skill.DeactivateSkill();
@@ -150,32 +150,32 @@ public class PlayerController : MonoBehaviour {
     //far apparire il pulsante per interagirci, per ora basta avvicinarsi per raccoglierlo
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("MissingPart"))
+        if (other.CompareTag(Tags.MissingPart))
         {
             _missingParts++;
             other.gameObject.SetActive(false);
             //------ WARNING: todo
         }
-        else if (other.CompareTag("Key"))
+        else if (other.CompareTag(Tags.Key))
         {
             keys++;
             AudioManager.Instance.SFXSource.PlayOneShot(GameManager.Instance.levelLoaded.keySFX);
             other.gameObject.SetActive(false);
             //------ WARNING: todo NON LO SO
         }
-        else if (other.CompareTag("Drill")) {
+        else if (other.CompareTag(Tags.Drill)) {
             digCount++;
             other.gameObject.SetActive(false);
         }
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Lamp_Base")) {//if the character has entered the light of a lamp that is switched on
+        if (other.CompareTag(Tags.Lamp_Base)) {//if the character has entered the light of a lamp that is switched on
             IsSafe = true;
         }
         //if the character touches an enemy trigger
         //READ AS: if an enemy curse the character
-        else if (other.CompareTag("EnemyBody") && !IsSafe) {
+        else if (other.CompareTag(Tags.EnemyBody) && !IsSafe) {
 
             Enemy touchedEnemy = other.GetComponentInParent<Enemy>();
             touchedEnemy.PlayerTouched(this);
@@ -203,7 +203,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void OnTriggerExit(Collider other) {
-        if (other.CompareTag("Lamp_Base") ) {//if the character has entered the light of a lamp that is switched on
+        if (other.CompareTag(Tags.Lamp_Base) ) {//if the character has entered the light of a lamp that is switched on
             IsSafe = false;
         }
     }
@@ -211,7 +211,7 @@ public class PlayerController : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision) {
         Collider other = collision.collider;
-        if (other.CompareTag("Lamp_Switch")) {
+        if (other.CompareTag(Tags.Lamp_Switch)) {
             Debug.Log("lamp_switch");
             LampBehaviour lamp = other.GetComponentInParent<LampBehaviour>();
             Debug.Log("lamp_switch: ON "+lamp.transform.position);
@@ -245,13 +245,13 @@ public class PlayerController : MonoBehaviour {
     {
         if (!IsCasting)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetButtonDown("PS4_Button_Triangle")) // [VDIG]
+            if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetButtonDown(Controllers.PS4_Button_Triangle)) // [VDIG]
                 if (digCount > 0)
                 {
                     VDig.CheckInput();
                 }
 
-            if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetButtonDown("PS4_Button_Square")) // [ZDIG]
+            if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetButtonDown(Controllers.PS4_Button_Square)) // [ZDIG]
                 if (digCount > 0)
                 {
                     ZDig.CheckInput();

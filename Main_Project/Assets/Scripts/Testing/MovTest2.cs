@@ -31,8 +31,8 @@ public class MovTest2 : MonoBehaviour
 
     private void FixedUpdate()
     {
-        horizInput = Input.GetAxis("Horizontal");
-        vertInput = Input.GetAxis("Vertical");
+        horizInput = Input.GetAxis(Controllers.Horizontal);
+        vertInput = Input.GetAxis(Controllers.Vertical);
         if (vertInput != 0 || horizInput != 0)
             MovePlayerParentCam();
         //topCam.transform.parent = transform;

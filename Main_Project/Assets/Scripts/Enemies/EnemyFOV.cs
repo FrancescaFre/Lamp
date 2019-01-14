@@ -40,7 +40,7 @@ public class EnemyFOV : MonoBehaviour {
         StartCoroutine("FindTargetsWithDelay", .2f);
 
         foreach (ParticleSystem ps in transform.GetComponentsInChildren<ParticleSystem>())
-            if (ps.CompareTag("HearingAreaEnemy"))
+            if (ps.CompareTag(Tags.HearingAreaEnemy))
                 hearingParticle = ps;
         //todo: settare il raggio
     }
@@ -59,14 +59,14 @@ public class EnemyFOV : MonoBehaviour {
 
 
         //se diventa safe quando è ancora dentro la visione, è giusto che si corregga
-        if (other.CompareTag("Player") && other.transform.GetComponent<PlayerController>().IsSafe && earedTargets.Contains(other.transform))
+        if (other.CompareTag(Tags.Player) && other.transform.GetComponent<PlayerController>().IsSafe && earedTargets.Contains(other.transform))
         {
             earedTargets.Remove(other.transform);
             GameManager.Instance.howManyHearing--;
         }
 
         //se il player non è in sneaky e non è contenuto nella lista, allora gtfo
-        if (other.CompareTag("Player") && !other.transform.GetComponent<PlayerController>().isSneaking && !other.transform.GetComponent<PlayerController>().IsSafe && !earedTargets.Contains(other.transform))
+        if (other.CompareTag(Tags.Player) && !other.transform.GetComponent<PlayerController>().isSneaking && !other.transform.GetComponent<PlayerController>().IsSafe && !earedTargets.Contains(other.transform))
         {
             earedTargets.Add(other.transform);
             GameManager.Instance.howManyHearing++;
@@ -76,7 +76,7 @@ public class EnemyFOV : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {//se non contiene quella transform vuol dire che il player è entrato e uscito come sneaky
-        if (other.CompareTag("Player") && earedTargets.Contains(other.transform))
+        if (other.CompareTag(Tags.Player) && earedTargets.Contains(other.transform))
         {
             earedTargets.Remove(other.transform);
             GameManager.Instance.howManyHearing--;

@@ -15,7 +15,7 @@ public class PileOfLeaves : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        if (other.CompareTag("Player"))
+        if (other.CompareTag(Tags.Player))
         {
 
             radius = other.GetComponent<PlayerController>().isSneaking ? radiusIsSneaking : radiusNotSneaking;

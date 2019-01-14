@@ -74,7 +74,7 @@ public class Robot : Skill
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (collision.collider.CompareTag(Tags.Player))
         {
             PickUp();
         }
@@ -120,8 +120,8 @@ public class Robot : Skill
     /// </summary>
     private void MoveRobot()
     {
-        this._horiz_axis = Input.GetAxis("Horizontal");
-        this._vert_axis = Input.GetAxis("Vertical");
+        this._horiz_axis = Input.GetAxis(Controllers.Horizontal);
+        this._vert_axis = Input.GetAxis(Controllers.Vertical);
         _moveDir.Set(_horiz_axis, 0f, _vert_axis);
         _moveDir.Normalize();
         _movement = transform.TransformDirection(_moveDir) * walkSpeed * Time.deltaTime;

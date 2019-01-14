@@ -6,7 +6,7 @@ public class TutorialTriggerWhenYourSpecialAndYouFallFromTheFirstPlatform : Tuto
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag(Tags.Player))
         {
             tm.NewStep();
             if (nextToSpawn)

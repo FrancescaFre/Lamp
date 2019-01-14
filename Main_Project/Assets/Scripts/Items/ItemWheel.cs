@@ -39,20 +39,20 @@ public class ItemWheel : MonoBehaviour {//should be attached to the game manager
     void Update () {
 
         //input to open the wheel
-        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetButtonDown("PS4_L1")) {
+        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetButtonDown(Controllers.PS4_L1)) {
             WheelPanel.SetActive(true);
             Time.timeScale = .7f;
             Time.fixedDeltaTime = .2f * Time.timeScale;
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetButtonUp("PS4_L1")) {
+        if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetButtonUp(Controllers.PS4_L1)) {
             WheelPanel.SetActive(false);
             Time.fixedDeltaTime = _originalFixedTime;
         }
 
         //to select item via controller
-        if (Input.GetButton("PS4_L1")) {//while L1 is held down
-            float rStickX = Input.GetAxis("PS4_RStick_X");
-            float rStickY = Input.GetAxis("PS4_RStick_Y");
+        if (Input.GetButton(Controllers.PS4_L1)) {//while L1 is held down
+            float rStickX = Input.GetAxis(Controllers.PS4_RStick_X);
+            float rStickY = Input.GetAxis(Controllers.PS4_RStick_Y);
 
             Debug.Log("L1 + ");
             #region Vertical Items

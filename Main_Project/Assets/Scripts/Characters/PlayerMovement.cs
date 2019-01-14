@@ -94,8 +94,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        _horizInput = Input.GetAxis("Horizontal");
-        _vertInput = Input.GetAxis("Vertical");
+        _horizInput = Input.GetAxis(Controllers.Horizontal);
+        _vertInput = Input.GetAxis(Controllers.Vertical);
 
         AnimationUpdate();
     }
@@ -103,46 +103,46 @@ public class PlayerMovement : MonoBehaviour
     
     private void OnTriggerEnter(Collider terrain)
     {
-        if (terrain.CompareTag("Water")) // If player entered in a water / mud pond
+        if (terrain.CompareTag(Tags.Water)) // If player entered in a water / mud pond
             OnWater = true;
 
-        if (terrain.CompareTag("Leaves")) // If player is walking on a noisy terrain
+        if (terrain.CompareTag(Tags.Leaves)) // If player is walking on a noisy terrain
             OnLeaves = true;
 
-        if (terrain.CompareTag("Ice")) // If player is walking on ice
+        if (terrain.CompareTag(Tags.Ice)) // If player is walking on ice
             OnIce = true;
 
-        if (terrain.CompareTag("Solid")) // If player is walking on a solid floor
+        if (terrain.CompareTag(Tags.Solid)) // If player is walking on a solid floor
             OnSolidFloor = true;
     }
 
     private void OnTriggerStay(Collider terrain)
     {
-        if (terrain.CompareTag("Water")) // If player entered in a water / mud pond
+        if (terrain.CompareTag(Tags.Water)) // If player entered in a water / mud pond
             OnWater = true;
 
-        if (terrain.CompareTag("Leaves")) // If player is walking on a noisy terrain
+        if (terrain.CompareTag(Tags.Leaves)) // If player is walking on a noisy terrain
             OnLeaves = true;
 
-        if (terrain.CompareTag("Ice")) // If player is walking on ice
+        if (terrain.CompareTag(Tags.Ice)) // If player is walking on ice
             OnIce = true;
 
-        if (terrain.CompareTag("Solid")) // If player is walking on a solid floor
+        if (terrain.CompareTag(Tags.Solid)) // If player is walking on a solid floor
             OnSolidFloor = true;
     }
 
     private void OnTriggerExit(Collider terrain)
     {
-        if (terrain.CompareTag("Water")) // If player entered in a water / mud pond
+        if (terrain.CompareTag(Tags.Water)) // If player entered in a water / mud pond
             OnWater = false;
 
-        if (terrain.CompareTag("Leaves")) // If player is walking on a noisy terrain
+        if (terrain.CompareTag(Tags.Leaves)) // If player is walking on a noisy terrain
             OnLeaves = false;
 
-        if (terrain.CompareTag("Ice")) // If player is walking on ice
+        if (terrain.CompareTag(Tags.Ice)) // If player is walking on ice
             OnIce = false;
 
-        if (terrain.CompareTag("Solid")) // If player is walking on a solid floor
+        if (terrain.CompareTag(Tags.Solid)) // If player is walking on a solid floor
             OnSolidFloor = false;
     }
 
@@ -183,7 +183,7 @@ public class PlayerMovement : MonoBehaviour
         /// </summary>
         private void CheckStealth()
     {
-        if (Input.GetButton("PS4_L2") || Input.GetKey(KeyCode.Space)) // Slows the movement if the player is pressing the stealth button
+        if (Input.GetButton(Controllers.PS4_L2) || Input.GetKey(KeyCode.Space)) // Slows the movement if the player is pressing the stealth button
         {
             _stepSpeed = stealthSpeed;
             _player.isSneaking = true;

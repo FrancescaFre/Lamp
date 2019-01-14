@@ -25,7 +25,7 @@ public class WorldEnlighter : MonoBehaviour {
             _fog.ScatteringCoef -= .1f;
     }
 
-    private void Update() {
+    private void Update() {//test
         if (Input.GetKeyDown(KeyCode.T))
             Enlight();
     }

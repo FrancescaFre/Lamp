@@ -13,6 +13,9 @@ public static class Controllers {
     public readonly static string PS4_RStick_X = "PS4_RStick_X";
     public readonly static string PS4_Button_RStickClick = "PS4_Button_RStickClick";
     //L stick
+
+    public readonly static string Horizontal = "Horizontal";
+    public readonly static string Vertical = "Vertical";
     public readonly static string PS4_Button_LStickClick = "PS4_Button_LStickClick";
 
     //front buttons
@@ -31,7 +34,7 @@ public static class Controllers {
     public readonly static string PS4_Button_SHARE = "PS4_Button_SHARE";
     public readonly static string PS4_Button_OPTIONS = "PS4_Button_OPTIONS";
 
-
+/*
     public static void CheckInput() {
         float dPadX = Input.GetAxis("PS4_DPad_X");
         float dPadY = Input.GetAxis("PS4_DPad_Y");
@@ -88,5 +91,5 @@ public static class Controllers {
             Debug.Log("Input: OPTIONS");
 
     }
-
+*/
 }

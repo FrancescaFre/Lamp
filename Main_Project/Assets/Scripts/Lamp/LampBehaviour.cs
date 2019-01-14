@@ -79,11 +79,11 @@ public class LampBehaviour : MonoBehaviour {
 
 
         for (int i = 0; i < allColliders.Length; i++) {
-            if (allColliders[i].CompareTag("Lamp_Switch")) {
+            if (allColliders[i].CompareTag(Tags.Lamp_Switch)) {
                 allColliders[i].enabled = true;
                 allColliders[i].isTrigger = false;
             }
-            if (allColliders[i].CompareTag("Lamp_Base")) {
+            if (allColliders[i].CompareTag(Tags.Lamp_Base)) {
                 allColliders[i].enabled = false;
                 allColliders[i].isTrigger = true;
             }
@@ -123,7 +123,7 @@ public class LampBehaviour : MonoBehaviour {
 
         for (int i = 0; i < allColliders.Length; i++) {
 
-            if (allColliders[i].CompareTag("Lamp_Base"))
+            if (allColliders[i].CompareTag(Tags.Lamp_Base))
                 allColliders[i].enabled = true;
         }
 

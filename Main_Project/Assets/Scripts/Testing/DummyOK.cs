@@ -28,8 +28,8 @@ public class DummyOK : MonoBehaviour
 
     private void Update()
     {
-        _horizInput = Input.GetAxis("Horizontal");
-        _vertInput = Input.GetAxis("Vertical");
+        _horizInput = Input.GetAxis(Controllers.Horizontal);
+        _vertInput = Input.GetAxis(Controllers.Vertical);
     }
 
     private void FixedUpdate()

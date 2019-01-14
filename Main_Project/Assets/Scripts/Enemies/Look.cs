@@ -36,7 +36,7 @@ public class Look : MonoBehaviour
 
     private void LateUpdate()
     {
-        MoveVector = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")).normalized;
+        MoveVector = new Vector3(Input.GetAxis(Controllers.Horizontal), 0f, Input.GetAxis(Controllers.Vertical)).normalized;
 
         //RotateTowardsMoveDirection();
     }

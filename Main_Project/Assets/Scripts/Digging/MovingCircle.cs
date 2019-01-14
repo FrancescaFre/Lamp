@@ -44,7 +44,7 @@ public class MovingCircle : ZoneDig {
     {
         if (!player.IsCasting)
         {
-            if (Input.GetAxis("Vertical") > 0)
+            if (Input.GetAxis(Controllers.Vertical) > 0)
                 _movement = (_cam.forward * _vertInput + _cam.right * _horizInput).normalized * _speed * Time.deltaTime;
             else
                 _movement = (_cam.up * _vertInput + _cam.right * _horizInput).normalized * _speed * Time.deltaTime;
@@ -56,8 +56,8 @@ public class MovingCircle : ZoneDig {
 
     override protected void Update()
     {
-        _horizInput = Input.GetAxis("Horizontal");
-        _vertInput = Input.GetAxis("Vertical");
+        _horizInput = Input.GetAxis(Controllers.Horizontal);
+        _vertInput = Input.GetAxis(Controllers.Vertical);
         ChangeColor();
     }
 

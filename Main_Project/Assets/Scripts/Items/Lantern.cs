@@ -39,7 +39,7 @@ public class Lantern : MonoBehaviour
 
     void OnCollisionEnter(Collision player)
     {
-        if (!_picked && player.collider.CompareTag("Player"))
+        if (!_picked && player.collider.CompareTag(Tags.Player))
             PickUp();
     }
 

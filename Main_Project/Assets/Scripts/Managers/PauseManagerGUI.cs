@@ -37,7 +37,7 @@ public class PauseManagerGUI : MonoBehaviour {
     // Update is called once per frame
     void Update() {
 
-        if (Input.GetKeyUp(KeyCode.Escape) || Input.GetButtonUp("PS4_Button_OPTIONS")) {//once the button has JUST been released
+        if (Input.GetKeyUp(KeyCode.Escape) || Input.GetButtonUp(Controllers.PS4_Button_OPTIONS)) {//once the button has JUST been released
                                                                                         //switches on and off the pause menu
             if (optionsGUI.gameObject.activeInHierarchy) {
                 OptionsToPause();

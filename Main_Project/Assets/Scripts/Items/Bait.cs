@@ -33,7 +33,7 @@ public class Bait : MonoBehaviour {
 
     void OnCollisionEnter(Collision player)
     {
-        if (player.collider.CompareTag("Player"))
+        if (player.collider.CompareTag(Tags.Player))
         {
             _picked = true;
             Destroy(gameObject);

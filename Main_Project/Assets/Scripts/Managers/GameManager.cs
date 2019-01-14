@@ -181,7 +181,7 @@ public class GameManager : MonoBehaviour {
         enemyGOList.Clear();
         CharactersDict.Clear();
         CharactersList.Clear();
-        SceneManager.LoadScene("1_GameMenu");//which has index 1
+        SceneManager.LoadScene(1);//which has index 1
         AudioManager.Instance.PlayMusic();
 
     }
@@ -212,7 +212,7 @@ public class GameManager : MonoBehaviour {
         enemyGO.GetComponent<Enemy>().path = enemyPath;
         TeamHUD.Instance.Curse();
         SpawnNewPlayer(); //destroys the character
-        Instantiate<GameObject>(enemyGO);//creates the enemy instead
+        Instantiate(enemyGO);//creates the enemy instead
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {

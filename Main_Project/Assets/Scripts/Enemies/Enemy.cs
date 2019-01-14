@@ -110,12 +110,12 @@ public class Enemy : MonoBehaviour
         hanselGretelGPS = new Stack<Transform>();
         foreach (ParticleSystem ps in transform.GetComponentsInChildren<ParticleSystem>())
         {
-            if (ps.CompareTag("TeleportEnemy"))
+            if (ps.CompareTag(Tags.TeleportEnemy))
             {
                 teleportParticles = ps;
                 teleportParticles.Stop();
             }
-            if (ps.CompareTag("SearchingStatusEnemy"))
+            if (ps.CompareTag(Tags.SearchingStatusEnemy))
             {
                 searchingParticles = ps;
                 searchingParticles.Stop();

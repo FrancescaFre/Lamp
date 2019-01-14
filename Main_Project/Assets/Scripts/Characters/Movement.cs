@@ -54,8 +54,8 @@ public class Movement : MonoBehaviour {
             if (_player.IsZoneDigging || _player.IsCasting) return; // Stops the character movement when it's zone digging or it's casting the dig
 
 
-        this._horiz_axis = Input.GetAxis("Horizontal");
-        this._vert_axis = Input.GetAxis("Vertical");
+        this._horiz_axis = Input.GetAxis(Controllers.Horizontal);
+        this._vert_axis = Input.GetAxis(Controllers.Vertical);
 
         _moveDir.Set(_horiz_axis, 0f, _vert_axis);
         _moveDir.Normalize();
@@ -73,7 +73,7 @@ public class Movement : MonoBehaviour {
         //to move the player
         Vector3 movement = Vector3.zero;
 
-        if ((Input.GetButton("PS4_L2") || Input.GetKey(KeyCode.T)) && (_horiz_axis != 0 || _vert_axis != 0)) {
+        if ((Input.GetButton(Controllers.PS4_L2) || Input.GetKey(KeyCode.T)) && (_horiz_axis != 0 || _vert_axis != 0)) {
             //if is holding down a button and moving use the stealth animation and speed
 
             movement = transform.TransformDirection(_moveDir) * stealthSpeed * Time.deltaTime;
@@ -82,7 +82,7 @@ public class Movement : MonoBehaviour {
             if(_player)
                 _player.isSneaking = true;
 
-            if (_player && (Input.GetButtonUp("PS4_L2") || Input.GetKeyUp(KeyCode.T)) )
+            if (_player && (Input.GetButtonUp(Controllers.PS4_L2) || Input.GetKeyUp(KeyCode.T)) )
                 _player.isSneaking = false;
         }
         else if (_horiz_axis != 0 || _vert_axis != 0) {
