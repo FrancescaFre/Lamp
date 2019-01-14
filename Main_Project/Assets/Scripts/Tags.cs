@@ -2,6 +2,7 @@
 /// Contains all the tags used in the game 
 /// </summary>
 public static class Tags {
+
     //player
     public readonly static string Player = "Player";
     public readonly static string Half_Curse = "Half_Curse";
@@ -27,4 +28,11 @@ public static class Tags {
     public readonly static string MissingPart = "MissingPart";
     public readonly static string Key = "Key";
     public readonly static string Drill = "Drill";
+    //dummy
+    public readonly static string DummyPlayer = "DummyPlayer";
+    public readonly static string DummyPlanet = "DummyPlanet";
+    public readonly static string DummyCam = "DummyCam";
+    //planet
+    public readonly static string Planet = "Planet";
+
 }

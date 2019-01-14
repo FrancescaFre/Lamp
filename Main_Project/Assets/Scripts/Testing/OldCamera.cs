@@ -24,7 +24,7 @@ public class OldCamera : MonoBehaviour {//http://youtu.be/MFQhpwc6cKE
 
     private void Start() {
         playerModel = transform.parent;
-        planetModel = GameObject.FindGameObjectWithTag("Planet").transform;
+        planetModel = GameObject.FindGameObjectWithTag(Tags.Planet).transform;
     }
 
     private void Update() {

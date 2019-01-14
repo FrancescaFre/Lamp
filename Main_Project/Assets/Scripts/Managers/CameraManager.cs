@@ -27,7 +27,7 @@ public class CameraManager : MonoBehaviour {
 
     // Saves the distance between the original and the dummy camera
     void Start () {
-        _dummyCam = GameObject.FindGameObjectWithTag("DummyCam").transform;
+        _dummyCam = GameObject.FindGameObjectWithTag(Tags.DummyCam).transform;
         AlignCameras();
         _camOffset = transform.position - _dummyCam.position;
     }

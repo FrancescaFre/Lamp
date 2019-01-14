@@ -9,10 +9,10 @@ public class GravityBody : MonoBehaviour
     void Start()
     {
         if (!attractor)
-            if (tag.Equals("DummyPlayer"))
-                attractor = GameObject.FindGameObjectWithTag("DummyPlanet").GetComponent<GravityAttractor>();
+            if (CompareTag(Tags.DummyPlayer))
+                attractor = GameObject.FindGameObjectWithTag(Tags.DummyPlanet).GetComponent<GravityAttractor>();
             else
-                attractor = GameObject.FindGameObjectWithTag("Planet").GetComponent<GravityAttractor>();
+                attractor = GameObject.FindGameObjectWithTag(Tags.Planet).GetComponent<GravityAttractor>();
 
         rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotation;

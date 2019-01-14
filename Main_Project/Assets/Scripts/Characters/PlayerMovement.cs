@@ -50,8 +50,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        DummyPlayer = GameObject.FindGameObjectWithTag("DummyPlayer").transform;
-        dummyCam = GameObject.FindGameObjectWithTag("DummyCam").transform;
+        DummyPlayer = GameObject.FindGameObjectWithTag(Tags.DummyPlayer).transform;
+        dummyCam = GameObject.FindGameObjectWithTag(Tags.DummyCam).transform;
 
         _player = GetComponent<PlayerController>();
         _rb = GetComponent<Rigidbody>();
