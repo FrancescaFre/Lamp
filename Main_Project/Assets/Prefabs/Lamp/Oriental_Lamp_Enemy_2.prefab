@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 65062558255430362}
   m_Layer: 0
   m_Name: LampPost_double
-  m_TagString: Lamp_Switch
+  m_TagString: Lamp/Switch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 114587998721221890}
   m_Layer: 0
   m_Name: Oriental_Lamp_Enemy_2
-  m_TagString: Lamp_Base
+  m_TagString: Lamp/Base
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1225,6 +1225,7 @@ MonoBehaviour:
   lampsInDomain: []
   canBeSwitchedOn: 0
   goodSpirits: {fileID: 0}
+  badSpirits: {fileID: 0}
   radius: 0
   emitter: {fileID: 0}
 --- !u!114 &114502685011905084

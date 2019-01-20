@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 114760580093671772}
   m_Layer: 0
   m_Name: Victorian_Lamp_Enemy_Single
-  m_TagString: Lamp_Base
+  m_TagString: Lamp/Base
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 65868836247600410}
   m_Layer: 0
   m_Name: CarvedPost2
-  m_TagString: Lamp_Switch
+  m_TagString: Lamp/Switch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -657,6 +657,7 @@ MonoBehaviour:
   lampsInDomain: []
   canBeSwitchedOn: 0
   goodSpirits: {fileID: 0}
+  badSpirits: {fileID: 0}
   radius: 0
   emitter: {fileID: 0}
 --- !u!136 &136556081016042352

@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 199281558423927458}
   m_Layer: 0
   m_Name: CFX2_Wandering_Spirits
-  m_TagString: Untagged
+  m_TagString: Spirit/Good
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 136395068267335544}
   m_Layer: 0
   m_Name: Prehistory_Lamp_Model
-  m_TagString: Lamp_Switch
+  m_TagString: Lamp/Switch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 114656290043334118}
   m_Layer: 0
   m_Name: Prehistory_Lamp
-  m_TagString: Lamp_Base
+  m_TagString: Lamp/Base
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -298,6 +298,7 @@ MonoBehaviour:
   lampsInDomain: []
   canBeSwitchedOn: 0
   goodSpirits: {fileID: 0}
+  badSpirits: {fileID: 0}
   radius: 0
   emitter: {fileID: 0}
 --- !u!114 &114234220923650090

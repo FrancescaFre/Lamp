@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 199269437708147606}
   m_Layer: 0
   m_Name: CFX2_Wandering_Spirits
-  m_TagString: Untagged
+  m_TagString: Spirit/Good
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 65057941917399678}
   m_Layer: 0
   m_Name: street_lamp
-  m_TagString: Lamp_Switch
+  m_TagString: Lamp/Switch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 114024499855585656}
   m_Layer: 0
   m_Name: Victorian_Lamp
-  m_TagString: Lamp_Base
+  m_TagString: Lamp/Base
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -574,6 +574,7 @@ MonoBehaviour:
   lampsInDomain: []
   canBeSwitchedOn: 0
   goodSpirits: {fileID: 0}
+  badSpirits: {fileID: 0}
   radius: 0
   emitter: {fileID: 0}
 --- !u!136 &136472743516345760

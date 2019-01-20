@@ -27,6 +27,7 @@ public class LampBehaviour : MonoBehaviour {
     [Tooltip("DO NOT MODIFY! \nDepends on wether the lamp has missing parts or not")]
     public bool canBeSwitchedOn = false;
     public ParticleSystem goodSpirits;
+    public ParticleSystem badSpirits;
     public int radius;
 
     public SFXEmitter emitter;
@@ -60,8 +61,10 @@ public class LampBehaviour : MonoBehaviour {
                 else
                     main.startColor = GameManager.Instance.levelLoaded.allyColor;
             }
-            else if (particleSystems[i].noise.enabled && !isEnemyLamp)
+            else if (particleSystems[i].CompareTag(Tags.GoodSpirits) && !isEnemyLamp)
                 goodSpirits = particleSystems[i];
+            else if (particleSystems[i].CompareTag(Tags.BadSpirits) && isEnemyLamp)
+                badSpirits = particleSystems[i];
         }
 
         for (int i = 0; i < lightBulb.Length; i++) {
@@ -131,6 +134,7 @@ public class LampBehaviour : MonoBehaviour {
         var temp = goodSpirits.main;
         temp.loop = false;
         
+        
         isTurnedOn = true;
         Debug.Log("lamp_switch: ON ");
         gameObject.layer = 11; //obstacle layer
@@ -153,8 +157,14 @@ public class LampBehaviour : MonoBehaviour {
           //  auraLight[i].enabled = false;
             Debug.Log("off: " + lightBulb[i].gameObject.name);
         }
+        var temp = badSpirits.main;
+        temp.loop = false;
+        foreach (Transform child in badSpirits.transform) {
+            var t = child.gameObject.GetComponent<ParticleSystem>().main;
+            t.loop = false;
+        }
 
-        GameManager.Instance.enemyLamps++;
+            GameManager.Instance.enemyLamps++;
         InGameHUD.Instance.lampHUDPanel.DequeueEnemy();
         AudioManager.Instance.SFXSource.PlayOneShot(GameManager.Instance.levelLoaded.lampSwitchSFX);
         emitter.source.Stop();
@@ -166,11 +176,11 @@ public class LampBehaviour : MonoBehaviour {
     }
     public void IsSwitchable(bool condition) {
         canBeSwitchedOn = condition;
-        if (!goodSpirits) {
+        if (!goodSpirits ) {
             if (particleSystems.Length == 0)
                 particleSystems = GetComponentsInChildren<ParticleSystem>();
             foreach (var part in particleSystems) {
-                if (part.noise.enabled)
+                if (part.CompareTag(Tags.GoodSpirits))
                     goodSpirits = part;
             }
         }

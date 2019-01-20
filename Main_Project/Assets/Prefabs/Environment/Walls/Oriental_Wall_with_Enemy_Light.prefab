@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 65161967845162524}
   m_Layer: 11
   m_Name: 653d7c08a68046e69496eb868e8f4853.fbx
-  m_TagString: Lamp_Switch
+  m_TagString: Lamp/Switch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 65915979270178588}
   m_Layer: 0
   m_Name: LampPost_wall
-  m_TagString: Lamp_Base
+  m_TagString: Lamp/Base
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -10277,6 +10277,7 @@ MonoBehaviour:
   lampsInDomain: []
   canBeSwitchedOn: 0
   goodSpirits: {fileID: 0}
+  badSpirits: {fileID: 0}
   radius: 0
   emitter: {fileID: 0}
 --- !u!114 &114676626750727140

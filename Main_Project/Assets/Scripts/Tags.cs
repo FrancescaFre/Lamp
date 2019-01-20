@@ -14,24 +14,26 @@ public static class Tags {
     public readonly static string SearchingStatusEnemy = "SearchingStatusEnemy";
     public readonly static string HearingAreaEnemy = "HearingAreaEnemy";
     //lamps
-    public readonly static string Lamp_Base = "Lamp_Base";
-    public readonly static string Lamp_Switch = "Lamp_Switch";
+    public readonly static string Lamp_Base = "Lamp/Base";
+    public readonly static string Lamp_Switch = "Lamp/Switch";
+    public readonly static string GoodSpirits = "Spirit/Good";
+    public readonly static string BadSpirits = "Spirit/Bad";
     //dig
     public readonly static string DigLight = "DigLight";
     public readonly static string Dig_Effect = "Dig_Effect";
     //surfaces
-    public readonly static string Water = "Water";
-    public readonly static string Leaves = "Leaves";
-    public readonly static string Ice = "Ice";
-    public readonly static string Solid = "Solid";
+    public readonly static string Water = "Surface/Water";
+    public readonly static string Leaves = "Surface/Leaves";
+    public readonly static string Ice = "Surface/Ice";
+    public readonly static string Solid = "Surface/Solid";
     //items
-    public readonly static string MissingPart = "MissingPart";
-    public readonly static string Key = "Key";
-    public readonly static string Drill = "Drill";
+    public readonly static string MissingPart = "Items/MissingPart";
+    public readonly static string Key = "Items/Key";
+    public readonly static string Drill = "Items/Drill";
     //dummy
-    public readonly static string DummyPlayer = "DummyPlayer";
-    public readonly static string DummyPlanet = "DummyPlanet";
-    public readonly static string DummyCam = "DummyCam";
+    public readonly static string DummyPlayer = "Dummy/Player";
+    public readonly static string DummyPlanet = "Dummy/Planet";
+    public readonly static string DummyCam = "Dummy/Cam";
     //planet
     public readonly static string Planet = "Planet";
 

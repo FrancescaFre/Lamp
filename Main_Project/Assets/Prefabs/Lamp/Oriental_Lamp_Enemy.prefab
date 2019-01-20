@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 114010097217820724}
   m_Layer: 0
   m_Name: Oriental_Lamp_Enemy
-  m_TagString: Lamp_Base
+  m_TagString: Lamp/Base
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 65610602357943986}
   m_Layer: 0
   m_Name: FurnaceA
-  m_TagString: Lamp_Switch
+  m_TagString: Lamp/Switch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -845,6 +845,7 @@ MonoBehaviour:
   lampsInDomain: []
   canBeSwitchedOn: 0
   goodSpirits: {fileID: 0}
+  badSpirits: {fileID: 0}
   radius: 0
   emitter: {fileID: 0}
 --- !u!114 &114493010241112454

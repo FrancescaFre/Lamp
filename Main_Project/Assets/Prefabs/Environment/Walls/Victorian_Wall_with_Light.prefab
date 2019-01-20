@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 65819215750352600}
   m_Layer: 0
   m_Name: CarvedPost
-  m_TagString: Lamp_Switch
+  m_TagString: Lamp/Switch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 65647774240465816}
   m_Layer: 0
   m_Name: HelperLantern_2
-  m_TagString: Lamp_Base
+  m_TagString: Lamp/Base
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -647,6 +647,7 @@ MonoBehaviour:
   lampsInDomain: []
   canBeSwitchedOn: 0
   goodSpirits: {fileID: 0}
+  badSpirits: {fileID: 0}
   radius: 0
   emitter: {fileID: 0}
 --- !u!212 &212607346034579384

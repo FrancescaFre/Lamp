@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 199813729776368902}
   m_Layer: 0
   m_Name: CFX2_Wandering_Spirits
-  m_TagString: Untagged
+  m_TagString: Spirit/Good
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 65699544299670772}
   m_Layer: 0
   m_Name: Old_Japanese_Lamp
-  m_TagString: Lamp_Switch
+  m_TagString: Lamp/Switch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 114235794073298822}
   m_Layer: 0
   m_Name: Oriental_Lamp_2
-  m_TagString: Lamp_Base
+  m_TagString: Lamp/Base
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -353,6 +353,7 @@ MonoBehaviour:
   lampsInDomain: []
   canBeSwitchedOn: 0
   goodSpirits: {fileID: 0}
+  badSpirits: {fileID: 0}
   radius: 0
   emitter: {fileID: 0}
 --- !u!114 &114981113377528178
