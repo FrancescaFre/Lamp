@@ -330,7 +330,7 @@ MonoBehaviour:
   minAudibleDistance: 1
   maxAudibleDistance: 100
   is2D_or3D: 1
-  baseClip: {fileID: 0}
+  baseClip: {fileID: 8300000, guid: 9c20e0ba84c19c642be36d0e267a8d98, type: 3}
   playOnStartGame: 0
   doesLoop: 1
 --- !u!114 &114259567422170754
@@ -354,8 +354,7 @@ MonoBehaviour:
   canBeSwitchedOn: 0
   goodSpirits: {fileID: 0}
   badSpirits: {fileID: 0}
-  radius: 0
-  emitter: {fileID: 0}
+  radiusDomain: 0
 --- !u!114 &114981113377528178
 MonoBehaviour:
   m_ObjectHideFlags: 1

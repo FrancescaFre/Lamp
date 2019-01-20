@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-//using AuraAPI;
+
 
 public class LampBehaviour : MonoBehaviour {
     [Header("Light Sources")]
     public Light[] lightBulb;
-    //public AuraLight[] auraLight;
+
     [Header("All Paricles")]
     public ParticleSystem[] particleSystems;
     [Header("All the Colliders")]
@@ -28,9 +28,9 @@ public class LampBehaviour : MonoBehaviour {
     public bool canBeSwitchedOn = false;
     public ParticleSystem goodSpirits;
     public ParticleSystem badSpirits;
-    public int radius;
+    public int radiusDomain;
 
-    public SFXEmitter emitter;
+    private SFXEmitter _emitter;
 
     void Awake() {
         
@@ -42,10 +42,10 @@ public class LampBehaviour : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        emitter = GetComponent<SFXEmitter>();
+        _emitter = GetComponent<SFXEmitter>();
 
         lightBulb = GetComponentsInChildren<Light>();                 //the light sources of the child GO
-        //auraLight = GetComponentsInChildren<AuraLight>();                 //the aura sources of the child GO
+        
         particleSystems = GetComponentsInChildren<ParticleSystem>();
 
         allColliders = GetComponentsInChildren<Collider>();
@@ -76,7 +76,7 @@ public class LampBehaviour : MonoBehaviour {
                 lightBulb[i].color = GameManager.Instance.levelLoaded.allyColor;
 
             lightBulb[i].gameObject.SetActive(isTurnedOn);
-            //auraLight[i].enabled = true;
+            
         }
 
 
@@ -93,12 +93,12 @@ public class LampBehaviour : MonoBehaviour {
         }
 
         
-        emitter.source.Stop();
+        _emitter.source.Stop();
         // ------------- Evolution of enemy lamp
         if (isEnemyLamp)
         {
-            emitter.source.Play();
-            nearByLampColliders = Physics.OverlapSphere(this.transform.position, radius);
+            _emitter.source.Play();
+            nearByLampColliders = Physics.OverlapSphere(this.transform.position, radiusDomain);
 
             foreach (Collider l in nearByLampColliders) {
                 LampBehaviour lamp = l.GetComponentInParent<LampBehaviour>();
@@ -146,7 +146,7 @@ public class LampBehaviour : MonoBehaviour {
             GameManager.Instance.GoodEndGame();
         GameManager.Instance.LastAllyLamp = this;   //if the character dies, the next one will be spawned here
 
-        emitter.source.Play();
+        _emitter.source.Play();
 
     }
 
@@ -167,7 +167,7 @@ public class LampBehaviour : MonoBehaviour {
             GameManager.Instance.enemyLamps++;
         InGameHUD.Instance.lampHUDPanel.DequeueEnemy();
         AudioManager.Instance.SFXSource.PlayOneShot(GameManager.Instance.levelLoaded.lampSwitchSFX);
-        emitter.source.Stop();
+        _emitter.source.Stop();
         //----------- Evolution of enemy lamp
         foreach (var lamp in lampsInDomain) {
                 lamp.IsSwitchable(true);
@@ -182,6 +182,8 @@ public class LampBehaviour : MonoBehaviour {
             foreach (var part in particleSystems) {
                 if (part.CompareTag(Tags.GoodSpirits))
                     goodSpirits = part;
+                if (part.CompareTag(Tags.BadSpirits))
+                    badSpirits = part;
             }
         }
 

@@ -9,6 +9,6 @@ public class LampBehaviourEditor : Editor {
     {
         LampBehaviour lamp = (LampBehaviour)target;
         Handles.color = Color.magenta;
-        Handles.DrawWireArc(lamp.transform.position, lamp.transform.up, lamp.transform.forward, 360, lamp.radius);
+        Handles.DrawWireArc(lamp.transform.position, lamp.transform.up, lamp.transform.forward, 360, lamp.radiusDomain);
     }
 }
