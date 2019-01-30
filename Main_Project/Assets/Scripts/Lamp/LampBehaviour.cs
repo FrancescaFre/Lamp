@@ -52,7 +52,8 @@ public class LampBehaviour : MonoBehaviour {
         
         
         for (int i = 0; i < particleSystems.Length; i++) {
-            if (particleSystems[i].rotationOverLifetime.enabled) {
+           // if (particleSystems[i].rotationOverLifetime.enabled)
+            //{
 
                 ParticleSystem.MainModule main = particleSystems[i].main;
 
@@ -60,8 +61,8 @@ public class LampBehaviour : MonoBehaviour {
                     main.startColor = GameManager.Instance.levelLoaded.enemyColor;
                 else
                     main.startColor = GameManager.Instance.levelLoaded.allyColor;
-            }
-            else if (particleSystems[i].CompareTag(Tags.GoodSpirits) && !isEnemyLamp)
+            //}
+            if (particleSystems[i].CompareTag(Tags.GoodSpirits) && !isEnemyLamp)
                 goodSpirits = particleSystems[i];
             else if (particleSystems[i].CompareTag(Tags.BadSpirits) && isEnemyLamp)
                 badSpirits = particleSystems[i];
@@ -157,14 +158,10 @@ public class LampBehaviour : MonoBehaviour {
           //  auraLight[i].enabled = false;
             Debug.Log("off: " + lightBulb[i].gameObject.name);
         }
-        var temp = badSpirits.main;
-        temp.loop = false;
-        foreach (Transform child in badSpirits.transform) {
-            var t = child.gameObject.GetComponent<ParticleSystem>().main;
-            t.loop = false;
-        }
 
-            GameManager.Instance.enemyLamps++;
+        badSpirits.Play();
+
+        GameManager.Instance.enemyLamps++;
         InGameHUD.Instance.lampHUDPanel.DequeueEnemy();
         AudioManager.Instance.SFXSource.PlayOneShot(GameManager.Instance.levelLoaded.lampSwitchSFX);
         _emitter.source.Stop();

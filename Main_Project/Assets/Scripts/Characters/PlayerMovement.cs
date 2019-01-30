@@ -8,11 +8,15 @@ public class PlayerMovement : MonoBehaviour
 
     [Range(0, 10)]
     [Tooltip("The player's walking speed")]
-    public float walkSpeed = 8f;
+    public float walkSpeed = 3f;
 
     [Range(1, 5)]
     [Tooltip("The player's stealth speed")]
     public float stealthSpeed = 3f;
+
+    [Range(1, 5)]
+    [Tooltip("The player's running speed")]
+    public float runSpeed = 5f;
 
     //[Tooltip("The dummy player's transform")]
     public Transform DummyPlayer { get; set; }
@@ -181,6 +185,8 @@ public class PlayerMovement : MonoBehaviour
         /// <summary>
         /// Checks if the player is stealthing or not
         /// </summary>
+        /// 
+
         private void CheckStealth()
     {
         if (Input.GetButton(Controllers.PS4_L2) || Input.GetKey(KeyCode.Space)) // Slows the movement if the player is pressing the stealth button
@@ -195,7 +201,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    /// <summary>
+   /* private void CheckRun() {
+        if (Input.GetButton(Controllers.PS4_L2) || Input.GetKey(KeyCode.Space))
+    }
+   
+    */
+    
+        /// <summary>
     /// Checks if the player is walking on a particular terrain
     /// </summary>
     private void CheckTerrain()
