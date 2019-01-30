@@ -3335,6 +3335,7 @@ MonoBehaviour:
   usingSkill: 0
   isSneaking: 0
   runningAnimation: 0
+  _missingParts: 0
   keys: 0
   halfCurseEffect: {fileID: 0}
   fullCurseEffect: {fileID: 0}
@@ -3418,6 +3419,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 3
   stealthSpeed: 2
+  runSpeed: 5
+  staminaHUD: {fileID: 0}
+  maxStamina: 5
+  staminaFallRate: 1
+  staminaFallMult: 1
+  staminaRegainRate: 1
+  staminaRegainMult: 1
+  staminaValue: 0
 --- !u!114 &114801165833583770
 MonoBehaviour:
   m_ObjectHideFlags: 1

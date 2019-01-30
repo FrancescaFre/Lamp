@@ -50,6 +50,16 @@ public class PlayerMovement : MonoBehaviour
     private List<Collider> _collisions; // When colliding with something, memorizes all the colliders involved
     */
 
+    //STAMINA
+    public StaminaHUD staminaHUD;
+    public float maxStamina = 5f;
+    public float staminaFallRate = 2f;
+    public float staminaFallMult = 1f;
+    public float staminaRegainRate = 1f;
+    public float staminaRegainMult = 1f;
+    public float staminaValue;
+
+
     //-------------------------------------------------------------------------
 
     void Start()
@@ -68,7 +78,6 @@ public class PlayerMovement : MonoBehaviour
         OnSolidFloor = false;
         _wallOnIce = false;
         _dummyOffset = DummyPlayer.transform.position - transform.position;
-        
 
         StartCoroutine(CorrectPlayerPositions());
         StartCoroutine(CorrectPlayerRotation());
@@ -79,16 +88,24 @@ public class PlayerMovement : MonoBehaviour
         _playerCollider = GetComponent<CapsuleCollider>();
         _collisions = new List<Collider>();
         */
+
+        //Stamina
+        staminaValue = maxStamina;
+        staminaHUD = InGameHUD.Instance.GetComponentInChildren<StaminaHUD>();
+        staminaHUD.MaxStamina = maxStamina;
+        staminaHUD.staminaSlider.value = staminaValue;
+        staminaHUD.staminaSlider.maxValue = maxStamina;
     }
+
 
     private void FixedUpdate()
     {
-        CheckStealth();
+        CheckMovement();
         if (_vertInput == 0 && _horizInput == 0 && !OnIce)
             return;
         else if (_player.CanMove())
         {
-            CheckStealth();
+            CheckMovement();
             if (OnWater || OnLeaves)
                 CheckTerrain();
             ComputeCamAxes();
@@ -104,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
         AnimationUpdate();
     }
 
-    
+
     private void OnTriggerEnter(Collider terrain)
     {
         if (terrain.CompareTag(Tags.Water)) // If player entered in a water / mud pond
@@ -180,34 +197,53 @@ public class PlayerMovement : MonoBehaviour
         //transform.forward = transform.TransformDirection(_horizInput, 0, _vertInput); // BROKEN
     } */
 
-        //-------------------------------------------------------------------------
+    //-------------------------------------------------------------------------
 
-        /// <summary>
-        /// Checks if the player is stealthing or not
-        /// </summary>
-        /// 
+    /// <summary>
+    /// Checks if the player is stealthing or not
+    /// </summary>
+    /// 
 
-        private void CheckStealth()
+    private void CheckMovement()
     {
+        //STEALTH
         if (Input.GetButton(Controllers.PS4_L2) || Input.GetKey(KeyCode.Space)) // Slows the movement if the player is pressing the stealth button
         {
             _stepSpeed = stealthSpeed;
             _player.isSneaking = true;
         }
+
+        //RUN - Stamina
+        else if ((Input.GetButton(Controllers.PS4_R2) || Input.GetKey(KeyCode.LeftShift)) && (_vertInput != 0 || _horizInput != 0) && staminaValue > 0)
+        {
+            staminaValue -= Time.deltaTime / staminaFallRate * staminaFallMult;
+            _stepSpeed = runSpeed;
+            Debug.Log("STO CORRENDO: stamina value" + staminaValue);
+        }
+
+        //WALK
         else // Otherwise, it's normal speed
         {
             _stepSpeed = walkSpeed;
             _player.isSneaking = false;
         }
+
+        //Stamina Controll
+        if (staminaValue < maxStamina && !(Input.GetButton(Controllers.PS4_R2) || Input.GetKey(KeyCode.LeftShift)))
+        {
+            staminaValue += Time.deltaTime / staminaRegainRate * staminaRegainMult;
+            Debug.Log("stamina value" + staminaValue);
+        }
+        if (staminaValue <= 0)
+        {
+            staminaValue = 0;
+            _stepSpeed = walkSpeed;
+        }
+
+        staminaHUD.staminaSlider.value = staminaValue - maxStamina > 0 ? maxStamina : staminaValue;
     }
 
-   /* private void CheckRun() {
-        if (Input.GetButton(Controllers.PS4_L2) || Input.GetKey(KeyCode.Space))
-    }
-   
-    */
-    
-        /// <summary>
+    /// <summary>
     /// Checks if the player is walking on a particular terrain
     /// </summary>
     private void CheckTerrain()
@@ -304,10 +340,12 @@ public class PlayerMovement : MonoBehaviour
                 AnimationManager.Anim_StartMovingStanding(this.transform);
         else
         {
-            if(_player.isSneaking && !AnimationManager.Anim_CheckBool(this.transform, "IsMovingStanding"))
-            AnimationManager.Anim_StopMovingSneaky(this.transform);
+            if (_player.isSneaking && !AnimationManager.Anim_CheckBool(this.transform, "IsMovingStanding"))
+                AnimationManager.Anim_StopMovingSneaky(this.transform);
 
             AnimationManager.Anim_StopMovingStanding(this.transform);
         }
     }
 }
+
+   
