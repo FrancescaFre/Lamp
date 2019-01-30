@@ -98,6 +98,7 @@ public class LampBehaviour : MonoBehaviour {
         // ------------- Evolution of enemy lamp
         if (isEnemyLamp)
         {
+            badSpirits.Stop(withChildren: true);
             _emitter.source.Play();
             nearByLampColliders = Physics.OverlapSphere(this.transform.position, radiusDomain);
 
@@ -159,7 +160,7 @@ public class LampBehaviour : MonoBehaviour {
             Debug.Log("off: " + lightBulb[i].gameObject.name);
         }
 
-        badSpirits.Play();
+        badSpirits.Play(withChildren:true);
 
         GameManager.Instance.enemyLamps++;
         InGameHUD.Instance.lampHUDPanel.DequeueEnemy();
