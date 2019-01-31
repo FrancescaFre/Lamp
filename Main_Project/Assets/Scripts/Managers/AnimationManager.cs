@@ -84,4 +84,14 @@ public static class AnimationManager
     {
         trans.GetComponent<Animator>().SetBool("IsMovingSneaky", false);
     }
+//------------------------------------------------------------------------------
+    public static void Anim_StartMovingRunning(Transform trans)
+    {
+        trans.GetComponent<Animator>().SetBool("IsMovingRunning", true);
+    }
+ //------------------------------------------------------------------------------
+    public static void Anim_StopMovingRunning(Transform trans)
+    {
+        trans.GetComponent<Animator>().SetBool("IsMovingRunning", false);
+    }
 }

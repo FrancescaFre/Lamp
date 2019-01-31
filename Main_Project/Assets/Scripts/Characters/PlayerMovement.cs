@@ -211,12 +211,15 @@ public class PlayerMovement : MonoBehaviour
         {
             _stepSpeed = stealthSpeed;
             _player.isSneaking = true;
+            _player.isRunning = false; 
         }
 
         //RUN - Stamina
         else if ((Input.GetButton(Controllers.PS4_R2) || Input.GetKey(KeyCode.LeftShift)) && (_vertInput != 0 || _horizInput != 0) && staminaValue > 0)
         {
             staminaValue -= Time.deltaTime / staminaFallRate * staminaFallMult;
+            _player.isRunning = true;
+            _player.isSneaking = false; 
             _stepSpeed = runSpeed;
             Debug.Log("STO CORRENDO: stamina value" + staminaValue);
         }
@@ -226,6 +229,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _stepSpeed = walkSpeed;
             _player.isSneaking = false;
+            _player.isRunning = false;
         }
 
         //Stamina Controll
@@ -237,6 +241,7 @@ public class PlayerMovement : MonoBehaviour
         if (staminaValue <= 0)
         {
             staminaValue = 0;
+            _player.isRunning = false; 
             _stepSpeed = walkSpeed;
         }
 
@@ -331,15 +336,42 @@ public class PlayerMovement : MonoBehaviour
     //----------- ANIMATION MANAGER -------------
     private void AnimationUpdate()
     {
+        //se non mi muovo e non scavo
         if ((_horizInput != 0 || _vertInput != 0) && !_player.IsZoneDigging)
-            if (_player.isSneaking)
+        {
+            //se sono sneaky ma non è attiva l'animazione, allora sneaky
+            if (!(AnimationManager.Anim_CheckBool(this.transform, "IsMovingSneaky")) && _player.isSneaking)
+            {
+                AnimationManager.Anim_StopMovingStanding(this.transform);
                 AnimationManager.Anim_StartMovingSneaky(this.transform);
-            else if (AnimationManager.Anim_CheckBool(this.transform, "IsMovingSneaky") && !_player.isSneaking)
+            }
+
+            //se non sono sneaky, ma l'animazione è attiva, allora ferma l'animazione
+            if (AnimationManager.Anim_CheckBool(this.transform, "IsMovingSneaky") && !_player.isSneaking)
                 AnimationManager.Anim_StopMovingSneaky(this.transform);
-            else
+
+            //se sto correndo ma l'animazione della corsa non è attiva, attivala
+            if (!(AnimationManager.Anim_CheckBool(this.transform, "IsMovingRunning")) && _player.isRunning)
+            {
+                AnimationManager.Anim_StartMovingRunning(this.transform);
+            }
+
+            //se l'animazione della corsa è attiva, ma non sto correndo, allora fermala
+            if (AnimationManager.Anim_CheckBool(this.transform, "IsMovingRunning") && !_player.isRunning)
+                AnimationManager.Anim_StopMovingRunning(this.transform);
+
+            //sono in piedi e mi muovo (quindi cammino) 
+            if (!_player.isRunning && !_player.isSneaking)
+            {
+                AnimationManager.Anim_StopMovingSneaky(this.transform);
+                AnimationManager.Anim_StopMovingRunning(this.transform);
                 AnimationManager.Anim_StartMovingStanding(this.transform);
+            }
+        }
+
         else
         {
+            //se NON sto camminando, ma sono sneaky
             if (_player.isSneaking && !AnimationManager.Anim_CheckBool(this.transform, "IsMovingStanding"))
                 AnimationManager.Anim_StopMovingSneaky(this.transform);
 

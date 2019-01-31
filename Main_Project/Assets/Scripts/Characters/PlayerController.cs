@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour {
     
     public bool usingSkill = false;
     public bool isSneaking = false;
+    public bool isRunning = false;
 
     [SerializeField]
     public Status CurseStatus { get; set; }
