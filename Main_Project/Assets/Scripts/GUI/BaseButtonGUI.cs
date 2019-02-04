@@ -1,16 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class BaseButtonGUI : MonoBehaviour, ICancelHandler, IPointerClickHandler, ISubmitHandler, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler {
     [Header("Halo Effect")]
     public GameObject haloParticle;
-    public bool needLock = false;
-    public bool lockFX = false;
+   /* public bool needLock = false;
+    public bool lockFX = false;*/
 
     public virtual void Awake() {
-        
+        if (!haloParticle)
+            haloParticle = GetComponentInChildren<ParticleRendererGUI>().gameObject;
         haloParticle.SetActive(false);
     }
 
@@ -23,42 +22,42 @@ public class BaseButtonGUI : MonoBehaviour, ICancelHandler, IPointerClickHandler
 
     }
 
-    public void ForceRelease() {
+   /* public void ForceRelease() {
         lockFX = false;
         StopHalo();
-    }
+    }*/
 
     #region Event Handlers
 
     public virtual void OnPointerEnter(PointerEventData eventData) {
         StartHalo();
     }
-
-
     public virtual void OnSelect(BaseEventData eventData) {
         StartHalo();
 
     }
+
+
     public virtual void OnPointerExit(PointerEventData eventData) {
-        if (needLock && lockFX) return;
+       
         StopHalo();
     }
-
-
-
     public virtual void OnDeselect(BaseEventData eventData) {
-        if (needLock && lockFX) return;
+
         StopHalo();
     }
+
 
     public virtual void OnPointerClick(PointerEventData eventData) {
-        lockFX = true;
+
     }
     public virtual void OnSubmit(BaseEventData eventData) {
-        lockFX = true;
+
     }
+
+
     public virtual void OnCancel(BaseEventData eventData) {
-        lockFX = false;
+
     }
     #endregion
 

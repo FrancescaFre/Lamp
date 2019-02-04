@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine.EventSystems;
 
 public class NextGUI : BaseButtonGUI {
 
     public PlanetGUI selectedPlanet;
-
+    public GalaxyButtonGUI selectedGalaxy;
 
     public override void OnCancel(BaseEventData eventData) {
         selectedPlanet.OnCancel(eventData);
@@ -18,17 +15,5 @@ public class NextGUI : BaseButtonGUI {
         GuiManager.GUIInstance.CheckSelectedLevel();
     }
 
-    public override void OnPointerEnter(PointerEventData eventData) {
-        
-    }
-    public override void OnSelect(BaseEventData eventData) {
-     
 
-    }
-    public override void OnPointerExit(PointerEventData eventData) {
- 
-    }
-    public override void OnDeselect(BaseEventData eventData) {
-
-    }
 }

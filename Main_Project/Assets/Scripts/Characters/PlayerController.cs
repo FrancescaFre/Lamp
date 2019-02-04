@@ -179,7 +179,7 @@ public class PlayerController : MonoBehaviour {
 
             Enemy touchedEnemy = other.GetComponentInParent<Enemy>();
             touchedEnemy.PlayerTouched(this);
-            Debug.Log("before " + CurseStatus);
+            
             if (CurseStatus == Status.NORMAL && !touchedEnemy.data_enemy.instant_curse) {
                 CurseStatus = Status.HALF_CURSED;
                 if (halfCurseEffect) {
@@ -188,7 +188,7 @@ public class PlayerController : MonoBehaviour {
                 }
 
                 TeamHUD.Instance.HalfCurse();
-                Debug.Log("after " + CurseStatus);
+               
                 return;
             }
 
@@ -212,9 +212,9 @@ public class PlayerController : MonoBehaviour {
     private void OnCollisionEnter(Collision collision) {
         Collider other = collision.collider;
         if (other.CompareTag(Tags.Lamp_Switch)) {
-            Debug.Log("lamp_switch");
+            
             LampBehaviour lamp = other.GetComponentInParent<LampBehaviour>();
-            Debug.Log("lamp_switch: ON "+lamp.transform.position);
+            
             if (lamp.isEnemyLamp  ) { //if it is an enemy lamp AND it is turned on
                 if(lamp.isTurnedOn)
                     lamp.SwitchOffEnemyLamp();

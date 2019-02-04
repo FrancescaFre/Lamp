@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour {
         this.allyLamps = 0;
         this.enemyLamps = 0;
         for (int i = 0; i < CharactersList.Count; i++) {
-            Debug.Log(CharactersList[i].CharacterPeriod.ToString());
+
             CharactersDict[CharactersList[i].CharacterPeriod] = CharactersList[i];
             CharactersList[i].gameObject.SetActive(false);
         }

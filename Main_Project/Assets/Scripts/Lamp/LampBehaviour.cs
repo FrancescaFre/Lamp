@@ -123,7 +123,7 @@ public class LampBehaviour : MonoBehaviour {
 
         for (int i = 0; i < lightBulb.Length; i++) {
             lightBulb[i].gameObject.SetActive(true);
-           // auraLight[i].enabled = true;
+           
         }
 
         for (int i = 0; i < allColliders.Length; i++) {
@@ -138,7 +138,7 @@ public class LampBehaviour : MonoBehaviour {
         
         
         isTurnedOn = true;
-        Debug.Log("lamp_switch: ON ");
+
         gameObject.layer = 11; //obstacle layer
         GameManager.Instance.allyLamps++;
         GameManager.Instance.worldLight.Enlight();
@@ -156,7 +156,7 @@ public class LampBehaviour : MonoBehaviour {
         isTurnedOn = false;
         for (int i = 0; i < lightBulb.Length; i++) {
             lightBulb[i].gameObject.SetActive(false);
-          //  auraLight[i].enabled = false;
+          
             Debug.Log("off: " + lightBulb[i].gameObject.name);
         }
 

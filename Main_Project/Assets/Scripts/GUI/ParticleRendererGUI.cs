@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SpriteParticleEmitter {
+//namespace SpriteParticleEmitter {
 #if UNITY_5_3_OR_NEWER
     /// <summary>
     /// This class is a modification on the class shared publicly by Glenn Powell (glennpow) tha can be found here
@@ -296,4 +296,4 @@ namespace SpriteParticleEmitter {
         }
     }
 #endif
-}
+//}
