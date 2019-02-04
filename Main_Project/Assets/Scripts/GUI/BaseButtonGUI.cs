@@ -4,8 +4,7 @@ using UnityEngine.EventSystems;
 public class BaseButtonGUI : MonoBehaviour, ICancelHandler, IPointerClickHandler, ISubmitHandler, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler {
     [Header("Halo Effect")]
     public GameObject haloParticle;
-   /* public bool needLock = false;
-    public bool lockFX = false;*/
+
 
     public virtual void Awake() {
         if (!haloParticle)
@@ -22,10 +21,7 @@ public class BaseButtonGUI : MonoBehaviour, ICancelHandler, IPointerClickHandler
 
     }
 
-   /* public void ForceRelease() {
-        lockFX = false;
-        StopHalo();
-    }*/
+
 
     #region Event Handlers
 
