@@ -273,8 +273,20 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void MovePlayer()
     {
+        //Debug.Log(OnIce + " " + _wallOnIce);
         if (OnIce && !_wallOnIce) // When walking on ice, there's no need to compute input's direction
-            _movement = _movementOnIce;
+        {
+            if (_movementOnIce != Vector3.zero) // Sometimes a zero input vector can happen, and this blocks the player from moving anywhere. Solved ↓
+                _movement = _movementOnIce;
+            else
+            {
+                // Normal Movement even if it's on ice. This solves the ice glitch
+                if (_vertInput > 0)
+                    _movement = (_screenForward * _vertInput + _screenRight * _horizInput).normalized * _stepSpeed * Time.deltaTime;
+                else
+                    _movement = (_screenUp * _vertInput + _screenRight * _horizInput).normalized * _stepSpeed * Time.deltaTime;
+            }
+        }
         else if (_vertInput > 0) // Pressing ↓ made the player literally jump backwards (so it's needed the _screenUp variable)
             _movement = (_screenForward * _vertInput + _screenRight * _horizInput).normalized * _stepSpeed * Time.deltaTime; // Takes camera axes to correct the direction
         else
