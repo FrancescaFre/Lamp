@@ -39,6 +39,10 @@ public class TeamFormationGUI : MonoBehaviour {
         LightsDict[CharPeriod.VICTORIAN] = VictorianLight;
         LightsDict[CharPeriod.FUTURE] = FutureLight;
 
+        foreach (Light l in LightsDict.Values) {
+            l.gameObject.SetActive(false);
+        }
+
     }
 
     private void FixedUpdate() {
@@ -110,6 +114,7 @@ public class TeamFormationGUI : MonoBehaviour {
             GameManager.Instance.TeamList = null;
 
     }
+
 
 }
 

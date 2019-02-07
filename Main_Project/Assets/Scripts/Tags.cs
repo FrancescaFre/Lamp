@@ -36,5 +36,8 @@ public static class Tags {
     public readonly static string DummyCam = "Dummy/Cam";
     //planet
     public readonly static string Planet = "Planet";
+    //GUI
+    public readonly static string GUIHalo = "GUI/Halo";
+    public readonly static string GUIGroup = "GUI/Group";
 
 }

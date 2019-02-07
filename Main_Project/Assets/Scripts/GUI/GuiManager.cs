@@ -18,7 +18,7 @@ public class GuiManager : MonoBehaviour {
     public Button nextButton;
     public Button PlayButton;
 
-    [Header("Confirm")]
+    [Header("Items SFX")]
     public AudioClip HoverSound;
     public AudioClip ConfirmSound;
     public AudioClip AbortSound;
@@ -75,7 +75,8 @@ public class GuiManager : MonoBehaviour {
             GameManager.Instance.LoadGame();
         else {
             PlayButton.interactable = false;
-            PlayButton.transform.GetChild(0).gameObject.SetActive(PlayButton.interactable);
+           // PlayButton.transform.GetChild(0).gameObject.SetActive(PlayButton.interactable);
+            PlayButton.GetComponent<BaseButtonGUI>().StopHalo(); 
         }
     }
 
