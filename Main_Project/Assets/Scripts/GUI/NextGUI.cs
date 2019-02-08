@@ -21,5 +21,13 @@ public class NextGUI : BaseButtonGUI {
         GuiManager.GUIInstance.CheckSelectedLevel();
     }
 
+    public override void OnPointerEnter(PointerEventData eventData) {
+        if (!selectedPlanet) return;
+        base.OnPointerEnter(eventData);
+    }
+    public override void OnSelect(BaseEventData eventData) {
+        if (!selectedPlanet) return;
+        base.OnSelect(eventData);
+    }
 
 }

@@ -27,4 +27,14 @@ public class PlayGUI : BaseButtonGUI {
         else if (teamGUI.teamList.Count == 3)
             teamGUI.SetCharacter(teamGUI.teamList[2]);
     }
+
+    public override void OnPointerEnter(PointerEventData eventData) {
+        if (teamGUI.teamList.Count < teamGUI.MIN_TEAM_NUMBER) return;
+        base.OnPointerEnter(eventData);
+    }
+
+    public override void OnSelect(BaseEventData eventData) {
+        if (teamGUI.teamList.Count < teamGUI.MIN_TEAM_NUMBER) return;
+        base.OnSelect(eventData);
+    }
 }
