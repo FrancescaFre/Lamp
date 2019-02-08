@@ -8,7 +8,7 @@ public class PlayerSFXEmitter : MonoBehaviour {
     public List<AudioClip> stepsFXList;
     [Range(0f,1f)]
     public float sneakAudioReduction = .6f;
-    [Range(0f,1f)]
+    [Range(1f,1.5f)]
     public float runAudioIncrease = 1.2f;
 
     // Use this for initialization
