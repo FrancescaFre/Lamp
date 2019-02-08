@@ -11,10 +11,7 @@ public class LampHUD : MonoBehaviour {
 
     public Queue<Image> enemyQueue = new Queue<Image>();
 
-    private void Awake() {
-       
-        GetComponentInParent<InGameHUD>().lampHUDPanel = this;
-    }
+
 
     private void Start() {
 

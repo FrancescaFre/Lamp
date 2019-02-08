@@ -53,9 +53,11 @@ public class PlayerMovement : MonoBehaviour
     //STAMINA
     public StaminaHUD staminaHUD;
     public float maxStamina = 5f;
+    [Tooltip("The higher the value, the slower it is consumed.")]
     public float staminaFallRate = 2f;
     public float staminaFallMult = 1f;
-    public float staminaRegainRate = 1f;
+    [Tooltip("The higher the value, the slower it returns back to normal.")]
+    public float staminaRegainRate = 3f;
     public float staminaRegainMult = 1f;
     public float staminaValue;
 

@@ -15,8 +15,8 @@ public class GuiManager : MonoBehaviour {
     public GameObject firstSelectedCharacter;
 
     [Header("Buttons to the next menu")]
-    public Button nextButton;
-    public Button PlayButton;
+    public NextGUI nextButton;
+    public PlayGUI PlayButton;
 
     [Header("Items SFX")]
     public AudioClip HoverSound;
@@ -55,8 +55,8 @@ public class GuiManager : MonoBehaviour {
     /// </summary>
     public void CheckSelectedLevel() {
         if (GameManager.Instance.levelLoaded == null) {
-            nextButton.interactable = false;
-            nextButton.transform.GetChild(0).gameObject.SetActive(nextButton.interactable);
+            nextButton.thisButton.interactable = false;
+            nextButton.StopHalo();
             return;
         }
 
@@ -71,12 +71,12 @@ public class GuiManager : MonoBehaviour {
 
 
     public void CheckSelectedTeam() {
-        if (GameManager.Instance.TeamList != null && GameManager.Instance.TeamList.Count == 3 && GameManager.Instance.levelLoaded)
+        if (GameManager.Instance.TeamList != null && GameManager.Instance.TeamList.Count >= 2 && GameManager.Instance.levelLoaded)
             GameManager.Instance.LoadGame();
         else {
-            PlayButton.interactable = false;
+            PlayButton.thisButton.interactable = false;
            // PlayButton.transform.GetChild(0).gameObject.SetActive(PlayButton.interactable);
-            PlayButton.GetComponent<BaseButtonGUI>().StopHalo(); 
+            PlayButton.StopHalo(); 
         }
     }
 

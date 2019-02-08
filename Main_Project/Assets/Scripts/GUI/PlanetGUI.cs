@@ -17,7 +17,7 @@ public class PlanetGUI : BaseButtonGUI {
     }
 
     private void Start() {
-        nextButton = GuiManager.GUIInstance.nextButton.GetComponent<NextGUI>();
+        nextButton = GuiManager.GUIInstance.nextButton;
 
     }
     public void ShowPlanetInfo() {
@@ -36,18 +36,22 @@ public class PlanetGUI : BaseButtonGUI {
 
    
         GameManager.Instance.levelLoaded = planetLevel;
-        GuiManager.GUIInstance.nextButton.interactable = true;
+        GuiManager.GUIInstance.nextButton.thisButton.interactable = true;
+        if (!nextButton)
+            nextButton = GuiManager.GUIInstance.nextButton;
 
-        
-        if (nextButton.selectedPlanet && nextButton.selectedPlanet != this) 
+        if (nextButton.selectedPlanet && nextButton.selectedPlanet != this) {
             nextButton.selectedPlanet.StopHalo();
+            nextButton.selectedPlanet.SetHighlight();
+        }
             
         
         nextButton.selectedPlanet = this;
-        nextButton.haloParticle.gameObject.SetActive(GuiManager.GUIInstance.nextButton.interactable);
+        nextButton.StartHalo();
 
         EventSystem.current.SetSelectedGameObject(nextButton.gameObject, null);
-        this.haloParticle.SetActive(true);
+        //this.haloParticleGO.SetActive(true);
+        StartHalo();
     }
 
 
@@ -75,6 +79,8 @@ public class PlanetGUI : BaseButtonGUI {
     }
 
     public override void OnPointerExit(PointerEventData eventData) {
+        if (!nextButton)
+            nextButton = GuiManager.GUIInstance.nextButton;
         if (nextButton.selectedPlanet && nextButton.selectedPlanet == this) return;
         StopHalo();
     }
@@ -82,6 +88,8 @@ public class PlanetGUI : BaseButtonGUI {
 
 
     public override void OnDeselect(BaseEventData eventData) {
+        if (!nextButton)
+            nextButton = GuiManager.GUIInstance.nextButton;
         if (nextButton.selectedPlanet && nextButton.selectedPlanet == this) return;
         StopHalo();
     }
@@ -90,16 +98,16 @@ public class PlanetGUI : BaseButtonGUI {
         base.OnCancel(eventData);
 
         GameManager.Instance.levelLoaded = null;
-        GuiManager.GUIInstance.nextButton.interactable = false;
-        GuiManager.GUIInstance.nextButton.transform.GetChild(0).gameObject.SetActive(GuiManager.GUIInstance.nextButton.interactable);
+        GuiManager.GUIInstance.nextButton.thisButton.interactable = false;
+        GuiManager.GUIInstance.nextButton.haloParticleGO.SetActive(GuiManager.GUIInstance.nextButton.thisButton.interactable);
         descriptionGUIPanel.DescriptionPanel.SetActive(false);
         EventSystem.current.SetSelectedGameObject(transform.parent.parent.gameObject, null);
 
         ///switch off all the halos of the planets
-        for (int i = 0; i < this.haloParticle.transform.parent.childCount; i++) {
-            this.haloParticle.transform.parent.GetChild(i).gameObject.SetActive(false);
-        }
-
+        /*for (int i = 0; i < this.haloParticleGO.transform.parent.childCount; i++) {
+            this.haloParticleGO.transform.parent.GetChild(i).gameObject.SetActive(false);
+        }*/
+        StopHalo();
 
         transform.parent.gameObject.SetActive(false);
     }

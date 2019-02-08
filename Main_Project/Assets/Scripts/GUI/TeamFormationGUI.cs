@@ -1,15 +1,15 @@
-﻿using System.Collections;
+﻿
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+
 using UnityEngine.UI;
 
 
 public class TeamFormationGUI : MonoBehaviour {
     [Header("Team Information")]
     public List<CharPeriod> teamList;
+    public int MIN_TEAM_NUMBER = 2;
     public int MAX_TEAM_NUMBER = 3;
-
     [Header("Team profile picture")]
     public Image First;
     public Image Second;
@@ -47,7 +47,7 @@ public class TeamFormationGUI : MonoBehaviour {
 
     private void FixedUpdate() {
 
-        if (teamList.Count>0 && teamList[0] >= 0) {
+        if (teamList.Count > 0 && teamList[0] >= 0) {
             First.gameObject.SetActive(true);
             First.sprite = PlayerGroupGUI.SharedCharacterInfo[teamList[0]].CharSprite;
         }
@@ -59,29 +59,39 @@ public class TeamFormationGUI : MonoBehaviour {
         if (teamList.Count > 1 && teamList[1] >= 0) {
             Second.gameObject.SetActive(true);
             Second.sprite = PlayerGroupGUI.SharedCharacterInfo[teamList[1]].CharSprite;
+
         }
         else {
             Second.sprite = null;
             Second.gameObject.SetActive(false);
+           
         }
 
         if (teamList.Count > 2 && teamList[2] >= 0) {
             Third.gameObject.SetActive(true);
             Third.sprite = PlayerGroupGUI.SharedCharacterInfo[teamList[2]].CharSprite;
-            GuiManager.GUIInstance.PlayButton.interactable = true;
-            
+           
+
 
         }
         else {
             Third.sprite = null;
             Third.gameObject.SetActive(false);
-            GuiManager.GUIInstance.PlayButton.interactable = false;
             
 
 
+
         }
-        GuiManager.GUIInstance.PlayButton.transform.GetChild(0).gameObject.SetActive(GuiManager.GUIInstance.PlayButton.interactable);
-    }
+
+        if (teamList.Count >= MIN_TEAM_NUMBER && teamList.Count <= MAX_TEAM_NUMBER) {
+            GuiManager.GUIInstance.PlayButton.thisButton.interactable = true;
+            GuiManager.GUIInstance.PlayButton.StartHalo();
+        }
+        else { 
+            GuiManager.GUIInstance.PlayButton.thisButton.interactable = false;
+            GuiManager.GUIInstance.PlayButton.StopHalo();
+        }
+}
 
     /// <summary>
     /// Adds the character to the team(if already present it will be removed)
@@ -91,6 +101,7 @@ public class TeamFormationGUI : MonoBehaviour {
         if (teamList.Contains(period)) {
             teamList.RemoveAll(x => x.Equals(period));
             LightsDict[period].gameObject.SetActive(false);
+            PlayerGroupGUI.SharedCharactersGUI[period].SetHighlight();
         }
         else {
             if (teamList.Count < MAX_TEAM_NUMBER) {
@@ -108,7 +119,7 @@ public class TeamFormationGUI : MonoBehaviour {
 
         }
 
-        if (teamList.Count == 3)
+        if (teamList.Count >= 2)
             GameManager.Instance.TeamList = teamList;
         else
             GameManager.Instance.TeamList = null;

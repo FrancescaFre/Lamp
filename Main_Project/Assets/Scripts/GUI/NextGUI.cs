@@ -2,8 +2,14 @@
 
 public class NextGUI : BaseButtonGUI {
 
-    public PlanetGUI selectedPlanet;
-    public GalaxyButtonGUI selectedGalaxy;
+    public PlanetGUI selectedPlanet=null;
+    public GalaxyButtonGUI selectedGalaxy=null;
+
+    public  void Start() {
+        
+        if(!GuiManager.GUIInstance.nextButton)
+            GuiManager.GUIInstance.nextButton = this;
+    }
 
     public override void OnCancel(BaseEventData eventData) {
         selectedPlanet.OnCancel(eventData);

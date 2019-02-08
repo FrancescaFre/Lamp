@@ -1550,6 +1550,7 @@ MonoBehaviour:
   digCount: 2
   usingSkill: 0
   isSneaking: 0
+  isRunning: 0
   runningAnimation: 0
   _missingParts: 0
   keys: 0
@@ -1568,14 +1569,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbbde431513499c4bbecdfa3341a49ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 5
-  stealthSpeed: 3
+  walkSpeed: 3
+  stealthSpeed: 2
   runSpeed: 5
   staminaHUD: {fileID: 0}
   maxStamina: 5
-  staminaFallRate: 1
+  staminaFallRate: 2
   staminaFallMult: 1
-  staminaRegainRate: 1
+  staminaRegainRate: 3
   staminaRegainMult: 1
   staminaValue: 0
 --- !u!114 &114816624433154012

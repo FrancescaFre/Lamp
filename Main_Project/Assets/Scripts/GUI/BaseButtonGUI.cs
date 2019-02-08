@@ -1,27 +1,41 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class BaseButtonGUI : MonoBehaviour, ICancelHandler, IPointerClickHandler, ISubmitHandler, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler {
     [Header("Halo Effect")]
-    public GameObject haloParticle;
+    public GameObject haloParticleGO;
+    public ParticleRendererGUI haloRenderer;
+    public Material highlight;
+    public Material selected;
+    public Button thisButton;
 
 
     public virtual void Awake() {
-        if (!haloParticle)
-            haloParticle = GetComponentInChildren<ParticleRendererGUI>().gameObject;
-        haloParticle.SetActive(false);
+        if (!haloParticleGO) {
+
+            haloRenderer = GetComponentInChildren<ParticleRendererGUI>();
+            haloParticleGO = haloRenderer.gameObject;
+        }
+        StopHalo();
+        thisButton = GetComponent<Button>();
     }
 
     public void StartHalo() {
-        haloParticle.SetActive(true);
+        haloParticleGO.SetActive(true);
 
     }
     public void StopHalo() {
-        haloParticle.SetActive(false);
+        haloParticleGO.SetActive(false);
 
     }
 
-
+ public void SetSelected() {
+        haloRenderer.material = selected;
+    }
+    public void SetHighlight() {
+        haloRenderer.material = highlight;
+    }
 
     #region Event Handlers
 
@@ -45,16 +59,17 @@ public class BaseButtonGUI : MonoBehaviour, ICancelHandler, IPointerClickHandler
 
 
     public virtual void OnPointerClick(PointerEventData eventData) {
-
+        SetSelected();
     }
     public virtual void OnSubmit(BaseEventData eventData) {
-
+        SetSelected();
     }
 
 
     public virtual void OnCancel(BaseEventData eventData) {
-
+        SetHighlight();
     }
     #endregion
 
+   
 }

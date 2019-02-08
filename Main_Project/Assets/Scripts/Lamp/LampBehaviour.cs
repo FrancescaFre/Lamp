@@ -143,7 +143,7 @@ public class LampBehaviour : MonoBehaviour {
         GameManager.Instance.allyLamps++;
         GameManager.Instance.worldLight.Enlight();
 
-        InGameHUD.Instance.lampHUDPanel.DequeueAlly();
+       
         if (GameManager.Instance.allyLamps == GameManager.Instance.levelLoaded.allyLamps)
             GameManager.Instance.GoodEndGame();
         GameManager.Instance.LastAllyLamp = this;   //if the character dies, the next one will be spawned here
@@ -163,7 +163,7 @@ public class LampBehaviour : MonoBehaviour {
         badSpirits.Play(withChildren:true);
 
         GameManager.Instance.enemyLamps++;
-        InGameHUD.Instance.lampHUDPanel.DequeueEnemy();
+       
         AudioManager.Instance.SFXSource.PlayOneShot(GameManager.Instance.levelLoaded.lampSwitchSFX);
         _emitter.source.Stop();
         //----------- Evolution of enemy lamp

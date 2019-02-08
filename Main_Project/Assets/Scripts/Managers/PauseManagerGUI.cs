@@ -28,6 +28,12 @@ public class PauseManagerGUI : MonoBehaviour {
     void Start() {
         _isPaused = false;
         optionsGUI = GetComponentInChildren<OptionsGUI>(includeInactive:true);
+
+        if (!PausePanel)
+            foreach (Transform child in transform)
+                if (child.CompareTag(Tags.HUDPauseMenu))
+                    PausePanel = child.gameObject;
+
         PausePanel.SetActive(_isPaused);
         firstButtonSelected = PausePanel.transform.GetChild(0).gameObject;
         firstOptionSelected = optionsGUI.transform.GetChild(0).gameObject;

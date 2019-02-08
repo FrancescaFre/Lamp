@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GalaxyButtonGUI : BaseButtonGUI {
 
@@ -11,7 +12,7 @@ public class GalaxyButtonGUI : BaseButtonGUI {
     public PlanetGUI firstPlanet;
     private NextGUI nextButton;
     public GameObject planetGroup;
-
+    
 
 
     public override void Awake() {
@@ -30,16 +31,24 @@ public class GalaxyButtonGUI : BaseButtonGUI {
         ///to allow the loading of the information
         ///and after the information fetching they are disabled again
 
-        nextButton = GuiManager.GUIInstance.nextButton.GetComponent<NextGUI>();
+        nextButton = GuiManager.GUIInstance.nextButton ;
         planetGroup.SetActive(false);
+        
     }
 
 
 
-    public void SelectLevel() {
+    public void SelectGalaxy() {
+        if (!nextButton)
+            nextButton = GuiManager.GUIInstance.nextButton;
         if (nextButton.selectedGalaxy && nextButton.selectedGalaxy != this) {
             nextButton.selectedGalaxy.StopHalo();
-            nextButton.selectedPlanet.StopHalo();
+            nextButton.selectedGalaxy.SetHighlight();
+            if (nextButton.selectedPlanet) {
+                nextButton.selectedPlanet.StopHalo();
+                
+
+            }
         }
 
         nextButton.selectedGalaxy = this;
@@ -49,7 +58,7 @@ public class GalaxyButtonGUI : BaseButtonGUI {
 
 
         EventSystem.current.SetSelectedGameObject(firstPlanet.gameObject, null);
-        this.haloParticle.gameObject.SetActive(true);
+        this.haloParticleGO.gameObject.SetActive(true);
     }
 
 
@@ -70,25 +79,43 @@ public class GalaxyButtonGUI : BaseButtonGUI {
 
 
     #region Event Handlers
+    public override void OnPointerEnter(PointerEventData eventData) {
+        if (!thisButton.interactable) return;
+        StartHalo();
+    }
+    public override void OnSelect(BaseEventData eventData) {
+        if (!thisButton.interactable) return;
+        StartHalo();
+
+    }
+
     public override void OnSubmit(BaseEventData eventData) {
+        if (!thisButton.interactable) return;
         base.OnSubmit(eventData);
-        SelectLevel();
+        SelectGalaxy();
     }
 
     public override void OnPointerClick(PointerEventData eventData) {
+        if (!thisButton.interactable) return;
         base.OnPointerClick(eventData);
-        SelectLevel();
+        SelectGalaxy();
     }
 
     public override void OnPointerExit(PointerEventData eventData) {
+        if(!nextButton)
+            nextButton = GuiManager.GUIInstance.nextButton;
         if (nextButton.selectedGalaxy && nextButton.selectedGalaxy == this) return;
+        if (!thisButton.interactable) return;
         StopHalo();
     }
 
 
 
     public override void OnDeselect(BaseEventData eventData) {
+        if (!nextButton)
+            nextButton = GuiManager.GUIInstance.nextButton;
         if (nextButton.selectedGalaxy && nextButton.selectedGalaxy == this) return;
+        if (!thisButton.interactable) return;
         StopHalo();
     }
     public override void OnCancel(BaseEventData eventData) {
@@ -97,8 +124,8 @@ public class GalaxyButtonGUI : BaseButtonGUI {
             SceneManager.LoadScene(0);
         }
         GameManager.Instance.levelLoaded = null;
-        GuiManager.GUIInstance.nextButton.interactable = false;
-        GuiManager.GUIInstance.nextButton.transform.GetChild(0).gameObject.SetActive(GuiManager.GUIInstance.nextButton.interactable);
+        GuiManager.GUIInstance.nextButton.thisButton.interactable = false;
+        GuiManager.GUIInstance.nextButton.StopHalo();
         planetGroup.SetActive(false);
 
     }
