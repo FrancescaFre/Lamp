@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerSFXEmitter : MonoBehaviour {
     private AudioSource _source;
     public List<AudioClip> digAudioList;
+   
     public List<AudioClip> stepsFXList;
     [Range(0f,1f)]
     public float sneakAudioReduction = .6f;

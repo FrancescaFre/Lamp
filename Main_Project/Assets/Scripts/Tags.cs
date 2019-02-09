@@ -36,11 +36,12 @@ public static class Tags {
     public readonly static string DummyCam = "Dummy/Cam";
     //planet
     public readonly static string Planet = "Planet";
-    //GUI | HUD
+    //GUI 
     public readonly static string GUIHalo = "GUI/Halo";
     public readonly static string GUIGroup = "GUI/Group";
     public readonly static string GUICharacter = "GUI/Character";
-    public readonly static string HUDInGame = "GUI/HUD/In-Game";
-    public readonly static string HUDPauseMenu = "GUI/HUD/PauseMenu";
+    //HUD
+    public readonly static string HUDInGame = "HUD/In-Game";
+    public readonly static string HUDPauseMenu = "HUD/PauseMenu";
 
 }

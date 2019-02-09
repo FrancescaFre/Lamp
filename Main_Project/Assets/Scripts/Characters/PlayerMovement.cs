@@ -223,7 +223,7 @@ public class PlayerMovement : MonoBehaviour
             _player.isRunning = true;
             _player.isSneaking = false; 
             _stepSpeed = runSpeed;
-            Debug.Log("STO CORRENDO: stamina value" + staminaValue);
+            
         }
 
         //WALK
@@ -238,7 +238,7 @@ public class PlayerMovement : MonoBehaviour
         if (staminaValue < maxStamina && !(Input.GetButton(Controllers.PS4_R2) || Input.GetKey(KeyCode.LeftShift)))
         {
             staminaValue += Time.deltaTime / staminaRegainRate * staminaRegainMult;
-            Debug.Log("stamina value" + staminaValue);
+
         }
         if (staminaValue <= 0)
         {
