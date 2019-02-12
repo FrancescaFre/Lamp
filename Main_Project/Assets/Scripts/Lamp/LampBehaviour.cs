@@ -52,8 +52,7 @@ public class LampBehaviour : MonoBehaviour {
         
         
         for (int i = 0; i < particleSystems.Length; i++) {
-           // if (particleSystems[i].rotationOverLifetime.enabled)
-            //{
+
 
                 ParticleSystem.MainModule main = particleSystems[i].main;
 
@@ -61,7 +60,7 @@ public class LampBehaviour : MonoBehaviour {
                     main.startColor = GameManager.Instance.levelLoaded.enemyColor;
                 else
                     main.startColor = GameManager.Instance.levelLoaded.allyColor;
-            //}
+           
             if (particleSystems[i].CompareTag(Tags.GoodSpirits) && !isEnemyLamp)
                 goodSpirits = particleSystems[i];
             else if (particleSystems[i].CompareTag(Tags.BadSpirits) && isEnemyLamp)
@@ -185,7 +184,7 @@ public class LampBehaviour : MonoBehaviour {
             }
         }
 
-        if (canBeSwitchedOn) {
+        if (canBeSwitchedOn ) {
             //TODO: switch on particleFX
             goodSpirits.gameObject.SetActive(true);
             goodSpirits.Play();

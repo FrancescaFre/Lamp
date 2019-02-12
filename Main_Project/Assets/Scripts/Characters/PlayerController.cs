@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public enum Status { NORMAL = 0, HALF_CURSED, CURSED }
 public enum Visibility { INVISIBLE = 0, WARNING, SPOTTED }
@@ -23,7 +22,7 @@ ESC/PAUSE	PAUSE MENU
      */
 
 public class PlayerController : MonoBehaviour {
-
+    [Header("Charackter Information")]
     public CharPeriod CharacterPeriod;
     public Skill skill;
 
@@ -33,7 +32,7 @@ public class PlayerController : MonoBehaviour {
     public bool isSneaking = false;
     public bool isRunning = false;
 
-    [SerializeField]
+   
     public Status CurseStatus { get; set; }
     public Visibility Visible { get; set; }
     public CameraManager MainCamera { get; set; }
@@ -46,13 +45,21 @@ public class PlayerController : MonoBehaviour {
     public bool IsCasting { get; set; }
     public bool runningAnimation = false;
 
+    
     private Rigidbody _rb;
+    private Transform _modelTransform;
+    [Header("Item informations")]
     public int _missingParts = 0;
     public int keys = 0;
 
+    [Header("Character's FX")]
     public ParticleSystem halfCurseEffect;
     public ParticleSystem fullCurseEffect;
     public ParticleSystem digEffect;
+
+    [Header("In-HUD References")]
+    public GameObject questionMarkPrefab;  
+    public Image questionMark;
 
     //TEST
     public GameObject otherplayer;
@@ -75,6 +82,8 @@ public class PlayerController : MonoBehaviour {
     void Start() {
 
         _rb = GetComponent<Rigidbody>();
+        _modelTransform = GetComponent<DifferenceOfTerrain>().modelTransform;
+
         VDig = GetComponentInChildren<VerticalDig>(includeInactive:true);
         ZDig = GetComponentInChildren<ZoneDig>(includeInactive: true);
         MainCamera = FindObjectOfType<CameraManager>();
@@ -92,8 +101,10 @@ public class PlayerController : MonoBehaviour {
                 digEffect = part.GetComponent<ParticleSystem>();
             part.gameObject.SetActive(false);
         }
-        
-       
+
+
+        questionMark = Instantiate(questionMarkPrefab, InGameHUD.Instance.InGameHUDPanel.transform).GetComponent<Image>();
+        questionMark.gameObject.SetActive(false);
     }
     
     // Update is called once per frame
@@ -103,6 +114,9 @@ public class PlayerController : MonoBehaviour {
         this.CheckDig();
     }
 
+    private void LateUpdate() {
+        questionMark.transform.position = MainCamera.GetComponent<Camera>().WorldToScreenPoint(_modelTransform.position);
+    }
     //#####################################################################
 
     /// <summary>
@@ -160,7 +174,7 @@ public class PlayerController : MonoBehaviour {
         else if (other.CompareTag(Tags.Key))
         {
             keys++;
-            AudioManager.Instance.SFXSource.PlayOneShot(GameManager.Instance.levelLoaded.keySFX);
+           // AudioManager.Instance.SFXSource.PlayOneShot(GameManager.Instance.levelLoaded.keySFX);
             other.gameObject.SetActive(false);
             //------ WARNING: todo NON LO SO
         }
@@ -200,7 +214,7 @@ public class PlayerController : MonoBehaviour {
            
             GameManager.Instance.SpawnNewEnemy(touchedEnemy.data_enemy.level - 1, _rb.position, touchedEnemy.path);
         }
-
+ 
     }
 
     private void OnTriggerExit(Collider other) {
@@ -210,28 +224,48 @@ public class PlayerController : MonoBehaviour {
     }
 
 
-    private void OnCollisionEnter(Collision collision) {
+    private void OnCollisionStay(Collision collision) {
         Collider other = collision.collider;
         if (other.CompareTag(Tags.Lamp_Switch)) {
-            
+
             LampBehaviour lamp = other.GetComponentInParent<LampBehaviour>();
-            
-            if (lamp.isEnemyLamp  ) { //if it is an enemy lamp AND it is turned on
-                if(lamp.isTurnedOn)
+
+            if (lamp.isEnemyLamp) { //if it is an enemy lamp AND it is turned on
+                if (lamp.isTurnedOn)
                     lamp.SwitchOffEnemyLamp();
                 return;
             }
-            
+
             if (lamp.hasMissingPart && _missingParts > 0) {
                 lamp.hasMissingPart = false;
-                lamp.canBeSwitchedOn = true; 
+                lamp.canBeSwitchedOn = true;
                 _missingParts--;
             }
-           
+            else if (lamp.hasMissingPart && _missingParts <= 0) {
+                questionMark.gameObject.SetActive(true);
+               
+            }
+
 
             if (IsMimicOrDash) return;
-            if (lamp.isTurnedOn) return;    //if the lamp is already turned on, exit
+            if (lamp.isTurnedOn) {
+                questionMark.gameObject.SetActive(false);
+                return;
+            }    //if the lamp is already turned on, exit
             lamp.SwitchOnAllyLamp();
+
+
+        }
+    }
+
+    private void OnCollisionExit(Collision collision) {
+        Collider other = collision.collider;
+        if (other.CompareTag(Tags.Lamp_Switch)) {
+            LampBehaviour lamp = other.GetComponentInParent<LampBehaviour>();
+            if(!lamp.isTurnedOn && lamp.hasMissingPart) {
+                
+                questionMark.gameObject.SetActive(false);
+            }
         }
     }
 

@@ -737,6 +737,7 @@ GameObject:
   - component: {fileID: 114076863430986224}
   - component: {fileID: 114041340041072132}
   - component: {fileID: 95681706051865986}
+  - component: {fileID: 114048537985191054}
   m_Layer: 9
   m_Name: Prehistoric_Player
   m_TagString: Player
@@ -1606,7 +1607,7 @@ GameObject:
   - component: {fileID: 4578266852015818}
   m_Layer: 9
   m_Name: PrimitiveFemale
-  m_TagString: Untagged
+  m_TagString: Player/Model
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3341,6 +3342,9 @@ MonoBehaviour:
   halfCurseEffect: {fileID: 0}
   fullCurseEffect: {fileID: 0}
   digEffect: {fileID: 0}
+  questionMarkPrefab: {fileID: 1820886121641010, guid: 07d97c0bab579c7448ba1353e9bdedf3,
+    type: 2}
+  questionMark: {fileID: 0}
   otherplayer: {fileID: 0}
 --- !u!114 &114041340041072132
 MonoBehaviour:
@@ -3357,6 +3361,19 @@ MonoBehaviour:
   stepsFXList: []
   sneakAudioReduction: 0.6
   runAudioIncrease: 1.2
+--- !u!114 &114048537985191054
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1430089822043282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 869ba0040f609e94b9cf2fc13e18d102, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modelTransform: {fileID: 0}
+  height: -1
 --- !u!114 &114076863430986224
 MonoBehaviour:
   m_ObjectHideFlags: 1

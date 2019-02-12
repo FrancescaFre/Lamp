@@ -5,6 +5,7 @@ public static class Tags {
 
     //player
     public readonly static string Player = "Player";
+    public readonly static string PlayerModel = "Player/Model";
     public readonly static string Half_Curse = "Half_Curse";
     public readonly static string Full_Curse = "Full_Curse";
     //enemy

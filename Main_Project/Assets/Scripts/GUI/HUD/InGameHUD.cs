@@ -2,8 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-/*I/DPAD_UP show/hide the lamp panel
- */
+
 
 public class InGameHUD : MonoBehaviour {
     public static InGameHUD Instance;

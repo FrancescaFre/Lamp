@@ -13,7 +13,7 @@ public class Level_SO : ScriptableObject {
     public List<AudioClip> levelMusic;
     [Header("SFX clips")]
     public AudioClip lampSwitchSFX;
-    public AudioClip keySFX;
+   // public AudioClip keySFX;
     public List<AudioClip> footStepsSFX;
     [Header("Lamp properties")]
     public int allyLamps;

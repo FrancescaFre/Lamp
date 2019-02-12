@@ -466,7 +466,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 0}
-  clip: {fileID: 8300000, guid: fe9b8feeb9fd796468718d52d69732aa, type: 3}
+  minAudibleDistance: 1
+  maxAudibleDistance: 100
+  is2D_or3D: 1
+  baseClip: {fileID: 8300000, guid: fe9b8feeb9fd796468718d52d69732aa, type: 3}
+  playOnStartGame: 0
+  doesLoop: 1
 --- !u!136 &136653631963773858
 CapsuleCollider:
   m_ObjectHideFlags: 1
