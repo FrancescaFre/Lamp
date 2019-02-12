@@ -16,5 +16,16 @@ public class SingleWaypoint : MonoBehaviour
             Debug.Log("Under a lamp");
             underALamp = true;
         }
+
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag(Tags.Lamp_Base))
+        {
+            Debug.Log("Under a lamp");
+            underALamp = false;
+        }
+    }
+
 }

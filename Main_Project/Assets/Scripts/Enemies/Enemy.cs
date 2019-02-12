@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
     //---Movement
     [Header("Movement")]
     public float speed;
+    public float seekSpeed; 
 
     //---Cone of view parameters
     float cov_distance_wander;
@@ -32,7 +33,6 @@ public class Enemy : MonoBehaviour
     public GameObject returnWaypointPrefab;
     GameObject objDrop;
     Transform toDestroy;
-
    
 
     float stop_search_after_x_seconds;
@@ -84,26 +84,19 @@ public class Enemy : MonoBehaviour
         rb = this.gameObject.GetComponent<Rigidbody>();
 
 
-        destination = path.GetChild(0).position;
+        destination = path.GetChild(pathIndex).position;
         rb.position = destination;
     }
     public void Start()
     {
-//-------------------- Setup Aura Lights
+
         lights = GetComponentsInChildren<Light>();                 //the light sources of the child GO
-        /*auraLight = GetComponentsInChildren<AuraLight>();                 //the aura sources of the child GO
-
-
-        for (int i = 0; i < auraLight.Length; i++)
-        {
-            auraLight[i].enabled = true;
-        }
-        */
+      
 //-------------------- Assign the first set of values to FOV
         fov = this.GetComponentInChildren<EnemyFOV>();
         fov.FOVSetParameters(cov_distance_wander, cov_angle_wander, this.transform);
 
-        pathIndex = 0;
+        //pathIndex = 0;
         //destination = wanderPath[pathIndex].position;
 
 //-------------------- Setup Particles System
@@ -140,8 +133,6 @@ public class Enemy : MonoBehaviour
     {
         ChangeStatus();
         ChangeDirection();
-
-        //CheckColorLerp();
 
         if (Vector3.Distance(destination, transform.position) > 0.3f)
         {
@@ -229,6 +220,7 @@ public class Enemy : MonoBehaviour
 
             timePassedToDrop = 0f;
 
+            speed += seekSpeed;
             GameManager.Instance.howManySeeing++;
             currentStatus = EnemyStatus.SEEKING;
 
@@ -251,6 +243,7 @@ public class Enemy : MonoBehaviour
         {
             DropPosition();
 
+            speed -= seekSpeed;
             Vector3 dirToTarget = (player.position - transform.position).normalized;
             float dstToTarget = Vector3.Distance(transform.position, player.position);
 
@@ -260,7 +253,7 @@ public class Enemy : MonoBehaviour
                 Debug.Log("hidden" +  Physics.Raycast(transform.position, dirToTarget, dstToTarget, fov.obstacleMask));
                 GameManager.Instance.howManySeeing--;
                 player = null; ///WARNING!
-                destination = lastPlayerPosition;
+                destination = lastPlayerPosition - (Vector3.one);
 
                 randomInt = Random.Range(0, 2) == 0 ? 1 : -1;
 
@@ -278,6 +271,7 @@ public class Enemy : MonoBehaviour
         {
             searchingParticles.Stop();
             GetComponent<ColorChanger>().ReverseLerp();
+
             if (hanselGretelGPS.Count > 0)
             {
                 currentStatus = EnemyStatus.RETURN;
@@ -312,21 +306,33 @@ public class Enemy : MonoBehaviour
             {
                 Debug.Log("AAAAA");
                 pathIndex = (pathIndex + 1) % path.childCount;
+
                 while (path.GetChild(pathIndex).GetComponent<SingleWaypoint>().underALamp && !teleport)
                 {
                     pathIndex = (pathIndex + 1) % path.childCount;
                     teleport = true;
                     timeToTeleport = 0;
                     teleportParticles.Play();
+                    foreach (Transform child in transform) {
+                        if (!child.CompareTag(Tags.Enemy) && !child.CompareTag(Tags.TeleportEnemy))
+                            child.gameObject.SetActive(false);
+                    }
+
                 }
 
                 if (teleport && timeToTeleport >= 1)
                 {
                     //animation for the teleport HERE
-
-                    this.rb.position = path.GetChild(pathIndex).position;
                     teleportParticles.Play();
+                    foreach (Transform child in transform)
+                    {
+                        if (!child.CompareTag(Tags.Enemy) && !child.CompareTag(Tags.TeleportEnemy))
+                            child.gameObject.SetActive(true);
+                    }
 
+                   
+                    this.rb.position = path.GetChild(pathIndex).position;
+                    
                     destination = path.GetChild(pathIndex).position;
                     teleport = false;
                 }
@@ -352,14 +358,28 @@ public class Enemy : MonoBehaviour
                         teleport = true;
                         teleportParticles.Play();
                         timeToTeleport = 0;
+                        
+                        foreach (Transform child in transform)
+                        {
+                            if (!child.CompareTag(Tags.Enemy) && !child.CompareTag(Tags.TeleportEnemy))
+                                child.gameObject.SetActive(false);
+                        }
+
                     }
                 }
 
                 if (teleport && timeToTeleport >= 1)
                 {
-                    //animation for the teleport HERE
-                    this.rb.position = hanselGretelGPS.Pop().position;
+
                     teleportParticles.Play();
+                    foreach (Transform child in transform)
+                    {
+                        if (!child.CompareTag(Tags.Enemy) && !child.CompareTag(Tags.TeleportEnemy))
+                            child.gameObject.SetActive(true);
+                    }
+
+                    this.rb.position = hanselGretelGPS.Pop().position;
+                    
                     teleport = false;
                 }
 
