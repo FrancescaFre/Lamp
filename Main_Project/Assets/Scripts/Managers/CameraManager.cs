@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.PostProcessing;
 
 public class CameraManager : MonoBehaviour {
 
@@ -24,12 +25,23 @@ public class CameraManager : MonoBehaviour {
 
     private float _input;
 
+    ///PostProcessing
+    [Tooltip("Change the vignette smoothness when a character is half-cursed.")]
+    [Header("Post Processing")]
+    [Range(0f,1f)]
+    public float normalVignetteSmoothness = .2f;
+    [Range(0f, 1f)]
+    public float curseVignetteSmoothness = 1f;
+    private PostProcessingProfile _PPProfile;
 
     // Saves the distance between the original and the dummy camera
     void Start () {
         _dummyCam = GameObject.FindGameObjectWithTag(Tags.DummyCam).transform;
         AlignCameras();
         _camOffset = transform.position - _dummyCam.position;
+
+        ///PostProcessing
+        _PPProfile = GetComponent<PostProcessingBehaviour>().profile;
     }
 
     // Rotates the camera as the right analog stick is pressed
@@ -74,4 +86,24 @@ public class CameraManager : MonoBehaviour {
         }
         transform.SetParent(null);
     }
+
+
+
+    #region Post Processing
+   
+    /// <summary>
+    /// Changes the vignette smoothness
+    /// </summary>
+    /// <param name="halfCurse">Is the player half-cursed? (Default: false)</param>
+    public void ChangeVignetteSmoothness(bool halfCurse = false) {
+        VignetteModel.Settings cameraVignette = _PPProfile.vignette.settings;
+        if(halfCurse)
+            cameraVignette.smoothness = curseVignetteSmoothness;
+        else
+            cameraVignette.smoothness = normalVignetteSmoothness;
+        _PPProfile.vignette.settings = cameraVignette;
+
+    }
+    
+    #endregion
 }

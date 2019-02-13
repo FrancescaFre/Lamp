@@ -210,7 +210,7 @@ public class PlayerController : MonoBehaviour {
                 TeamHUD.Instance.HalfCurse();
                 _rb.MovePosition(transform.position + Vector3.one);
 
-                ChangeVignetteSmoothness(GameManager.Instance.curseVignetteSmoothness);
+                MainCamera.ChangeVignetteSmoothness(halfCurse:true);
                 
                 return;
             }
@@ -222,18 +222,13 @@ public class PlayerController : MonoBehaviour {
                 fullCurseEffect.Play();
             }
 
-            ChangeVignetteSmoothness(GameManager.Instance.normalVignetteSmoothness);
+            MainCamera.ChangeVignetteSmoothness();
             GameManager.Instance.SpawnNewEnemy(touchedEnemy.data_enemy.level - 1, _rb.position, touchedEnemy.path);
             
         }
  
     }
-    private void ChangeVignetteSmoothness(float value) {
-        VignetteModel.Settings cameraVignette = MainCamera.GetComponent<PostProcessingBehaviour>().profile.vignette.settings;
-        cameraVignette.smoothness = value;
-        MainCamera.GetComponent<PostProcessingBehaviour>().profile.vignette.settings = cameraVignette;
 
-    }
     private void OnTriggerExit(Collider other) {
         if (other.CompareTag(Tags.Lamp_Base) ) {//if the character has entered the light of a lamp that is switched on
             IsSafe = false;

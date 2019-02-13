@@ -22,10 +22,7 @@ public class GameManager : MonoBehaviour {
     [Header("Enemies")]
     public List<GameObject> enemyGOList;
     
-    [Tooltip("Change the vignette smoothness when a character is half-cursed.")]
-    [Header("Camera Vignette")]
-    public float normalVignetteSmoothness = .2f;
-    public float curseVignetteSmoothness = 1f;
+   
     [Header("Characters")]
     public List<PlayerController> CharactersList = new List<PlayerController>();   //the gameobject that are present in the scene
     public PlayerController currentPC;
