@@ -34,6 +34,7 @@ public static class Tags {
     //dummy
     public readonly static string DummyPlayer = "Dummy/Player";
     public readonly static string DummyPlanet = "Dummy/Planet";
+    public readonly static string DummyPivot = "Dummy/Pivot";
     public readonly static string DummyCam = "Dummy/Cam";
     //planet
     public readonly static string Planet = "Planet";

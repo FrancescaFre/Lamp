@@ -21,6 +21,7 @@ public class CameraManager : MonoBehaviour {
 
     private Transform _dummyCam; // The dummy camera is used to avoid 3-dimensional inverse revolutions
     private Vector3 _camOffset; // Difference in position between the main camera and the dummy one
+    private Transform _realDummyCam; // Used when switching to zone dig
     private float yPosition = 0; // Position on Y of the rotating camera (starts from zero)
 
     private float _input;
@@ -37,7 +38,7 @@ public class CameraManager : MonoBehaviour {
     // Saves the distance between the original and the dummy camera
     void Start () {
         _dummyCam = GameObject.FindGameObjectWithTag(Tags.DummyCam).transform;
-        AlignCameras();
+        AlignCameras(FindObjectOfType<PlayerController>().transform);
         _camOffset = transform.position - _dummyCam.position;
 
         ///PostProcessing
@@ -65,6 +66,8 @@ public class CameraManager : MonoBehaviour {
 
     private void CheckZoom()
     {
+        if (GameManager.Instance.currentPC.IsZoneDigging) return; // No zoom while zone digging
+
         if ((Input.GetAxisRaw("Mouse ScrollWheel") > 0 && Vector3.Distance(transform.position, GameManager.Instance.currentPC.transform.position) > nearZoom) ||
             (Input.GetAxisRaw("Mouse ScrollWheel") < 0 && Vector3.Distance(transform.position, GameManager.Instance.currentPC.transform.position) < farZoom))
             _dummyCam.transform.Translate(0, 0, Input.GetAxis("Mouse ScrollWheel"), Space.Self);
@@ -75,9 +78,9 @@ public class CameraManager : MonoBehaviour {
             _dummyCam.transform.Translate(0, 0, -sensitivity, Space.Self);
     }
 
-    private void AlignCameras()
+    private void AlignCameras(Transform subjectToAlign)
     {
-        transform.SetParent(FindObjectOfType<PlayerController>().transform);
+        transform.SetParent(subjectToAlign);
         //transform.SetParent(GameManager.Instance.currentPC.transform);
         if (_dummyCam.localPosition != transform.localPosition || _dummyCam.localRotation != transform.localRotation)
         {
@@ -87,10 +90,26 @@ public class CameraManager : MonoBehaviour {
         transform.SetParent(null);
     }
 
+    /// <summary>
+    /// Detaches the camera from the player to follow the zone digging moving circle
+    /// </summary>
+    public void DetachForZoneDig(Transform newDummyCam)
+    {
+        _realDummyCam = _dummyCam;
+        _dummyCam = newDummyCam;
+        AlignCameras(FindObjectOfType<MovingCircle>().transform);
+    }
 
+    /// <summary>
+    /// Detaches the camera from the player to follow the zone digging moving circle
+    /// </summary>
+    public void RestoreDummyCam()
+    {
+        _dummyCam = _realDummyCam;
+    }
 
     #region Post Processing
-   
+
     /// <summary>
     /// Changes the vignette smoothness
     /// </summary>

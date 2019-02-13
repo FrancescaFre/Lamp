@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     public bool OnLeaves { get; set; } // True if player is walking on the leaves / noisy terrain
     public bool OnIce { get; set; } // True if player is walking on ice
     public bool OnSolidFloor { get; set; } // True if player is walking on a solid floor
-    private bool _wallOnIce; // True if player is sliding on ice and hits a wall
+    public Vector3 DummyOffset { get; set; } // The distance between the player's and the dummy's positions  
 
     private PlayerController _player; // The PlayerController attached to the player 
 
@@ -39,9 +39,10 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _movementOnIce; // Saves the last movement direction to use it on ice
     private float _horizInput, _vertInput; // Horizontal and Vertical inputs from analog sticks
     private float _stepSpeed; // How fast is the player. Is always equal to walkSpeed or stealthSpeed 
+    private bool _wallOnIce; // True if player is sliding on ice and hits a wall
 
     private Vector3 _screenForward, _screenRight, _screenUp; // Screen's global axes. They can have different impact based on the camera angle on the player
-    private Vector3 _dummyOffset; // The distance between the player's and the dummy's positions
+    
 
     /*
     private BoxCollider _verticalCollider; // The long vertical collider to check triggers on the other side of the world
@@ -79,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
         OnIce = false;
         OnSolidFloor = false;
         _wallOnIce = false;
-        _dummyOffset = DummyPlayer.transform.position - transform.position;
+        DummyOffset = DummyPlayer.transform.position - transform.position;
 
         StartCoroutine(CorrectPlayerPositions());
         StartCoroutine(CorrectPlayerRotation());
@@ -306,7 +307,7 @@ public class PlayerMovement : MonoBehaviour
     /// <param name="other"></param>
     public void BatonPass(PlayerMovement other)
     {
-        DummyPlayer.position = other.gameObject.transform.position + _dummyOffset;
+        DummyPlayer.position = other.gameObject.transform.position + DummyOffset;
         other.DummyPlayer = DummyPlayer;
         DummyPlayer = null;
     }
@@ -321,10 +322,10 @@ public class PlayerMovement : MonoBehaviour
     {
         while (true)
         {
-            if (DummyPlayer.transform.position - transform.position != _dummyOffset)
+            if (DummyPlayer.transform.position - transform.position != DummyOffset)
             {
                 //transform.position = dummyPlayer.transform.position - _dummyOffset; // Less adjustments, but harder to force teleports and transform movements outside
-                DummyPlayer.transform.position = transform.position + _dummyOffset; // More adjustments, but the player can now do the fuck it wants with its transform
+                DummyPlayer.transform.position = transform.position + DummyOffset; // More adjustments, but the player can now do the fuck it wants with its transform
             }
             yield return new WaitForFixedUpdate();
         }
