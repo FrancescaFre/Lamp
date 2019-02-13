@@ -6,6 +6,7 @@ public class ColorChanger : MonoBehaviour {
     public Color endColor;
     public List<ColorLerp> lerpers;
     public float fadeTime;
+    public bool isRed; 
     
 
 	
@@ -21,14 +22,18 @@ public class ColorChanger : MonoBehaviour {
 	}
     
     public void Lerp() {
+        isRed = true;
         for (int i = 0; i < lerpers.Count; i++) {
             lerpers[i].LerpColors();
+   
         }
     }
 
     public void ReverseLerp() {
+        isRed = false;
         for (int i = 0; i < lerpers.Count; i++) {
             lerpers[i].ReverseLerpColors();
+           
         }
     }
 
