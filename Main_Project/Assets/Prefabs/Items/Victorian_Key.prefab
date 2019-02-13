@@ -37,7 +37,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4217184632604714}
   - component: {fileID: 135136264947226242}
-  - component: {fileID: 114151695886881256}
   m_Layer: 0
   m_Name: Victorian_Key
   m_TagString: Items/Key
@@ -277,24 +276,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114151695886881256
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1463552872558568}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eea17ed6ba5b5c40bbf07453f00980a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  source: {fileID: 0}
-  minAudibleDistance: 1
-  maxAudibleDistance: 100
-  is2D_or3D: 1
-  baseClip: {fileID: 8300000, guid: 54a1a607fa6b0664fb300465cc0e3ce0, type: 3}
-  playOnStartGame: 0
-  doesLoop: 1
 --- !u!114 &114331363204620358
 MonoBehaviour:
   m_ObjectHideFlags: 1

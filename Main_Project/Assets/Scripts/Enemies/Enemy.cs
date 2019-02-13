@@ -128,11 +128,14 @@ public class Enemy : MonoBehaviour
            */
         }
     }
+    private void FixedUpdate() {
+        ChangeStatus();
+        ChangeDirection();
+    }
 
     public void Update()
     {
-        ChangeStatus();
-        ChangeDirection();
+        
 
         if (Vector3.Distance(destination, transform.position) > 0.3f)
         {
@@ -191,33 +194,35 @@ public class Enemy : MonoBehaviour
         player = pc.transform;
     }
 
-    public void PlayerTouched(PlayerController playerT) {
-       
-            player = null; ///WARNING!
+    public void PlayerTouched() {
 
+        player = null; ///WARNING!
+
+        
+        if (hanselGretelGPS.Count > 0) {
+            currentStatus = EnemyStatus.RETURN;
             if (hanselGretelGPS.Count > 0)
-            {
-                currentStatus = EnemyStatus.RETURN;
-                if (hanselGretelGPS.Count > 0)
-                    toDestroy = hanselGretelGPS.Peek();
-                destination = hanselGretelGPS.Pop().position;
-            }
-            else
-            {
-                currentStatus = EnemyStatus.WANDERING;
-                destination = path.GetChild(pathIndex).position;
-            }
+                toDestroy = hanselGretelGPS.Peek();
+            destination = hanselGretelGPS.Pop().position;
+        }
+        else {
+            currentStatus = EnemyStatus.WANDERING;
+            destination = path.GetChild(pathIndex).position;
+        }
     }
 
 //-------------------- Change state of the enemy
     private void ChangeStatus() {
         //1- if the enemy is wandering or returning and it see an enemy and this is not safe--> seeking the player (player)
-        if (currentStatus != EnemyStatus.SEEKING && ((fov.visibleTargets.Count > 0 
-            && !fov.visibleTargets[0].GetComponent<PlayerController>().IsSafe) || (player && !player.GetComponent<PlayerController>().IsSafe)))
-        {
+        if (currentStatus != EnemyStatus.SEEKING && ((fov.visibleTargets.Count > 0 && !fov.visibleTargets[0].GetComponent<PlayerController>().IsSafe 
+            && fov.visibleTargets[0].GetComponent<PlayerController>().CurseStatus!=Status.CURSED) 
+            || (player && !player.GetComponent<PlayerController>().IsSafe)
+            || (player && (player.GetComponent<PlayerController>().CurseStatus != Status.CURSED)))) {
+
             if (fov.visibleTargets.Count > 0 && !fov.visibleTargets[0].GetComponent<PlayerController>().IsSafe)
                 player = fov.visibleTargets[0];
 
+          
             timePassedToDrop = 0f;
 
             speed += seekSpeed;
@@ -228,19 +233,17 @@ public class Enemy : MonoBehaviour
             GetComponent<ColorChanger>().Lerp();
         }
 
-        else if (currentStatus == EnemyStatus.WANDERING && fov.earedTargets.Count > 0)
-        {
+        else if (currentStatus == EnemyStatus.WANDERING && fov.earedTargets.Count > 0) {
             currentStatus = EnemyStatus.SEARCHING;
             randomInt = Random.Range(0, 2) == 0 ? 1 : -1;
-            searchingParticles.Play(); 
+            searchingParticles.Play();
 
             timePassed = 0;
-           // destination = this.transform.position;
+            // destination = this.transform.position;
         }
 
         //2- if the player isn't reachable by any rayCast, stop and start to Search
-        else if (currentStatus == EnemyStatus.SEEKING && player)
-        {
+        else if (currentStatus == EnemyStatus.SEEKING && player) {
             DropPosition();
 
             speed -= seekSpeed;
@@ -248,9 +251,8 @@ public class Enemy : MonoBehaviour
             float dstToTarget = Vector3.Distance(transform.position, player.position);
 
             //if the player is safe or the raycast can't reach the player (cause some obstacles), stop seek
-            if (player.GetComponent<PlayerController>().IsSafe || Physics.Raycast(transform.position, dirToTarget, dstToTarget*5, LayerMask.GetMask("Obstacle")))    
-            {
-                Debug.Log("hidden" +  Physics.Raycast(transform.position, dirToTarget, dstToTarget, fov.obstacleMask));
+            if (player.GetComponent<PlayerController>().IsSafe || Physics.Raycast(transform.position, dirToTarget, dstToTarget * 5, LayerMask.GetMask("Obstacle"))) {
+                // Debug.Log("hidden" +  Physics.Raycast(transform.position, dirToTarget, dstToTarget, fov.obstacleMask));
                 GameManager.Instance.howManySeeing--;
                 player = null; ///WARNING!
                 destination = lastPlayerPosition - (Vector3.one);
@@ -263,17 +265,15 @@ public class Enemy : MonoBehaviour
         }
 
         //3- if the player isn't visible for an ammount of time, stop looking for it
-        else if (currentStatus == EnemyStatus.SEARCHING && timePassed < stop_search_after_x_seconds && player == null)
-        {
+        else if (currentStatus == EnemyStatus.SEARCHING && timePassed < stop_search_after_x_seconds && (player == null || player.GetComponent<PlayerController>().CurseStatus==Status.CURSED)) {
             timePassed += Time.deltaTime;
         }
-        else if (currentStatus == EnemyStatus.SEARCHING && timePassed >= stop_search_after_x_seconds)
-        {
+        else if (currentStatus == EnemyStatus.SEARCHING && timePassed >= stop_search_after_x_seconds) {
             searchingParticles.Stop();
-            GetComponent<ColorChanger>().ReverseLerp();
 
-            if (hanselGretelGPS.Count > 0)
-            {
+            if (hanselGretelGPS.Count > 0) {
+
+                GetComponent<ColorChanger>().ReverseLerp();
                 currentStatus = EnemyStatus.RETURN;
                 if (toDestroy)
                     DestroyImmediate(toDestroy.gameObject);
@@ -281,17 +281,15 @@ public class Enemy : MonoBehaviour
                 destination = hanselGretelGPS.Pop().position;
             }
             else {
-            
+
                 currentStatus = EnemyStatus.WANDERING;
                 destination = path.GetChild(pathIndex).position;
             }
         }
 
         //4- if the enemy is correctly returned at the last waypoint
-        else if (currentStatus == EnemyStatus.RETURN && hanselGretelGPS.Count == 0)
-        {
-            if (Vector3.Distance(path.GetChild(pathIndex).position, transform.position) > 0.3f)
-            {
+        else if (currentStatus == EnemyStatus.RETURN && hanselGretelGPS.Count == 0) {
+            if (Vector3.Distance(path.GetChild(pathIndex).position, transform.position) > 0.3f) {
                 currentStatus = EnemyStatus.WANDERING;
                 destination = path.GetChild(pathIndex).position;
             }
@@ -304,7 +302,7 @@ public class Enemy : MonoBehaviour
         {
             if (Vector3.Distance(path.GetChild(pathIndex).position, transform.position) < 0.3f)
             {
-                Debug.Log("AAAAA");
+               
                 pathIndex = (pathIndex + 1) % path.childCount;
 
                 while (path.GetChild(pathIndex).GetComponent<SingleWaypoint>().underALamp && !teleport)
@@ -467,20 +465,6 @@ public class Enemy : MonoBehaviour
     }
     #endregion
 
-  /*  private void CheckColorLerp() {
 
-        Light[] light = this.GetComponentsInChildren<Light>();
-
-        
-        if (currentStatus == EnemyStatus.SEEKING || currentStatus == EnemyStatus.SEARCHING)
-            if (light[1].color == Color.blue)
-                this.GetComponent<ColorChanger>().Lerp();
-       
-        if (currentStatus == EnemyStatus.RETURN || currentStatus == EnemyStatus.WANDERING)
-            if (light[1].color != Color.red)
-                this.GetComponent<ColorChanger>().ReverseLerp();
-
-   
-    }*/
 }
 

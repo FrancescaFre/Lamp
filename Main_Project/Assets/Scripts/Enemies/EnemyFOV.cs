@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MEC;
 
 public class EnemyFOV : MonoBehaviour {
 
@@ -31,25 +32,36 @@ public class EnemyFOV : MonoBehaviour {
 
     public ParticleSystem hearingParticle;
 
+    public float WaitingTime=.2f;
     void Start()
     {
         viewMesh = new Mesh();
         viewMesh.name = "View Mesh";
         viewMeshFilter.mesh = viewMesh;
 
-        StartCoroutine("FindTargetsWithDelay", .2f);
+        //StartCoroutine("FindTargetsWithDelay", WaitingTime);
+
+        Timing.RunCoroutine(FindTargetsWithDelay(WaitingTime));
 
         foreach (ParticleSystem ps in transform.GetComponentsInChildren<ParticleSystem>())
             if (ps.CompareTag(Tags.HearingAreaEnemy))
                 hearingParticle = ps;
-        //todo: settare il raggio
+    
     }
 
-    IEnumerator FindTargetsWithDelay(float delay)
+   /* IEnumerator FindTargetsWithDelay(float delay)
     {
         while (true)
         {
             yield return new WaitForSeconds(delay);
+            FindVisibleTargets();
+        }
+    }*/
+    IEnumerator<float> FindTargetsWithDelay(float delay)
+    {
+        while (true)
+        {
+            yield return Timing.WaitForSeconds(delay);
             FindVisibleTargets();
         }
     }
@@ -120,7 +132,7 @@ public class EnemyFOV : MonoBehaviour {
                 Debug.DrawRay(transform.position, dirToTarget, Color.blue);
                 if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("Obstacle")))
                 {
-                    Debug.Log("RAY CAST WOT " + Physics.Raycast(transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("Obstacle")));
+
                     visibleTargets.Add(target);
                 }
             }

@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1420012959484472}
+  m_IsPrefabAsset: 1
+--- !u!1 &1420012959484472
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4590088862429904}
+  - component: {fileID: 65257742898595940}
+  - component: {fileID: 114566767987416562}
+  m_Layer: 0
+  m_Name: waterCollider
+  m_TagString: Surface/Water
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4590088862429904
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1420012959484472}
+  m_LocalRotation: {x: -0.19313954, y: 0.6003175, z: 0.766804, w: 0.1196983}
+  m_LocalPosition: {x: -8.620001, y: -6.3, z: 16.53}
+  m_LocalScale: {x: 4.3328333, y: 1.6745992, z: 4.907353}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -104.784996, y: 143.307, z: 10.913986}
+--- !u!65 &65257742898595940
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1420012959484472}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114566767987416562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1420012959484472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a25a9a0d7db7a7b46b921efe8d636e12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footOnSurfaceList:
+  - {fileID: 8300000, guid: dc59fc033eaca3c4bb2c6934d82c5bc9, type: 3}
+  - {fileID: 8300000, guid: 3d89c813c15dad84c8c432b32e417f74, type: 3}
+  - {fileID: 8300000, guid: 51827670aa457ec49aa2323cef76cf12, type: 3}
+  - {fileID: 8300000, guid: 148ea9e946f9daa4b82919fc7bc78e22, type: 3}
+  - {fileID: 8300000, guid: 32a062ce244700a428abf9e1f8c2570a, type: 3}
+  - {fileID: 8300000, guid: 100d36d00fdba2a4a930404dc00c023f, type: 3}
+  - {fileID: 8300000, guid: bc3526cadd5e85a45bfa48f07eaab3cb, type: 3}
+  - {fileID: 8300000, guid: c763f544ee81d834482d365d2da20e2b, type: 3}

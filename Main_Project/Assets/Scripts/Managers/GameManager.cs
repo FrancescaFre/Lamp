@@ -70,8 +70,9 @@ public class GameManager : MonoBehaviour {
             CharactersDict[TeamList[i]].gameObject.SetActive(i == currentCharacter);
 
         }
-
+     
         currentPC = CharactersDict[TeamList[currentCharacter]];
+        
 
         nextChar = currentCharacter < TeamList.Count ? currentCharacter + 1 : -1;
         if (nextChar == -1) {
@@ -81,7 +82,18 @@ public class GameManager : MonoBehaviour {
 
 
     }
+    public void SpawnNewEnemy(int enemyLevel, Vector3 playerPosition, Transform enemyPath) {
+        Debug.Log("create the enemy ");
+        GameObject enemyGO = enemyGOList[enemyLevel]; //the levels are [1,3]
+        enemyGO.GetComponent<Rigidbody>().position = playerPosition;
 
+        enemyGO.GetComponent<Enemy>().path = enemyPath;
+       
+
+        TeamHUD.Instance.Curse();
+        SpawnNewPlayer(); //destroys the character
+        Instantiate(enemyGO);//creates the enemy instead
+    }
     public void SpawnNewPlayer() {
         currentCharacter = nextChar;
         if (LastAllyLamp)
@@ -204,16 +216,7 @@ public class GameManager : MonoBehaviour {
         Invoke("EndGame", winAudio.length-.5f);
     }
 
-    public void SpawnNewEnemy(int enemyLevel, Vector3 playerPosition, Transform enemyPath) {
-        Debug.Log("create the enemy ");
-        GameObject enemyGO = enemyGOList[enemyLevel]; //the levels are [1,3]
-        enemyGO.GetComponent<Rigidbody>().position = playerPosition;
 
-        enemyGO.GetComponent<Enemy>().path = enemyPath;
-        TeamHUD.Instance.Curse();
-        SpawnNewPlayer(); //destroys the character
-        Instantiate(enemyGO);//creates the enemy instead
-    }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         if (scene.buildIndex < 2) return;

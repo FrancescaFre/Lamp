@@ -13,7 +13,9 @@ public class Level_SO : ScriptableObject {
     public List<AudioClip> levelMusic;
     [Header("SFX clips")]
     public AudioClip lampSwitchSFX;
-   // public AudioClip keySFX;
+    public AudioClip keySFX;
+    public AudioClip drillSFX;
+    public AudioClip missingSFX;
     public List<AudioClip> footStepsSFX;
     [Header("Lamp properties")]
     public int allyLamps;
@@ -37,8 +39,5 @@ public class Level_SO : ScriptableObject {
     public string subQuest_2;
     public bool challenge_3;
     public string subQuest_3;
-
-
-
-
+    
 }

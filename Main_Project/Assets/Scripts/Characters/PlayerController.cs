@@ -169,18 +169,19 @@ public class PlayerController : MonoBehaviour {
         {
             _missingParts++;
             other.gameObject.SetActive(false);
-            //------ WARNING: todo
+            AudioManager.Instance.SFXSource.PlayOneShot(GameManager.Instance.levelLoaded.missingSFX);
         }
         else if (other.CompareTag(Tags.Key))
         {
             keys++;
-           // AudioManager.Instance.SFXSource.PlayOneShot(GameManager.Instance.levelLoaded.keySFX);
+            AudioManager.Instance.SFXSource.PlayOneShot(GameManager.Instance.levelLoaded.keySFX);
             other.gameObject.SetActive(false);
             //------ WARNING: todo NON LO SO
         }
         else if (other.CompareTag(Tags.Drill)) {
             digCount++;
             other.gameObject.SetActive(false);
+            AudioManager.Instance.SFXSource.PlayOneShot(GameManager.Instance.levelLoaded.drillSFX);
         }
     }
 
@@ -191,9 +192,11 @@ public class PlayerController : MonoBehaviour {
         //if the character touches an enemy trigger
         //READ AS: if an enemy curse the character
         else if (other.CompareTag(Tags.EnemyBody) && !IsSafe) {
-
+            
             Enemy touchedEnemy = other.GetComponentInParent<Enemy>();
-            touchedEnemy.PlayerTouched(this);
+
+           
+            
             
             if (CurseStatus == Status.NORMAL && !touchedEnemy.data_enemy.instant_curse) {
                 CurseStatus = Status.HALF_CURSED;
@@ -201,18 +204,21 @@ public class PlayerController : MonoBehaviour {
                     halfCurseEffect.gameObject.SetActive(true);
                     halfCurseEffect.Play();
                 }
-
+                touchedEnemy.PlayerTouched();
                 TeamHUD.Instance.HalfCurse();
-               
+                _rb.MovePosition(transform.position + Vector3.one);
                 return;
             }
 
+            CurseStatus = Status.CURSED;
+            touchedEnemy.PlayerTouched();
             if (fullCurseEffect) {
                 fullCurseEffect.gameObject.SetActive(true);
                 fullCurseEffect.Play();
             }
            
             GameManager.Instance.SpawnNewEnemy(touchedEnemy.data_enemy.level - 1, _rb.position, touchedEnemy.path);
+            
         }
  
     }

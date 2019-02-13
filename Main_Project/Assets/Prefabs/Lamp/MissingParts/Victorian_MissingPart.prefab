@@ -122,7 +122,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4369768476523220}
   - component: {fileID: 135886076185910166}
-  - component: {fileID: 114974142825835250}
   m_Layer: 0
   m_Name: Victorian_MissingPart
   m_TagString: Items/MissingPart
@@ -434,26 +433,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AdditionalVertexStreamMesh: {fileID: 0}
---- !u!114 &114974142825835250
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1801988080816004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eea17ed6ba5b5c40bbf07453f00980a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  source: {fileID: 0}
-  minAudibleDistance: 1
-  maxAudibleDistance: 100
-  is2D_or3D: 1
-  baseClip: {fileID: 0}
-  playOnStartGame: 0
-  doesLoop: 0
-  isKey: 0
-  isLamp: 0
 --- !u!135 &135886076185910166
 SphereCollider:
   m_ObjectHideFlags: 1

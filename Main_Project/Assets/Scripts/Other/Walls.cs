@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Walls : MonoBehaviour {
@@ -15,12 +14,12 @@ public class Walls : MonoBehaviour {
 
         foreach (Light light in lights)
             light.enabled = false;
-        //--------------DA CORREGGERE
+       
 
 
         if ( !(((1 << gameObject.layer) & LayerMask.GetMask("Obstacle")) != 0))
         {
-            Debug.Log("INSIDE IF");
+            
             t = true;
             Destroy(GetComponent<Walls>()); //.enabled = false;
         }
