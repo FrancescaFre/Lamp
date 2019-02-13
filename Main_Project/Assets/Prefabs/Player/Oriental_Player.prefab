@@ -616,6 +616,7 @@ GameObject:
   - component: {fileID: 114936668029946474}
   - component: {fileID: 114156654563077092}
   - component: {fileID: 95962621073647882}
+  - component: {fileID: 114217148844675282}
   m_Layer: 9
   m_Name: Oriental_Player
   m_TagString: Player
@@ -933,7 +934,7 @@ GameObject:
   - component: {fileID: 4697952801729686}
   m_Layer: 9
   m_Name: OrientalMale
-  m_TagString: Untagged
+  m_TagString: Player/Model
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2186,6 +2187,19 @@ MonoBehaviour:
   radius: 10
   sphereC: {fileID: 0}
   colliders: []
+--- !u!114 &114217148844675282
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1574525948600028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 869ba0040f609e94b9cf2fc13e18d102, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modelTransform: {fileID: 0}
+  height: 0
 --- !u!114 &114321943018512864
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2203,6 +2217,7 @@ MonoBehaviour:
   usingSkill: 0
   isSneaking: 0
   isRunning: 0
+  CurseStatus: 0
   runningAnimation: 0
   _missingParts: 0
   keys: 0

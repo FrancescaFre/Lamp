@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.PostProcessing;
 
 public enum Status { NORMAL = 0, HALF_CURSED, CURSED }
 public enum Visibility { INVISIBLE = 0, WARNING, SPOTTED }
@@ -32,8 +33,8 @@ public class PlayerController : MonoBehaviour {
     public bool isSneaking = false;
     public bool isRunning = false;
 
-   
-    public Status CurseStatus { get; set; }
+
+    public Status CurseStatus;
     public Visibility Visible { get; set; }
     public CameraManager MainCamera { get; set; }
     public VerticalDig VDig { get; set; }
@@ -195,9 +196,10 @@ public class PlayerController : MonoBehaviour {
             
             Enemy touchedEnemy = other.GetComponentInParent<Enemy>();
 
-           
             
-            
+
+
+
             if (CurseStatus == Status.NORMAL && !touchedEnemy.data_enemy.instant_curse) {
                 CurseStatus = Status.HALF_CURSED;
                 if (halfCurseEffect) {
@@ -207,6 +209,9 @@ public class PlayerController : MonoBehaviour {
                 touchedEnemy.PlayerTouched();
                 TeamHUD.Instance.HalfCurse();
                 _rb.MovePosition(transform.position + Vector3.one);
+
+                ChangeVignetteSmoothness(GameManager.Instance.curseVignetteSmoothness);
+                
                 return;
             }
 
@@ -216,13 +221,19 @@ public class PlayerController : MonoBehaviour {
                 fullCurseEffect.gameObject.SetActive(true);
                 fullCurseEffect.Play();
             }
-           
+
+            ChangeVignetteSmoothness(GameManager.Instance.normalVignetteSmoothness);
             GameManager.Instance.SpawnNewEnemy(touchedEnemy.data_enemy.level - 1, _rb.position, touchedEnemy.path);
             
         }
  
     }
+    private void ChangeVignetteSmoothness(float value) {
+        VignetteModel.Settings cameraVignette = MainCamera.GetComponent<PostProcessingBehaviour>().profile.vignette.settings;
+        cameraVignette.smoothness = value;
+        MainCamera.GetComponent<PostProcessingBehaviour>().profile.vignette.settings = cameraVignette;
 
+    }
     private void OnTriggerExit(Collider other) {
         if (other.CompareTag(Tags.Lamp_Base) ) {//if the character has entered the light of a lamp that is switched on
             IsSafe = false;
