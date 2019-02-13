@@ -80,7 +80,7 @@ public class EnemyFOV : MonoBehaviour {
         if (other.CompareTag(Tags.Player) && !other.transform.GetComponent<PlayerController>().isSneaking && !other.transform.GetComponent<PlayerController>().IsSafe && !earedTargets.Contains(other.transform))
         {
             earedTargets.Add(other.transform);
-            GameManager.Instance.howManyHearing++;
+            
         }
     }
 
@@ -90,7 +90,7 @@ public class EnemyFOV : MonoBehaviour {
         if (other.CompareTag(Tags.Player) && earedTargets.Contains(other.transform))
         {
             earedTargets.Remove(other.transform);
-            GameManager.Instance.howManyHearing--;
+            
         }
     }
 

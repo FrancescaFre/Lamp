@@ -228,7 +228,7 @@ public class Enemy : MonoBehaviour
             timePassedToDrop = 0f;
 
             speed += seekSpeed;
-            GameManager.Instance.howManySeeing++;
+            
             currentStatus = EnemyStatus.SEEKING;
 
             //---------
@@ -255,7 +255,7 @@ public class Enemy : MonoBehaviour
             //if the player is safe or the raycast can't reach the player (cause some obstacles), stop seek
             if (player.GetComponent<PlayerController>().IsSafe || Physics.Raycast(transform.position, dirToTarget, dstToTarget * 5, LayerMask.GetMask("Obstacle"))) {
                 // Debug.Log("hidden" +  Physics.Raycast(transform.position, dirToTarget, dstToTarget, fov.obstacleMask));
-                GameManager.Instance.howManySeeing--;
+               
                 player = null; ///WARNING!
                 destination = lastPlayerPosition - (Vector3.one*2);
 

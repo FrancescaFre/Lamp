@@ -73,7 +73,7 @@ MonoBehaviour:
     m_Settings:
       focusDistance: 3.65
       aperture: 3.6
-      focalLength: 60
+      focalLength: 55
       useCameraFov: 0
       kernelSize: 1
   motionBlur:
@@ -305,7 +305,7 @@ MonoBehaviour:
       lut: {fileID: 0}
       contribution: 1
   chromaticAberration:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       spectralTexture: {fileID: 0}
       intensity: 0.3

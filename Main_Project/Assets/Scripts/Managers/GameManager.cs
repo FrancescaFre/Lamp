@@ -21,9 +21,7 @@ public class GameManager : MonoBehaviour {
 
     [Header("Enemies")]
     public List<GameObject> enemyGOList;
-    public int howManySeeing = 0;
-    public int howManyHearing = 0;
-
+    
     [Tooltip("Change the vignette smoothness when a character is half-cursed.")]
     [Header("Camera Vignette")]
     public float normalVignetteSmoothness = .2f;
