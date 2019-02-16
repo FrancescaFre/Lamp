@@ -100,7 +100,7 @@ public abstract class Digging : MonoBehaviour {
     /// <returns></returns>
     public virtual bool CanDig()
     {
-        return !(_pm.OnIce || _pm.OnLeaves || _pm.OnWater || _pm.OnSolidFloor);
+        return !(_pm.OnIce  || _pm.OnWater || _pm.OnSolidFloor);
     }
 
     /// <summary>

@@ -51,7 +51,7 @@ public class VerticalDig : Digging
     /// <returns></returns>
     override public bool CanDig()
     {
-        return !(_pm.OnIce || _pm.OnLeaves || _pm.OnWater || _pm.OnSolidFloor || otherSideIsWrong);
+        return !(_pm.OnIce ||  _pm.OnWater || _pm.OnSolidFloor || otherSideIsWrong);
     }
 
     /// <summary>
