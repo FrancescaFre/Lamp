@@ -49,7 +49,7 @@ public class VerticalDig : Digging
     /// Checks if the terrain under the player is ok to be dug
     /// </summary>
     /// <returns></returns>
-    override protected bool CanDig()
+    override public bool CanDig()
     {
         return !(_pm.OnIce || _pm.OnLeaves || _pm.OnWater || _pm.OnSolidFloor || otherSideIsWrong);
     }

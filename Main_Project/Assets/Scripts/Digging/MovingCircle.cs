@@ -100,7 +100,7 @@ public class MovingCircle : ZoneDig {
     }
 
     // Uses its own CanDig method, and checks own collisions instead of player's (uses the canDig boolean)
-    protected override bool CanDig()
+    public override bool CanDig()
     {
         return canDig;
     }

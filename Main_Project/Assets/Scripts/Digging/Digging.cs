@@ -98,7 +98,7 @@ public abstract class Digging : MonoBehaviour {
     /// Checks if the terrain under the player is ok to be dug
     /// </summary>
     /// <returns></returns>
-    protected virtual bool CanDig()
+    public virtual bool CanDig()
     {
         return !(_pm.OnIce || _pm.OnLeaves || _pm.OnWater || _pm.OnSolidFloor);
     }

@@ -6,7 +6,7 @@ public class DigCounterHUD : MonoBehaviour {
     public ParticleSystem glow;
     private int digCount;
 
-    public bool isOnSolid = false;
+    public bool canDig = false;
 
 	// Use this for initialization
 	void Start () {
@@ -17,8 +17,8 @@ public class DigCounterHUD : MonoBehaviour {
     private void LateUpdate() {
         digCount= GameManager.Instance.currentPC.digCount;
         counter.text = digCount.ToString("00");
-
-        if (digCount > 0 && !isOnSolid)
+        canDig = GameManager.Instance.currentPC.VDig.CanDig() & GameManager.Instance.currentPC.ZDig.CanDig();
+        if (digCount > 0 && canDig)
             glow.Play();
         else
             glow.Stop();
