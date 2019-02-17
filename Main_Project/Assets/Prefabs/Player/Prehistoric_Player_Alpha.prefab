@@ -3392,8 +3392,6 @@ MonoBehaviour:
   digNo: {fileID: 2100000, guid: 30eeca49f9f277244af8997a80685650, type: 2}
   player: {fileID: 114964148884488868}
   castingTime: 120
-  caster: {fileID: 0}
-  bar: {fileID: 0}
   movingCirclePrefab: {fileID: 1805591998086222, guid: a6986ec8d836a02489d419e6d5b12291,
     type: 2}
   radius: 10
@@ -3444,8 +3442,6 @@ MonoBehaviour:
   digNo: {fileID: 2100000, guid: 30eeca49f9f277244af8997a80685650, type: 2}
   player: {fileID: 114964148884488868}
   castingTime: 120
-  caster: {fileID: 0}
-  bar: {fileID: 0}
 --- !u!114 &114781149307827750
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3520,6 +3516,9 @@ MonoBehaviour:
   questionMarkPrefab: {fileID: 1820886121641010, guid: 07d97c0bab579c7448ba1353e9bdedf3,
     type: 2}
   questionMark: {fileID: 0}
+  CasterPrefab: {fileID: 1058765039614066, guid: 2dd72ee9a23821f40a3784e5d88c2342,
+    type: 2}
+  caster: {fileID: 0}
   otherplayer: {fileID: 0}
 --- !u!114 &114993916151276676
 MonoBehaviour:

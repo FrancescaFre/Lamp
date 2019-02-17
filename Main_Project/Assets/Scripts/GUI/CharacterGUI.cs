@@ -78,11 +78,13 @@ public class CharacterGUI : BaseButtonGUI {
     }
 
     public override void OnSubmit(BaseEventData eventData) {
+        if (!thisButton.interactable) return;
         base.OnSubmit(eventData);
         teamGUI.SetCharacter(timePeriod);
     }
 
     public override void OnPointerClick(PointerEventData eventData) {
+        if (!thisButton.interactable) return;
         base.OnPointerClick(eventData);
         teamGUI.SetCharacter(timePeriod);
     }
