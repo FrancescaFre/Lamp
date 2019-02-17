@@ -14,7 +14,7 @@ public static class AnimationManager
 
         float m_CurrentClipLength;
         //Get them_Animator, which you attach to the GameObject you intend to animate.
-        m_Animator = trans.GetComponent<Animator>();
+        m_Animator = trans.GetComponentInChildren<Animator>();
         //Fetch the current Animation clip information for the base layer
         m_CurrentClipInfo = m_Animator.GetCurrentAnimatorClipInfo(0);
         //Access the Animation clip name
@@ -26,7 +26,7 @@ public static class AnimationManager
         else
             return 0; 
         */
-        Animator anim = trans.GetComponent<Animator>();
+        Animator anim = trans.GetComponentInChildren<Animator>();
         float time = 0;
         RuntimeAnimatorController ac = anim.runtimeAnimatorController;    //Get Animator controller
         for (int i = 0; i < ac.animationClips.Length; i++)                 //For all animations
@@ -43,22 +43,22 @@ public static class AnimationManager
 //------------------------------------------------------------------------------
     public static bool Anim_CheckPlay(Transform trans, string s)
     {
-        return !trans.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName(s);   
+        return !trans.GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName(s);   
     }
 //------------------------------------------------------------------------------
     public static bool Anim_CheckBool(Transform trans, string s)
     {
-        return trans.GetComponent<Animator>().GetBool(s);
+        return trans.GetComponentInChildren<Animator>().GetBool(s);
     }
  //------------------------------------------------------------------------------
     public static void Anim_StarDigging(Transform trans)
     {
-        trans.GetComponent<Animator>().SetTrigger("isDigging");
+        trans.GetComponentInChildren<Animator>().SetTrigger("isDigging");
     } 
 //------------------------------------------------------------------------------
     public static void Anim_OpenDoor(Transform trans)
     {
-        trans.GetComponent<Animator>().SetTrigger("OpenDoor");
+        trans.GetComponentInChildren<Animator>().SetTrigger("OpenDoor");
         if (Anim_CheckBool(trans, "IsMovingStanding"))
             Anim_StopMovingStanding(trans);
         if (Anim_CheckBool(trans, "IsMovingSneaky"))
@@ -67,31 +67,31 @@ public static class AnimationManager
 //------------------------------------------------------------------------------
     public static void Anim_StartMovingStanding(Transform trans)
     {
-        trans.GetComponent<Animator>().SetBool("IsMovingStanding", true);
+        trans.GetComponentInChildren<Animator>().SetBool("IsMovingStanding", true);
     }
 //------------------------------------------------------------------------------
     public static void Anim_StopMovingStanding(Transform trans)
     {
-        trans.GetComponent<Animator>().SetBool("IsMovingStanding", false);
+        trans.GetComponentInChildren<Animator>().SetBool("IsMovingStanding", false);
     }
 //------------------------------------------------------------------------------
     public static void Anim_StartMovingSneaky(Transform trans)
     {
-        trans.GetComponent<Animator>().SetBool("IsMovingSneaky", true);
+        trans.GetComponentInChildren<Animator>().SetBool("IsMovingSneaky", true);
     }
 //------------------------------------------------------------------------------
     public static void Anim_StopMovingSneaky(Transform trans)
     {
-        trans.GetComponent<Animator>().SetBool("IsMovingSneaky", false);
+        trans.GetComponentInChildren<Animator>().SetBool("IsMovingSneaky", false);
     }
 //------------------------------------------------------------------------------
     public static void Anim_StartMovingRunning(Transform trans)
     {
-        trans.GetComponent<Animator>().SetBool("IsMovingRunning", true);
+        trans.GetComponentInChildren<Animator>().SetBool("IsMovingRunning", true);
     }
  //------------------------------------------------------------------------------
     public static void Anim_StopMovingRunning(Transform trans)
     {
-        trans.GetComponent<Animator>().SetBool("IsMovingRunning", false);
+        trans.GetComponentInChildren<Animator>().SetBool("IsMovingRunning", false);
     }
 }

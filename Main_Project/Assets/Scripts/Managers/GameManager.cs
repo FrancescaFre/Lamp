@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour {
     /// <summary>
     /// Sets as Active only one character at a time
     /// </summary>
-    public void ActivatePlayerX() {
+    public void ActivatePlayerX(bool startGame=false) {
 
         for (int i = 0; i < TeamList.Count; i++) {
             CharactersDict[TeamList[i]].gameObject.SetActive(i == currentCharacter);
@@ -70,7 +70,8 @@ public class GameManager : MonoBehaviour {
         }
      
         currentPC = CharactersDict[TeamList[currentCharacter]];
-        
+        if(startGame)
+            CharactersDict[TeamList[currentCharacter]].transform.position = levelLoaded.entryPoint;
 
         nextChar = currentCharacter < TeamList.Count ? currentCharacter + 1 : -1;
         if (nextChar == -1) {
@@ -177,7 +178,7 @@ public class GameManager : MonoBehaviour {
         if (levelLoaded.levelMusic!=null)
             AudioManager.Instance.PlayMusic(levelLoaded.levelMusic);
 
-        ActivatePlayerX();
+        ActivatePlayerX(true);
     }
     public void EndGame() {//epilogue
         Cursor.visible = true;
