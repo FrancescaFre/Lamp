@@ -239,8 +239,8 @@ public class PlayerMovement : MonoBehaviour
         if (staminaValue < maxStamina && !(Input.GetButton(Controllers.PS4_R2) || Input.GetKey(KeyCode.LeftShift)))
         {
             staminaValue += Time.deltaTime / staminaRegainRate * staminaRegainMult;
-
         }
+
         if (staminaValue <= 0)
         {
             staminaValue = 0;
@@ -386,6 +386,12 @@ public class PlayerMovement : MonoBehaviour
 
         else
         {
+            if (AnimationManager.Anim_CheckBool(_player.characterAnimator, "IsMovingRunning") || (AnimationManager.Anim_CheckBool(_player.characterAnimator, "IsMovingSneaky")))
+            {
+                AnimationManager.Anim_StopMovingSneaky(_player.characterAnimator);
+                AnimationManager.Anim_StopMovingRunning(_player.characterAnimator);
+            }
+
             //se NON sto camminando, ma sono sneaky
             if (_player.isSneaking && !AnimationManager.Anim_CheckBool(_player.characterAnimator, "IsMovingStanding"))
                 AnimationManager.Anim_StopMovingSneaky(_player.characterAnimator);
