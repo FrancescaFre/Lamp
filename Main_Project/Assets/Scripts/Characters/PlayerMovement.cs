@@ -94,8 +94,8 @@ public class PlayerMovement : MonoBehaviour
 
         //Stamina
         staminaValue = maxStamina;
-        staminaHUD = InGameHUD.Instance.GetComponentInChildren<StaminaHUD>();
-        staminaHUD.MaxStamina = maxStamina;
+        staminaHUD = InGameHUD.Instance.InGameHUDPanel.GetComponentInChildren<StaminaHUD>();
+        
         staminaHUD.staminaSlider.value = staminaValue;
         staminaHUD.staminaSlider.maxValue = maxStamina;
     }

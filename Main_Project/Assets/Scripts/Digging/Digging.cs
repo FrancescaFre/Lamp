@@ -8,12 +8,9 @@ public abstract class Digging : MonoBehaviour {
     public PlayerController player;
 
     [Range(1, 120)]
-    public int castingTime; // Frames needed to charge (120 frames = 2 seconds)
-    public Image caster; // The caster to pop up
-    public Image bar; // The bar that fills when casting
-
+    public float castingTime; 
     protected PlayerMovement _pm;
-    protected int _progress; // Actual casting progress  
+    protected float _progress; // Actual casting progress  
 
     /*#region Trigger Interaction
 
@@ -52,19 +49,30 @@ public abstract class Digging : MonoBehaviour {
     #endregion*/
 
     protected virtual void Start() {
-        caster = InGameHUD.Instance.InGameHUDPanel.transform.Find("Gauge Panel").Find("Caster").GetComponent<Image>();
-        bar = caster.transform.GetChild(0).GetComponent<Image>();
+
         _pm = player.GetComponent<PlayerMovement>();
-        caster.gameObject.SetActive(false);
+
         gameObject.SetActive(false);
-    }
+
+        if (player.CharacterPeriod == CharPeriod.VICTORIAN || player.CharacterPeriod == CharPeriod.PREHISTORY)
+            castingTime = AnimationManager.Anim_LenghtAnim(player.characterAnimator, "Dig And Plant Seeds");
+        if (player.CharacterPeriod == CharPeriod.ORIENTAL)
+            castingTime = AnimationManager.Anim_LenghtAnim(player.characterAnimator, "orientalDIG");
+
+        player.caster.maxValue = castingTime;
+
+}
 
     protected virtual void Update() {
-        if (!caster.isActiveAndEnabled)
+        //if (!caster.isActiveAndEnabled)
+        if (!player.caster) return;
+        if (!player.caster.isActiveAndEnabled)
             ChangeColor();
         else
             CastDig();
     }
+
+
 
     /// <summary>
     /// Performs the digging action (called by caster)
@@ -104,8 +112,8 @@ public abstract class Digging : MonoBehaviour {
     /// Casts the dig during the casting update
     /// </summary>
     protected void CastDig() {
-        _progress++;
-        bar.fillAmount += 1.0f / castingTime;
+        _progress+=Time.deltaTime;
+        player.caster.value=_progress;
 
         if (_progress >= castingTime) {
             Dig();
@@ -119,7 +127,7 @@ public abstract class Digging : MonoBehaviour {
     /// </summary>
     protected void StartCasting() {
         _progress = 0;
-        caster.gameObject.SetActive(true);
+        player.caster.gameObject.SetActive(true);
     }
 
     /// <summary>
@@ -127,8 +135,8 @@ public abstract class Digging : MonoBehaviour {
     /// </summary>
     protected void StopCasting() {
         _progress = 0;
-        bar.fillAmount = 0;
-        caster.gameObject.SetActive(false);
+        player.caster.value = 0;
+        player.caster.gameObject.SetActive(false);
     }
 
     /// <summary>

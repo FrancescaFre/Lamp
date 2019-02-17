@@ -54,8 +54,7 @@ public class MovingCircle : ZoneDig {
 
     new void Start()
     {
-        caster = InGameHUD.Instance.InGameHUDPanel.transform.Find("Gauge Panel").Find("Caster").GetComponent<Image>();
-        bar = caster.transform.GetChild(0).GetComponent<Image>();
+       
         pc = GameManager.Instance.currentPC;
     }
 
@@ -75,8 +74,10 @@ public class MovingCircle : ZoneDig {
         StartCoroutine(AdjustDummyPosition());
     }
 
-    void FixedUpdate()
-    {
+    void FixedUpdate() {
+        if (!player.caster) return;
+
+        player.caster.transform.position = player.MainCamera.GetComponent<Camera>().WorldToScreenPoint(transform.position);
         if (!player.IsCasting)
         {
             if (Input.GetAxis(Controllers.Vertical) > 0)
