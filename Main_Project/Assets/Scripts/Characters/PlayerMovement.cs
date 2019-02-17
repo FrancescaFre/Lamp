@@ -355,42 +355,42 @@ public class PlayerMovement : MonoBehaviour
         if ((_horizInput != 0 || _vertInput != 0) && !_player.IsZoneDigging)
         {
             //se sono sneaky ma non è attiva l'animazione, allora sneaky
-            if (!(AnimationManager.Anim_CheckBool(this.transform, "IsMovingSneaky")) && _player.isSneaking)
+            if (!(AnimationManager.Anim_CheckBool(_player.characterAnimator, "IsMovingSneaky")) && _player.isSneaking)
             {
-                AnimationManager.Anim_StopMovingStanding(this.transform);
-                AnimationManager.Anim_StartMovingSneaky(this.transform);
+                AnimationManager.Anim_StopMovingStanding(_player.characterAnimator);
+                AnimationManager.Anim_StartMovingSneaky(_player.characterAnimator);
             }
 
             //se non sono sneaky, ma l'animazione è attiva, allora ferma l'animazione
-            if (AnimationManager.Anim_CheckBool(this.transform, "IsMovingSneaky") && !_player.isSneaking)
-                AnimationManager.Anim_StopMovingSneaky(this.transform);
+            if (AnimationManager.Anim_CheckBool(_player.characterAnimator, "IsMovingSneaky") && !_player.isSneaking)
+                AnimationManager.Anim_StopMovingSneaky(_player.characterAnimator);
 
             //se sto correndo ma l'animazione della corsa non è attiva, attivala
-            if (!(AnimationManager.Anim_CheckBool(this.transform, "IsMovingRunning")) && _player.isRunning)
+            if (!(AnimationManager.Anim_CheckBool(_player.characterAnimator, "IsMovingRunning")) && _player.isRunning)
             {
-                AnimationManager.Anim_StartMovingRunning(this.transform);
+                AnimationManager.Anim_StartMovingRunning(_player.characterAnimator);
             }
 
             //se l'animazione della corsa è attiva, ma non sto correndo, allora fermala
-            if (AnimationManager.Anim_CheckBool(this.transform, "IsMovingRunning") && !_player.isRunning)
-                AnimationManager.Anim_StopMovingRunning(this.transform);
+            if (AnimationManager.Anim_CheckBool(_player.characterAnimator, "IsMovingRunning") && !_player.isRunning)
+                AnimationManager.Anim_StopMovingRunning(_player.characterAnimator);
 
             //sono in piedi e mi muovo (quindi cammino) 
             if (!_player.isRunning && !_player.isSneaking)
             {
-                AnimationManager.Anim_StopMovingSneaky(this.transform);
-                AnimationManager.Anim_StopMovingRunning(this.transform);
-                AnimationManager.Anim_StartMovingStanding(this.transform);
+                AnimationManager.Anim_StopMovingSneaky(_player.characterAnimator);
+                AnimationManager.Anim_StopMovingRunning(_player.characterAnimator);
+                AnimationManager.Anim_StartMovingStanding(_player.characterAnimator);
             }
         }
 
         else
         {
             //se NON sto camminando, ma sono sneaky
-            if (_player.isSneaking && !AnimationManager.Anim_CheckBool(this.transform, "IsMovingStanding"))
-                AnimationManager.Anim_StopMovingSneaky(this.transform);
+            if (_player.isSneaking && !AnimationManager.Anim_CheckBool(_player.characterAnimator, "IsMovingStanding"))
+                AnimationManager.Anim_StopMovingSneaky(_player.characterAnimator);
 
-            AnimationManager.Anim_StopMovingStanding(this.transform);
+            AnimationManager.Anim_StopMovingStanding(_player.characterAnimator);
         }
     }
 }

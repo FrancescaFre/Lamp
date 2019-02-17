@@ -76,7 +76,10 @@ public class VerticalDig : Digging
         if (isActiveAndEnabled) // If you already pressed [VDIG]
             if (CanDig())
             {
+                player.drillGO.SetActive(true);
+                AnimationManager.Anim_StarDigging(player.characterAnimator);
                 StartCasting();
+                Invoke("HideDrillGO", AnimationManager.Anim_LenghtAnim(player.characterAnimator, "Dig And Plant Seeds"));
                 player.IsCasting = true;
             }
             else

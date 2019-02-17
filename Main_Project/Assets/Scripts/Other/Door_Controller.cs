@@ -15,12 +15,12 @@ public class Door_Controller : MonoBehaviour {
                 Debug.Log("Player1");
                 _player = collision.collider.GetComponent<PlayerController>();
                 _player.keys--;
-                AnimationManager.Anim_OpenDoor(_player.transform);
+                AnimationManager.Anim_OpenDoor(_player.characterAnimator);
 
                 //Lock movement
                 _player.runningAnimation = true;
-                Invoke ("UnlockDoor", AnimationManager.Anim_LenghtAnim(_player.transform, "Opening"));
-                Debug.Log("time " + AnimationManager.Anim_LenghtAnim(_player.transform, "Opening"));
+                Invoke ("UnlockDoor", AnimationManager.Anim_LenghtAnim(_player.characterAnimator, "Opening"));
+                //Debug.Log("time " + AnimationManager.Anim_LenghtAnim(_player.characterAnimator, "Opening"));
               //  GameObject.Find("WASD").GetComponent<Autodestruct>().DieNow = true;
                 this.GetComponent<Collider>().isTrigger = true; 
             }

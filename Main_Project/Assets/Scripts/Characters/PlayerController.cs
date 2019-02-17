@@ -23,7 +23,7 @@ ESC/PAUSE	PAUSE MENU
      */
 
 public class PlayerController : MonoBehaviour {
-    [Header("Charackter Information")]
+    [Header("Character Information")]
     public CharPeriod CharacterPeriod;
     public Skill skill;
 
@@ -46,12 +46,14 @@ public class PlayerController : MonoBehaviour {
     public bool IsCasting { get; set; }
     public bool runningAnimation = false;
 
-    
+    public Animator characterAnimator;
+
     private Rigidbody _rb;
     private Transform _modelTransform;
     [Header("Item informations")]
     public int _missingParts = 0;
     public int keys = 0;
+    public GameObject drillGO;
 
     [Header("Character's FX")]
     public ParticleSystem halfCurseEffect;
@@ -106,6 +108,17 @@ public class PlayerController : MonoBehaviour {
 
         questionMark = Instantiate(questionMarkPrefab, InGameHUD.Instance.InGameHUDPanel.transform).GetComponent<Image>();
         questionMark.gameObject.SetActive(false);
+
+        characterAnimator = GetComponentInChildren<Animator>();
+
+        var allChilds = GetComponentsInChildren<Transform>();
+        foreach (Transform child in allChilds) {
+            if (child.CompareTag(Tags.Drill))
+                drillGO = child.gameObject;
+
+        }
+
+        drillGO.SetActive(false);
     }
     
     // Update is called once per frame
@@ -302,7 +315,7 @@ public class PlayerController : MonoBehaviour {
                 if (digCount > 0)
                 {
                     ZDig.CheckInput();
-                    AnimationManager.Anim_StarDigging(transform);
+                    
                 }
         }
     }

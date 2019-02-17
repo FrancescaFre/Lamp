@@ -14,7 +14,7 @@ public abstract class Digging : MonoBehaviour {
 
     protected PlayerMovement _pm;
     protected int _progress; // Actual casting progress  
-   
+
     /*#region Trigger Interaction
 
     protected void OnTriggerEnter(Collider terrain)
@@ -59,8 +59,7 @@ public abstract class Digging : MonoBehaviour {
         gameObject.SetActive(false);
     }
 
-    protected virtual void Update()
-    {
+    protected virtual void Update() {
         if (!caster.isActiveAndEnabled)
             ChangeColor();
         else
@@ -86,8 +85,7 @@ public abstract class Digging : MonoBehaviour {
     /// <summary>
     /// Switches the circle's color between green and red
     /// </summary>
-    protected void ChangeColor()
-    {
+    protected void ChangeColor() {
         if (CanDig())
             GetComponent<MeshRenderer>().material = digYes;
         else
@@ -98,21 +96,18 @@ public abstract class Digging : MonoBehaviour {
     /// Checks if the terrain under the player is ok to be dug
     /// </summary>
     /// <returns></returns>
-    public virtual bool CanDig()
-    {
-        return !(_pm.OnIce  || _pm.OnWater || _pm.OnSolidFloor);
+    public virtual bool CanDig() {
+        return !(_pm.OnIce || _pm.OnWater || _pm.OnSolidFloor);
     }
 
     /// <summary>
     /// Casts the dig during the casting update
     /// </summary>
-    protected void CastDig()
-    {
+    protected void CastDig() {
         _progress++;
         bar.fillAmount += 1.0f / castingTime;
 
-        if (_progress >= castingTime)
-        {
+        if (_progress >= castingTime) {
             Dig();
             StopCasting();
             Cancel();
@@ -122,8 +117,7 @@ public abstract class Digging : MonoBehaviour {
     /// <summary>
     /// Pops up and starts the casting bar
     /// </summary>
-    protected void StartCasting()
-    {
+    protected void StartCasting() {
         _progress = 0;
         caster.gameObject.SetActive(true);
     }
@@ -131,8 +125,7 @@ public abstract class Digging : MonoBehaviour {
     /// <summary>
     /// Hides and resets the casting bar
     /// </summary>
-    protected void StopCasting()
-    {
+    protected void StopCasting() {
         _progress = 0;
         bar.fillAmount = 0;
         caster.gameObject.SetActive(false);
@@ -141,8 +134,11 @@ public abstract class Digging : MonoBehaviour {
     /// <summary>
     /// Hides the dig circle
     /// </summary>
-    public virtual void Cancel()
-    {
+    public virtual void Cancel() {
         gameObject.SetActive(false);
+    }
+
+    protected void HideDrillGO(){
+        player.drillGO.SetActive(false);
     }
 }

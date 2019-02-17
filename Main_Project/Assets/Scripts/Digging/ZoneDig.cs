@@ -41,6 +41,9 @@ public class ZoneDig : Digging {
         if (player.IsZoneDigging) // If you already pressed [ZDIG] 2 times (activate -> valid start -> now)
             if (_movingCircle.CanDig())
             {
+                player.drillGO.SetActive(true);
+                AnimationManager.Anim_StarDigging(player.characterAnimator);
+                Invoke("HideDrillGO", AnimationManager.Anim_LenghtAnim(player.characterAnimator, "Dig And Plant Seeds"));
                 StartCasting();
                 player.IsCasting = true;
             }
