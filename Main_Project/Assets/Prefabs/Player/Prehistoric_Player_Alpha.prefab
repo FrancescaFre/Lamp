@@ -314,6 +314,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1192871934947860
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4111508842226196}
+  - component: {fileID: 33357597713375434}
+  - component: {fileID: 23896341065945888}
+  - component: {fileID: 65207319787040548}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Items/Drill
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1194792667830296
 GameObject:
   m_ObjectHideFlags: 1
@@ -1017,6 +1035,7 @@ GameObject:
   - component: {fileID: 4625951680989778}
   - component: {fileID: 136679672246915292}
   - component: {fileID: 54263368477553366}
+  - component: {fileID: 95883736107278986}
   - component: {fileID: 114964148884488868}
   - component: {fileID: 114888939328846896}
   - component: {fileID: 114781149307827750}
@@ -1270,7 +1289,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4870033405656058}
-  - component: {fileID: 95537007563464222}
   m_Layer: 0
   m_Name: PrimitiveGirl
   m_TagString: Player/Model
@@ -1696,6 +1714,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4221053804651618}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4111508842226196
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1192871934947860}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.097, z: -0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_Children: []
+  m_Father: {fileID: 4688415743664426}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4111541390413362
 Transform:
@@ -2690,6 +2721,7 @@ Transform:
   - {fileID: 4919143504943826}
   - {fileID: 4442809952825804}
   - {fileID: 4433107122185724}
+  - {fileID: 4111508842226196}
   m_Father: {fileID: 4459370367025864}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3148,6 +3180,41 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!23 &23896341065945888
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1192871934947860}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!23 &23921640145822950
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -3197,6 +3264,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1743750486964526}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &33357597713375434
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1192871934947860}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!54 &54263368477553366
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -3212,6 +3286,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!65 &65207319787040548
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1192871934947860}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65693894578433896
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -3236,13 +3322,13 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 2, z: 1.0000001}
   m_Center: {x: 0.00000005960464, y: 0, z: -0.00000008940696}
---- !u!95 &95537007563464222
+--- !u!95 &95883736107278986
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1803274342187762}
+  m_GameObject: {fileID: 1680335206118314}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b77e25449da20c24eb56afac4e1910ad, type: 3}
   m_Controller: {fileID: 9100000, guid: e509486732a5237418d6af21355675f6, type: 2}
@@ -3306,8 +3392,6 @@ MonoBehaviour:
   digNo: {fileID: 2100000, guid: 30eeca49f9f277244af8997a80685650, type: 2}
   player: {fileID: 114964148884488868}
   castingTime: 120
-  caster: {fileID: 0}
-  bar: {fileID: 0}
   movingCirclePrefab: {fileID: 1805591998086222, guid: a6986ec8d836a02489d419e6d5b12291,
     type: 2}
   radius: 10
@@ -3358,8 +3442,6 @@ MonoBehaviour:
   digNo: {fileID: 2100000, guid: 30eeca49f9f277244af8997a80685650, type: 2}
   player: {fileID: 114964148884488868}
   castingTime: 120
-  caster: {fileID: 0}
-  bar: {fileID: 0}
 --- !u!114 &114781149307827750
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3424,14 +3506,19 @@ MonoBehaviour:
   isRunning: 0
   CurseStatus: 0
   runningAnimation: 0
+  characterAnimator: {fileID: 0}
   _missingParts: 0
   keys: 0
+  drillGO: {fileID: 0}
   halfCurseEffect: {fileID: 0}
   fullCurseEffect: {fileID: 0}
   digEffect: {fileID: 0}
   questionMarkPrefab: {fileID: 1820886121641010, guid: 07d97c0bab579c7448ba1353e9bdedf3,
     type: 2}
   questionMark: {fileID: 0}
+  CasterPrefab: {fileID: 1058765039614066, guid: 2dd72ee9a23821f40a3784e5d88c2342,
+    type: 2}
+  caster: {fileID: 0}
   otherplayer: {fileID: 0}
 --- !u!114 &114993916151276676
 MonoBehaviour:

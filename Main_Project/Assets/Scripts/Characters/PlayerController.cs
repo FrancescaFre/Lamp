@@ -63,6 +63,9 @@ public class PlayerController : MonoBehaviour {
     [Header("In-HUD References")]
     public GameObject questionMarkPrefab;  
     public Image questionMark;
+    public GameObject CasterPrefab;
+    public Slider caster;
+
 
     //TEST
     public GameObject otherplayer;
@@ -109,6 +112,9 @@ public class PlayerController : MonoBehaviour {
         questionMark = Instantiate(questionMarkPrefab, InGameHUD.Instance.InGameHUDPanel.transform).GetComponent<Image>();
         questionMark.gameObject.SetActive(false);
 
+        caster = Instantiate(CasterPrefab, InGameHUD.Instance.InGameHUDPanel.transform).GetComponent<Slider>();
+        caster.gameObject.SetActive(false);
+
         characterAnimator = GetComponentInChildren<Animator>();
 
         var allChilds = GetComponentsInChildren<Transform>();
@@ -130,6 +136,9 @@ public class PlayerController : MonoBehaviour {
 
     private void LateUpdate() {
         questionMark.transform.position = MainCamera.GetComponent<Camera>().WorldToScreenPoint(_modelTransform.position);
+        if(!IsZoneDigging)
+            caster.transform.position = MainCamera.GetComponent<Camera>().WorldToScreenPoint(_modelTransform.position);
+
     }
     //#####################################################################
 
