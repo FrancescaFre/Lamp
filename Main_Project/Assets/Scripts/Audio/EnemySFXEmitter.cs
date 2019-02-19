@@ -38,10 +38,12 @@ public class EnemySFXEmitter : MonoBehaviour {
                 var clip = wanderingList[Random.Range(0, wanderingList.Count)];
                 source.Stop();
                 source.clip = clip;
-                source.Play();
-                yield return Timing.WaitForSeconds(clip.length);
+                if(source.isActiveAndEnabled)
+                    source.Play();
+                //yield return Timing.WaitForSeconds(clip.length);
+                
             }
-            
+            yield return Timing.WaitForOneFrame;
         }
     }
 
