@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using MEC;
-public class EnemyEnabler : MonoBehaviour {
+public class EnemyOccluder : MonoBehaviour {
    
     [Tooltip("Half of the size of the box in each dimension.")]
     public Vector3 area;
@@ -17,7 +17,7 @@ public class EnemyEnabler : MonoBehaviour {
         Timing.RunCoroutine(CheckPlayer());
     }
 
-    //private IEnumerator<float> CheckPlayer() {
+    
     private IEnumerator<float> CheckPlayer() {
 
         while (true) {
@@ -44,7 +44,7 @@ public class EnemyEnabler : MonoBehaviour {
             }
 
             yield return Timing.WaitForSeconds(waitingTime);
-            //yield return Timing.WaitForOneFrame;
+            
             
         }
 

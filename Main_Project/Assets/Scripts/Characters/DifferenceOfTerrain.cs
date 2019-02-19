@@ -7,7 +7,7 @@ public class DifferenceOfTerrain : MonoBehaviour {
     private bool onWater;
     [Tooltip("How much up/down the model has to go to match the height level of the terrain.")]
     [Range(-3f, 3f)]
-    public float height = 0;
+    public float inWaterHeight = -1f;
 
 
     
@@ -24,7 +24,7 @@ public class DifferenceOfTerrain : MonoBehaviour {
         if (other.CompareTag(Tags.Water) && !onWater) {
 
             Vector3 temp = modelTransform.localPosition;
-            temp.y += height;
+            temp.y += inWaterHeight;
             modelTransform.localPosition = temp;
             onWater = true;
         }
@@ -34,7 +34,7 @@ public class DifferenceOfTerrain : MonoBehaviour {
         if (other.CompareTag(Tags.Water) && !onWater) {
 
             Vector3 temp = modelTransform.localPosition;
-            temp.y += height;
+            temp.y += inWaterHeight;
             modelTransform.localPosition = temp;
             onWater = true;
         }

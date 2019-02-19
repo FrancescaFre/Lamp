@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 114317367504622554}
   m_Layer: 0
   m_Name: ground
-  m_TagString: Untagged
+  m_TagString: Surface/Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2048,12 +2048,12 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1554708291067126}
   m_Enabled: 1
-  m_CastShadows: 0
+  m_CastShadows: 1
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
+  m_ReflectionProbeUsage: 2
   m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: e633a20421c47426aa04444234225b69, type: 2}
@@ -2854,16 +2854,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3d3ef1a5bbfb4e0a910fbbe5830b1f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterMode: 1
+  waterMode: 2
   disablePixelLights: 1
   textureSize: 256
   clipPlaneOffset: 0.07
   reflectLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 3857
   refractLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 3857
 --- !u!114 &114622521089771632
 MonoBehaviour:
   m_ObjectHideFlags: 1

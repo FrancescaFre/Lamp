@@ -39,8 +39,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _movementOnIce; // Saves the last movement direction to use it on ice
     private float _horizInput, _vertInput; // Horizontal and Vertical inputs from analog sticks
     private float _stepSpeed; // How fast is the player. Is always equal to walkSpeed or stealthSpeed 
+    private float _currentSpeed;// this allows to change movement speed in water based on the actual movement of the player
     private bool _wallOnIce; // True if player is sliding on ice and hits a wall
-
     private Vector3 _screenForward, _screenRight, _screenUp; // Screen's global axes. They can have different impact based on the camera angle on the player
     
 
@@ -206,7 +206,7 @@ public class PlayerMovement : MonoBehaviour
     /// Checks if the player is stealthing or not
     /// </summary>
     /// 
-
+    
     private void CheckMovement()
     {
         //STEALTH
@@ -247,7 +247,7 @@ public class PlayerMovement : MonoBehaviour
             _player.isRunning = false; 
             _stepSpeed = walkSpeed;
         }
-
+        _currentSpeed = _stepSpeed;
         staminaHUD.staminaSlider.value = staminaValue - maxStamina > 0 ? maxStamina : staminaValue;
     }
 
@@ -257,7 +257,7 @@ public class PlayerMovement : MonoBehaviour
     private void CheckTerrain()
     {
         if (OnWater)
-            _stepSpeed = stealthSpeed / 2f; // On the water, the player is slowed
+            _stepSpeed = _currentSpeed / 2f; // On the water, the player is slowed
 
     }
 

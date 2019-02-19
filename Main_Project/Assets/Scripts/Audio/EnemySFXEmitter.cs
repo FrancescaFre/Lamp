@@ -35,12 +35,12 @@ public class EnemySFXEmitter : MonoBehaviour {
         while (true) {
             
             if (!source.isPlaying) {
-                var clip = wanderingList[Random.Range(0, wanderingList.Count)];
+                AudioClip clip = wanderingList[Random.Range(0, wanderingList.Count)];
                 source.Stop();
                 source.clip = clip;
                 if(source.isActiveAndEnabled)
                     source.Play();
-                //yield return Timing.WaitForSeconds(clip.length);
+                
                 
             }
             yield return Timing.WaitForOneFrame;
