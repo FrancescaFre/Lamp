@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e068f2e38a56aea46bf48baccb83c320, type: 3}
+  m_Name: 2-3_OrientalAge
+  m_EditorClassIdentifier: 
+  LevelName: Level 7
+  levelSeason: 2
+  Description: This Planet is covered by dead leaves.
+  levelMusic:
+  - {fileID: 8300000, guid: 40f73dcab380c16428454e808b154ac6, type: 3}
+  - {fileID: 8300000, guid: 683aa3e5960667449a6135cba30182b8, type: 3}
+  lampSwitchSFX: {fileID: 8300000, guid: 685a3d1afdb89fe46a8f09bbe54627d4, type: 3}
+  keySFX: {fileID: 8300000, guid: 54a1a607fa6b0664fb300465cc0e3ce0, type: 3}
+  drillSFX: {fileID: 8300000, guid: 23aecf563b8bad640a9a4cd3545f6778, type: 3}
+  missingSFX: {fileID: 8300000, guid: 23aecf563b8bad640a9a4cd3545f6778, type: 3}
+  footStepsSFX:
+  - {fileID: 8300000, guid: efec1e3602b39534890eb74794599ea3, type: 3}
+  - {fileID: 8300000, guid: d747db7bce7693b42b541a1d8c7c624b, type: 3}
+  - {fileID: 8300000, guid: 548b55f9e4909524e9ceec231ba9e750, type: 3}
+  - {fileID: 8300000, guid: c13fd910667825e41a344c4bd560ba00, type: 3}
+  - {fileID: 8300000, guid: 7c62f898212fb7b4c8557ec412ac1f69, type: 3}
+  - {fileID: 8300000, guid: 7e0bc28241a1350408f33d1493e4aa82, type: 3}
+  - {fileID: 8300000, guid: 98d03ce878eaf414ca459a8b56e5b41d, type: 3}
+  - {fileID: 8300000, guid: 3848f0b0a6795844098b5c8a5bf8e8f5, type: 3}
+  allyLamps: 14
+  allyColor: {r: 1, g: 0.8227806, b: 0, a: 1}
+  enemyLamps: 4
+  enemyColor: {r: 0.7138634, g: 0, b: 1, a: 1}
+  entryPoint: {x: 12.57609, y: -37.48566, z: -34.45987}
+  enemy_L1: 0
+  enemy_L2: 0
+  enemy_L3: 0
+  PathList: []
+  enemy_L1_GO: {fileID: 1766326028165696, guid: 12f829158ab361e4faa77c01f0be7947,
+    type: 2}
+  enemy_L2_GO: {fileID: 1766326028165696, guid: 12f829158ab361e4faa77c01f0be7947,
+    type: 2}
+  enemy_L3_GO: {fileID: 1766326028165696, guid: 12f829158ab361e4faa77c01f0be7947,
+    type: 2}
+  challenge_1: 0
+  subQuest_1: THIS IS QUEST 1
+  challenge_2: 0
+  subQuest_2: THIS IS QUEST 2
+  challenge_3: 0
+  subQuest_3: THIS IS QUEST 3
