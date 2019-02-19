@@ -224,6 +224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4009690606088658}
   - component: {fileID: 65724384950132580}
+  - component: {fileID: 114959857690771412}
   m_Layer: 11
   m_Name: Oriental_Wall
   m_TagString: Untagged
@@ -10118,3 +10119,15 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114959857690771412
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1116024306492790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1202325d119ebc4b8f7ccf0be1272c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  t: 0
