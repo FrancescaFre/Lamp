@@ -59,9 +59,7 @@ public class PlayerController : MonoBehaviour {
     public ParticleSystem digEffect;
 
     [Header("In-HUD References")]
-    public GameObject questionMarkPrefab;  
     public Image questionMark;
-    public GameObject CasterPrefab;
     public Slider caster;
 
 
@@ -107,12 +105,9 @@ public class PlayerController : MonoBehaviour {
         }
 
 
-        questionMark = Instantiate(questionMarkPrefab, InGameHUD.Instance.InGameHUDPanel.transform).GetComponent<Image>();
-        questionMark.gameObject.SetActive(false);
 
-        caster = Instantiate(CasterPrefab, InGameHUD.Instance.InGameHUDPanel.transform).GetComponent<Slider>();
-        caster.gameObject.SetActive(false);
 
+        InGameHUD.Instance.CreateHUDReferences(ref questionMark, ref caster);
         characterAnimator = GetComponentInChildren<Animator>();
 
         var allChilds = GetComponentsInChildren<Transform>();

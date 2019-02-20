@@ -5,7 +5,7 @@ using UnityEngine;
 public class LampBehaviour : MonoBehaviour {
     [Header("Light Sources")]
     public Light[] lightBulb;
-
+    public float enemyLightRange = 1f;
     [Header("All Paricles")]
     public ParticleSystem[] particleSystems;
     [Header("All the Colliders")]
@@ -70,7 +70,7 @@ public class LampBehaviour : MonoBehaviour {
         for (int i = 0; i < lightBulb.Length; i++) {
             if (isEnemyLamp) {
                 lightBulb[i].color = GameManager.Instance.levelLoaded.enemyColor;
-                lightBulb[i].range = 1f;
+                lightBulb[i].range = enemyLightRange;
             }
             else
                 lightBulb[i].color = GameManager.Instance.levelLoaded.allyColor;

@@ -107,9 +107,22 @@ public class GameManager : MonoBehaviour {
         else
             CharactersDict[TeamList[currentCharacter]].transform.position = levelLoaded.entryPoint;
         CharactersDict[TeamList[currentCharacter - 1]].GetComponent<PlayerMovement>().BatonPass(CharactersDict[TeamList[currentCharacter]].GetComponent<PlayerMovement>());
+
+        DieManagement();
+
         ActivatePlayerX();
 
 
+    }
+
+    private void DieManagement() {
+        if (currentPC.IsZoneDigging) {
+            
+            Destroy(currentPC.ZDig.movingCircle);
+            Destroy(currentPC.caster.gameObject);
+
+        }
+        Destroy(currentPC.questionMark.gameObject);
     }
 
     /// <summary>
