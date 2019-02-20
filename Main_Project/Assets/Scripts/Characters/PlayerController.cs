@@ -27,12 +27,12 @@ public class PlayerController : MonoBehaviour {
     public CharPeriod CharacterPeriod;
     public Skill skill;
 
-    public int digCount = 100;
+    
     
     public bool usingSkill = false;
     public bool isSneaking = false;
     public bool isRunning = false;
-
+    public bool isMoving = false;
 
     public Status CurseStatus;
     public Visibility Visible { get; set; }
@@ -51,8 +51,6 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody _rb;
     private Transform _modelTransform;
     [Header("Item informations")]
-    public int _missingParts = 0;
-    public int keys = 0;
     public GameObject drillGO;
 
     [Header("Character's FX")]
@@ -190,19 +188,19 @@ public class PlayerController : MonoBehaviour {
     {
         if (other.CompareTag(Tags.MissingPart))
         {
-            _missingParts++;
+            GameManager.Instance.missingParts++;
             other.gameObject.SetActive(false);
             AudioManager.Instance.SFXSource.PlayOneShot(GameManager.Instance.levelLoaded.missingSFX);
         }
         else if (other.CompareTag(Tags.Key))
         {
-            keys++;
+            GameManager.Instance.keys++;
             AudioManager.Instance.SFXSource.PlayOneShot(GameManager.Instance.levelLoaded.keySFX);
             other.gameObject.SetActive(false);
             //------ WARNING: todo NON LO SO
         }
         else if (other.CompareTag(Tags.Drill)) {
-            digCount++;
+            GameManager.Instance.digCount++;
             other.gameObject.SetActive(false);
             AudioManager.Instance.SFXSource.PlayOneShot(GameManager.Instance.levelLoaded.drillSFX);
         }
@@ -270,12 +268,12 @@ public class PlayerController : MonoBehaviour {
                 return;
             }
 
-            if (lamp.hasMissingPart && _missingParts > 0) {
+            if (lamp.hasMissingPart && GameManager.Instance.missingParts > 0) {
                 lamp.hasMissingPart = false;
                 lamp.canBeSwitchedOn = true;
-                _missingParts--;
+                GameManager.Instance.missingParts--;
             }
-            else if (lamp.hasMissingPart && _missingParts <= 0) {
+            else if (lamp.hasMissingPart && GameManager.Instance.missingParts <= 0) {
                 questionMark.gameObject.SetActive(true);
                
             }
@@ -315,13 +313,13 @@ public class PlayerController : MonoBehaviour {
         if (!IsCasting)
         {
             if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetButtonDown(Controllers.PS4_Button_Triangle)) // [VDIG]
-                if (digCount > 0)
+                if (GameManager.Instance.digCount > 0)
                 {
                     VDig.CheckInput();
                 }
 
             if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetButtonDown(Controllers.PS4_Button_Square)) // [ZDIG]
-                if (digCount > 0)
+                if (GameManager.Instance.digCount > 0)
                 {
                     ZDig.CheckInput();
                     

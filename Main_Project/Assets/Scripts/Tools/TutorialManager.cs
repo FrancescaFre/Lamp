@@ -18,7 +18,7 @@ public class TutorialManager : MonoBehaviour {
         originalDeltaTime = Time.fixedDeltaTime;
         isActive = true;
         StopTime();
-        GameManager.Instance.currentPC.digCount = 1; // Gives a re-chance to the player if he fails a dig
+        GameManager.Instance.digCount = 1; // Gives a re-chance to the player if he fails a dig
 	}
 	
 	void Update ()

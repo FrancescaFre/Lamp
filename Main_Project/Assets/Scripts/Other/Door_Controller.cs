@@ -10,11 +10,11 @@ public class Door_Controller : MonoBehaviour {
     {
         if (collision.collider.CompareTag(Tags.Player)) {
             Debug.Log("Player collider");
-            if (collision.collider.GetComponent<PlayerController>().keys > 0)
+            if (GameManager.Instance.keys > 0)
             {
                 Debug.Log("Player1");
                 _player = collision.collider.GetComponent<PlayerController>();
-                _player.keys--;
+                GameManager.Instance.keys--;
                 AnimationManager.Anim_OpenDoor(_player.characterAnimator);
 
                 //Lock movement

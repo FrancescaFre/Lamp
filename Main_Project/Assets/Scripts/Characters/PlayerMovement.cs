@@ -115,11 +115,16 @@ public class PlayerMovement : MonoBehaviour
             MovePlayer();
         }
     }
-
+    
     private void Update()
     {
         _horizInput = Input.GetAxis(Controllers.Horizontal);
         _vertInput = Input.GetAxis(Controllers.Vertical);
+
+        if (_horizInput != 0 || _vertInput != 0)
+            _player.isMoving = true;
+        else
+            _player.isMoving = false;
 
         AnimationUpdate();
     }

@@ -65,7 +65,7 @@ public class VerticalDig : Digging
         // After digging
         Cancel();
         player.IsCasting = false;
-        player.digCount--;
+        GameManager.Instance.digCount--;
     }
 
     /// <summary>

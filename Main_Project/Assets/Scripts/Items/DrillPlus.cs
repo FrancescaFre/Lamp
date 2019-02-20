@@ -11,7 +11,7 @@ public class DrillPlus : MonoBehaviour {
     {
         if (player.collider.CompareTag(Tags.Player))
         {
-            GameManager.Instance.currentPC.digCount++;
+            GameManager.Instance.digCount++;
             Destroy(gameObject);
         }
     }
