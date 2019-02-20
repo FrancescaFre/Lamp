@@ -24,6 +24,7 @@ public class ItemCounterHUD : MonoBehaviour {
 
     private void LateUpdate() {
 
+        if (!GameManager.Instance.currentPC) return;
 
         if (item == ItemType.KEY) {
             counter.text = GameManager.Instance.keys.ToString("00");
