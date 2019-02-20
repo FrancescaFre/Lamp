@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour {
     [Header("Item informations")]
     public int missingParts = 0;
     public int keys = 0;
-    public int digCount = 100;
+    public int digCount = 0;
 
     #region  GameObjects
 

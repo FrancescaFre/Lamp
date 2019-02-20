@@ -20,7 +20,7 @@ public class DifferenceOfTerrain : MonoBehaviour {
     }
 
 
-    private void OnTriggerEnter(Collider other) {
+    /*private void OnTriggerEnter(Collider other) {
         if (other.CompareTag(Tags.Water) && !onWater) {
 
             Vector3 temp = modelTransform.localPosition;
@@ -28,7 +28,7 @@ public class DifferenceOfTerrain : MonoBehaviour {
             modelTransform.localPosition = temp;
             onWater = true;
         }
-    }
+    }*/
 
     private void OnTriggerStay(Collider other) {
         if (other.CompareTag(Tags.Water) && !onWater) {
