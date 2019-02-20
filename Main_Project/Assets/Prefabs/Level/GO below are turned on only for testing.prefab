@@ -112,13 +112,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelLoaded: {fileID: 11400000, guid: 461a97705cf6fec4b9047153356d7be9, type: 2}
+  winAudio: {fileID: 0}
+  loseAudio: {fileID: 0}
   LastAllyLamp: {fileID: 0}
-  lampHUD: {fileID: 0}
   allyLamps: 0
   enemyLamps: 0
-  enemiyGOList: []
-  howManySeeing: 0
-  howManyHearing: 0
+  worldLight: {fileID: 0}
+  missingParts: 0
+  keys: 0
+  digCount: 0
+  enemyGOList: []
   CharactersList:
   - {fileID: 0}
   currentPC: {fileID: 0}
