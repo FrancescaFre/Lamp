@@ -22,9 +22,9 @@ public class MovingCircle : ZoneDig {
     protected void OnTriggerEnter(Collider terrain)
     {
         if (terrain.gameObject.CompareTag(Tags.Solid) ||
-            terrain.gameObject.CompareTag(Tags.Water) ||
+            terrain.gameObject.CompareTag(Tags.Water) /*||
             terrain.gameObject.CompareTag(Tags.Ice) ||
-            terrain.gameObject.CompareTag(Tags.Leaves))
+            terrain.gameObject.CompareTag(Tags.Leaves)*/)
         {
             canDig = false;
         }
@@ -33,9 +33,9 @@ public class MovingCircle : ZoneDig {
     protected void OnTriggerStay(Collider terrain)
     {
         if (terrain.gameObject.CompareTag(Tags.Solid) ||
-            terrain.gameObject.CompareTag(Tags.Water) ||
+            terrain.gameObject.CompareTag(Tags.Water) /*||
             terrain.gameObject.CompareTag(Tags.Ice) ||
-            terrain.gameObject.CompareTag(Tags.Leaves))
+            terrain.gameObject.CompareTag(Tags.Leaves)*/)
         {
             canDig = false;
         }
@@ -44,9 +44,9 @@ public class MovingCircle : ZoneDig {
     protected void OnTriggerExit(Collider terrain)
     {
         if (terrain.gameObject.CompareTag(Tags.Solid) ||
-            terrain.gameObject.CompareTag(Tags.Water) ||
+            terrain.gameObject.CompareTag(Tags.Water) /*||
             terrain.gameObject.CompareTag(Tags.Ice) ||
-            terrain.gameObject.CompareTag(Tags.Leaves))
+            terrain.gameObject.CompareTag(Tags.Leaves)*/)
         {
             canDig = true;
         }
@@ -98,6 +98,8 @@ public class MovingCircle : ZoneDig {
         _horizInput = Input.GetAxis(Controllers.Horizontal);
         _vertInput = Input.GetAxis(Controllers.Vertical);
         ChangeColor();
+
+    
     }
 
     // Uses its own CanDig method, and checks own collisions instead of player's (uses the canDig boolean)
@@ -106,7 +108,7 @@ public class MovingCircle : ZoneDig {
         return canDig;
     }
 
-    void OnDestroy()
+    public void OnDestroy()
     {
         _cam.GetComponent<CameraManager>().RestoreDummyCam();
         Destroy(_dummyCircle);

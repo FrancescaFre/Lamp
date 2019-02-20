@@ -5,7 +5,7 @@ using UnityEngine;
 public class ZoneDig : Digging {
 
     public GameObject movingCirclePrefab;
-    private MovingCircle _movingCircle;
+    public MovingCircle movingCircle;
 
     public float radius = 10f; 
     public SphereCollider sphereC;
@@ -25,7 +25,7 @@ public class ZoneDig : Digging {
     override public void Dig()
     {
         base.Dig();
-        player.GetComponent<Rigidbody>().MovePosition(_movingCircle.transform.position); // Moves the player right on top of the target
+        player.GetComponent<Rigidbody>().MovePosition(movingCircle.transform.position); // Moves the player right on top of the target
 
         // After digging
         Cancel();
@@ -39,7 +39,7 @@ public class ZoneDig : Digging {
         gameObject.layer = 14; // TESTING -> custom layer for SphereC
 
         if (player.IsZoneDigging) // If you already pressed [ZDIG] 2 times (activate -> valid start -> now)
-            if (_movingCircle.CanDig())
+            if (movingCircle.CanDig())
             {
                 player.drillGO.SetActive(true);
                 AnimationManager.Anim_StarDigging(player.characterAnimator);
@@ -55,8 +55,8 @@ public class ZoneDig : Digging {
         else if (isActiveAndEnabled) // If you already pressed [ZDIG] (activate -> now)
             if (CanDig())
             {
-                _movingCircle = Instantiate(movingCirclePrefab).GetComponent<MovingCircle>();
-                _movingCircle.Setup(transform, player);
+                movingCircle = Instantiate(movingCirclePrefab).GetComponent<MovingCircle>();
+                movingCircle.Setup(transform, player);
                 player.IsZoneDigging = true;
             }
             else
@@ -79,8 +79,8 @@ public class ZoneDig : Digging {
     {
         if (player.IsZoneDigging)
         {
-            Destroy(_movingCircle.gameObject);
-            _movingCircle = null;
+            Destroy(movingCircle.gameObject);
+            movingCircle = null;
             player.IsZoneDigging = false;
         }
 
