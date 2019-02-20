@@ -4,7 +4,7 @@ public class DifferenceOfTerrain : MonoBehaviour {
 
     public Transform modelTransform;
     private Vector3 originPos;
-    private bool onWater;
+    public bool onWater;
     [Tooltip("How much up/down the model has to go to match the height level of the terrain.")]
     [Range(-3f, 3f)]
     public float inWaterHeight = -1f;

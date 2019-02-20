@@ -18,7 +18,7 @@ public class CameraManager : MonoBehaviour {
     [Tooltip("The speed at which the camera revolves around the player")]
     [Range(0f,200f)]
     public float cameraSpeed = 90f;
-
+    public Vector3 offset;
     private Transform _dummyCam; // The dummy camera is used to avoid 3-dimensional inverse revolutions
     private Vector3 _camOffset; // Difference in position between the main camera and the dummy one
     private Transform _realDummyCam; // Used when switching to zone dig
@@ -38,11 +38,17 @@ public class CameraManager : MonoBehaviour {
     // Saves the distance between the original and the dummy camera
     void Start () {
         _dummyCam = GameObject.FindGameObjectWithTag(Tags.DummyCam).transform;
+        if(offset!=Vector3.zero)
+            transform.position = GameManager.Instance.currentPC.transform.position + offset;
         AlignCameras(FindObjectOfType<PlayerController>().transform);
+        
+
+        AlignCameras(GameManager.Instance.currentPC.transform);
         _camOffset = transform.position - _dummyCam.position;
 
         ///PostProcessing
         _PPProfile = GetComponent<PostProcessingBehaviour>().profile;
+        ChangeVignetteSmoothness();
     }
 
     // Rotates the camera as the right analog stick is pressed

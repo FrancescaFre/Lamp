@@ -124,7 +124,8 @@ public class EnemyFOV : MonoBehaviour {
         {
             Transform target = targetsInViewRadius[i].transform;
 
-            earedTargets.Add(target);
+            if (target.GetComponent<PlayerController>().isMoving)
+                earedTargets.Add(target);
 
             Vector3 dirToTarget = (target.position - transform.position).normalized;
             if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)

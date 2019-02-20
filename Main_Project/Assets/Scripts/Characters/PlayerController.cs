@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour {
     public bool usingSkill = false;
     public bool isSneaking = false;
     public bool isRunning = false;
-
+    public bool isMoving = false;
 
     public Status CurseStatus;
     public Visibility Visible { get; set; }
@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody _rb;
     private Transform _modelTransform;
     [Header("Item informations")]
-    public int _missingParts = 0;
+    public int missingParts = 0;
     public int keys = 0;
     public GameObject drillGO;
 
@@ -190,7 +190,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (other.CompareTag(Tags.MissingPart))
         {
-            _missingParts++;
+            missingParts++;
             other.gameObject.SetActive(false);
             AudioManager.Instance.SFXSource.PlayOneShot(GameManager.Instance.levelLoaded.missingSFX);
         }
@@ -270,12 +270,12 @@ public class PlayerController : MonoBehaviour {
                 return;
             }
 
-            if (lamp.hasMissingPart && _missingParts > 0) {
+            if (lamp.hasMissingPart && missingParts > 0) {
                 lamp.hasMissingPart = false;
                 lamp.canBeSwitchedOn = true;
-                _missingParts--;
+                missingParts--;
             }
-            else if (lamp.hasMissingPart && _missingParts <= 0) {
+            else if (lamp.hasMissingPart && missingParts <= 0) {
                 questionMark.gameObject.SetActive(true);
                
             }
