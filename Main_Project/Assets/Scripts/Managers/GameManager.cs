@@ -17,6 +17,12 @@ public class GameManager : MonoBehaviour {
 
     [Header("Light of the world")]
     public WorldEnlighter worldLight;
+
+    [Header("Item informations")]
+    public int missingParts = 0;
+    public int keys = 0;
+    public int digCount = 100;
+
     #region  GameObjects
 
     [Header("Enemies")]

@@ -12,7 +12,7 @@ public class ItemCounterHUD : MonoBehaviour {
     private ParticleSystem glow;
     private Color defaultIconColor;
     private Image Icon;
-    private PlayerController currentPC;
+
 
     public bool canBeEnabled = false;
     void Start() {
@@ -23,28 +23,30 @@ public class ItemCounterHUD : MonoBehaviour {
     }
 
     private void LateUpdate() {
-        if (currentPC != GameManager.Instance.currentPC)
-            currentPC = GameManager.Instance.currentPC;
+
 
         if (item == ItemType.KEY) {
-            counter.text = currentPC.keys.ToString("00");
-            if (currentPC.keys > 0)
+            counter.text = GameManager.Instance.keys.ToString("00");
+
+            if (GameManager.Instance.keys > 0)
                 canBeEnabled = true;
             else
                 canBeEnabled = false;
-
-
         }
         else if (item == ItemType.MISSING) {
-            counter.text = currentPC.missingParts.ToString("00");
-            if (currentPC.missingParts > 0)
+            counter.text = GameManager.Instance.missingParts.ToString("00");
+
+            if (GameManager.Instance.missingParts > 0)
                 canBeEnabled = true;
             else
                 canBeEnabled = false;
         }
         else if (item == ItemType.DRILL) {
-            counter.text = currentPC.digCount.ToString("00");
-            canBeEnabled = currentPC.VDig.CanDig() & currentPC.ZDig.CanDig() & currentPC.digCount > 0;
+            counter.text = GameManager.Instance.digCount.ToString("00");
+
+            canBeEnabled = GameManager.Instance.currentPC.VDig.CanDig() 
+                            & GameManager.Instance.currentPC.ZDig.CanDig() 
+                            & GameManager.Instance.digCount > 0;
         }
 
         glow.gameObject.SetActive(canBeEnabled);

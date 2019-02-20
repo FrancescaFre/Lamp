@@ -30,7 +30,7 @@ public class ZoneDig : Digging {
         // After digging
         Cancel();
         player.IsCasting = false;
-        player.digCount--;
+        GameManager.Instance.digCount--;
     }
 
     override public void CheckInput()
