@@ -10,10 +10,13 @@ public class Enemy_SO : ScriptableObject {
     public bool instant_curse;
 
     //---Movement
+    [Header("Movement")]
     public float speed;
+    public float seekSpeed;
     public float distance_from_planet;
 
     //---Cone of view parameters
+    [Header("Cone of view parameters")]
     public float cov_distance_wander;
     public float cov_distance_seek;
     public float cov_distance_search;
@@ -23,6 +26,7 @@ public class Enemy_SO : ScriptableObject {
     public float cov_angle_search;
 
     //---AI
+    [Space]
     public float stop_search_after_x_seconds;
     public EnemyStatus enemy_initial_status;
 

@@ -18,9 +18,9 @@ public class Enemy : MonoBehaviour
     public bool instant_curse;
 
     //---Movement
-    [Header("Movement")]
-    public float speed = 2.5f;
-    public float seekSpeed = 2f; 
+    
+    private float speed;
+    private float seekSpeed; 
 
     //---Cone of view parameters
     float cov_distance_wander;
@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour
     private float timePassedToDrop;
 
     private Stack<Transform> hanselGretelGPS;
-    public int pathIndexReturn;
+
 
     private Vector3 lastPlayerPosition;
 
@@ -65,7 +65,7 @@ public class Enemy : MonoBehaviour
     int randomInt=1;
 
     public Light[] lights;
-    //public AuraLight[] auraLight;
+
 
     public ParticleSystem teleportParticles;
     public ParticleSystem searchingParticles;
@@ -77,6 +77,7 @@ public class Enemy : MonoBehaviour
         level = data_enemy.level;
         instant_curse = data_enemy.instant_curse;
         speed = data_enemy.speed;
+        seekSpeed = data_enemy.seekSpeed;
         cov_distance_wander = data_enemy.cov_distance_wander;
         cov_angle_wander = data_enemy.cov_angle_wander;
         stop_search_after_x_seconds = data_enemy.stop_search_after_x_seconds;
@@ -108,7 +109,7 @@ public class Enemy : MonoBehaviour
                 teleportParticles = ps;
                 teleportParticles.Stop();
             }
-            if (ps.CompareTag(Tags.SearchingStatusEnemy))
+            else if (ps.CompareTag(Tags.SearchingStatusEnemy))
             {
                 searchingParticles = ps;
                 searchingParticles.Stop();

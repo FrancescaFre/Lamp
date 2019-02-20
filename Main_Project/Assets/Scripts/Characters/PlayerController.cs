@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour {
     public Image questionMark;
     public Slider caster;
 
-
+    [Space]
     //TEST
     public GameObject otherplayer;
     public Lantern Lantern { get; set; }

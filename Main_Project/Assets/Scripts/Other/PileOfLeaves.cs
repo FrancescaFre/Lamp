@@ -9,7 +9,7 @@ public class PileOfLeaves : MonoBehaviour
     public int radiusNotSneaking;
     public int radius;
 
-    public float walkSpeedInWater;
+ 
 
 
     private void OnTriggerEnter(Collider other)
