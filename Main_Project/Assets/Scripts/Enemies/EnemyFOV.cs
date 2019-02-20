@@ -133,7 +133,7 @@ public class EnemyFOV : MonoBehaviour {
                 float dstToTarget = Vector3.Distance(transform.position, target.position);
                 //if i hit an obstacle = TRUE, don't add this target else add it
                 Debug.DrawRay(transform.position, dirToTarget, Color.blue);
-                if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("Obstacle")))
+                if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("Obstacle")) || !Physics.Raycast(transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("UnDiggable")))
                 {
                     visibleTargets.Add(target);
                 }

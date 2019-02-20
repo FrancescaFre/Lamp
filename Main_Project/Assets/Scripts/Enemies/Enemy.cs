@@ -190,15 +190,38 @@ public class Enemy : MonoBehaviour
           }
       }*/
 
-    public void Allert(PlayerController pc) {
-        player = pc.transform;
+    public void Allert(PlayerController pc)
+    {
+
+        Vector3 dirToTarget = (pc.transform.position - transform.position).normalized;
+        float dstToTarget = Vector3.Distance(transform.position, pc.transform.position);
+
+        Debug.DrawRay(transform.position, dirToTarget, Color.red);
+
+        if (!(pc.GetComponent<PlayerController>().IsSafe || (Physics.Raycast(transform.position, dirToTarget, dstToTarget * 5, LayerMask.GetMask("Obstacle")) || Physics.Raycast(transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("UnDiggable")))))
+        {
+            player = pc.transform;
+
+            timePassedToDrop = 0f;
+            speed += seekSpeed;
+            currentStatus = EnemyStatus.SEEKING;
+
+            //---------
+            if (!GetComponent<ColorChanger>().isRed)
+                GetComponent<ColorChanger>().Lerp();
+        }
     }
 
     public void PlayerTouched() {
         player = null; ///WARNING!
         speed -= seekSpeed;
         
+
         if (hanselGretelGPS.Count > 0) {
+
+            if (GetComponent<ColorChanger>().isRed)
+                GetComponent<ColorChanger>().ReverseLerp();
+
             currentStatus = EnemyStatus.RETURN;
             if (hanselGretelGPS.Count > 0)
                 toDestroy = hanselGretelGPS.Peek();
@@ -246,14 +269,16 @@ public class Enemy : MonoBehaviour
         }
 
         //2- if the player isn't reachable by any rayCast, stop and start to Search
-        else if (currentStatus == EnemyStatus.SEEKING && player) {
+        else if (currentStatus == EnemyStatus.SEEKING && player && (player.GetComponent<PlayerController>() == (GameManager.Instance.currentPC))) {
             DropPosition();
             
             Vector3 dirToTarget = (player.position - transform.position).normalized;
             float dstToTarget = Vector3.Distance(transform.position, player.position);
 
+            Debug.DrawRay(transform.position, dirToTarget, Color.blue);
+            
             //if the player is safe or the raycast can't reach the player (cause some obstacles), stop seek
-            if (player.GetComponent<PlayerController>().IsSafe || Physics.Raycast(transform.position, dirToTarget, dstToTarget * 5, LayerMask.GetMask("Obstacle"))) {
+            if (player.GetComponent<PlayerController>().IsSafe || ( Physics.Raycast(transform.position, dirToTarget, dstToTarget * 5, LayerMask.GetMask("Obstacle")) || Physics.Raycast(transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("UnDiggable")))) {
                 // Debug.Log("hidden" +  Physics.Raycast(transform.position, dirToTarget, dstToTarget, fov.obstacleMask));
                
                 player = null; ///WARNING!
@@ -276,10 +301,12 @@ public class Enemy : MonoBehaviour
         else if (currentStatus == EnemyStatus.SEARCHING && timePassed >= stop_search_after_x_seconds) {
             searchingParticles.Stop();
 
-            if (hanselGretelGPS.Count > 0) {
-                if (GetComponent<ColorChanger>().isRed)
-                     GetComponent<ColorChanger>().ReverseLerp();
+            if (GetComponent<ColorChanger>().isRed)
+                GetComponent<ColorChanger>().ReverseLerp();
 
+
+            if (hanselGretelGPS.Count > 0) {
+                
                 currentStatus = EnemyStatus.RETURN;
 
                 if (toDestroy)
@@ -403,9 +430,12 @@ public class Enemy : MonoBehaviour
 
         else if (currentStatus == EnemyStatus.SEARCHING) {
 
+
                if (Vector3.Distance(destination, transform.position) < 2) {
                     transform.Rotate(new Vector3(0, randomInt * 360 / stop_search_after_x_seconds * Time.deltaTime, 0), Space.Self);
             }
+               else
+                DropPosition();
         }
 
         else if (currentStatus == EnemyStatus.SEEKING)
