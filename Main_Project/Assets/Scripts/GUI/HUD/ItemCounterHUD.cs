@@ -14,7 +14,7 @@ public class ItemCounterHUD : MonoBehaviour {
     private Image Icon;
     private PlayerController currentPC;
 
-    private bool canBeEnabled = false;
+    public bool canBeEnabled = false;
     void Start() {
         counter = GetComponent<TextMeshProUGUI>();
         glow = GetComponentInChildren<ParticleSystem>();

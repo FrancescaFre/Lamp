@@ -707,7 +707,6 @@ GameObject:
   - component: {fileID: 222627187597359158}
   - component: {fileID: 114928704888956466}
   - component: {fileID: 114067204406115184}
-  - component: {fileID: 114529329796097866}
   m_Layer: 5
   m_Name: KeyCounter
   m_TagString: Untagged
@@ -1065,7 +1064,6 @@ GameObject:
   - component: {fileID: 222464963350260840}
   - component: {fileID: 114217494807217724}
   - component: {fileID: 114377225531339350}
-  - component: {fileID: 114558533555784442}
   m_Layer: 5
   m_Name: MissingCounter
   m_TagString: Untagged
@@ -1742,6 +1740,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: 0
+  canBeEnabled: 0
 --- !u!114 &114080700144783196
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2577,6 +2576,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: 2
+  canBeEnabled: 0
 --- !u!114 &114296910926406554
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3124,6 +3124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: 1
+  canBeEnabled: 0
 --- !u!114 &114383782872926008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3672,18 +3673,6 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &114529329796097866
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1544960622744120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e65e191cc10e984bace25b9f27eb55f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item: 0
 --- !u!114 &114535954094526450
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3738,18 +3727,6 @@ MonoBehaviour:
   m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114558533555784442
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1784750360326208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e65e191cc10e984bace25b9f27eb55f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item: 0
 --- !u!114 &114579125371774824
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -2692,14 +2692,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterPeriod: 1
   skill: {fileID: 0}
-  digCount: 2
+  digCount: 0
   usingSkill: 0
   isSneaking: 0
   isRunning: 0
+  isMoving: 0
   CurseStatus: 0
   runningAnimation: 0
   characterAnimator: {fileID: 0}
-  _missingParts: 0
+  missingParts: 0
   keys: 0
   drillGO: {fileID: 0}
   halfCurseEffect: {fileID: 0}
@@ -2789,6 +2790,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modelTransform: {fileID: 0}
+  onWater: 0
   inWaterHeight: -1
 --- !u!114 &114639908262939528
 MonoBehaviour:
