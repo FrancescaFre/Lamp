@@ -135,6 +135,7 @@ public class EnemyFOV : MonoBehaviour {
                 Debug.DrawRay(transform.position, dirToTarget, Color.blue);
                 if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("Obstacle")) || !Physics.Raycast(transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("UnDiggable")))
                 {
+                    Debug.DrawRay(transform.position, dirToTarget, Color.green);
                     visibleTargets.Add(target);
                 }
             }
