@@ -7,6 +7,12 @@ public class StartMenuGUI : MonoBehaviour {
     public GameObject aboutUs;
     public GameObject startMenu;
 
+
+    private void Start() {
+        startMenu.SetActive(true);
+        aboutUs.SetActive(false);
+    }
+
     public void LoadLevelSelection() {
         SceneManager.LoadScene(1);
     }
@@ -22,5 +28,8 @@ public class StartMenuGUI : MonoBehaviour {
     public void Back() {
         aboutUs.SetActive(false);
         startMenu.SetActive(true);
+    }
+    public void OpenFBLink() {
+        Application.OpenURL("https://www.facebook.com/pg/LampGameProject");
     }
 }

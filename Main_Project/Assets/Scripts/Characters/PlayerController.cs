@@ -47,10 +47,10 @@ public class PlayerController : MonoBehaviour {
     public bool IsCasting { get; set; }
     public bool runningAnimation = false;
 
-    public PlayerSFXEmitter emitter;
+   
 
     public Animator characterAnimator;
-
+    
     private Rigidbody _rb;
     private Transform _modelTransform;
     [Header("Item informations")]
@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour {
     public ParticleSystem halfCurseEffect;
     public ParticleSystem fullCurseEffect;
     public ParticleSystem digEffect;
+    public PlayerSFXEmitter emitter;
 
     [Header("In-HUD References")]
     public Image questionMark;
@@ -228,7 +229,7 @@ public class PlayerController : MonoBehaviour {
                 }
                 touchedEnemy.PlayerTouched();
                 TeamHUD.Instance.HalfCurse();
-                _rb.MovePosition(transform.position + Vector3.one);
+                _rb.MovePosition(_rb.position + Vector3.one);
 
                 MainCamera.ChangeVignetteSmoothness(halfCurse:true);
                 
