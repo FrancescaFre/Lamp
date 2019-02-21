@@ -124,7 +124,7 @@ public class EnemyFOV : MonoBehaviour {
         {
             Transform target = targetsInViewRadius[i].transform;
 
-            if (target.GetComponent<PlayerController>().isMoving)
+            if (target.GetComponent<PlayerController>().isMoving && !target.GetComponent<PlayerController>().isSneaking)
                 earedTargets.Add(target);
 
             Vector3 dirToTarget = (target.position - transform.position).normalized;

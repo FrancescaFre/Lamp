@@ -280,10 +280,10 @@ public class Enemy : MonoBehaviour
             
             //if the player is safe or the raycast can't reach the player (cause some obstacles), stop seek
             if (player.GetComponent<PlayerController>().IsSafe || ( Physics.Raycast(transform.position, dirToTarget, dstToTarget * 5, LayerMask.GetMask("Obstacle")) || Physics.Raycast(transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("UnDiggable")))) {
-                // Debug.Log("hidden" +  Physics.Raycast(transform.position, dirToTarget, dstToTarget, fov.obstacleMask));
+                Debug.Log("hidden" +  Physics.Raycast(transform.position, dirToTarget, dstToTarget, fov.obstacleMask));
                
                 player = null; ///WARNING!
-                destination = lastPlayerPosition - (Vector3.one*2);
+                destination = lastPlayerPosition - (Vector3.one);
 
                 randomInt = Random.Range(0, 2) == 0 ? 1 : -1;
 
