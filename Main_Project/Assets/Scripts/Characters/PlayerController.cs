@@ -26,9 +26,10 @@ public class PlayerController : MonoBehaviour {
     [Header("Character Information")]
     public CharPeriod CharacterPeriod;
     public Skill skill;
+    public Character_SO profile;
 
     
-    
+    [Space]
     public bool usingSkill = false;
     public bool isSneaking = false;
     public bool isRunning = false;
@@ -45,6 +46,8 @@ public class PlayerController : MonoBehaviour {
     public bool IsZoneDigging { get; set; } 
     public bool IsCasting { get; set; }
     public bool runningAnimation = false;
+
+    public PlayerSFXEmitter emitter;
 
     public Animator characterAnimator;
 
@@ -91,6 +94,8 @@ public class PlayerController : MonoBehaviour {
         MainCamera = FindObjectOfType<CameraManager>();
 
         skill = GetComponentInChildren<Skill>();
+
+        emitter = GetComponent<PlayerSFXEmitter>();
 
         var particles =GetComponentsInChildren<CFX_AutoDestructShuriken>(); 
         foreach(var part in particles) {
@@ -211,7 +216,7 @@ public class PlayerController : MonoBehaviour {
             
             Enemy touchedEnemy = other.GetComponentInParent<Enemy>();
 
-            
+            emitter.HurtEffect();
 
 
 

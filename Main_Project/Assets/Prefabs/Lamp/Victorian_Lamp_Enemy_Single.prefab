@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212488338458836792}
   - component: {fileID: 95575421247537258}
   - component: {fileID: 114410060062733628}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: red_flame_0 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 4573392543199182}
   - component: {fileID: 33083708184375756}
   - component: {fileID: 23753121071518014}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: CarvedLampPost2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 4676079544832834}
   - component: {fileID: 33933681818093060}
   - component: {fileID: 23944893738396002}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Glass2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 4662655464134706}
   - component: {fileID: 33464182606559642}
   - component: {fileID: 23904456797835918}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: CarvedLampPost.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 4782528183685646}
   - component: {fileID: 33668025890242724}
   - component: {fileID: 23022191844754246}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Candle2.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 4408361033395240}
   - component: {fileID: 33647586644163116}
   - component: {fileID: 23543796615053298}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Latern2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,7 +141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4672996890705082}
   - component: {fileID: 65868836247600410}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: CarvedPost2
   m_TagString: Lamp/Switch
   m_Icon: {fileID: 0}
@@ -649,6 +649,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightBulb: []
+  enemyLightRange: 1
   particleSystems: []
   allColliders: []
   isEnemyLamp: 1
@@ -658,8 +659,7 @@ MonoBehaviour:
   canBeSwitchedOn: 0
   goodSpirits: {fileID: 0}
   badSpirits: {fileID: 0}
-  radius: 0
-  emitter: {fileID: 0}
+  radiusDomain: 0
 --- !u!136 &136556081016042352
 CapsuleCollider:
   m_ObjectHideFlags: 1

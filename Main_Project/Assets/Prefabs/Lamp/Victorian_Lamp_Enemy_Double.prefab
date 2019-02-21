@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4017196000283524}
   - component: {fileID: 33755874852806398}
   - component: {fileID: 23294179584476710}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4037340784467708}
   - component: {fileID: 33067324995562040}
   - component: {fileID: 23284239830483014}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 4944559259419078}
   - component: {fileID: 33832349323410464}
   - component: {fileID: 23440218784310178}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Latern1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4345035750757802}
   - component: {fileID: 65638270112473946}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: CarvedPost2_double
   m_TagString: Lamp/Switch
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 4872463424345526}
   - component: {fileID: 33767683563564066}
   - component: {fileID: 23211187407075740}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: CarvedLampPost.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 212221816033935724}
   - component: {fileID: 95364169693447206}
   - component: {fileID: 114279594278045638}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: red_flame_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 4015364497647498}
   - component: {fileID: 33797048662347168}
   - component: {fileID: 23034061098881690}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Cylinder.000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 212962328888672758}
   - component: {fileID: 95765029552461378}
   - component: {fileID: 114718874968630522}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: red_flame_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 4542213073727176}
   - component: {fileID: 33374396845971746}
   - component: {fileID: 23302345223931316}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Cylinder.000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 4589071428196568}
   - component: {fileID: 33050246027363826}
   - component: {fileID: 23918686585317124}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Glass1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 4675317174040944}
   - component: {fileID: 33087073315227916}
   - component: {fileID: 23306755512071666}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Latern1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 33161552259450788}
   - component: {fileID: 23393246090306470}
   - component: {fileID: 114446133400113672}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: CarvedLampPost2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 4858126729746698}
   - component: {fileID: 33952594718708812}
   - component: {fileID: 23305392511254234}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Glass1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -315,7 +315,7 @@ GameObject:
   - component: {fileID: 4289621104249224}
   - component: {fileID: 33618867598286148}
   - component: {fileID: 23673265664030540}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: CarvedLampPost.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1224,6 +1224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightBulb: []
+  enemyLightRange: 1
   particleSystems: []
   allColliders: []
   isEnemyLamp: 1

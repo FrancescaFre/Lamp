@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerSFXEmitter : MonoBehaviour {
     private AudioSource _source;
     public List<AudioClip> digAudioList;
+    public List<AudioClip> hurtVoiceList;
    
     public List<AudioClip> stepsFXList;
     [Range(0f,1f)]
@@ -18,6 +19,8 @@ public class PlayerSFXEmitter : MonoBehaviour {
         _source.playOnAwake = false;
         _source.volume = AudioManager.Instance.volumeSFX;
         stepsFXList = GameManager.Instance.levelLoaded.footStepsSFX;
+        hurtVoiceList = GetComponent<PlayerController>().profile.hurtVoiceList;
+
         AudioManager.Instance.SFXSourceList.Add(this._source);
     }
 
@@ -25,6 +28,11 @@ public class PlayerSFXEmitter : MonoBehaviour {
     public void DigEffect() {
         _source.volume = AudioManager.Instance.volumeSFX;
         _playSFX(digAudioList);
+    }
+
+    public void HurtEffect() {
+        _source.volume = AudioManager.Instance.volumeSFX;
+        _playSFX(hurtVoiceList);
     }
 
     #region FootSteps

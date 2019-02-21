@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 33404968683787730}
   - component: {fileID: 23740909903609556}
   - component: {fileID: 65699544299670772}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Old_Japanese_Lamp
   m_TagString: Lamp/Switch
   m_Icon: {fileID: 0}
@@ -345,6 +345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightBulb: []
+  enemyLightRange: 1
   particleSystems: []
   allColliders: []
   isEnemyLamp: 0

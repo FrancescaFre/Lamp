@@ -38,7 +38,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4361917739917424}
   - component: {fileID: 65732010412891442}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: External_Lamp
   m_TagString: Lamp/Switch
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4031906261633358}
   - component: {fileID: 33119465307667344}
   - component: {fileID: 23193918034728966}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: lamp_LR001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 4616369301637276}
   - component: {fileID: 33572572603800518}
   - component: {fileID: 23781811498868714}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: lamp_LR2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -405,6 +405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightBulb: []
+  enemyLightRange: 1
   particleSystems: []
   allColliders: []
   isEnemyLamp: 1

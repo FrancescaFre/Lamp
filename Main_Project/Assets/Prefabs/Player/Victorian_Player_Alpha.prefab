@@ -2970,7 +2970,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1908096779576744}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.7999992, z: 0}
+  m_LocalPosition: {x: 0, y: -0.044, z: 0}
   m_LocalScale: {x: 2, y: 0.029999996, z: 2}
   m_Children: []
   m_Father: {fileID: 4905003863296652}
@@ -3036,7 +3036,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1504895015958606}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.7999992, z: 0}
+  m_LocalPosition: {x: 0, y: -0.044, z: 0}
   m_LocalScale: {x: 2, y: 0.029999996, z: 2}
   m_Children: []
   m_Father: {fileID: 4905003863296652}
@@ -3877,25 +3877,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterPeriod: 2
   skill: {fileID: 0}
-  digCount: 0
+  profile: {fileID: 11400000, guid: bd35be29045d5134691cd96744e7b5e6, type: 2}
   usingSkill: 0
   isSneaking: 0
   isRunning: 0
   isMoving: 0
   CurseStatus: 0
   runningAnimation: 0
+  emitter: {fileID: 0}
   characterAnimator: {fileID: 0}
-  missingParts: 0
-  keys: 0
   drillGO: {fileID: 0}
   halfCurseEffect: {fileID: 0}
   fullCurseEffect: {fileID: 0}
   digEffect: {fileID: 0}
-  questionMarkPrefab: {fileID: 1820886121641010, guid: 07d97c0bab579c7448ba1353e9bdedf3,
-    type: 2}
   questionMark: {fileID: 0}
-  CasterPrefab: {fileID: 1058765039614066, guid: 2dd72ee9a23821f40a3784e5d88c2342,
-    type: 2}
   caster: {fileID: 0}
   otherplayer: {fileID: 0}
 --- !u!114 &114245996924496256
@@ -3914,6 +3909,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a85db651288339a4b9570f92a5d02549, type: 3}
   - {fileID: 8300000, guid: 94e52da083fa28446bf5d9afce4f3970, type: 3}
   - {fileID: 8300000, guid: 38f019e72e7a0cf4ebc336ad230f3911, type: 3}
+  hurtVoiceList: []
   stepsFXList: []
   sneakAudioReduction: 0.6
   runAudioIncrease: 1.2
@@ -3958,6 +3954,7 @@ MonoBehaviour:
   castingTime: 0
   movingCirclePrefab: {fileID: 1805591998086222, guid: a6986ec8d836a02489d419e6d5b12291,
     type: 2}
+  movingCircle: {fileID: 0}
   radius: 10
   sphereC: {fileID: 0}
   colliders: []

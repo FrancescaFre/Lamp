@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 23742908829818040}
   - component: {fileID: 65392210262678882}
   - component: {fileID: 114995364186745114}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Oriental_Lamp_Model
   m_TagString: Lamp/Switch
   m_Icon: {fileID: 0}
@@ -394,6 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightBulb: []
+  enemyLightRange: 1
   particleSystems: []
   allColliders: []
   isEnemyLamp: 0
