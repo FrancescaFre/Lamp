@@ -18,8 +18,8 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("The player's running speed")]
     public float runSpeed = 5f;
 
-    //[Tooltip("The dummy player's transform")]
-    public Transform DummyPlayer { get; set; }
+    [Tooltip("The dummy player's transform")]
+    public Transform dummyPlayer;
 
     //[Tooltip("The dummy player's camera transform (must be dummy's child")]
     private Transform dummyCam;
@@ -30,7 +30,8 @@ public class PlayerMovement : MonoBehaviour
     public bool OnLeaves { get; set; } // True if player is walking on the leaves / noisy terrain
     public bool OnIce { get; set; } // True if player is walking on ice
     public bool OnSolidFloor { get; set; } // True if player is walking on a solid floor
-    public Vector3 DummyOffset { get; set; } // The distance between the player's and the dummy's positions  
+    [Tooltip("The distance between the player's and the dummy's positions")]
+    public Vector3 dummyOffset;  // The distance between the player's and the dummy's positions  
 
     private PlayerController _player; // The PlayerController attached to the player 
 
@@ -67,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        DummyPlayer = GameObject.FindGameObjectWithTag(Tags.DummyPlayer).transform;
+        dummyPlayer = GameObject.FindGameObjectWithTag(Tags.DummyPlayer).transform;
         dummyCam = GameObject.FindGameObjectWithTag(Tags.DummyCam).transform;
 
         _player = GetComponent<PlayerController>();
@@ -80,7 +81,9 @@ public class PlayerMovement : MonoBehaviour
         OnIce = false;
         OnSolidFloor = false;
         _wallOnIce = false;
-        DummyOffset = DummyPlayer.transform.position - transform.position;
+        dummyOffset = dummyPlayer.transform.position - transform.position;
+
+        dummyPlayer.rotation = transform.rotation;
 
         StartCoroutine(CorrectPlayerPositions());
         StartCoroutine(CorrectPlayerRotation());
@@ -301,7 +304,7 @@ public class PlayerMovement : MonoBehaviour
             _movement = (_screenUp * _vertInput + _screenRight * _horizInput).normalized * _stepSpeed * Time.deltaTime; // Same, but using _screenUp to go backwards correctly
 
         _rb.MovePosition(_rb.position + _movement); // Moves the player's rigidbody through physics
-        DummyPlayer.gameObject.GetComponent<Rigidbody>().MovePosition(DummyPlayer.gameObject.GetComponent<Rigidbody>().position + _movement); // Moves the dummy as well 
+        dummyPlayer.gameObject.GetComponent<Rigidbody>().MovePosition(dummyPlayer.gameObject.GetComponent<Rigidbody>().position + _movement); // Moves the dummy as well 
 
         _movementOnIce = _movement; // Stores the movement direction to be used on ice
     }
@@ -312,9 +315,9 @@ public class PlayerMovement : MonoBehaviour
     /// <param name="other"></param>
     public void BatonPass(PlayerMovement other)
     {
-        DummyPlayer.position = other.gameObject.transform.position + DummyOffset;
-        other.DummyPlayer = DummyPlayer;
-        DummyPlayer = null;
+        dummyPlayer.position = other.gameObject.transform.position + dummyOffset;
+        other.dummyPlayer = dummyPlayer;
+        dummyPlayer = null;
     }
 
     //-------------------------------------------------------------------------
@@ -327,10 +330,10 @@ public class PlayerMovement : MonoBehaviour
     {
         while (true)
         {
-            if (DummyPlayer.transform.position - transform.position != DummyOffset)
+            if (dummyPlayer.transform.position - transform.position != dummyOffset)
             {
                 //transform.position = dummyPlayer.transform.position - _dummyOffset; // Less adjustments, but harder to force teleports and transform movements outside
-                DummyPlayer.transform.position = transform.position + DummyOffset; // More adjustments, but the player can now do the fuck it wants with its transform
+                dummyPlayer.transform.position = transform.position + dummyOffset; // More adjustments, but the player can now do the fuck it wants with its transform
             }
             yield return new WaitForFixedUpdate();
         }
