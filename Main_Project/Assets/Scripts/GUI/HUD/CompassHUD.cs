@@ -23,6 +23,8 @@ public class CompassHUD : MonoBehaviour {
 
     private void MoveArrow()
     {
+        if (!GameManager.Instance.currentPC) return;
+
         player = GameManager.Instance.currentPC.transform;
         Vector3 playerToNorth = north - player.position;
         float angle = Vector3.SignedAngle(player.forward, Vector3.ProjectOnPlane(playerToNorth, player.up), player.up); // BASED ON THE PLAYER FORWARD

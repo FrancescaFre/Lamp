@@ -79,11 +79,7 @@ public class GameManager : MonoBehaviour {
         if(startGame)
             CharactersDict[TeamList[currentCharacter]].transform.position = levelLoaded.entryPoint;
 
-        nextChar = currentCharacter < TeamList.Count ? currentCharacter + 1 : -1;
-        if (nextChar == -1) {
-            BadEndGame();
-            Debug.Log("gameover");
-        }
+      
 
 
     }
@@ -101,6 +97,15 @@ public class GameManager : MonoBehaviour {
     }
     public void SpawnNewPlayer() {
         currentCharacter = nextChar;
+
+        nextChar = currentCharacter < TeamList.Count ? currentCharacter + 1 : -1;
+        if (nextChar == -1) {
+            currentPC.gameObject.SetActive(false);
+            BadEndGame();
+            Debug.Log("gameover");
+            return;
+        }
+
         if (LastAllyLamp)
 
             CharactersDict[TeamList[currentCharacter]].transform.position = LastAllyLamp.transform.position/* + LastAllyLamp.transform.forward */+ CharactersDict[TeamList[currentCharacter]].transform.forward;

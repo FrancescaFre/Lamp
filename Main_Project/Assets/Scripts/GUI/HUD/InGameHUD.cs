@@ -38,6 +38,7 @@ public class InGameHUD : MonoBehaviour {
     }
     private void LateUpdate() {
         if (GameManager.Instance) {
+            if (!GameManager.Instance.levelLoaded) return;
             allyLampCounter.text = string.Format("{0}/{1}", GameManager.Instance.allyLamps.ToString("00"), GameManager.Instance.levelLoaded.allyLamps.ToString("00"));
             enemyLampCounter.text = string.Format("{0}/{1}", GameManager.Instance.enemyLamps.ToString("00"), GameManager.Instance.levelLoaded.enemyLamps.ToString("00"));
         }
