@@ -108,6 +108,15 @@ public class MovingCircle : ZoneDig {
         return canDig;
     }
 
+    // This needs to change color, instead
+    protected override void ChangeColor()
+    {
+        if (CanDig())
+            GetComponent<MeshRenderer>().material = digYes;
+        else
+            GetComponent<MeshRenderer>().material = digNo;
+    }
+
     public void OnDestroy()
     {
         _cam.GetComponent<CameraManager>().RestoreDummyCam();

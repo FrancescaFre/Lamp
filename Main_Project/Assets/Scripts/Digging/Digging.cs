@@ -93,7 +93,7 @@ public abstract class Digging : MonoBehaviour {
     /// <summary>
     /// Switches the circle's color between green and red
     /// </summary>
-    protected void ChangeColor() {
+    protected virtual void ChangeColor() {
         if (CanDig())
             GetComponent<MeshRenderer>().material = digYes;
         else

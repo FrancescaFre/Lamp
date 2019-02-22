@@ -33,6 +33,11 @@ public class ZoneDig : Digging {
         GameManager.Instance.digCount--;
     }
 
+    protected override void ChangeColor()
+    {
+        ; // Doesn't need anymore to change color (and doesn't have a mesh anymore)
+    }
+
     /* 
      * TWO-STEPS ZONE DIG
      */
@@ -62,22 +67,23 @@ public class ZoneDig : Digging {
 
         else if (CanDig())
         {
+            gameObject.SetActive(true);
             movingCircle = Instantiate(movingCirclePrefab).GetComponent<MovingCircle>();
             movingCircle.Setup(transform, player);
             player.IsZoneDigging = true;
         }  
     }
-
+    
     /*
      * THREE-STEPS ZONE DIG
-     * 
+     *
     override public void CheckInput()
     {
         sphereC.enabled = true;
         gameObject.layer = 14; // TESTING -> custom layer for SphereC
 
         if (player.IsZoneDigging) // If you already pressed [ZDIG] 2 times (activate -> valid start -> now)
-            if (_movingCircle.CanDig())
+            if (movingCircle.CanDig())
             {
                 player.drillGO.SetActive(true);
                 AnimationManager.Anim_StarDigging(player.characterAnimator);
@@ -93,8 +99,8 @@ public class ZoneDig : Digging {
         else if (isActiveAndEnabled) // If you already pressed [ZDIG] (activate -> now)
             if (CanDig())
             {
-                _movingCircle = Instantiate(movingCirclePrefab).GetComponent<MovingCircle>();
-                _movingCircle.Setup(transform, player);
+                movingCircle = Instantiate(movingCirclePrefab).GetComponent<MovingCircle>();
+                movingCircle.Setup(transform, player);
                 player.IsZoneDigging = true;
             }
             else

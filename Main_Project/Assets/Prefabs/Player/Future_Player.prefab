@@ -530,8 +530,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4274672027556370}
-  - component: {fileID: 33903878147761504}
-  - component: {fileID: 23023568914672710}
   - component: {fileID: 65182099162306688}
   - component: {fileID: 114055103326034000}
   m_Layer: 0
@@ -813,7 +811,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1632412225294700}
   m_LocalRotation: {x: -0, y: -0.55476755, z: -0, w: 0.83200544}
-  m_LocalPosition: {x: 0, y: 21, z: 0}
+  m_LocalPosition: {x: -1.478, y: 21, z: 0.293}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 4283177418622908}
@@ -1169,41 +1167,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!23 &23023568914672710
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1923159736288904}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!23 &23118089517187126
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -1288,13 +1251,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1120788951072014}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!33 &33903878147761504
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1923159736288904}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!54 &54089451829813032
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -1440,6 +1396,7 @@ MonoBehaviour:
   castingTime: 120
   movingCirclePrefab: {fileID: 1805591998086222, guid: a6986ec8d836a02489d419e6d5b12291,
     type: 2}
+  movingCircle: {fileID: 0}
   radius: 10
   sphereC: {fileID: 0}
   colliders: []
@@ -1500,7 +1457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterPeriod: 3
   skill: {fileID: 0}
-  digCount: 0
+  profile: {fileID: 0}
   usingSkill: 0
   isSneaking: 0
   isRunning: 0
@@ -1508,16 +1465,12 @@ MonoBehaviour:
   CurseStatus: 0
   runningAnimation: 0
   characterAnimator: {fileID: 0}
-  missingParts: 0
-  keys: 0
   drillGO: {fileID: 0}
   halfCurseEffect: {fileID: 0}
   fullCurseEffect: {fileID: 0}
   digEffect: {fileID: 0}
-  questionMarkPrefab: {fileID: 1820886121641010, guid: 07d97c0bab579c7448ba1353e9bdedf3,
-    type: 2}
+  emitter: {fileID: 0}
   questionMark: {fileID: 0}
-  CasterPrefab: {fileID: 0}
   caster: {fileID: 0}
   otherplayer: {fileID: 0}
 --- !u!114 &114357198937349676
@@ -1534,6 +1487,8 @@ MonoBehaviour:
   walkSpeed: 3
   stealthSpeed: 2
   runSpeed: 5
+  dummyOffset: {x: 0, y: 0, z: 0}
+  dummyPlayer: {fileID: 0}
   staminaHUD: {fileID: 0}
   maxStamina: 5
   staminaFallRate: 2
@@ -1606,6 +1561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   digAudioList: []
+  hurtVoiceList: []
   stepsFXList: []
   sneakAudioReduction: 0.6
   runAudioIncrease: 1.2
