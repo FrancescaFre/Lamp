@@ -7,8 +7,8 @@ public abstract class Digging : MonoBehaviour {
     public Material digNo;
     public PlayerController player;
 
-    [Range(1, 120)]
-    public float castingTime; 
+    
+    public float castingTime=0; 
     protected PlayerMovement _pm;
     protected float _progress; // Actual casting progress  
 
@@ -49,17 +49,12 @@ public abstract class Digging : MonoBehaviour {
     #endregion*/
 
     protected virtual void Start() {
-
+        player = GetComponentInParent<PlayerController>();
         _pm = player.GetComponent<PlayerMovement>();
 
         gameObject.SetActive(false);
 
-        if (player.CharacterPeriod == CharPeriod.VICTORIAN || player.CharacterPeriod == CharPeriod.PREHISTORY)
-            castingTime = AnimationManager.Anim_LenghtAnim(player.characterAnimator, "Dig And Plant Seeds");
-        if (player.CharacterPeriod == CharPeriod.ORIENTAL)
-            castingTime = AnimationManager.Anim_LenghtAnim(player.characterAnimator, "orientalDIG");
-
-        player.caster.maxValue = castingTime;
+       
 
 }
 
@@ -72,7 +67,14 @@ public abstract class Digging : MonoBehaviour {
             CastDig();
     }
 
+    public void SetCastingTime() {
+        if (player.CharacterPeriod == CharPeriod.VICTORIAN || player.CharacterPeriod == CharPeriod.PREHISTORY)
+            castingTime = AnimationManager.Anim_LenghtAnim(player.characterAnimator, "Dig And Plant Seeds");
+        if (player.CharacterPeriod == CharPeriod.ORIENTAL)
+            castingTime = AnimationManager.Anim_LenghtAnim(player.characterAnimator, "orientalDIG");
 
+        player.caster.maxValue = castingTime;
+    }
 
     /// <summary>
     /// Performs the digging action (called by caster)
@@ -112,7 +114,10 @@ public abstract class Digging : MonoBehaviour {
     /// Casts the dig during the casting update
     /// </summary>
     protected void CastDig() {
-        _progress+=Time.deltaTime;
+
+        if (castingTime <= 0)
+            SetCastingTime();
+        _progress +=Time.deltaTime;
         player.caster.value=_progress;
 
         if (_progress >= castingTime) {
