@@ -209,6 +209,12 @@ public class GameManager : MonoBehaviour {
         AudioManager.Instance.OnEndGame();
         currentPC = null;
         
+        //reset items
+        missingParts = 0;
+        keys = 0;
+        digCount = 0;
+        
+        //reset level settings
         levelLoaded = null;
         TeamList = null;
         currentCharacter = 0;

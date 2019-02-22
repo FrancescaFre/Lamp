@@ -8,7 +8,7 @@ public abstract class Digging : MonoBehaviour {
     public PlayerController player;
 
     
-    public float castingTime=0; 
+    private float castingTime=0f; 
     protected PlayerMovement _pm;
     protected float _progress; // Actual casting progress  
 
@@ -54,9 +54,9 @@ public abstract class Digging : MonoBehaviour {
 
         gameObject.SetActive(false);
 
-       
 
-}
+
+    }
 
     protected virtual void Update() {
         //if (!caster.isActiveAndEnabled)
@@ -67,7 +67,7 @@ public abstract class Digging : MonoBehaviour {
             CastDig();
     }
 
-    public void SetCastingTime() {
+    private void SetCastingTime() {
         if (player.CharacterPeriod == CharPeriod.VICTORIAN || player.CharacterPeriod == CharPeriod.PREHISTORY)
             castingTime = AnimationManager.Anim_LenghtAnim(player.characterAnimator, "Dig And Plant Seeds");
         if (player.CharacterPeriod == CharPeriod.ORIENTAL)
