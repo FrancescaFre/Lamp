@@ -47,7 +47,7 @@ public class ZoneDig : Digging {
         gameObject.layer = 14; // TESTING -> custom layer for SphereC
 
         if (player.IsZoneDigging) // If you already pressed [ZDIG] 2 times (activate -> valid start -> now)
-            if (movingCircle.CanDig())
+            if (movingCircle && movingCircle.CanDig())
             {
                 player.drillGO.SetActive(true);
                 AnimationManager.Anim_StarDigging(player.characterAnimator);
@@ -83,7 +83,7 @@ public class ZoneDig : Digging {
         gameObject.layer = 14; // TESTING -> custom layer for SphereC
 
         if (player.IsZoneDigging) // If you already pressed [ZDIG] 2 times (activate -> valid start -> now)
-            if (movingCircle.CanDig())
+            if (movingCircle && movingCircle.CanDig())
             {
                 player.drillGO.SetActive(true);
                 AnimationManager.Anim_StarDigging(player.characterAnimator);
@@ -122,7 +122,7 @@ public class ZoneDig : Digging {
 
     public override void Cancel()
     {
-        if (player.IsZoneDigging)
+        if (player.IsZoneDigging && movingCircle)
         {
             Destroy(movingCircle.gameObject);
             movingCircle = null;
