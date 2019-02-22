@@ -50,11 +50,27 @@ public static class AnimationManager
     {
         return anim.GetBool(s);
     }
- //------------------------------------------------------------------------------
+
+    // T R I G G E R  Parameters
+//------------------------------------------------------------------------------
     public static void Anim_StarDigging(Animator anim)
     {
         anim.SetTrigger("isDigging");
+    }
+
+//------------------------------------------------------------------------------
+    public static void Anim_TurnOnLamp(Animator anim)
+    {
+        anim.SetTrigger("TurnOnLamp");
     } 
+ 
+ //------------------------------------------------------------------------------
+    public static void Anim_Nerv(Animator anim)
+    {
+        anim.SetTrigger("Nerv");
+    } 
+
+    // B O O L  Parameters
 //------------------------------------------------------------------------------
     public static void Anim_OpenDoor(Animator anim)
     {

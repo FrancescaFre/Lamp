@@ -107,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         CheckMovement();
-        if (_vertInput == 0 && _horizInput == 0 && !OnIce)
+        if ((_vertInput == 0 && _horizInput == 0 && !OnIce))
             return;
         else if (_player.CanMove())
         {

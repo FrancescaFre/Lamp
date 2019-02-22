@@ -130,6 +130,8 @@ public class PlayerController : MonoBehaviour {
         this.CheckSkillInteraction();
         this.CheckItemInteraction();
         this.CheckDig();
+        if (Input.GetKeyDown(KeyCode.M))
+              AnimationManager.Anim_Nerv(characterAnimator);
     }
 
     private void LateUpdate() {
@@ -145,7 +147,7 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     public bool CanMove()
     {
-        return !(IsZoneDigging || IsCasting || runningAnimation);
+        return !(IsZoneDigging || IsCasting || runningAnimation || Input.GetKey(KeyCode.P));
     }
 
     //#####################################################################
@@ -212,7 +214,7 @@ public class PlayerController : MonoBehaviour {
         }
         //if the character touches an enemy trigger
         //READ AS: if an enemy curse the character
-        else if (other.CompareTag(Tags.EnemyBody) && !IsSafe) {
+        else if (other.CompareTag(Tags.EnemyBody) && !IsSafe ) {
             
             Enemy touchedEnemy = other.GetComponentInParent<Enemy>();
 
@@ -278,12 +280,13 @@ public class PlayerController : MonoBehaviour {
                
             }
 
-
+            if (!lamp.canBeSwitchedOn) return; 
             if (IsMimicOrDash) return;
             if (lamp.isTurnedOn) {
                 questionMark.gameObject.SetActive(false);
                 return;
             }    //if the lamp is already turned on, exit
+            AnimationManager.Anim_TurnOnLamp(characterAnimator);
             lamp.SwitchOnAllyLamp();
 
 
