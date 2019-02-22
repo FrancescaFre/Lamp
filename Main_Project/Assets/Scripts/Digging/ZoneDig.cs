@@ -33,6 +33,9 @@ public class ZoneDig : Digging {
         GameManager.Instance.digCount--;
     }
 
+    /* 
+     * TWO-STEPS ZONE DIG
+     */
     override public void CheckInput()
     {
         sphereC.enabled = true;
@@ -52,11 +55,46 @@ public class ZoneDig : Digging {
                 Cancel();
             }
 
+        else if (player.VDig.isActiveAndEnabled) // If you already pressed [VDIG]
+        {
+            player.VDig.Cancel();
+        }
+
+        else if (CanDig())
+        {
+            movingCircle = Instantiate(movingCirclePrefab).GetComponent<MovingCircle>();
+            movingCircle.Setup(transform, player);
+            player.IsZoneDigging = true;
+        }  
+    }
+
+    /*
+     * THREE-STEPS ZONE DIG
+     * 
+    override public void CheckInput()
+    {
+        sphereC.enabled = true;
+        gameObject.layer = 14; // TESTING -> custom layer for SphereC
+
+        if (player.IsZoneDigging) // If you already pressed [ZDIG] 2 times (activate -> valid start -> now)
+            if (_movingCircle.CanDig())
+            {
+                player.drillGO.SetActive(true);
+                AnimationManager.Anim_StarDigging(player.characterAnimator);
+                Invoke("HideDrillGO", AnimationManager.Anim_LenghtAnim(player.characterAnimator, "Dig And Plant Seeds"));
+                StartCasting();
+                player.IsCasting = true;
+            }
+            else
+            {
+                Cancel();
+            }
+
         else if (isActiveAndEnabled) // If you already pressed [ZDIG] (activate -> now)
             if (CanDig())
             {
-                movingCircle = Instantiate(movingCirclePrefab).GetComponent<MovingCircle>();
-                movingCircle.Setup(transform, player);
+                _movingCircle = Instantiate(movingCirclePrefab).GetComponent<MovingCircle>();
+                _movingCircle.Setup(transform, player);
                 player.IsZoneDigging = true;
             }
             else
@@ -74,6 +112,7 @@ public class ZoneDig : Digging {
             gameObject.SetActive(true);
         }
     }
+    */
 
     public override void Cancel()
     {

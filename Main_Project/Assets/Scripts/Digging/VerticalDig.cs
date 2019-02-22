@@ -85,7 +85,7 @@ public class VerticalDig : Digging
             else
                 Cancel();
 
-        else if (player.ZDig.isActiveAndEnabled) // If you already pressed [ZDIG]
+        else if (player.IsZoneDigging) // If you already pressed [ZDIG]
             player.ZDig.Cancel();
 
         else // If it's the first time you press [VDIG]

@@ -313,13 +313,13 @@ public class PlayerController : MonoBehaviour {
     {
         if (!IsCasting)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetButtonDown(Controllers.PS4_Button_Triangle)) // [VDIG]
+            if (Input.GetKeyDown(KeyCode.Mouse1) || Input.GetButtonDown(Controllers.PS4_Button_Triangle)) // [VDIG]
                 if (GameManager.Instance.digCount > 0)
                 {
                     VDig.CheckInput();
                 }
 
-            if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetButtonDown(Controllers.PS4_Button_Square)) // [ZDIG]
+            if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetButtonDown(Controllers.PS4_Button_Square)) // [ZDIG]
                 if (GameManager.Instance.digCount > 0)
                 {
                     ZDig.CheckInput();
