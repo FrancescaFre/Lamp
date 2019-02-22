@@ -18,6 +18,7 @@ public class TutorialManager : MonoBehaviour {
         originalDeltaTime = Time.fixedDeltaTime;
         //isActive = true;
         GameManager.Instance.currentPC.IsZoneDigging = true;
+        InGameHUD.Instance.tabTutorial.gameObject.SetActive(true);
         //StopTime();
         GameManager.Instance.digCount = 1; // Gives a re-chance to the player if he fails a dig
 	}
@@ -33,6 +34,7 @@ public class TutorialManager : MonoBehaviour {
             {
                 //isActive = false;
                 GameManager.Instance.currentPC.IsZoneDigging = false;
+                InGameHUD.Instance.tabTutorial.gameObject.SetActive(false);
                 spawnOrder[index].AddMenuEntry();
                 //RestartTime();
                 if (index == spawnOrder.Length)
@@ -46,6 +48,7 @@ public class TutorialManager : MonoBehaviour {
         index++;
         //isActive = true;
         GameManager.Instance.currentPC.IsZoneDigging = true;
+        InGameHUD.Instance.tabTutorial.gameObject.SetActive(true);
         //StopTime();
         spawnOrder[index].gameObject.SetActive(true);
     }

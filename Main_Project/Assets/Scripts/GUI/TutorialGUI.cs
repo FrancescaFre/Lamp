@@ -27,7 +27,7 @@ public class TutorialGUI : MonoBehaviour
     void Update()
     {
         if (insideTutorial)
-            if (Input.GetKeyDown(KeyCode.Tab) || (Input.GetKeyDown(KeyCode.Space)))
+            if (Input.GetKeyDown(KeyCode.Tab))
                 if (!selected.Next())
                     Back();
                 else if (Input.GetKeyDown(KeyCode.Escape))
@@ -38,6 +38,7 @@ public class TutorialGUI : MonoBehaviour
     {
         selected = tutorial;
         insideTutorial = true;
+        InGameHUD.Instance.tabTutorial.gameObject.SetActive(true);
         selected.transform.SetParent(transform);
         panel.SetActive(false);
         selected.gameObject.SetActive(true);
@@ -51,6 +52,7 @@ public class TutorialGUI : MonoBehaviour
         selected.transform.SetParent(panel.transform);
         selected.Refresh();
         insideTutorial = false;
+        InGameHUD.Instance.tabTutorial.gameObject.SetActive(false);
         selected = null;
         EventSystem.current.SetSelectedGameObject(firstSelected, null);
     }

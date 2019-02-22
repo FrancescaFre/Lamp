@@ -9,7 +9,7 @@ public class InGameHUD : MonoBehaviour {
     public GameObject InGameHUDPanel;
 
     public PauseManagerGUI pauseManager;
-    public Image victory, defeat;
+    public Image victory, defeat, tabTutorial;
     public TextMeshProUGUI allyLampCounter;
     public TextMeshProUGUI enemyLampCounter;
     [Header("In-HUD GO prefabs")]
