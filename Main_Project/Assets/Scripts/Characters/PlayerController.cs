@@ -311,7 +311,7 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     private void CheckDig()
     {
-        if (!IsCasting)
+        if (!IsCasting && !InGameHUD.Instance.pauseManager.IsPaused)
         {
             if (Input.GetKeyDown(KeyCode.Mouse1) || Input.GetButtonDown(Controllers.PS4_Button_Triangle)) // [VDIG]
                 if (GameManager.Instance.digCount > 0)

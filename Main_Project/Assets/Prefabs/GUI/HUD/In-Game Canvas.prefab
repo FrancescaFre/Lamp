@@ -13870,6 +13870,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   children:
   - {fileID: 1435200472479138}
+  - {fileID: 1961223240465132}
+  - {fileID: 1310303322704172}
+  - {fileID: 1043751024890214}
+  - {fileID: 1900497728458872}
   menuEntry: {fileID: 0}
 --- !u!114 &114630624445337538
 MonoBehaviour:
@@ -14059,7 +14063,7 @@ MonoBehaviour:
         m_MethodName: ReadTutorial
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgument: {fileID: 114630422590057162}
           m_ObjectArgumentAssemblyTypeName: TutorialStep, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -15074,7 +15078,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d12de126459b9fb4186bd82db6578a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isPaused: 0
   PausePanel: {fileID: 0}
   firstButtonSelected: {fileID: 0}
   firstOptionSelected: {fileID: 0}

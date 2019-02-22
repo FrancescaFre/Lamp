@@ -12,7 +12,7 @@ using UnityEngine.EventSystems;
 public class PauseManagerGUI : MonoBehaviour
 {
     [SerializeField]
-    private bool _isPaused;
+    public bool IsPaused { get; set; }
     public GameObject PausePanel;
     public GameObject firstButtonSelected;
     private float _originalFixedTime;   //this way it is possible to restore the previous value
@@ -29,7 +29,7 @@ public class PauseManagerGUI : MonoBehaviour
 
     void Start()
     {
-        _isPaused = false;
+        IsPaused = false;
         _optionsGUI = GetComponentInChildren<OptionsGUI>(includeInactive: true);
         _tutorialGUI = GetComponentInChildren<TutorialGUI>(includeInactive: true);
 
@@ -38,7 +38,7 @@ public class PauseManagerGUI : MonoBehaviour
                 if (child.CompareTag(Tags.HUDPauseMenu))
                     PausePanel = child.gameObject;
 
-        PausePanel.SetActive(_isPaused);
+        PausePanel.SetActive(IsPaused);
         firstButtonSelected = PausePanel.transform.GetChild(0).gameObject;
         firstOptionSelected = _optionsGUI.transform.GetChild(0).gameObject;
         firstTutorialSelected = _tutorialGUI.firstSelected;
@@ -71,12 +71,12 @@ public class PauseManagerGUI : MonoBehaviour
 
     private void _UpdateGamePause()
     {
-        GetComponent<InGameHUD>().InGameHUDPanel.SetActive(!_isPaused);
-        PausePanel.SetActive(_isPaused);    //the activation of the panel depends on whether it is paused or not
-        Cursor.visible = _isPaused;
+        GetComponent<InGameHUD>().InGameHUDPanel.SetActive(!IsPaused);
+        PausePanel.SetActive(IsPaused);    //the activation of the panel depends on whether it is paused or not
+        Cursor.visible = IsPaused;
 
 
-        if (_isPaused)
+        if (IsPaused)
         {//stops time
             Time.timeScale = 0f;
             Time.fixedDeltaTime = .2f * Time.timeScale;
@@ -95,7 +95,7 @@ public class PauseManagerGUI : MonoBehaviour
     /// </summary>
     public void ChangePauseStatus()
     {// this allows to press a button and call this function to resume
-        _isPaused = !_isPaused;
+        IsPaused = !IsPaused;
 
         this._UpdateGamePause();
     }
