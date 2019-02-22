@@ -135,7 +135,7 @@ public class MovingCircle : ZoneDig {
 
     private void CreateDummy()
     {
-        _dummyOffset = _pm.DummyOffset;
+        _dummyOffset = _pm.dummyOffset;
         _dummyCircle = Instantiate(dummyCirclePrefab);
         _dummyCircle.transform.position += _dummyOffset;
         _dummyCircle.transform.rotation = transform.rotation;

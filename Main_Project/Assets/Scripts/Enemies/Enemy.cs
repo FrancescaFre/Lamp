@@ -280,11 +280,17 @@ public class Enemy : MonoBehaviour
             
             //if the player is safe or the raycast can't reach the player (cause some obstacles), stop seek
             if (player.GetComponent<PlayerController>().IsSafe || ( Physics.Raycast(transform.position, dirToTarget, dstToTarget * 5, LayerMask.GetMask("Obstacle")) || Physics.Raycast(transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("UnDiggable")))) {
-                // Debug.Log("hidden" +  Physics.Raycast(transform.position, dirToTarget, dstToTarget, fov.obstacleMask));
-               
-                player = null; ///WARNING!
-                destination = lastPlayerPosition - (Vector3.one*2);
+               // Debug.Log("hidden by obstacle " +  Physics.Raycast(transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("Obstacle")));
+               // Debug.Log("hidden by undig " +  Physics.Raycast(transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("UnDiggable")));
 
+
+                if (player.GetComponent<PlayerController>().IsSafe)
+                    destination = lastPlayerPosition - (Vector3.one);
+                else
+                    destination = lastPlayerPosition;
+
+                player = null; ///WARNING!
+               
                 randomInt = Random.Range(0, 2) == 0 ? 1 : -1;
 
                 speed -= seekSpeed;
@@ -470,6 +476,9 @@ public class Enemy : MonoBehaviour
     #region GIZMO
     private void OnDrawGizmos()
     {
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(destination, 1f);
+
         if (path.childCount > 0)
         {
             Vector3 startPosition = this.path.GetChild(0).position;
