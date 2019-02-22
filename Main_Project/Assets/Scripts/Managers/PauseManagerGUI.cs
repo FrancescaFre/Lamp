@@ -9,25 +9,29 @@ using UnityEngine.EventSystems;
  * ESC/Start(or options)  Pause the game
  
      */
-public class PauseManagerGUI : MonoBehaviour {
+public class PauseManagerGUI : MonoBehaviour
+{
     [SerializeField]
     private bool _isPaused;
     public GameObject PausePanel;
     public GameObject firstButtonSelected;
     private float _originalFixedTime;   //this way it is possible to restore the previous value
     public GameObject firstOptionSelected;
+    public GameObject firstTutorialSelected;
 
+    private TutorialGUI _tutorialGUI;
+    private OptionsGUI _optionsGUI;
 
-
-    private OptionsGUI optionsGUI;
-
-    void Awake() {
+    void Awake()
+    {
         this._originalFixedTime = Time.fixedDeltaTime;
     }
 
-    void Start() {
+    void Start()
+    {
         _isPaused = false;
-        optionsGUI = GetComponentInChildren<OptionsGUI>(includeInactive:true);
+        _optionsGUI = GetComponentInChildren<OptionsGUI>(includeInactive: true);
+        _tutorialGUI = GetComponentInChildren<TutorialGUI>(includeInactive: true);
 
         if (!PausePanel)
             foreach (Transform child in transform)
@@ -36,18 +40,27 @@ public class PauseManagerGUI : MonoBehaviour {
 
         PausePanel.SetActive(_isPaused);
         firstButtonSelected = PausePanel.transform.GetChild(0).gameObject;
-        firstOptionSelected = optionsGUI.transform.GetChild(0).gameObject;
+        firstOptionSelected = _optionsGUI.transform.GetChild(0).gameObject;
+        firstTutorialSelected = _tutorialGUI.firstSelected;
 
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
 
-        if (Input.GetKeyUp(KeyCode.Escape) || Input.GetButtonUp(Controllers.PS4_Button_OPTIONS)) {//once the button has JUST been released
-                                                                                        //switches on and off the pause menu
-            if (optionsGUI.gameObject.activeInHierarchy) {
+        if (Input.GetKeyUp(KeyCode.Escape) || Input.GetButtonUp(Controllers.PS4_Button_OPTIONS))
+        {//once the button has JUST been released
+         //switches on and off the pause menu
+            if (_optionsGUI.gameObject.activeInHierarchy)
+            {
                 OptionsToPause();
-                
+
+                return;
+            }
+            if (_tutorialGUI.gameObject.activeInHierarchy)
+            {
+                TutorialToPause();
                 return;
             }
             this.ChangePauseStatus();
@@ -56,56 +69,77 @@ public class PauseManagerGUI : MonoBehaviour {
     }
 
 
-    private void _UpdateGamePause(){
+    private void _UpdateGamePause()
+    {
         GetComponent<InGameHUD>().InGameHUDPanel.SetActive(!_isPaused);
         PausePanel.SetActive(_isPaused);    //the activation of the panel depends on whether it is paused or not
         Cursor.visible = _isPaused;
-        
-        
-        if (_isPaused) {//stops time
+
+
+        if (_isPaused)
+        {//stops time
             Time.timeScale = 0f;
             Time.fixedDeltaTime = .2f * Time.timeScale;
             EventSystem.current.SetSelectedGameObject(firstButtonSelected, null);
         }
-        else {//restores time
+        else
+        {//restores time
             Time.timeScale = 1f;
             Time.fixedDeltaTime = _originalFixedTime;
         }
-        
+
     }
 
     /// <summary>
     /// Call this function to change the pause status (even from a button in-game)
     /// </summary>
-    public void ChangePauseStatus() {// this allows to press a button and call this function to resume
+    public void ChangePauseStatus()
+    {// this allows to press a button and call this function to resume
         _isPaused = !_isPaused;
-        
+
         this._UpdateGamePause();
     }
 
-    public void QuitGame() {
+    public void QuitGame()
+    {
         Debug.Log("QUIT GAME");
         Application.Quit();
     }
 
-    public void LevelSelection() {
+    public void LevelSelection()
+    {
         Time.timeScale = 1f;
         Time.fixedDeltaTime = _originalFixedTime;
 
         GameManager.Instance.EndGame();
     }
 
-    public void PauseToOptions() {
+    public void PauseToOptions()
+    {
         PausePanel.SetActive(false);
-        optionsGUI.gameObject.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(firstOptionSelected,null);
+        _optionsGUI.gameObject.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(firstOptionSelected, null);
     }
-    public void OptionsToPause() {
-        optionsGUI.gameObject.SetActive(false);
+    public void OptionsToPause()
+    {
+        _optionsGUI.gameObject.SetActive(false);
         PausePanel.SetActive(true);
-        
+
         EventSystem.current.SetSelectedGameObject(firstButtonSelected, null);
     }
 
-    
+    public void PauseToTutorial()
+    {
+        PausePanel.SetActive(false);
+        _tutorialGUI.gameObject.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(firstTutorialSelected, null);
+    }
+    public void TutorialToPause()
+    {
+        _tutorialGUI.Escape();
+        PausePanel.SetActive(true);
+
+        EventSystem.current.SetSelectedGameObject(firstButtonSelected, null);
+    }
+
 }

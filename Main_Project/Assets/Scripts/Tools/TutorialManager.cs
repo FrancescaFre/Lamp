@@ -30,6 +30,7 @@ public class TutorialManager : MonoBehaviour {
             if (!spawnOrder[index].Next())
             { 
                 isActive = false;
+                spawnOrder[index].AddMenuEntry();
                 RestartTime();
                 if (index == spawnOrder.Length)
                     gameObject.SetActive(false);
