@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour {
 
     [Header("Enemies")]
     public List<GameObject> enemyGOList;
+    public List<Enemy> enemyList;
     
    
     [Header("Characters")]
@@ -85,15 +86,20 @@ public class GameManager : MonoBehaviour {
     }
     public void SpawnNewEnemy(int enemyLevel, Vector3 playerPosition, Transform enemyPath) {
         Debug.Log("create the enemy ");
-        GameObject enemyGO = enemyGOList[enemyLevel]; //the levels are [1,3]
+        GameObject enemyGO = Instantiate(enemyGOList[enemyLevel]); //the levels are [1,3]
+
         enemyGO.GetComponent<Rigidbody>().position = playerPosition;
 
         enemyGO.GetComponent<Enemy>().path = enemyPath;
-       
+        enemyGO.GetComponent<Enemy>().humanModel = currentPC.GetComponent<DifferenceOfTerrain>().modelTransform.gameObject;
+
+        Animator anim = currentPC.characterAnimator;
+        var temp = enemyGO.GetComponent<Enemy>().humanModel.AddComponent<Animator>();
+        temp = anim;
 
         TeamHUD.Instance.Curse();
         SpawnNewPlayer(); //destroys the character
-        Instantiate(enemyGO);//creates the enemy instead
+       //creates the enemy instead
     }
     public void SpawnNewPlayer() {
         currentCharacter = nextChar;
@@ -155,11 +161,17 @@ public class GameManager : MonoBehaviour {
 
     private void LateUpdate() {//emergency button
         if (Input.GetKeyDown(KeyCode.F12)) {
-            if (LastAllyLamp)
+            /* if (LastAllyLamp)
 
-                CharactersDict[TeamList[currentCharacter]].transform.position = LastAllyLamp.transform.position/* + LastAllyLamp.transform.forward */+ CharactersDict[TeamList[currentCharacter]].transform.forward;
-            else
-                CharactersDict[TeamList[currentCharacter]].transform.position = levelLoaded.entryPoint;
+                 CharactersDict[TeamList[currentCharacter]].transform.position = LastAllyLamp.transform.position/* + LastAllyLamp.transform.forward + CharactersDict[TeamList[currentCharacter]].transform.forward;
+             else
+                 CharactersDict[TeamList[currentCharacter]].transform.position = levelLoaded.entryPoint;*/
+
+            GoodEndGame();
+        }
+        if (Input.GetKeyDown(KeyCode.O)) {
+            FindObjectOfType<SpinFree>().spinParent = !FindObjectOfType<SpinFree>().spinParent;
+
         }
     }
     #region Scene Management
@@ -179,6 +191,8 @@ public class GameManager : MonoBehaviour {
         Cursor.visible = false;
         CharactersList = new List<PlayerController>(FindObjectsOfType<PlayerController>());
         CharactersDict = new Dictionary<CharPeriod, PlayerController>();
+
+        enemyList = new List<Enemy>();
 
         this.allyLamps = 0;
         this.enemyLamps = 0;
@@ -209,12 +223,6 @@ public class GameManager : MonoBehaviour {
         AudioManager.Instance.OnEndGame();
         currentPC = null;
         
-        //reset items
-        missingParts = 0;
-        keys = 0;
-        digCount = 0;
-        
-        //reset level settings
         levelLoaded = null;
         TeamList = null;
         currentCharacter = 0;
@@ -242,10 +250,14 @@ public class GameManager : MonoBehaviour {
         AudioManager.Instance.musicSource.clip = winAudio;
         AudioManager.Instance.musicSource.Play();
         InGameHUD.Instance.victory.gameObject.SetActive(true);
+
+        foreach (Enemy x in enemyList)
+            x.RestoreEnemy(npc[UnityEngine.Random.Range(0,npc.Count)]);
+
         Invoke("EndGame", winAudio.length-.5f);
     }
 
-
+    public List<GameObject> npc;
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         if (scene.buildIndex < 2) return;

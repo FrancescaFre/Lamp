@@ -90,13 +90,15 @@ public class Enemy : MonoBehaviour
     }
     public void Start()
     {
+        GameManager.Instance.enemyList.Add(this);
+
 
         lights = GetComponentsInChildren<Light>();                 //the light sources of the child GO
       
 //-------------------- Assign the first set of values to FOV
         fov = this.GetComponentInChildren<EnemyFOV>();
         fov.FOVSetParameters(cov_distance_wander, cov_angle_wander, this.transform);
-
+        fov.parentEnemy = this;
         //pathIndex = 0;
         //destination = wanderPath[pathIndex].position;
 
@@ -128,7 +130,20 @@ public class Enemy : MonoBehaviour
             }
            */
         }
+
+
+        foreach(Transform child in transform) {
+            if (child.CompareTag(Tags.EnemyBody)){
+                enemyModel = child.gameObject;
+                break;
+            }
+        }
     }
+
+    public GameObject enemyModel;
+    public GameObject humanModel;
+
+
     private void FixedUpdate() {
         ChangeStatus();
         ChangeDirection();
@@ -237,10 +252,10 @@ public class Enemy : MonoBehaviour
 //-------------------- Change state of the enemy
     private void ChangeStatus() {
         //1- if the enemy is wandering or returning and it see an enemy and this is not safe--> seeking the player (player)
-        if (currentStatus != EnemyStatus.SEEKING && 
-            ((fov.visibleTargets.Count > 0 && !fov.visibleTargets[0].GetComponent<PlayerController>().IsSafe 
-            && fov.visibleTargets[0].GetComponent<PlayerController>().CurseStatus!=Status.CURSED) ))
-            
+        if (currentStatus != EnemyStatus.SEEKING &&
+            ((fov.visibleTargets.Count > 0 && !fov.visibleTargets[0].GetComponent<PlayerController>().IsSafe
+            && fov.visibleTargets[0].GetComponent<PlayerController>().CurseStatus != Status.CURSED)))
+
             /*|| (player && !player.GetComponent<PlayerController>().IsSafe)
             || (player && (player.GetComponent<PlayerController>().CurseStatus != Status.CURSED))))*/
             {
@@ -248,20 +263,20 @@ public class Enemy : MonoBehaviour
             if (fov.visibleTargets.Count > 0 && !fov.visibleTargets[0].GetComponent<PlayerController>().IsSafe)
                 player = fov.visibleTargets[0];
 
-          
+
             timePassedToDrop = 0f;
 
             speed += seekSpeed;
-            
+
             currentStatus = EnemyStatus.SEEKING;
 
             //---------
             if (!GetComponent<ColorChanger>().isRed)
-                 GetComponent<ColorChanger>().Lerp();
+                GetComponent<ColorChanger>().Lerp();
         }
 
         else if ((currentStatus == EnemyStatus.WANDERING || currentStatus == EnemyStatus.RETURN) && fov.earedTargets.Count > 0) {
-            
+
             currentStatus = EnemyStatus.SEARCHING;
             randomInt = Random.Range(0, 2) == 0 ? 1 : -1;
             searchingParticles.Play();
@@ -270,27 +285,26 @@ public class Enemy : MonoBehaviour
         }
 
         //2- if the player isn't reachable by any rayCast, stop and start to Search
-        else if (currentStatus == EnemyStatus.SEEKING && player && (player.GetComponent<PlayerController>() == (GameManager.Instance.currentPC))) {
+        else if (currentStatus == EnemyStatus.SEEKING && player) {
             DropPosition();
-            
+
             Vector3 dirToTarget = (player.position - transform.position).normalized;
             float dstToTarget = Vector3.Distance(transform.position, player.position);
 
             Debug.DrawRay(transform.position, dirToTarget, Color.blue);
-            
+
             //if the player is safe or the raycast can't reach the player (cause some obstacles), stop seek
-            if (player.GetComponent<PlayerController>().IsSafe || ( Physics.Raycast(transform.position, dirToTarget, dstToTarget * 5, LayerMask.GetMask("Obstacle")) || Physics.Raycast(transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("UnDiggable")))) {
-               // Debug.Log("hidden by obstacle " +  Physics.Raycast(transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("Obstacle")));
-               // Debug.Log("hidden by undig " +  Physics.Raycast(transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("UnDiggable")));
+            if (player.GetComponent<PlayerController>().IsSafe
+                || Physics.Raycast(enemyModel.transform.position, dirToTarget, dstToTarget * 5, LayerMask.GetMask("Obstacle"))
+                || Physics.Raycast(enemyModel.transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("UnDiggable"))
+                || player.GetComponent<PlayerController>() != GameManager.Instance.currentPC) {
+                // Debug.Log("hidden by obstacle " +  Physics.Raycast(transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("Obstacle")));
+                // Debug.Log("hidden by undig " +  Physics.Raycast(transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("UnDiggable")));
 
-
-                if (player.GetComponent<PlayerController>().IsSafe)
-                    destination = lastPlayerPosition - (Vector3.one);
-                else
-                    destination = lastPlayerPosition;
+                destination = lastPlayerPosition + ((Vector3.Distance(player.position, enemyModel.transform.position) * 0.30f) * Vector3.one);
 
                 player = null; ///WARNING!
-               
+
                 randomInt = Random.Range(0, 2) == 0 ? 1 : -1;
 
                 speed -= seekSpeed;
@@ -300,8 +314,8 @@ public class Enemy : MonoBehaviour
         }
 
         //3- if the player isn't visible for an ammount of time, stop looking for it
-        else if (currentStatus == EnemyStatus.SEARCHING && timePassed < stop_search_after_x_seconds && 
-                    (player == null || player.GetComponent<PlayerController>().CurseStatus==Status.CURSED)) {
+        else if (currentStatus == EnemyStatus.SEARCHING && timePassed < stop_search_after_x_seconds &&
+                    (player == null || player.GetComponent<PlayerController>().CurseStatus == Status.CURSED)) {
             timePassed += Time.deltaTime;
         }
 
@@ -313,7 +327,7 @@ public class Enemy : MonoBehaviour
 
 
             if (hanselGretelGPS.Count > 0) {
-                
+
                 currentStatus = EnemyStatus.RETURN;
 
                 if (toDestroy)
@@ -346,18 +360,24 @@ public class Enemy : MonoBehaviour
                
                 pathIndex = (pathIndex + 1) % path.childCount;
 
-                while (path.GetChild(pathIndex).GetComponent<SingleWaypoint>().underALamp && !teleport)
+               
+
+                while (path.GetChild(pathIndex).GetComponent<SingleWaypoint>().underALamp)
                 {
                     pathIndex = (pathIndex + 1) % path.childCount;
                     teleport = true;
                     timeToTeleport = 0;
+                }
+
+                if (teleport && timeToTeleport == 0 ) {
+                    
                     teleportParticles.Play();
                     foreach (Transform child in transform) {
                         if (!child.CompareTag(Tags.Enemy) && !child.CompareTag(Tags.TeleportEnemy))
                             child.gameObject.SetActive(false);
                     }
-
                 }
+                
 
                 if (teleport && timeToTeleport >= 1)
                 {
@@ -390,22 +410,24 @@ public class Enemy : MonoBehaviour
             {
                 if (hanselGretelGPS.Count != 0 && hanselGretelGPS.Peek()!=null)
                 {
-                    while (hanselGretelGPS.Peek().GetComponent<SingleWaypoint>().underALamp && !teleport)
+                    while (hanselGretelGPS.Peek().GetComponent<SingleWaypoint>().underALamp)
                     {
                         DestroyImmediate(toDestroy.gameObject);
                         toDestroy = hanselGretelGPS.Peek();
                         teleport = true;
-                        teleportParticles.Play();
                         timeToTeleport = 0;
-                        
-                        foreach (Transform child in transform)
-                        {
-                            if (!child.CompareTag(Tags.Enemy) && !child.CompareTag(Tags.TeleportEnemy))
-                                child.gameObject.SetActive(false);
-                        }
-
                     }
                 }
+
+                if (teleport && timeToTeleport == 0) {
+
+                    teleportParticles.Play();
+                    foreach (Transform child in transform) {
+                        if (!child.CompareTag(Tags.Enemy) && !child.CompareTag(Tags.TeleportEnemy))
+                            child.gameObject.SetActive(false);
+                    }
+                }
+
 
                 if (teleport && timeToTeleport >= 1)
                 {
@@ -437,9 +459,10 @@ public class Enemy : MonoBehaviour
 
         else if (currentStatus == EnemyStatus.SEARCHING) {
 
-
-               if (Vector3.Distance(destination, transform.position) < 2) {
+          
+               if (Vector3.Distance(destination, transform.position) < 3f ) {
                     transform.Rotate(new Vector3(0, randomInt * 360 / stop_search_after_x_seconds * Time.deltaTime, 0), Space.Self);
+
             }
                else
                 DropPosition();
@@ -472,13 +495,39 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void RestoreEnemy(GameObject humanGO) {
+        enemyModel.SetActive(false);
+        teleportParticles.Play();
+        GameObject go;
+        if (!this.humanModel)
+             go= Instantiate(humanGO); 
+        else
+             go = Instantiate(humanModel);
+
+        go.transform.position = transform.position;
+        go.transform.rotation = enemyModel.transform.rotation;
+        go.transform.SetParent(transform);
+        go.transform.localPosition += Vector3.up * .5f;
+
+        go.SetActive(true);
+        GetComponent<EnemySFXEmitter>().enabled = false;
+        searchingParticles.Stop();
+
+
+
+
+
+        this.enabled = false;
+
+    }
 //-------------------- Gizmo for return_path and path
     #region GIZMO
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawSphere(destination, 1f);
+        Gizmos.DrawSphere(destination, .1f);
 
+        Gizmos.color = Color.white;
         if (path.childCount > 0)
         {
             Vector3 startPosition = this.path.GetChild(0).position;

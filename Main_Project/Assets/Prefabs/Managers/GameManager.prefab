@@ -55,12 +55,14 @@ MonoBehaviour:
   winAudio: {fileID: 8300000, guid: 11803921b8e57e04c851849bc66d8500, type: 3}
   loseAudio: {fileID: 8300000, guid: a998ad611fd345044a31f6944194c52f, type: 3}
   LastAllyLamp: {fileID: 0}
-  lampHUD: {fileID: 0}
   allyLamps: 0
   enemyLamps: 0
+  worldLight: {fileID: 0}
+  missingParts: 0
+  keys: 0
+  digCount: 0
   enemyGOList: []
-  howManySeeing: 0
-  howManyHearing: 0
+  enemyList: []
   CharactersList:
   - {fileID: 0}
   - {fileID: 0}
@@ -70,3 +72,10 @@ MonoBehaviour:
   currentCharacter: 0
   nextChar: 1
   TeamList: 
+  npc:
+  - {fileID: 1593551423024302, guid: 3c788085369762a48b88ad3f2b7cfaa9, type: 2}
+  - {fileID: 1114003460742250, guid: 8a6ee551fa4f616469445736b88bfeee, type: 2}
+  - {fileID: 1032737130042096, guid: 9fd71269b8048514abc3bad12d6dced9, type: 2}
+  - {fileID: 1535846062896238, guid: f171da545a106014187309b367ddf422, type: 2}
+  - {fileID: 1790611143429718, guid: 4095bca9ff2441f4ab0a72cde926fc85, type: 2}
+  - {fileID: 1349743085744296, guid: 20e26cde78705494d9af0bb49722be7e, type: 2}
