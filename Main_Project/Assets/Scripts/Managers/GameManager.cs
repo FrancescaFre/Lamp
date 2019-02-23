@@ -159,21 +159,7 @@ public class GameManager : MonoBehaviour {
         items[itemKey] += use;
     }
 
-    private void LateUpdate() {//emergency button
-        if (Input.GetKeyDown(KeyCode.F12)) {
-            /* if (LastAllyLamp)
 
-                 CharactersDict[TeamList[currentCharacter]].transform.position = LastAllyLamp.transform.position/* + LastAllyLamp.transform.forward + CharactersDict[TeamList[currentCharacter]].transform.forward;
-             else
-                 CharactersDict[TeamList[currentCharacter]].transform.position = levelLoaded.entryPoint;*/
-
-            GoodEndGame();
-        }
-        if (Input.GetKeyDown(KeyCode.O)) {
-            FindObjectOfType<SpinFree>().spinParent = !FindObjectOfType<SpinFree>().spinParent;
-
-        }
-    }
     #region Scene Management
     /// <summary>
     /// Start the selected level
