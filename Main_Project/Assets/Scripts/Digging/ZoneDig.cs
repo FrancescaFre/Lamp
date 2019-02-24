@@ -51,6 +51,10 @@ public class ZoneDig : Digging {
             {
                 player.drillGO.SetActive(true);
                 AnimationManager.Anim_StarDigging(player.characterAnimator);
+                if(player.CharacterPeriod==CharPeriod.ORIENTAL)
+
+                Invoke("HideDrillGO", AnimationManager.Anim_LenghtAnim(player.characterAnimator, "orientalDIG"));
+                else
                 Invoke("HideDrillGO", AnimationManager.Anim_LenghtAnim(player.characterAnimator, "Dig And Plant Seeds"));
                 StartCasting();
                 player.IsCasting = true;

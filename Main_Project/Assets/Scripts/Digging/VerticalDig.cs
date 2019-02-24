@@ -79,7 +79,11 @@ public class VerticalDig : Digging
                 player.drillGO.SetActive(true);
                 AnimationManager.Anim_StarDigging(player.characterAnimator);
                 StartCasting();
-                Invoke("HideDrillGO", AnimationManager.Anim_LenghtAnim(player.characterAnimator, "Dig And Plant Seeds"));
+                if (player.CharacterPeriod == CharPeriod.ORIENTAL)
+
+                    Invoke("HideDrillGO", AnimationManager.Anim_LenghtAnim(player.characterAnimator, "orientalDIG"));
+                else
+                    Invoke("HideDrillGO", AnimationManager.Anim_LenghtAnim(player.characterAnimator, "Dig And Plant Seeds"));
                 player.IsCasting = true;
             }
             else

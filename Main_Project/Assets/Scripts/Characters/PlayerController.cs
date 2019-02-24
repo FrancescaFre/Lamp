@@ -118,9 +118,10 @@ public class PlayerController : MonoBehaviour {
 
         var allChilds = GetComponentsInChildren<Transform>();
         foreach (Transform child in allChilds) {
-            if (child.CompareTag(Tags.Drill))
+            if (child.CompareTag(Tags.Drill)) {
                 drillGO = child.gameObject;
-
+                break;
+            }
         }
 
         drillGO.SetActive(false);

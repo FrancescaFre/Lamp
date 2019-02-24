@@ -1,16 +1,28 @@
 ﻿
 using UnityEngine;
+
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class StartMenuGUI : MonoBehaviour {
 
     public GameObject aboutUs;
-    public GameObject startMenu;
+    public GameObject credits;
+    public GameObject startMenuPanel;
+    
+    public GameObject creditsBack;
+    public GameObject AboutBack;
+    public GameObject play;
+
+    public GameObject Lamp;
+    public GameObject logo;
 
 
     private void Start() {
-        startMenu.SetActive(true);
+
+        startMenuPanel.SetActive(true);
         aboutUs.SetActive(false);
+        credits.SetActive(false);
     }
 
     public void LoadLevelSelection() {
@@ -23,11 +35,32 @@ public class StartMenuGUI : MonoBehaviour {
 
     public void AboutUs() {
         aboutUs.SetActive(true);
-        startMenu.SetActive(false);
+        startMenuPanel.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(AboutBack);
+
     }
-    public void Back() {
+    public void BackFromAboutUs() {
         aboutUs.SetActive(false);
-        startMenu.SetActive(true);
+        startMenuPanel.SetActive(true);
+    }
+    public void Credits() {
+        
+        credits.SetActive(true);
+        startMenuPanel.SetActive(false);
+        Lamp.SetActive(false);
+        logo.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(creditsBack);
+    }
+
+
+    public void BackFromCredits() {
+
+        credits.SetActive(false);
+        startMenuPanel.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(play);
+        Lamp.SetActive(true);
+        logo.SetActive(true);
+
     }
     public void OpenFBLink() {
         Application.OpenURL("https://www.facebook.com/pg/LampGameProject");

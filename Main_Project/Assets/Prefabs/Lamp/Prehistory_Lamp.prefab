@@ -260,7 +260,7 @@ Light:
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
-    m_Bias: 0.05
+    m_Bias: 0
     m_NormalBias: 0.4
     m_NearPlane: 0.2
   m_Cookie: {fileID: 0}
@@ -290,8 +290,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightBulb: []
-  enemyLightRange: 1
   particleSystems: []
+  enemyLightRange: 1
   allColliders: []
   isEnemyLamp: 0
   isTurnedOn: 0

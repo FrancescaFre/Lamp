@@ -1,17 +1,18 @@
 ﻿using UnityEngine;
 
 public class WorldEnlighter : MonoBehaviour {
-    
     private Light _worldLight;
     private float _lerpStep;
     private VolumetricLight _fog;
+
     [Tooltip("TRUE if you only want to change the color of the fog.")]
     public bool changeColor = false;
+
     public Color endColor = Color.white;
     public Color ambientLightIncrease;
-    
+
     // Use this for initialization
-    void Start() {
+    private void Start() {
         _worldLight = GetComponent<Light>();
         GameManager.Instance.worldLight = this;
         _fog = GetComponent<VolumetricLight>();
@@ -20,7 +21,7 @@ public class WorldEnlighter : MonoBehaviour {
 
         float temp = 50f / 255f;
         RenderSettings.ambientLight = new Color(temp, temp, temp);
-        temp = (30f / GameManager.Instance.levelLoaded.allyLamps)/255f;
+        temp = (30f / GameManager.Instance.levelLoaded.allyLamps) / 255f;
 
         ambientLightIncrease = new Color(temp, temp, temp);
     }
@@ -32,15 +33,5 @@ public class WorldEnlighter : MonoBehaviour {
             _fog.ScatteringCoef -= .1f;
             RenderSettings.ambientLight += ambientLightIncrease;
         }
-        
-
-
-
-
-    }
-
-    private void Update() {//test
-        if (Input.GetKeyDown(KeyCode.T))
-            Enlight();
     }
 }

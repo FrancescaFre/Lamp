@@ -17,8 +17,11 @@ public class PileOfLeaves : MonoBehaviour
 
         if (other.CompareTag(Tags.Player))
         {
+            PlayerController player = other.GetComponent<PlayerController>();
 
-            radius = other.GetComponent<PlayerController>().isSneaking ? radiusIsSneaking : radiusNotSneaking;
+            if (player.IsSafe) return;
+
+            radius = player.isSneaking ? radiusIsSneaking : radiusNotSneaking;
             Debug.Log(radius + " RAGGIO ");
 
 
@@ -31,7 +34,7 @@ public class PileOfLeaves : MonoBehaviour
                 Vector3 dirToTarget = (enemy.transform.position - transform.position).normalized;
                 Debug.DrawRay(transform.position, dirToTarget, Color.yellow);
                 if (!Physics.Raycast(other.transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("Obstacles")) && (!Physics.Raycast(other.transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("UnDiggable"))) )
-                    enemy.GetComponent<Enemy>().Allert(other.GetComponent<PlayerController>());
+                    enemy.GetComponent<Enemy>().Allert(player);
             }
         }
     }
