@@ -8,26 +8,22 @@ public class CameraFollowSpaceship : MonoBehaviour {
     public Transform spaceship;
     private MovingSpaceShip movingSpaceship; 
     public float smoothSpeed = 0.125f;
-    public Vector3 offset;
-    public Vector3 offsetFront;
+    public Vector3 offset, offsetFront;
 
     private void FixedUpdate()
     {
-        movingSpaceship = spaceship.GetComponent<MovingSpaceShip>(); 
-        Vector3 desiredPos;
+        movingSpaceship = spaceship.GetComponent<MovingSpaceShip>();
+        Vector3 desiredPos, temp_forward, temp_right;
         if (movingSpaceship.inFrontOf)
-        {
-            desiredPos = spaceship.position;
-            desiredPos -= spaceship.forward * offsetFront.z;
-            desiredPos += spaceship.up * offsetFront.y;
-            desiredPos += spaceship.right * offsetFront.x; 
-            
-            desiredPos.x = Mathf.Clamp(desiredPos.x, movingSpaceship.trigger.position.x - 10, movingSpaceship.trigger.position.x + 10);
-            desiredPos.z = Mathf.Clamp(desiredPos.z, movingSpaceship.trigger.position.z - 10, movingSpaceship.trigger.position.z + 10);
-            desiredPos.y = Mathf.Clamp(desiredPos.y, movingSpaceship.trigger.position.y - 10, movingSpaceship.trigger.position.y + 10);
-            
+        { 
+            temp_forward = (movingSpaceship.trigger.position - spaceship.position).normalized;
+            temp_right = Vector3.Cross(spaceship.up, temp_forward).normalized;
 
-     
+            desiredPos = spaceship.position;
+            desiredPos -= temp_forward * offsetFront.z;
+            desiredPos += spaceship.up * offsetFront.y;
+            desiredPos += temp_right * offsetFront.x;
+
             Vector3 smoothedPos = Vector3.Lerp(transform.position, desiredPos, smoothSpeed);
             transform.position = smoothedPos;
 
