@@ -2,6 +2,11 @@
 using UnityEngine;
 
 public enum Season { SPRING = 0, SUMMER, FALL, WINTER }
+public enum Quests {ENEMY_GT = 0, ENEMY_ET, ENEMY_LT,
+                    SKILL_GT, SKILL_ET, SKILL_LT,
+                    ITEMS_GT, ITEMS_ET, ITEMS_LT,
+                    CURSE_GT, CURSE_ET, CURSE_LT
+                    }
 
 [CreateAssetMenu]
 public class Level_SO : ScriptableObject {
@@ -42,15 +47,19 @@ public class Level_SO : ScriptableObject {
 
     [Header("GameObject of each enemy type")]
     public GameObject enemy_L1_GO;
-
     public GameObject enemy_L2_GO;
     public GameObject enemy_L3_GO;
 
     [Header("Challenges of the level")]
     public string[] subQuests;
-    public bool[] questCompletion = new bool[] { false, false, false };
+    public bool[] questCompletion;
+    public Quests[] quest_code;
+    public int[] quest_value;
+    
+
     public void Reset() {
         isCompleted = false;
+      
         questCompletion =new bool[]{ false,false,false };
     }
 

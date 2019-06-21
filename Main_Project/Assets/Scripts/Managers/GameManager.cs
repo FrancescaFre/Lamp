@@ -39,7 +39,12 @@ public class GameManager : MonoBehaviour {
     public static Dictionary<CharPeriod, PlayerController> CharactersDict;
     #endregion
 
-    
+    [Header("Subquest")]
+    public int subquest_enemy;
+    public int subquest_skill;
+    public int subquest_item;
+    public int subquest_curse;
+
     public Dictionary<string, int> items;
 
     private void Awake() {
@@ -79,11 +84,8 @@ public class GameManager : MonoBehaviour {
         currentPC = CharactersDict[TeamList[currentCharacter]];
         if(startGame)
             CharactersDict[TeamList[currentCharacter]].transform.position = levelLoaded.entryPoint;
-
-      
-
-
     }
+
     public void SpawnNewEnemy(int enemyLevel, Vector3 playerPosition, Transform enemyPath) {
         Debug.Log("create the enemy ");
         GameObject enemyGO = Instantiate(enemyGOList[enemyLevel]); //the levels are [1,3]
@@ -101,6 +103,7 @@ public class GameManager : MonoBehaviour {
         SpawnNewPlayer(); //destroys the character
        //creates the enemy instead
     }
+
     public void SpawnNewPlayer() {
         currentCharacter = nextChar;
 
@@ -114,7 +117,7 @@ public class GameManager : MonoBehaviour {
 
         if (LastAllyLamp)
 
-            CharactersDict[TeamList[currentCharacter]].transform.position = LastAllyLamp.transform.position/* + LastAllyLamp.transform.forward */+ CharactersDict[TeamList[currentCharacter]].transform.forward;
+            CharactersDict[TeamList[currentCharacter]].transform.position = LastAllyLamp.transform.position+ CharactersDict[TeamList[currentCharacter]].transform.forward;
         else
             CharactersDict[TeamList[currentCharacter]].transform.position = levelLoaded.entryPoint;
         CharactersDict[TeamList[currentCharacter - 1]].GetComponent<PlayerMovement>().BatonPass(CharactersDict[TeamList[currentCharacter]].GetComponent<PlayerMovement>());
@@ -168,9 +171,6 @@ public class GameManager : MonoBehaviour {
         //TODO fade into scene
         Debug.Log("GAME STARTED WITH SCENE: " + levelLoaded.levelSeason + " first player is " + TeamList[0]);
         SceneManager.LoadScene(levelLoaded.name);
-
-
-
     }
 
     public void StartGame() {//Prologue
@@ -243,7 +243,7 @@ public class GameManager : MonoBehaviour {
             x.RestoreEnemy(npc[UnityEngine.Random.Range(0,npc.Count)]);
 
         levelLoaded.isCompleted = true;
-
+        CheckSubquest();
         Invoke("EndGame", winAudio.length-.5f);
     }
 
@@ -264,4 +264,29 @@ public class GameManager : MonoBehaviour {
     }
 
     #endregion
+
+    private void CheckSubquest() {
+        for(int i = 0; i < 3; i++)
+        { 
+            switch (levelLoaded.quest_code[i])
+            {
+                case Quests.ENEMY_LT: levelLoaded.questCompletion[i] = subquest_enemy < levelLoaded.quest_value[i] ? true : levelLoaded.questCompletion[i]; break;
+                case Quests.ENEMY_GT: levelLoaded.questCompletion[i] = subquest_enemy > levelLoaded.quest_value[i] ? true : levelLoaded.questCompletion[i]; break;
+                case Quests.ENEMY_ET: levelLoaded.questCompletion[i] = subquest_enemy == levelLoaded.quest_value[i] ? true : levelLoaded.questCompletion[i]; break;
+
+                case Quests.SKILL_LT: levelLoaded.questCompletion[i] = subquest_skill < levelLoaded.quest_value[i] ? true : levelLoaded.questCompletion[i]; break;
+                case Quests.SKILL_GT: levelLoaded.questCompletion[i] = subquest_skill > levelLoaded.quest_value[i] ? true : levelLoaded.questCompletion[i]; break;
+                case Quests.SKILL_ET: levelLoaded.questCompletion[i] = subquest_skill == levelLoaded.quest_value[i] ? true : levelLoaded.questCompletion[i]; break;
+
+                case Quests.ITEMS_LT: levelLoaded.questCompletion[i] = subquest_item < levelLoaded.quest_value[i] ? true : levelLoaded.questCompletion[i]; break;
+                case Quests.ITEMS_GT: levelLoaded.questCompletion[i] = subquest_item > levelLoaded.quest_value[i] ? true : levelLoaded.questCompletion[i]; break;
+                case Quests.ITEMS_ET: levelLoaded.questCompletion[i] = subquest_item == levelLoaded.quest_value[i] ? true : levelLoaded.questCompletion[i]; break;
+
+                case Quests.CURSE_LT: levelLoaded.questCompletion[i] = subquest_curse < levelLoaded.quest_value[i] ? true : levelLoaded.questCompletion[i]; break;
+                case Quests.CURSE_GT: levelLoaded.questCompletion[i] = subquest_curse > levelLoaded.quest_value[i] ? true : levelLoaded.questCompletion[i]; break;
+                case Quests.CURSE_ET: levelLoaded.questCompletion[i] = subquest_curse == levelLoaded.quest_value[i] ? true : levelLoaded.questCompletion[i]; break;
+            }
+            i++;
+        }
+    }
 }

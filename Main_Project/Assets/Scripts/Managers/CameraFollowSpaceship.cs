@@ -28,7 +28,6 @@ public class CameraFollowSpaceship : MonoBehaviour {
             transform.position = smoothedPos;
 
             transform.LookAt(movingSpaceship.trigger);
-           
         }
 
         else
