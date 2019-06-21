@@ -218,6 +218,8 @@ public class Enemy : MonoBehaviour
         {
             player = pc.transform;
 
+            GameManager.Instance.subquest_enemy++;
+
             timePassedToDrop = 0f;
             speed += seekSpeed;
             currentStatus = EnemyStatus.SEEKING;
@@ -263,6 +265,7 @@ public class Enemy : MonoBehaviour
             if (fov.visibleTargets.Count > 0 && !fov.visibleTargets[0].GetComponent<PlayerController>().IsSafe)
                 player = fov.visibleTargets[0];
 
+            GameManager.Instance.subquest_enemy++;
 
             timePassedToDrop = 0f;
 

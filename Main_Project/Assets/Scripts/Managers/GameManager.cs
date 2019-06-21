@@ -40,10 +40,10 @@ public class GameManager : MonoBehaviour {
     #endregion
 
     [Header("Subquest")]
-    public int subquest_enemy;
-    public int subquest_skill;
-    public int subquest_item;
-    public int subquest_curse;
+    public int subquest_enemy=0;
+    public int subquest_skill=0;
+    public int subquest_item=0;
+    public int subquest_curse=0;
 
     public Dictionary<string, int> items;
 
@@ -278,9 +278,9 @@ public class GameManager : MonoBehaviour {
                 case Quests.SKILL_GT: levelLoaded.questCompletion[i] = subquest_skill > levelLoaded.quest_value[i] ? true : levelLoaded.questCompletion[i]; break;
                 case Quests.SKILL_ET: levelLoaded.questCompletion[i] = subquest_skill == levelLoaded.quest_value[i] ? true : levelLoaded.questCompletion[i]; break;
 
-                case Quests.ITEMS_LT: levelLoaded.questCompletion[i] = subquest_item < levelLoaded.quest_value[i] ? true : levelLoaded.questCompletion[i]; break;
-                case Quests.ITEMS_GT: levelLoaded.questCompletion[i] = subquest_item > levelLoaded.quest_value[i] ? true : levelLoaded.questCompletion[i]; break;
-                case Quests.ITEMS_ET: levelLoaded.questCompletion[i] = subquest_item == levelLoaded.quest_value[i] ? true : levelLoaded.questCompletion[i]; break;
+                case Quests.ITEM_LT: levelLoaded.questCompletion[i] = subquest_item < levelLoaded.quest_value[i] ? true : levelLoaded.questCompletion[i]; break;
+                case Quests.ITEM_GT: levelLoaded.questCompletion[i] = subquest_item > levelLoaded.quest_value[i] ? true : levelLoaded.questCompletion[i]; break;
+                case Quests.ITEM_ET: levelLoaded.questCompletion[i] = subquest_item == levelLoaded.quest_value[i] ? true : levelLoaded.questCompletion[i]; break;
 
                 case Quests.CURSE_LT: levelLoaded.questCompletion[i] = subquest_curse < levelLoaded.quest_value[i] ? true : levelLoaded.questCompletion[i]; break;
                 case Quests.CURSE_GT: levelLoaded.questCompletion[i] = subquest_curse > levelLoaded.quest_value[i] ? true : levelLoaded.questCompletion[i]; break;
@@ -288,5 +288,10 @@ public class GameManager : MonoBehaviour {
             }
             i++;
         }
+        //clear variable at the end of the level
+        subquest_curse = 0;
+        subquest_enemy = 0;
+        subquest_item = 0;
+        subquest_skill = 0; 
     }
 }
