@@ -19,9 +19,7 @@ public class DescriptionGUI : MonoBehaviour {
     public TMP_Text CharSkillDescription;
     [Header("For the levels")]
     public Level_SO pointedLevel;
-    public TMP_Text SubQuest1;
-    public TMP_Text SubQuest2;
-    public TMP_Text SubQuest3;
+    public TMP_Text[] subQuests;
 
     private void Start() {
         DescriptionPanel.SetActive(false);
@@ -51,9 +49,13 @@ public class DescriptionGUI : MonoBehaviour {
         Period.SetText(pointedLevel.levelSeason.ToString());
         Description.SetText(pointedLevel.Description);
 
-        SubQuest1.SetText(pointedLevel.subQuest_1);
+        /*SubQuest1.SetText(pointedLevel.subQuest_1);
         SubQuest2.SetText(pointedLevel.subQuest_2);
-        SubQuest3.SetText(pointedLevel.subQuest_3);
+        SubQuest3.SetText(pointedLevel.subQuest_3);*/
+
+        for (int i = 0; i < 3; i++) {
+            subQuests[i].SetText(pointedLevel.subQuests[i]);
+        }
     }
 
 
