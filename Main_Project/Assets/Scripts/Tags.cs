@@ -8,6 +8,7 @@ public static class Tags {
     public readonly static string PlayerModel = "Player/Model";
     public readonly static string Half_Curse = "Half_Curse";
     public readonly static string Full_Curse = "Full_Curse";
+    public readonly static string Player_Ship = "Player/Ship";
     //enemy
     public readonly static string Enemy = "Enemy";
     public readonly static string EnemyBody = "EnemyBody";
@@ -38,6 +39,8 @@ public static class Tags {
     public readonly static string DummyCam = "Dummy/Cam";
     //planet
     public readonly static string Planet = "Planet";
+    public readonly static string Planet_Switch = "Planet/Switch";
+
     //GUI 
     public readonly static string GUIHalo = "GUI/Halo";
     public readonly static string GUIGroup = "GUI/Group";

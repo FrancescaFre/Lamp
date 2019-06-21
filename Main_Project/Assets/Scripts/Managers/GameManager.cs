@@ -246,7 +246,7 @@ public class GameManager : MonoBehaviour {
     public List<GameObject> npc;
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        if (scene.buildIndex < 2) return;
+        if (scene.buildIndex < 3) return;
         Debug.Log("OnSceneLoaded: " + scene.name);
         if(!EventSystem.current) {
             GameObject eventSystem = new GameObject("EventSystem", typeof(EventSystem));

@@ -9,6 +9,7 @@ public class Level_SO : ScriptableObject {
     public string LevelName;
     public Season levelSeason;
     public string Description;
+    public bool isCompleted = false;
     [Header("Music clips")]
     public List<AudioClip> levelMusic;
     [Header("SFX clips")]
@@ -40,4 +41,12 @@ public class Level_SO : ScriptableObject {
     public bool challenge_3;
     public string subQuest_3;
     
+    public void Reset() {
+        isCompleted = false;
+        challenge_1= challenge_2= challenge_3 = false;  
+    }
+
+    public void setFree() {
+        isCompleted = true;
+    }
 }
