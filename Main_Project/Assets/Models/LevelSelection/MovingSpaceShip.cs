@@ -6,35 +6,46 @@ public class MovingSpaceShip : MonoBehaviour {
     public float speed = 15.0f;
     public float rotationSpeed = 100.0f;
 
-    private float minX= -100;
+    private float minX = -100;
     private float maxX = 60;
     private float minZ = -100;
     private float maxZ = 60;
+    public bool inFrontOf = false;
+    public Transform trigger; 
 
-    public ParticleSystem [] fire = new ParticleSystem [2];
+    public ParticleSystem[] fire = new ParticleSystem[2];
 
     private Rigidbody rb;
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.collider.CompareTag("Planet/Switch"))
-            speed -= 10; 
+        if (other.CompareTag("Planet"))
+        {
+            trigger = other.transform;
+            speed -= 10;
+            inFrontOf = true;
+        }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider other)
     {
-        if (collision.collider.CompareTag("Planet/Switch"))
-            speed += 10; 
+       
+        if (other.CompareTag("Planet"))
+        {
+            speed += 10;
+            inFrontOf = false;
+        }
     }
 
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         rb = this.GetComponent<Rigidbody>();
-	}
+    }
 
     // Update is called once per frame
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
         float translation = Input.GetAxis("Vertical") * speed;
 
         float rotation = Input.GetAxis("Horizontal") * rotationSpeed;
@@ -42,17 +53,17 @@ public class MovingSpaceShip : MonoBehaviour {
         if (translation != 0.0 || rotation != 0.0)
         {
             foreach (ParticleSystem ps in fire)
-                {
-                    ps.gameObject.SetActive(true);
-                    ps.Play();
-                }
+            {
+                ps.gameObject.SetActive(true);
+                ps.Play();
+            }
         }
-        else if (translation == 0.0 || rotation ==0.0)
+        else if (translation == 0.0 || rotation == 0.0)
             foreach (ParticleSystem ps in fire)
                 if (ps.isPlaying)
                     ps.Stop();
                 else
-                    if (!ps.isEmitting )
+                    if (!ps.isEmitting)
                     ps.gameObject.SetActive(false);
 
 
@@ -61,10 +72,12 @@ public class MovingSpaceShip : MonoBehaviour {
 
         transform.Translate(0, 0, translation);
 
-        float posx = Mathf.Clamp(transform.position.x, -minX, minX);
-        float posz = Mathf.Clamp(transform.position.z, -minZ, minZ);
+        float posx = Mathf.Clamp(transform.position.x, minX, maxX);
+        float posz = Mathf.Clamp(transform.position.z, minZ, maxZ);
         transform.position = new Vector3(posx, 0, posz);
 
         transform.Rotate(0, rotation, 0);
     }
+
+
 }
