@@ -18,7 +18,7 @@ public class MovingSpaceShip : MonoBehaviour {
     private Rigidbody rb;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Planet"))
+        if (other.CompareTag(Tags.Planet_Switch))
         {
             trigger = other.transform;
             speed -= 10;
@@ -29,7 +29,7 @@ public class MovingSpaceShip : MonoBehaviour {
     private void OnTriggerExit(Collider other)
     {
        
-        if (other.CompareTag("Planet"))
+        if (other.CompareTag(Tags.Planet_Switch))
         {
             speed += 10;
             inFrontOf = false;
