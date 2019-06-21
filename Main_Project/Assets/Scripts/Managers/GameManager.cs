@@ -226,6 +226,8 @@ public class GameManager : MonoBehaviour {
         AudioManager.Instance.musicSource.clip= loseAudio;    
         AudioManager.Instance.musicSource.Play();
 
+        levelLoaded.isCompleted = false;
+
         InGameHUD.Instance.defeat.gameObject.SetActive(true);
         Invoke("EndGame", loseAudio.length-.5f);
     }
@@ -239,6 +241,8 @@ public class GameManager : MonoBehaviour {
 
         foreach (Enemy x in enemyList)
             x.RestoreEnemy(npc[UnityEngine.Random.Range(0,npc.Count)]);
+
+        levelLoaded.isCompleted = true;
 
         Invoke("EndGame", winAudio.length-.5f);
     }

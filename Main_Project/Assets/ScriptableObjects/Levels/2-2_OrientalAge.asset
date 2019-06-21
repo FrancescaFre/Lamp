@@ -13,7 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelName: 'Level '
   levelSeason: 1
+  epoch: 1
   Description: This planet is full of beaches!
+  isCompleted: 0
   levelMusic:
   - {fileID: 8300000, guid: 40f73dcab380c16428454e808b154ac6, type: 3}
   - {fileID: 8300000, guid: 683aa3e5960667449a6135cba30182b8, type: 3}
@@ -45,9 +47,8 @@ MonoBehaviour:
     type: 2}
   enemy_L3_GO: {fileID: 1766326028165696, guid: 12f829158ab361e4faa77c01f0be7947,
     type: 2}
-  challenge_1: 0
-  subQuest_1: 
-  challenge_2: 0
-  subQuest_2: 
-  challenge_3: 0
-  subQuest_3: 
+  subQuests:
+  - s1
+  - s2
+  - s3
+  questCompletion: 000000

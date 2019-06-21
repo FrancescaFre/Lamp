@@ -13,7 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelName: Livello2
   levelSeason: 1
+  epoch: 2
   Description: This planet is full of beaches!
+  isCompleted: 0
   levelMusic:
   - {fileID: 8300000, guid: cd1235cfd7602ea4bbcd82158c7e8f2e, type: 3}
   - {fileID: 8300000, guid: 683aa3e5960667449a6135cba30182b8, type: 3}
@@ -45,9 +47,8 @@ MonoBehaviour:
     type: 2}
   enemy_L3_GO: {fileID: 1953688963897732, guid: 0c084fedf45ab5e419a73c79b896f090,
     type: 2}
-  challenge_1: 0
-  subQuest_1: 
-  challenge_2: 0
-  subQuest_2: 
-  challenge_3: 0
-  subQuest_3: 
+  subQuests:
+  - s1
+  - s2
+  - s3
+  questCompletion: 000000
