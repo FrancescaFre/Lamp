@@ -22,21 +22,20 @@ public class MovingSpaceShip : MonoBehaviour {
 
         float rotation = Input.GetAxis("Horizontal") * rotationSpeed;
 
-        if (translation != 0.0)
+        if (translation != 0.0 || rotation != 0.0)
         {
             foreach (ParticleSystem ps in fire)
-                if (!ps.gameObject.activeInHierarchy)
                 {
                     ps.gameObject.SetActive(true);
                     ps.Play();
                 }
         }
-        else if (translation == 0.0)
+        else if (translation == 0.0 || rotation ==0.0)
             foreach (ParticleSystem ps in fire)
                 if (ps.isPlaying)
                     ps.Stop();
                 else
-                    if (!ps.isEmitting)
+                    if (!ps.isEmitting )
                     ps.gameObject.SetActive(false);
 
 
