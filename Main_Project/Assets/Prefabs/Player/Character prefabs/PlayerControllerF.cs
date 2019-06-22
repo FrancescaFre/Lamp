@@ -8,6 +8,8 @@ public class PlayerControllerF : MonoBehaviour {
     private Vector3 moveDir;
     private Rigidbody rb;
 
+    public bool moving = false;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -16,6 +18,11 @@ public class PlayerControllerF : MonoBehaviour {
     private void Update()
     {
         moveDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
+        if (moveDir != Vector3.zero)
+            moving = true;
+        else
+            moving = false; 
+
 
     }
 

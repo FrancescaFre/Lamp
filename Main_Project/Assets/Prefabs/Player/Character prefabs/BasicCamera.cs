@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class BasicCamera : MonoBehaviour {
     public static BasicCamera instance;
+
+    public float cameraSpeed = 5f; 
     public Transform player;
     public Transform planet;
 
-    public float smoothSpeed = 0.125f;
+    public float smoothSpeed = 0.425f, input;
     public Vector3 offset;
+    Vector3 desiredPos, temp_right, temp_up;
 
     private void Awake() {
         if (!instance)
@@ -17,20 +20,35 @@ public class BasicCamera : MonoBehaviour {
             Destroy(gameObject);
     }
 
-    private void FixedUpdate() {
-        Vector3 desiredPos, temp_forward, temp_right;
+    private void Update() {
 
-        temp_forward = (planet.position - player.position).normalized;
-        temp_right = Vector3.Cross(player.up, temp_forward).normalized;
+        temp_up = ( player.position - planet.position).normalized;
+        temp_right = Vector3.Cross(temp_up, player.forward).normalized;
+
+        input = Input.GetAxis(Controllers.PS4_RStick_X) + Input.GetAxis("Mouse X");
+        Quaternion camTurn = Quaternion.AngleAxis(input * cameraSpeed, temp_up);
 
         desiredPos = player.position;
-        desiredPos -= temp_forward * offset.z;
-        desiredPos += player.up * offset.y;
-        desiredPos += temp_right * offset.x;
+        //desiredPos += player.forward * offset.z;
+       // desiredPos += temp_up * offset.y;
+        //desiredPos += temp_right * offset.x;
 
-        Vector3 smoothedPos = Vector3.Lerp(transform.position, desiredPos, smoothSpeed);
-        transform.position = smoothedPos;
 
-        transform.LookAt(player, player.up);
+        desiredPos += (camTurn * player.forward) * offset.z ;
+        desiredPos += temp_up * offset.y;
+        desiredPos += (camTurn * temp_right) * offset.x;
+
+
+        //Vector3 smoothedPos = Vector3.Slerp(transform.position, desiredPos, smoothSpeed* Time.deltaTime);
+        //transform.position = smoothedPos;
+
+
+        transform.position = desiredPos;
+        //transform.position = desiredPos;
+
+        Debug.Log("desired " + desiredPos + "\ncamturn " + transform.position);
+
+        transform.LookAt(player, temp_up);
     }
+    
 }
