@@ -161,6 +161,7 @@ public class PlayerController : MonoBehaviour {
             if (usingSkill)
             {
                 skill.DeactivateSkill();
+                GameManager.Instance.subquest_skill++;
             }
             else
             {
@@ -173,6 +174,7 @@ public class PlayerController : MonoBehaviour {
 
     private void CheckItemInteraction() {//TODO button to pick an item and to select an item to use
         if (IsMimicOrDash) return;
+       // GameManager.Instance.subquest_item++;
     }
 
     #endregion
@@ -243,6 +245,8 @@ public class PlayerController : MonoBehaviour {
                 fullCurseEffect.gameObject.SetActive(true);
                 fullCurseEffect.Play();
             }
+
+            GameManager.Instance.subquest_curse++;
 
             MainCamera.ChangeVignetteSmoothness();
             GameManager.Instance.SpawnNewEnemy(touchedEnemy.data_enemy.level - 1, _rb.position, touchedEnemy.path);

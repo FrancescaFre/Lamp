@@ -4,7 +4,7 @@ using UnityEngine;
 public enum Season { SPRING = 0, SUMMER, FALL, WINTER }
 public enum Quests {ENEMY_GT = 0, ENEMY_ET, ENEMY_LT,
                     SKILL_GT, SKILL_ET, SKILL_LT,
-                    ITEMS_GT, ITEMS_ET, ITEMS_LT,
+                    ITEM_GT, ITEM_ET, ITEM_LT,
                     CURSE_GT, CURSE_ET, CURSE_LT
                     }
 
@@ -40,7 +40,6 @@ public class Level_SO : ScriptableObject {
 
     [Header("Number of enemy of each type")]
     public int enemy_L1;
-
     public int enemy_L2;
     public int enemy_L3;
     public List<GameObject> PathList;
