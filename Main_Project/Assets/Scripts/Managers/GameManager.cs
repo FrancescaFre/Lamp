@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour {
             Destroy(gameObject);
             return;
         }
-
+        TeamList = null;
         SceneManager.sceneLoaded += OnSceneLoaded;  // add a delegate to be run everytime a scene is loaded
     }
 

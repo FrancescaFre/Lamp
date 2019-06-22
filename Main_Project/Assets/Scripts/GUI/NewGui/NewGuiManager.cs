@@ -80,9 +80,15 @@ public class NewGuiManager : MonoBehaviour {
     }
 
     private void LateUpdate() {
+        Debug.Log(" a" + (!GameManager.Instance.levelLoaded));
+        Debug.Log("  b " + (GameManager.Instance.TeamList == null));
         if (!GameManager.Instance.levelLoaded && GameManager.Instance.TeamList == null && Input.GetKeyDown(KeyCode.Escape))
             SceneManager.LoadScene(0);
-        if (GameManager.Instance.levelLoaded && PlayButton.teamGUI.teamList.Count == 0 && Input.GetKeyDown(KeyCode.Escape))
+
+        if (spaceShip.charSelection
+            && GameManager.Instance.levelLoaded
+            && PlayButton.teamGUI.teamList.Count == 0
+            && Input.GetKeyDown(KeyCode.Escape))
             SwitchCharANDLevel();
     }
 
