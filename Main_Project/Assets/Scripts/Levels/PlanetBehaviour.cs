@@ -33,7 +33,23 @@ public class PlanetBehaviour : MonoBehaviour {
         fireflies.gameObject.SetActive(!levelInfo.isCompleted);
     }
 
-    private void Update() {
+    private void LateUpdate() {
+        if (Input.GetKeyDown(KeyCode.F1)) {//Reset level
+            levelInfo.Reset();
+            foreach (Light l in lights)
+                l.gameObject.SetActive(levelInfo.isCompleted);
+
+            fog.gameObject.SetActive(!levelInfo.isCompleted);
+            fireflies.Play();
+        }
+        if (Input.GetKeyDown(KeyCode.F2)) {//free level
+            levelInfo.SetFree();
+            foreach (Light l in lights)
+                l.gameObject.SetActive(levelInfo.isCompleted);
+
+            fog.gameObject.SetActive(!levelInfo.isCompleted);
+            fireflies.Stop();
+        }
     }
 
     private void OnTriggerEnter(Collider other) {

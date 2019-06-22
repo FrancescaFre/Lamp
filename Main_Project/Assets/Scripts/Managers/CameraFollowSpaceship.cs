@@ -2,20 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class CameraFollowSpaceship : MonoBehaviour {
+    public static CameraFollowSpaceship instance;
 
     public Transform spaceship;
-    private MovingSpaceShip movingSpaceship; 
+    private MovingSpaceShip movingSpaceship;
     public float smoothSpeed = 0.125f;
     public Vector3 offset, offsetFront;
 
-    private void FixedUpdate()
-    {
+    private void Awake() {
+        if (!instance)
+            instance = this;
+        else
+            Destroy(gameObject);
+    }
+
+    private void FixedUpdate() {
         movingSpaceship = spaceship.GetComponent<MovingSpaceShip>();
         Vector3 desiredPos, temp_forward, temp_right;
-        if (movingSpaceship.inFrontOf)
-        { 
+        if (movingSpaceship.inFrontOf) {
             temp_forward = (movingSpaceship.trigger.position - spaceship.position).normalized;
             temp_right = Vector3.Cross(spaceship.up, temp_forward).normalized;
 
@@ -29,9 +34,7 @@ public class CameraFollowSpaceship : MonoBehaviour {
 
             transform.LookAt(movingSpaceship.trigger);
         }
-
-        else
-        {
+        else {
             desiredPos = spaceship.position + offset;
             Vector3 smoothedPos = Vector3.Lerp(transform.position, desiredPos, smoothSpeed);
             transform.position = smoothedPos;
@@ -39,6 +42,4 @@ public class CameraFollowSpaceship : MonoBehaviour {
             transform.LookAt(spaceship);
         }
     }
-
-
 }
