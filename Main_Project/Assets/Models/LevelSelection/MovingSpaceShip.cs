@@ -1,71 +1,71 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class MovingSpaceShip : MonoBehaviour {
+    public GameObject shipModel;
+
+    [Header("Speed")]
     public float speed = 15.0f;
     public float rotationSpeed = 100.0f;
 
-    private float minX = -100;
-    private float maxX = 60;
-    private float minZ = -100;
-    private float maxZ = 60;
+    [Header("Pan values")]
+    public float minX = -100;
+    public float maxX = 60;
+    public float minZ = -100;
+    public float maxZ = 60;
     public bool inFrontOf = false;
-    public Transform trigger; 
+    public Transform trigger;
 
     public ParticleSystem[] fire = new ParticleSystem[2];
 
     private Rigidbody rb;
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag(Tags.Planet_Switch))
-        {
-            trigger = other.transform;
-            speed -= 10;
-            inFrontOf = true;
-        }
-    }
+    private SFXEmitter emitter;
 
-    private void OnTriggerExit(Collider other)
-    {
-       
-        if (other.CompareTag(Tags.Planet_Switch))
-        {
-            speed += 10;
-            inFrontOf = false;
-        }
-    }
+    private GameObject confirmLabel;
+    private Camera mainCamera;
 
+    public bool charSelection = false;
 
     // Use this for initialization
-    void Start()
-    {
+    private void Start() {
         rb = this.GetComponent<Rigidbody>();
+        emitter = GetComponent<SFXEmitter>();
+
+        NewGuiManager.instance.CreateHUDReference(ref confirmLabel);
+        mainCamera = CameraFollowSpaceship.instance.GetComponent<Camera>();
     }
 
     // Update is called once per frame
-    void FixedUpdate()
-    {
+    private void FixedUpdate() {
+        ShipMovement();
+    }
+
+    private void ShipMovement() {
+        if (charSelection) return;
+
         float translation = Input.GetAxis("Vertical") * speed;
 
         float rotation = Input.GetAxis("Horizontal") * rotationSpeed;
 
-        if (translation != 0.0 || rotation != 0.0)
-        {
-            foreach (ParticleSystem ps in fire)
-            {
+        if (translation != 0.0 || rotation != 0.0) {
+            foreach (ParticleSystem ps in fire) {
                 ps.gameObject.SetActive(true);
                 ps.Play();
             }
+            if (!emitter.source.isPlaying)
+                emitter.source.Play();
         }
         else if (translation == 0.0 || rotation == 0.0)
             foreach (ParticleSystem ps in fire)
                 if (ps.isPlaying)
                     ps.Stop();
                 else
-                    if (!ps.isEmitting)
+                    if (!ps.isEmitting) {
                     ps.gameObject.SetActive(false);
-
+                    emitter.source.Stop();
+                }
 
         translation *= Time.deltaTime;
         rotation *= Time.deltaTime;
@@ -74,10 +74,39 @@ public class MovingSpaceShip : MonoBehaviour {
 
         float posx = Mathf.Clamp(transform.position.x, minX, maxX);
         float posz = Mathf.Clamp(transform.position.z, minZ, maxZ);
-        transform.position = new Vector3(posx, 0, posz);
+        transform.position = new Vector3(posx, transform.position.y, posz);
 
         transform.Rotate(0, rotation, 0);
     }
 
+    private void LateUpdate() {
+        confirmLabel.transform.position = mainCamera.WorldToScreenPoint(transform.position + Vector3.up);
+        confirmLabel.SetActive(!charSelection && inFrontOf);
+        if (!charSelection && inFrontOf && Input.GetKeyDown(KeyCode.Space)) {
+            charSelection = true;
 
+            shipModel.SetActive(false);
+            NewGuiManager.instance.SwitchCharANDLevel(charSelection);
+            //todo scelta personaggio
+        }
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.CompareTag(Tags.Planet_Switch)) {
+            trigger = other.transform;
+            speed -= 10;
+            inFrontOf = true;
+
+            confirmLabel.gameObject.SetActive(true);
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        if (other.CompareTag(Tags.Planet_Switch)) {
+            speed += 10;
+            inFrontOf = false;
+
+            confirmLabel.gameObject.SetActive(false);
+        }
+    }
 }
