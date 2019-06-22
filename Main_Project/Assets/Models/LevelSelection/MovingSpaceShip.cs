@@ -32,6 +32,7 @@ public class MovingSpaceShip : MonoBehaviour {
     private void Start() {
         rb = this.GetComponent<Rigidbody>();
         emitter = GetComponent<SFXEmitter>();
+        NewGuiManager.instance.spaceShip = this;
 
         NewGuiManager.instance.CreateHUDReference(ref confirmLabel);
         mainCamera = CameraFollowSpaceship.instance.GetComponent<Camera>();

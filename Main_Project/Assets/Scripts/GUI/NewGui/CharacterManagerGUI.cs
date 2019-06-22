@@ -33,6 +33,9 @@ public class CharacterManagerGUI : MonoBehaviour {
         charList.ForEach(ch => SharedCharacterInfo[ch.timePeriod] = ch);
         List<NewCharacterGUI> tp = new List<NewCharacterGUI>(GetComponentsInChildren<NewCharacterGUI>());
         tp.ForEach(chGUI => SharedCharactersGUI[chGUI.timePeriod] = chGUI);
+
+        NewGuiManager.instance.charManager = this;
+
         gameObject.SetActive(false);
     }
 

@@ -5,13 +5,13 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
-
     public static GameManager Instance = null;
     public Level_SO levelLoaded;
     public AudioClip winAudio, loseAudio;
 
     public LampBehaviour LastAllyLamp = null; //last lamp turned on
-    [Header("Info of the lamps")]  
+
+    [Header("Info of the lamps")]
     public int allyLamps;
     public int enemyLamps;
 
@@ -23,13 +23,12 @@ public class GameManager : MonoBehaviour {
     public int keys = 0;
     public int digCount = 0;
 
-    #region  GameObjects
+    #region GameObjects
 
     [Header("Enemies")]
     public List<GameObject> enemyGOList;
     public List<Enemy> enemyList;
-    
-   
+
     [Header("Characters")]
     public List<PlayerController> CharactersList = new List<PlayerController>();   //the gameobject that are present in the scene
     public PlayerController currentPC;
@@ -37,13 +36,14 @@ public class GameManager : MonoBehaviour {
     public int nextChar = 1;    //the 0 is the starting player
     public List<CharPeriod> TeamList;
     public static Dictionary<CharPeriod, PlayerController> CharactersDict;
-    #endregion
+
+    #endregion GameObjects
 
     [Header("Subquest")]
-    public int subquest_enemy=0;
-    public int subquest_skill=0;
-    public int subquest_item=0;
-    public int subquest_curse=0;
+    public int subquest_enemy = 0;
+    public int subquest_skill = 0;
+    public int subquest_item = 0;
+    public int subquest_curse = 0;
 
     public Dictionary<string, int> items;
 
@@ -51,9 +51,8 @@ public class GameManager : MonoBehaviour {
         if (!Instance) {
             Instance = this;
             DontDestroyOnLoad(Instance);
-
         }
-        else { 
+        else {
             Destroy(gameObject);
             return;
         }
@@ -61,28 +60,21 @@ public class GameManager : MonoBehaviour {
         SceneManager.sceneLoaded += OnSceneLoaded;  // add a delegate to be run everytime a scene is loaded
     }
 
-
-
     // Use this for initialization
-    void Start() {
+    private void Start() {
         items = new Dictionary<string, int>(6);
-        
     }
-
-
 
     /// <summary>
     /// Sets as Active only one character at a time
     /// </summary>
-    public void ActivatePlayerX(bool startGame=false) {
-
+    public void ActivatePlayerX(bool startGame = false) {
         for (int i = 0; i < TeamList.Count; i++) {
             CharactersDict[TeamList[i]].gameObject.SetActive(i == currentCharacter);
-
         }
-     
+
         currentPC = CharactersDict[TeamList[currentCharacter]];
-        if(startGame)
+        if (startGame)
             CharactersDict[TeamList[currentCharacter]].transform.position = levelLoaded.entryPoint;
     }
 
@@ -101,7 +93,7 @@ public class GameManager : MonoBehaviour {
 
         TeamHUD.Instance.Curse();
         SpawnNewPlayer(); //destroys the character
-       //creates the enemy instead
+                          //creates the enemy instead
     }
 
     public void SpawnNewPlayer() {
@@ -117,7 +109,7 @@ public class GameManager : MonoBehaviour {
 
         if (LastAllyLamp)
 
-            CharactersDict[TeamList[currentCharacter]].transform.position = LastAllyLamp.transform.position+ CharactersDict[TeamList[currentCharacter]].transform.forward;
+            CharactersDict[TeamList[currentCharacter]].transform.position = LastAllyLamp.transform.position + CharactersDict[TeamList[currentCharacter]].transform.forward;
         else
             CharactersDict[TeamList[currentCharacter]].transform.position = levelLoaded.entryPoint;
         CharactersDict[TeamList[currentCharacter - 1]].GetComponent<PlayerMovement>().BatonPass(CharactersDict[TeamList[currentCharacter]].GetComponent<PlayerMovement>());
@@ -125,16 +117,12 @@ public class GameManager : MonoBehaviour {
         DieManagement();
 
         ActivatePlayerX();
-
-
     }
 
     private void DieManagement() {
         if (currentPC.IsZoneDigging) {
-            
             Destroy(currentPC.ZDig.movingCircle);
             Destroy(currentPC.caster.gameObject);
-
         }
         Destroy(currentPC.questionMark.gameObject);
     }
@@ -162,8 +150,8 @@ public class GameManager : MonoBehaviour {
         items[itemKey] += use;
     }
 
-
     #region Scene Management
+
     /// <summary>
     /// Start the selected level
     /// </summary>
@@ -183,7 +171,6 @@ public class GameManager : MonoBehaviour {
         this.allyLamps = 0;
         this.enemyLamps = 0;
         for (int i = 0; i < CharactersList.Count; i++) {
-
             CharactersDict[CharactersList[i].CharacterPeriod] = CharactersList[i];
             CharactersList[i].gameObject.SetActive(false);
         }
@@ -199,16 +186,17 @@ public class GameManager : MonoBehaviour {
             Instantiate(levelLoaded.enemy_L1_GO);
         }*/
 
-        if (levelLoaded.levelMusic!=null)
+        if (levelLoaded.levelMusic != null)
             AudioManager.Instance.PlayMusic(levelLoaded.levelMusic);
 
         ActivatePlayerX(true);
     }
+
     public void EndGame() {//epilogue
         Cursor.visible = true;
         AudioManager.Instance.OnEndGame();
         currentPC = null;
-        
+
         levelLoaded = null;
         TeamList = null;
         currentCharacter = 0;
@@ -218,58 +206,52 @@ public class GameManager : MonoBehaviour {
         CharactersList.Clear();
         SceneManager.LoadScene(1);//which has index 1
         AudioManager.Instance.PlayMusic();
-
     }
 
-    public void BadEndGame()
-    {   AudioManager.Instance.musicSource.Stop();
-        AudioManager.Instance.musicSource.clip= loseAudio;    
+    public void BadEndGame() {
+        AudioManager.Instance.musicSource.Stop();
+        AudioManager.Instance.musicSource.clip = loseAudio;
         AudioManager.Instance.musicSource.Play();
 
         levelLoaded.isCompleted = false;
 
         InGameHUD.Instance.defeat.gameObject.SetActive(true);
-        Invoke("EndGame", loseAudio.length-.5f);
+        Invoke("EndGame", loseAudio.length - .5f);
     }
 
-    public void GoodEndGame()
-    {
+    public void GoodEndGame() {
         AudioManager.Instance.musicSource.Stop();
         AudioManager.Instance.musicSource.clip = winAudio;
         AudioManager.Instance.musicSource.Play();
         InGameHUD.Instance.victory.gameObject.SetActive(true);
 
         foreach (Enemy x in enemyList)
-            x.RestoreEnemy(npc[UnityEngine.Random.Range(0,npc.Count)]);
+            x.RestoreEnemy(npc[UnityEngine.Random.Range(0, npc.Count)]);
 
         levelLoaded.isCompleted = true;
         CheckSubquest();
-        Invoke("EndGame", winAudio.length-.5f);
+        Invoke("EndGame", winAudio.length - .5f);
     }
 
     public List<GameObject> npc;
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        if (scene.buildIndex < 3) return;
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        if (scene.buildIndex < 2) return;
         Debug.Log("OnSceneLoaded: " + scene.name);
-        if(!EventSystem.current) {
+        if (!EventSystem.current) {
             GameObject eventSystem = new GameObject("EventSystem", typeof(EventSystem));
             eventSystem.AddComponent<StandaloneInputModule>();
-         
         }
 
         AudioManager.Instance.OnStartGame();
         StartGame();
-
     }
 
-    #endregion
+    #endregion Scene Management
 
     private void CheckSubquest() {
-        for(int i = 0; i < 3; i++)
-        { 
-            switch (levelLoaded.quest_code[i])
-            {
+        for (int i = 0; i < 3; i++) {
+            switch (levelLoaded.quest_code[i]) {
                 case Quests.ENEMY_LT: levelLoaded.questCompletion[i] = subquest_enemy < levelLoaded.quest_value[i] ? true : levelLoaded.questCompletion[i]; break;
                 case Quests.ENEMY_GT: levelLoaded.questCompletion[i] = subquest_enemy > levelLoaded.quest_value[i] ? true : levelLoaded.questCompletion[i]; break;
                 case Quests.ENEMY_ET: levelLoaded.questCompletion[i] = subquest_enemy == levelLoaded.quest_value[i] ? true : levelLoaded.questCompletion[i]; break;
@@ -292,6 +274,6 @@ public class GameManager : MonoBehaviour {
         subquest_curse = 0;
         subquest_enemy = 0;
         subquest_item = 0;
-        subquest_skill = 0; 
+        subquest_skill = 0;
     }
 }

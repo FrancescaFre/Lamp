@@ -2,20 +2,18 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class NewGuiManager : MonoBehaviour {
     public static NewGuiManager instance = null;
     private Canvas thisCanvas;
-    public CharacterManagerGUI chGUI;
+
+    public CharacterManagerGUI charManager;
+    public MovingSpaceShip spaceShip;
 
     [Header("Overlay UI")]
     public GameObject onScreenAnchor;
     public GameObject continueLabelPrefab;
-
-    [Header("Character Selection")]
-    public CharacterManagerGUI charPanel;
-    public MovingSpaceShip spaceShip;
-    public GameObject[] charModels;
 
     [Header("Level Details")]
     public GameObject planetInfoPanel;
@@ -38,7 +36,7 @@ public class NewGuiManager : MonoBehaviour {
 
     private void Start() {
         thisCanvas = GetComponent<Canvas>();
-        chGUI = GetComponentInChildren<CharacterManagerGUI>();
+
         planetInfoPanel.SetActive(false);
     }
 
@@ -67,21 +65,24 @@ public class NewGuiManager : MonoBehaviour {
         planetInfoPanel.SetActive(!planetInfoPanel.activeInHierarchy);
         onScreenAnchor.SetActive(!onScreenAnchor.activeInHierarchy);
 
-        charPanel.gameObject.SetActive(!charPanel.gameObject.activeInHierarchy);
+        charManager.gameObject.SetActive(!charManager.gameObject.activeInHierarchy);
 
         if (!charSelection) {
             spaceShip.charSelection = false;
             spaceShip.shipModel.SetActive(true);
             GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
-            chGUI.HideModels();
+
+            charManager.HideModels();
         }
         else {
-            charPanel.ShowModels();
+            charManager.ShowModels();
         }
     }
 
     private void LateUpdate() {
-        if (Input.GetKeyDown(KeyCode.AltGr))
+        if (!GameManager.Instance.levelLoaded && GameManager.Instance.TeamList == null && Input.GetKeyDown(KeyCode.Escape))
+            SceneManager.LoadScene(0);
+        if (GameManager.Instance.levelLoaded && PlayButton.teamGUI.teamList.Count == 0 && Input.GetKeyDown(KeyCode.Escape))
             SwitchCharANDLevel();
     }
 
