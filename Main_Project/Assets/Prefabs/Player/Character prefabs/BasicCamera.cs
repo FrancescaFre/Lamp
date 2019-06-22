@@ -2,53 +2,56 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicCamera : MonoBehaviour {
+public class BasicCamera : MonoBehaviour
+{
     public static BasicCamera instance;
 
-    public float cameraSpeed = 5f; 
-    public Transform player;
-    public Transform planet;
-
-    public float smoothSpeed = 0.425f, input;
+    public float cameraSpeed = 5f, smooth_speed = 0.125f;
+    public Transform player, planet;
     public Vector3 offset;
-    Vector3 desiredPos, temp_right, temp_up;
 
-    private void Awake() {
+    private Quaternion camTurn;
+    private float input, angle = 0f, zoom_factor = 1f, offset_look = 0.15f;
+    private Vector3 desiredPos, temp_right, temp_up, close_offset=new Vector3(0,1,-2), smooth_pos;
+
+
+    public float max_zoom = 1.5f, min_zoom = 0.5f;
+
+    private void Awake()
+    {
         if (!instance)
             instance = this;
         else
             Destroy(gameObject);
     }
 
-    private void Update() {
-
-        temp_up = ( player.position - planet.position).normalized;
+    private void FixedUpdate()
+    {
+        temp_up = (player.position - planet.position).normalized;
         temp_right = Vector3.Cross(temp_up, player.forward).normalized;
 
+        if(Input.GetAxis("Mouse ScrollWheel")!=0)
+            zoom_factor = Mathf.Clamp(zoom_factor - Input.GetAxis("Mouse ScrollWheel"), min_zoom, max_zoom);
+
         input = Input.GetAxis(Controllers.PS4_RStick_X) + Input.GetAxis("Mouse X");
-        Quaternion camTurn = Quaternion.AngleAxis(input * cameraSpeed, temp_up);
+        angle += input * cameraSpeed;
+        camTurn = Quaternion.AngleAxis(angle, temp_up);
 
-        desiredPos = player.position;
-        //desiredPos += player.forward * offset.z;
-       // desiredPos += temp_up * offset.y;
-        //desiredPos += temp_right * offset.x;
+        Vector3 direction = (transform.position - player.position).normalized;
+        transform.position = player.position + camTurn * player.TransformVector(offset * zoom_factor);
 
-
-        desiredPos += (camTurn * player.forward) * offset.z ;
-        desiredPos += temp_up * offset.y;
-        desiredPos += (camTurn * temp_right) * offset.x;
-
-
-        //Vector3 smoothedPos = Vector3.Slerp(transform.position, desiredPos, smoothSpeed* Time.deltaTime);
-        //transform.position = smoothedPos;
-
-
-        transform.position = desiredPos;
-        //transform.position = desiredPos;
-
-        Debug.Log("desired " + desiredPos + "\ncamturn " + transform.position);
-
-        transform.LookAt(player, temp_up);
+        if (zoom_factor <= 0.5)
+        {
+            desiredPos = player.position + camTurn * player.TransformVector(close_offset * zoom_factor);
+            Vector3 smooth_pos = Vector3.Lerp(transform.position, desiredPos, smooth_speed);
+            transform.position = smooth_pos;
+            transform.LookAt(player.position + player.up * offset_look, temp_up);
+        }
+        else
+        {
+            transform.position = player.position + camTurn * player.TransformVector(offset * zoom_factor);
+            transform.LookAt(player, temp_up);
+        }
     }
-    
+
 }
