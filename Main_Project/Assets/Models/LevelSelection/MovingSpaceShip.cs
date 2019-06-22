@@ -87,7 +87,6 @@ public class MovingSpaceShip : MonoBehaviour {
 
             shipModel.SetActive(false);
             NewGuiManager.instance.SwitchCharANDLevel(charSelection);
-            //todo scelta personaggio
         }
     }
 

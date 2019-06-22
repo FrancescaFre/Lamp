@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlanetBehaviour : MonoBehaviour {
     public Level_SO levelInfo;
-  
+
     [SerializeField]
     private List<Light> lights;
 
@@ -33,16 +33,14 @@ public class PlanetBehaviour : MonoBehaviour {
         fireflies.gameObject.SetActive(!levelInfo.isCompleted);
     }
 
-    private void Update() {
-
+    private void LateUpdate() {
         if (Input.GetKeyDown(KeyCode.F1)) {//Reset level
             levelInfo.Reset();
-            foreach(Light l in lights) 
+            foreach (Light l in lights)
                 l.gameObject.SetActive(levelInfo.isCompleted);
 
             fog.gameObject.SetActive(!levelInfo.isCompleted);
             fireflies.Play();
-            Debug.Log("aaaaaa");
         }
         if (Input.GetKeyDown(KeyCode.F2)) {//free level
             levelInfo.SetFree();
@@ -51,7 +49,6 @@ public class PlanetBehaviour : MonoBehaviour {
 
             fog.gameObject.SetActive(!levelInfo.isCompleted);
             fireflies.Stop();
-            Debug.Log("bbbbbb");
         }
     }
 

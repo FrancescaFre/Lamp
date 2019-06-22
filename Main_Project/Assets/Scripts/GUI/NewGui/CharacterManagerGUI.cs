@@ -29,11 +29,11 @@ public class CharacterManagerGUI : MonoBehaviour {
     }
 
     private void Start() {
+        HideModels();
         charList.ForEach(ch => SharedCharacterInfo[ch.timePeriod] = ch);
         List<NewCharacterGUI> tp = new List<NewCharacterGUI>(GetComponentsInChildren<NewCharacterGUI>());
         tp.ForEach(chGUI => SharedCharactersGUI[chGUI.timePeriod] = chGUI);
-
-        HideModels();
+        gameObject.SetActive(false);
     }
 
     public void ShowModels() {

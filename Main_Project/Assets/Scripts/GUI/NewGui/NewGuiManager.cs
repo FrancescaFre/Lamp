@@ -40,8 +40,6 @@ public class NewGuiManager : MonoBehaviour {
         thisCanvas = GetComponent<Canvas>();
         chGUI = GetComponentInChildren<CharacterManagerGUI>();
         planetInfoPanel.SetActive(false);
-
-        charPanel.gameObject.SetActive(false);
     }
 
     public void ShowLevelInfo() {
