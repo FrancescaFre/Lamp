@@ -2,15 +2,13 @@
 using UnityEngine.UI;
 
 public abstract class Digging : MonoBehaviour {
-
     public Material digYes;
     public Material digNo;
     public PlayerController player;
 
-    
-    private float castingTime=0f; 
+    private float castingTime = 0f;
     protected PlayerMovement _pm;
-    protected float _progress; // Actual casting progress  
+    protected float _progress; // Actual casting progress
 
     /*#region Trigger Interaction
 
@@ -53,9 +51,6 @@ public abstract class Digging : MonoBehaviour {
         _pm = player.GetComponent<PlayerMovement>();
 
         gameObject.SetActive(false);
-
-
-
     }
 
     protected virtual void Update() {
@@ -107,18 +102,17 @@ public abstract class Digging : MonoBehaviour {
     /// </summary>
     /// <returns></returns>
     public virtual bool CanDig() {
-        return !( _pm.OnWater || _pm.OnSolidFloor);
+        return !(_pm.OnWater || _pm.OnSolidFloor);
     }
 
     /// <summary>
     /// Casts the dig during the casting update
     /// </summary>
     protected void CastDig() {
-
         if (castingTime <= 0)
             SetCastingTime();
-        _progress +=Time.deltaTime;
-        player.caster.value=_progress;
+        _progress += Time.deltaTime;
+        player.caster.value = _progress;
 
         if (_progress >= castingTime) {
             Dig();
@@ -151,7 +145,7 @@ public abstract class Digging : MonoBehaviour {
         gameObject.SetActive(false);
     }
 
-    protected void HideDrillGO(){
+    protected void HideDrillGO() {
         player.drillGO.SetActive(false);
     }
 }

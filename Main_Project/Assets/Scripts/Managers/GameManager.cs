@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour {
             Destroy(gameObject);
             return;
         }
-        TeamList = null;
+
         SceneManager.sceneLoaded += OnSceneLoaded;  // add a delegate to be run everytime a scene is loaded
     }
 
@@ -74,6 +74,9 @@ public class GameManager : MonoBehaviour {
         }
 
         currentPC = CharactersDict[TeamList[currentCharacter]];
+
+        BasicCamera.instance.player = currentPC.transform;  //change the player the camera has to follow
+
         if (startGame)
             CharactersDict[TeamList[currentCharacter]].transform.position = levelLoaded.entryPoint;
     }
@@ -112,7 +115,8 @@ public class GameManager : MonoBehaviour {
             CharactersDict[TeamList[currentCharacter]].transform.position = LastAllyLamp.transform.position + CharactersDict[TeamList[currentCharacter]].transform.forward;
         else
             CharactersDict[TeamList[currentCharacter]].transform.position = levelLoaded.entryPoint;
-        CharactersDict[TeamList[currentCharacter - 1]].GetComponent<PlayerMovement>().BatonPass(CharactersDict[TeamList[currentCharacter]].GetComponent<PlayerMovement>());
+
+        
 
         DieManagement();
 

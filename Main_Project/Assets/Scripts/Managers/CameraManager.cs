@@ -4,11 +4,11 @@ using UnityEngine.PostProcessing;
 public class CameraManager : MonoBehaviour {
 
     [Tooltip("Minimum distance from the player when zooming in")]
-    [Range(1,3)]
+    [Range(1, 3)]
     public float nearZoom = 1;
 
     [Tooltip("Maximum distance from the player when zooming out")]
-    [Range(4,8)]
+    [Range(4, 8)]
     public float farZoom = 5;
 
     [Tooltip("How fast are min and max reached")]
@@ -16,11 +16,13 @@ public class CameraManager : MonoBehaviour {
     public float sensitivity = .10f;
 
     [Tooltip("The speed at which the camera revolves around the player")]
-    [Range(0f,200f)]
+    [Range(0f, 200f)]
     public float cameraSpeed = 90f;
     public Vector3 offset;
+
     private Transform _dummyCam; // The dummy camera is used to avoid 3-dimensional inverse revolutions
     private Vector3 _camOffset; // Difference in position between the main camera and the dummy one
+
     private Transform _realDummyCam; // Used when switching to zone dig
     private float yPosition = 0; // Position on Y of the rotating camera (starts from zero)
 
@@ -29,19 +31,19 @@ public class CameraManager : MonoBehaviour {
     ///PostProcessing
     [Tooltip("Change the vignette smoothness when a character is half-cursed.")]
     [Header("Post Processing")]
-    [Range(0f,1f)]
+    [Range(0f, 1f)]
     public float normalVignetteSmoothness = .2f;
+
     [Range(0f, 1f)]
     public float curseVignetteSmoothness = 1f;
     private PostProcessingProfile _PPProfile;
 
     // Saves the distance between the original and the dummy camera
-    void Start () {
+    private void Start() {
         _dummyCam = GameObject.FindGameObjectWithTag(Tags.DummyCam).transform;
-        if(offset!=Vector3.zero)
+        if (offset != Vector3.zero)
             transform.position = GameManager.Instance.currentPC.transform.position + offset;
         AlignCameras(FindObjectOfType<PlayerController>().transform);
-        
 
         AlignCameras(GameManager.Instance.currentPC.transform);
         _camOffset = transform.position - _dummyCam.position;
@@ -52,10 +54,9 @@ public class CameraManager : MonoBehaviour {
     }
 
     // Rotates the camera as the right analog stick is pressed
-    private void FixedUpdate()
-    {
-        yPosition += _input * Time.deltaTime * cameraSpeed; 
-       // yPosition += Input.GetAxis("Mouse X") * Time.deltaTime * cameraSpeed; // TESTING
+    private void FixedUpdate() {
+        yPosition += _input * Time.deltaTime * cameraSpeed;
+        // yPosition += Input.GetAxis("Mouse X") * Time.deltaTime * cameraSpeed; // TESTING
         // yPosition += Input.GetAxis("PS4_RStick_X") * Time.deltaTime * cameraSpeed; // Real one with the joypad analog stick
         _dummyCam.parent.localRotation = Quaternion.Euler(_dummyCam.parent.localRotation.x, yPosition, _dummyCam.parent.localRotation.z);
 
@@ -64,14 +65,12 @@ public class CameraManager : MonoBehaviour {
     }
 
     // Every frame takes the same position as the dummy camera, in relation to the player
-    private void LateUpdate()
-    {
+    private void LateUpdate() {
         _input = Input.GetAxis(Controllers.PS4_RStick_X) + Input.GetAxis("Mouse X");      //if one is zero the other one will not
-        transform.SetPositionAndRotation(_dummyCam.position + _camOffset, _dummyCam.rotation); 
+        transform.SetPositionAndRotation(_dummyCam.position + _camOffset, _dummyCam.rotation);
     }
 
-    private void CheckZoom()
-    {
+    private void CheckZoom() {
         if (GameManager.Instance.currentPC.IsZoneDigging) return; // No zoom while zone digging
 
         if ((Input.GetAxisRaw("Mouse ScrollWheel") > 0 && Vector3.Distance(transform.position, GameManager.Instance.currentPC.transform.position) > nearZoom) ||
@@ -84,12 +83,10 @@ public class CameraManager : MonoBehaviour {
             _dummyCam.transform.Translate(0, 0, -sensitivity, Space.Self);
     }
 
-    private void AlignCameras(Transform subjectToAlign)
-    {
+    private void AlignCameras(Transform subjectToAlign) {
         transform.SetParent(subjectToAlign);
         //transform.SetParent(GameManager.Instance.currentPC.transform);
-        if (_dummyCam.localPosition != transform.localPosition || _dummyCam.localRotation != transform.localRotation)
-        {
+        if (_dummyCam.localPosition != transform.localPosition || _dummyCam.localRotation != transform.localRotation) {
             _dummyCam.localPosition = transform.localPosition;
             _dummyCam.localRotation = transform.localRotation;
         }
@@ -99,8 +96,7 @@ public class CameraManager : MonoBehaviour {
     /// <summary>
     /// Detaches the camera from the player to follow the zone digging moving circle
     /// </summary>
-    public void DetachForZoneDig(Transform newDummyCam)
-    {
+    public void DetachForZoneDig(Transform newDummyCam) {
         _realDummyCam = _dummyCam;
         _dummyCam = newDummyCam;
         AlignCameras(FindObjectOfType<MovingCircle>().transform);
@@ -109,8 +105,7 @@ public class CameraManager : MonoBehaviour {
     /// <summary>
     /// Detaches the camera from the player to follow the zone digging moving circle
     /// </summary>
-    public void RestoreDummyCam()
-    {
+    public void RestoreDummyCam() {
         _dummyCam = _realDummyCam;
     }
 
@@ -122,13 +117,12 @@ public class CameraManager : MonoBehaviour {
     /// <param name="halfCurse">Is the player half-cursed? (Default: false)</param>
     public void ChangeVignetteSmoothness(bool halfCurse = false) {
         VignetteModel.Settings cameraVignette = _PPProfile.vignette.settings;
-        if(halfCurse)
+        if (halfCurse)
             cameraVignette.smoothness = curseVignetteSmoothness;
         else
             cameraVignette.smoothness = normalVignetteSmoothness;
         _PPProfile.vignette.settings = cameraVignette;
-
     }
-    
-    #endregion
+
+    #endregion Post Processing
 }

@@ -3,27 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ZoneDig : Digging {
-
     public GameObject movingCirclePrefab;
     public MovingCircle movingCircle;
 
-    public float radius = 10f; 
+    public float radius = 10f;
     public SphereCollider sphereC;
-    public  Collider[] colliders; 
+    public Collider[] colliders;
 
-    private void Awake()
-    { 
+    private void Awake() {
         sphereC = this.gameObject.AddComponent<SphereCollider>();
         sphereC.isTrigger = true;
         sphereC.radius = radius;
-        sphereC.enabled = false; 
+        sphereC.enabled = false;
     }
 
     /// <summary>
     /// Performs the digging action (called by caster)
     /// </summary>
-    override public void Dig()
-    {
+    override public void Dig() {
         base.Dig();
         player.GetComponent<Rigidbody>().MovePosition(movingCircle.transform.position); // Moves the player right on top of the target
 
@@ -33,51 +30,42 @@ public class ZoneDig : Digging {
         GameManager.Instance.digCount--;
     }
 
-    protected override void ChangeColor()
-    {
-        ; // Doesn't need anymore to change color (and doesn't have a mesh anymore)
-    }
-
-    /* 
+    /*
      * TWO-STEPS ZONE DIG
      */
-    override public void CheckInput()
-    {
+
+    override public void CheckInput() {
         sphereC.enabled = true;
         gameObject.layer = 14; // TESTING -> custom layer for SphereC
 
         if (player.IsZoneDigging) // If you already pressed [ZDIG] 2 times (activate -> valid start -> now)
-            if (movingCircle && movingCircle.CanDig())
-            {
+            if (movingCircle && movingCircle.CanDig()) {
                 player.drillGO.SetActive(true);
                 AnimationManager.Anim_StarDigging(player.characterAnimator);
-                if(player.CharacterPeriod==CharPeriod.ORIENTAL)
+                if (player.CharacterPeriod == CharPeriod.ORIENTAL)
 
-                Invoke("HideDrillGO", AnimationManager.Anim_LenghtAnim(player.characterAnimator, "orientalDIG"));
+                    Invoke("HideDrillGO", AnimationManager.Anim_LenghtAnim(player.characterAnimator, "orientalDIG"));
                 else
-                Invoke("HideDrillGO", AnimationManager.Anim_LenghtAnim(player.characterAnimator, "Dig And Plant Seeds"));
+                    Invoke("HideDrillGO", AnimationManager.Anim_LenghtAnim(player.characterAnimator, "Dig And Plant Seeds"));
                 StartCasting();
                 player.IsCasting = true;
             }
-            else
-            {
+            else {
                 Cancel();
             }
-
         else if (player.VDig.isActiveAndEnabled) // If you already pressed [VDIG]
         {
             player.VDig.Cancel();
         }
-
-        else if (CanDig())
-        {
+        else if (CanDig()) {
             gameObject.SetActive(true);
             movingCircle = Instantiate(movingCirclePrefab).GetComponent<MovingCircle>();
             movingCircle.Setup(transform, player);
+
             player.IsZoneDigging = true;
-        }  
+        }
     }
-    
+
     /*
      * THREE-STEPS ZONE DIG
      *
@@ -99,7 +87,6 @@ public class ZoneDig : Digging {
             {
                 Cancel();
             }
-
         else if (isActiveAndEnabled) // If you already pressed [ZDIG] (activate -> now)
             if (CanDig())
             {
@@ -111,12 +98,10 @@ public class ZoneDig : Digging {
             {
                 Cancel();
             }
-
         else if (player.VDig.isActiveAndEnabled) // If you already pressed [VDIG]
         {
-            player.VDig.Cancel();    
+            player.VDig.Cancel();
         }
-
         else // First time the player presses [ZDIG]
         {
             gameObject.SetActive(true);
@@ -124,10 +109,8 @@ public class ZoneDig : Digging {
     }
     */
 
-    public override void Cancel()
-    {
-        if (player.IsZoneDigging && movingCircle)
-        {
+    public override void Cancel() {
+        if (player.IsZoneDigging && movingCircle) {
             Destroy(movingCircle.gameObject);
             movingCircle = null;
             player.IsZoneDigging = false;
@@ -135,11 +118,9 @@ public class ZoneDig : Digging {
 
         gameObject.SetActive(false);
         SwitchOffCollider();
-       
     }
 
-    private void SwitchOffCollider()
-    {
+    private void SwitchOffCollider() {
         colliders = Physics.OverlapSphere(this.transform.position, radius);
         foreach (Collider collider in colliders)
             if (collider.GetComponent<Walls>())
