@@ -11,6 +11,9 @@ public class PlayerControllerF : MonoBehaviour
 
     public bool moving = false;
 
+
+    Vector3 co_up, co_front, co_right, nextrot;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -41,8 +44,35 @@ public class PlayerControllerF : MonoBehaviour
 
         rb.MovePosition(rb.position + mov);
 
-        //transform.LookAt((transform.position + (transform.forward * vertical)), transform.up);
 
-         
+        co_front = this.transform.forward;
+        co_right = BasicCamera.instance.transform.right;
+        co_up = Vector3.Cross(co_front, co_right).normalized;
+
+        
+
+        Debug.Log(co_right);
+        nextrot = transform.position + (co_right * horizontal*2) + (co_front * vertical * 2);
+
+       // transform.LookAt(nextrot);
+    }
+
+    private void OnDrawGizmos()
+    {
+
+        Gizmos.color = Color.red;
+        Debug.Log(co_front);
+        Gizmos.DrawLine(this.transform.position, this.transform.position+ co_front * 5f);
+        //Gizmos.DrawSphere(co_front, 1.0f);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(this.transform.position, this.transform.position + co_up * 5f);
+        //Gizmos.DrawSphere(co_up, 1.0f);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(this.transform.position, this.transform.position + co_right * 5f);
+
+        Gizmos.color = Color.black;
+        Gizmos.DrawSphere(nextrot, 0.1f);
     }
 }
