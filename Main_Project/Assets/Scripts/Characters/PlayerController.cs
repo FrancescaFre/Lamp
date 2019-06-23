@@ -3,15 +3,15 @@ using UnityEngine.UI;
 using UnityEngine.PostProcessing;
 
 public enum Status { NORMAL = 0, HALF_CURSED, CURSED }
+
 public enum Visibility { INVISIBLE = 0, WARNING, SPOTTED }
+
 public enum CharPeriod { PREHISTORY = 0, ORIENTAL, VICTORIAN, FUTURE }
 
 /*
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(ItemWheel))]
-
-    
 Q /CIRCLE   using skill
 2/TRIANGLE 	LINEAR DIGGING
 3/SQUARE	ZONE DIGGING
@@ -19,16 +19,16 @@ Q/CIRCLE	ACTIVATE/DEACTIVATE SKILL
 SPACE/L2 (HOLD) SNEAKY
 TAB/L1	 (HOLD) NAVIGATE RADIAL MENU
 ESC/PAUSE	PAUSE MENU
- 
+
      */
 
 public class PlayerController : MonoBehaviour {
+
     [Header("Character Information")]
     public CharPeriod CharacterPeriod;
     public Skill skill;
     public Character_SO profile;
 
-    
     [Space]
     public bool usingSkill = false;
     public bool isSneaking = false;
@@ -37,22 +37,21 @@ public class PlayerController : MonoBehaviour {
 
     public Status CurseStatus;
     public Visibility Visible { get; set; }
-    public CameraManager MainCamera { get; set; }
+
     public VerticalDig VDig { get; set; }
     public ZoneDig ZDig { get; set; }
 
     public bool IsMimicOrDash { get; set; }
-    public bool IsSafe { get;  set; }
-    public bool IsZoneDigging { get; set; } 
+    public bool IsSafe { get; set; }
+    public bool IsZoneDigging { get; set; }
     public bool IsCasting { get; set; }
     public bool runningAnimation = false;
 
-   
-
     public Animator characterAnimator;
-    
+
     private Rigidbody _rb;
     private Transform _modelTransform;
+
     [Header("Item informations")]
     public GameObject drillGO;
 
@@ -74,44 +73,35 @@ public class PlayerController : MonoBehaviour {
 
     //#####################################################################
 
-    void Awake() {
+    private void Awake() {
         IsSafe = false;
         CurseStatus = Status.NORMAL;
         Visible = Visibility.INVISIBLE;
-        IsZoneDigging = false;   
-
-
-        
+        IsZoneDigging = false;
     }
 
     // Use this for initialization
-    void Start() {
-
+    private void Start() {
         _rb = GetComponent<Rigidbody>();
         _modelTransform = GetComponent<DifferenceOfTerrain>().modelTransform;
 
-        VDig = GetComponentInChildren<VerticalDig>(includeInactive:true);
+        VDig = GetComponentInChildren<VerticalDig>(includeInactive: true);
         ZDig = GetComponentInChildren<ZoneDig>(includeInactive: true);
-        MainCamera = FindObjectOfType<CameraManager>();
 
         skill = GetComponentInChildren<Skill>();
 
         emitter = GetComponent<PlayerSFXEmitter>();
 
-        var particles =GetComponentsInChildren<CFX_AutoDestructShuriken>(); 
-        foreach(var part in particles) {
-
+        var particles = GetComponentsInChildren<CFX_AutoDestructShuriken>();
+        foreach (var part in particles) {
             if (part.CompareTag(Tags.Half_Curse))
                 halfCurseEffect = part.GetComponent<ParticleSystem>();
-            else if(part.CompareTag(Tags.Full_Curse))
+            else if (part.CompareTag(Tags.Full_Curse))
                 fullCurseEffect = part.GetComponent<ParticleSystem>();
-            else if(part.CompareTag(Tags.Dig_Effect))
+            else if (part.CompareTag(Tags.Dig_Effect))
                 digEffect = part.GetComponent<ParticleSystem>();
             part.gameObject.SetActive(false);
         }
-
-
-
 
         InGameHUD.Instance.CreateHUDReferences(ref questionMark, ref caster);
         characterAnimator = GetComponentInChildren<Animator>();
@@ -126,47 +116,45 @@ public class PlayerController : MonoBehaviour {
 
         drillGO.SetActive(false);
     }
-    
+
     // Update is called once per frame
-    void Update() {
+    private void Update() {
         this.CheckSkillInteraction();
         this.CheckItemInteraction();
         this.CheckDig();
     }
 
     private void LateUpdate() {
-        questionMark.transform.position = MainCamera.GetComponent<Camera>().WorldToScreenPoint(_modelTransform.position);
-        if(!IsZoneDigging)
-            caster.transform.position = MainCamera.GetComponent<Camera>().WorldToScreenPoint(_modelTransform.position);
-
+        questionMark.transform.position = BasicCamera.instance.GetComponent<Camera>().WorldToScreenPoint(_modelTransform.position);
+        if (!IsZoneDigging)
+            caster.transform.position = BasicCamera.instance.GetComponent<Camera>().WorldToScreenPoint(_modelTransform.position);
     }
+
     //#####################################################################
 
     /// <summary>
     /// Returns true if the player can move freely
     /// </summary>
-    public bool CanMove()
-    {
+    public bool CanMove() {
         return !(IsZoneDigging || IsCasting || runningAnimation);
     }
 
     //#####################################################################
+
     #region Player's Interaction/action
+
     /// <summary>
     /// The skill is used if an input is detected
     /// </summary>
     private void CheckSkillInteraction() {
- 
         if (Input.GetButtonDown(Controllers.PS4_Button_O) || Input.GetKeyDown(KeyCode.Q)) {
-            if (usingSkill)
-            {
+            if (usingSkill) {
                 skill.DeactivateSkill();
                 GameManager.Instance.subquest_skill++;
             }
-            else
-            {
+            else {
                 skill.ActivateSkill();
-                usingSkill = true; 
+                usingSkill = true;
                 Debug.Log("SKILL used");
             }
         }
@@ -174,10 +162,10 @@ public class PlayerController : MonoBehaviour {
 
     private void CheckItemInteraction() {//TODO button to pick an item and to select an item to use
         if (IsMimicOrDash) return;
-       // GameManager.Instance.subquest_item++;
+        // GameManager.Instance.subquest_item++;
     }
 
-    #endregion
+    #endregion Player's Interaction/action
 
     /// <summary>
     /// Sets the opposite of the current value of safety
@@ -187,17 +175,15 @@ public class PlayerController : MonoBehaviour {
     }
 
     #region Collision Detection
+
     //far apparire il pulsante per interagirci, per ora basta avvicinarsi per raccoglierlo
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag(Tags.MissingPart))
-        {
+    private void OnTriggerStay(Collider other) {
+        if (other.CompareTag(Tags.MissingPart)) {
             GameManager.Instance.missingParts++;
             other.gameObject.SetActive(false);
             AudioManager.Instance.SFXSource.PlayOneShot(GameManager.Instance.levelLoaded.missingSFX);
         }
-        else if (other.CompareTag(Tags.Key))
-        {
+        else if (other.CompareTag(Tags.Key)) {
             GameManager.Instance.keys++;
             AudioManager.Instance.SFXSource.PlayOneShot(GameManager.Instance.levelLoaded.keySFX);
             other.gameObject.SetActive(false);
@@ -217,12 +203,9 @@ public class PlayerController : MonoBehaviour {
         //if the character touches an enemy trigger
         //READ AS: if an enemy curse the character
         else if (other.CompareTag(Tags.EnemyBody) && !IsSafe) {
-            
             Enemy touchedEnemy = other.GetComponentInParent<Enemy>();
 
             emitter.HurtEffect();
-
-
 
             if (CurseStatus == Status.NORMAL && !touchedEnemy.data_enemy.instant_curse) {
                 CurseStatus = Status.HALF_CURSED;
@@ -234,8 +217,8 @@ public class PlayerController : MonoBehaviour {
                 TeamHUD.Instance.HalfCurse();
                 _rb.MovePosition(_rb.position + Vector3.one);
 
-                MainCamera.ChangeVignetteSmoothness(halfCurse:true);
-                
+                BasicCamera.instance.ChangeVignetteSmoothness(halfCurse: true);
+
                 return;
             }
 
@@ -248,24 +231,20 @@ public class PlayerController : MonoBehaviour {
 
             GameManager.Instance.subquest_curse++;
 
-            MainCamera.ChangeVignetteSmoothness();
+            BasicCamera.instance.ChangeVignetteSmoothness();
             GameManager.Instance.SpawnNewEnemy(touchedEnemy.data_enemy.level - 1, _rb.position, touchedEnemy.path);
-            
         }
- 
     }
 
     private void OnTriggerExit(Collider other) {
-        if (other.CompareTag(Tags.Lamp_Base) ) {//if the character has entered the light of a lamp that is switched on
+        if (other.CompareTag(Tags.Lamp_Base)) {//if the character has entered the light of a lamp that is switched on
             IsSafe = false;
         }
     }
 
-
     private void OnCollisionStay(Collision collision) {
         Collider other = collision.collider;
         if (other.CompareTag(Tags.Lamp_Switch)) {
-
             LampBehaviour lamp = other.GetComponentInParent<LampBehaviour>();
 
             if (lamp.isEnemyLamp) { //if it is an enemy lamp AND it is turned on
@@ -281,9 +260,7 @@ public class PlayerController : MonoBehaviour {
             }
             else if (lamp.hasMissingPart && GameManager.Instance.missingParts <= 0) {
                 questionMark.gameObject.SetActive(true);
-               
             }
-
 
             if (IsMimicOrDash) return;
             if (lamp.isTurnedOn) {
@@ -291,8 +268,6 @@ public class PlayerController : MonoBehaviour {
                 return;
             }    //if the lamp is already turned on, exit
             lamp.SwitchOnAllyLamp();
-
-
         }
     }
 
@@ -300,38 +275,29 @@ public class PlayerController : MonoBehaviour {
         Collider other = collision.collider;
         if (other.CompareTag(Tags.Lamp_Switch)) {
             LampBehaviour lamp = other.GetComponentInParent<LampBehaviour>();
-            if(!lamp.isTurnedOn && lamp.hasMissingPart) {
-                
+            if (!lamp.isTurnedOn && lamp.hasMissingPart) {
                 questionMark.gameObject.SetActive(false);
             }
         }
     }
 
-    #endregion
-
+    #endregion Collision Detection
 
     /// <summary>
     /// Stub to playtest digging. Press [I] for linear dig
     /// and [O] for zone dig
     /// </summary>
-    private void CheckDig()
-    {
-        if (!IsCasting && !InGameHUD.Instance.pauseManager.IsPaused)
-        {
+    private void CheckDig() {
+        if (!IsCasting && !InGameHUD.Instance.pauseManager.IsPaused) {
             if (Input.GetKeyDown(KeyCode.Mouse1) || Input.GetButtonDown(Controllers.PS4_Button_Triangle)) // [VDIG]
-                if (GameManager.Instance.digCount > 0)
-                {
+                if (GameManager.Instance.digCount > 0) {
                     VDig.CheckInput();
                 }
 
             if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetButtonDown(Controllers.PS4_Button_Square)) // [ZDIG]
-                if (GameManager.Instance.digCount > 0)
-                {
+                if (GameManager.Instance.digCount > 0) {
                     ZDig.CheckInput();
-                    
                 }
         }
     }
 }
-
-
