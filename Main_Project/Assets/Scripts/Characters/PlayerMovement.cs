@@ -44,13 +44,8 @@ public class PlayerMovement : MonoBehaviour {
     private float _currentSpeed;// this allows to change movement speed in water based on the actual movement of the player
     private bool _wallOnIce; // True if player is sliding on ice and hits a wall
 
-    /*
-    private BoxCollider _verticalCollider; // The long vertical collider to check triggers on the other side of the world
-    private SphereCollider _zoneCollider; // The spherical collider in ZoneDig to check lights on walls
-    private CapsuleCollider _playerCollider; // The player's collider
-    private List<Collider> _collisions; // When colliding with something, memorizes all the colliders involved
-    */
-
+    private Transform playerModel;
+   
     //STAMINA
     public StaminaHUD staminaHUD;
     public float maxStamina = 5f;
@@ -78,13 +73,9 @@ public class PlayerMovement : MonoBehaviour {
         OnSolidFloor = false;
         _wallOnIce = false;
 
-        /*
-        _verticalCollider = GetComponentInChildren<VerticalDig>().GetComponent<BoxCollider>();
-        _zoneCollider = GetComponentInChildren<ZoneDig>().GetComponent<SphereCollider>();
-        _playerCollider = GetComponent<CapsuleCollider>();
-        _collisions = new List<Collider>();
-        */
-          StartCoroutine(CorrectPlayerRotation());
+        playerModel =GetComponent<DifferenceOfTerrain>().modelTransform;
+ 
+        
         //Stamina
         staminaValue = maxStamina;
         staminaHUD = InGameHUD.Instance.InGameHUDPanel.GetComponentInChildren<StaminaHUD>();
@@ -110,14 +101,14 @@ public class PlayerMovement : MonoBehaviour {
         _horizInput = Input.GetAxis(Controllers.Horizontal);
         _vertInput = Input.GetAxis(Controllers.Vertical);
 
-        if (_horizInput != 0 || _vertInput != 0)
+        if ((_horizInput != 0 || _vertInput != 0) && (!OnIce || _wallOnIce))
             _player.isMoving = true;
         else
             _player.isMoving = false;
 
         AnimationUpdate();
     }
-
+    #region Collision Handling
     private void OnTriggerEnter(Collider terrain) {
         if (terrain.CompareTag(Tags.Water)) // If player entered in a water / mud pond
             OnWater = true;
@@ -130,6 +121,9 @@ public class PlayerMovement : MonoBehaviour {
 
         if (terrain.CompareTag(Tags.Solid)) // If player is walking on a solid floor
             OnSolidFloor = true;
+
+        if (OnIce && terrain.gameObject.layer == 11) // If hits an obstacle while on ice
+            _wallOnIce = true;
     }
 
     private void OnTriggerStay(Collider terrain) {
@@ -144,6 +138,9 @@ public class PlayerMovement : MonoBehaviour {
 
         if (terrain.CompareTag(Tags.Solid)) // If player is walking on a solid floor
             OnSolidFloor = true;
+
+        if (OnIce && terrain.gameObject.layer == 11) // If hits an obstacle while on ice
+            _wallOnIce = true;
     }
 
     private void OnTriggerExit(Collider terrain) {
@@ -158,6 +155,9 @@ public class PlayerMovement : MonoBehaviour {
 
         if (terrain.CompareTag(Tags.Solid)) // If player is walking on a solid floor
             OnSolidFloor = false;
+
+        if (OnIce && terrain.gameObject.layer == 11) // If hits an obstacle while on ice
+            _wallOnIce = false;
     }
 
     private void OnCollisionEnter(Collision collision) {
@@ -174,11 +174,11 @@ public class PlayerMovement : MonoBehaviour {
         if (OnIce && collision.gameObject.layer == 11) // If hits an obstacle while on ice
             _wallOnIce = false;
     }
+    #endregion
 
     /// <summary>
     /// Checks if the player is stealthing or not
     /// </summary>
-    ///
     private void CheckMovement() {
         //STEALTH
         if (Input.GetButton(Controllers.PS4_L2) || Input.GetKey(KeyCode.Space)) // Slows the movement if the player is pressing the stealth button
@@ -226,62 +226,42 @@ public class PlayerMovement : MonoBehaviour {
             _stepSpeed = _currentSpeed / 2f; // On the water, the player is slowed
     }
 
+
     /// <summary>
     /// Moves the player always towards the input direction
     /// </summary>
     private void MovePlayer() {
-        //Debug.Log(OnIce + " " + _wallOnIce);
-        if (OnIce && !_wallOnIce) // When walking on ice, there's no need to compute input's direction
-        {
-            if (_movementOnIce != Vector3.zero) // Sometimes a zero input vector can happen, and this blocks the player from moving anywhere. Solved ↓
-                _movement = _movementOnIce;
-            else {
-                // Normal Movement even if it's on ice. This solves the ice glitch
-                if (_vertInput > 0)
-                    _movement = (BasicCamera.instance.transform.forward * _vertInput + BasicCamera.instance.transform.right * _horizInput).normalized * _stepSpeed * Time.deltaTime;
-                else
-                    _movement = (BasicCamera.instance.transform.up * _vertInput + BasicCamera.instance.transform.right * _horizInput).normalized * _stepSpeed * Time.deltaTime;
-            }
-        }
-        else if (_vertInput > 0) // Pressing ↓ made the player literally jump backwards (so it's needed the _screenUp variable)
-            _movement = (BasicCamera.instance.transform.forward * _vertInput + BasicCamera.instance.transform.right * _horizInput).normalized * _stepSpeed * Time.deltaTime; // Takes camera axes to correct the direction
-        else
-            _movement = (BasicCamera.instance.transform.up * _vertInput + BasicCamera.instance.transform.right * _horizInput).normalized * _stepSpeed * Time.deltaTime; // Same, but using _screenUp to go backwards correctly
+       
+        if (OnIce && !_wallOnIce) {
 
+            if (_movementOnIce != Vector3.zero)
+                _movement = _movementOnIce;
+            
+            playerModel.LookAt(_rb.position + _movement.normalized, transform.up);
+            playerModel.localEulerAngles = Vector3.up * playerModel.localEulerAngles.y;
+
+        }
+        else {
+
+            Vector3 forward, right;
+            forward = Vector3.ProjectOnPlane((transform.position - BasicCamera.instance.transform.position), transform.up).normalized;
+            right = Vector3.Cross(transform.up, forward).normalized;
+
+            _movement = (_horizInput * right + _vertInput * forward).normalized * Time.deltaTime * _stepSpeed;
+            
+            playerModel.LookAt(_rb.position+_movement.normalized, transform.up);
+        }
+        
         _rb.MovePosition(_rb.position + _movement); // Moves the player's rigidbody through physics
 
         _movementOnIce = _movement; // Stores the movement direction to be used on ice
     }
-
-    private IEnumerator CorrectPlayerRotation() {//TODO
-        while (true) {
-            if ((_horizInput != 0 || _vertInput != 0) && _player.CanMove()) // OMFG IT WORKS GOD BLESS COROUTINES
-            {
-
-                //_rb.MoveRotation(Quaternion.LookRotation());
-
-                Vector3 m = BasicCamera.instance.transform.forward * _vertInput + BasicCamera.instance.transform.right * _horizInput + BasicCamera.instance.transform.up * transform.position.y;
-
-                Quaternion q = Quaternion.LookRotation(m.normalized, transform.up );
-
-               // _rb.MoveRotation(q);
-
-
-
-
-              //  transform.LookAt((BasicCamera.instance.transform.up * _vertInput + BasicCamera.instance.transform.right * _horizInput).normalized, transform.up);
-                //transform.Rotate(-88, 0, 0, Space.Self); // DON'T ASK ME WHY 88 WORKS BETTER
-            }
-            yield return new WaitForFixedUpdate();
-        }
-    }
-
     //-------------------------------------------------------------------------
 
     //----------- ANIMATION MANAGER -------------
     private void AnimationUpdate() {
-        //se non mi muovo e non scavo
-        if ((_horizInput != 0 || _vertInput != 0) && !_player.IsZoneDigging) {
+        //se  mi muovo e non scavo
+        if (_player.isMoving && !_player.IsZoneDigging) {
             //se sono sneaky ma non è attiva l'animazione, allora sneaky
             if (!(AnimationManager.Anim_CheckBool(_player.characterAnimator, "IsMovingSneaky")) && _player.isSneaking) {
                 AnimationManager.Anim_StopMovingStanding(_player.characterAnimator);
