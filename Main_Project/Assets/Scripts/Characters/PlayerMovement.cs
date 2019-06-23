@@ -260,11 +260,11 @@ public class PlayerMovement : MonoBehaviour {
 
                 //_rb.MoveRotation(Quaternion.LookRotation());
 
-                Vector3 m = BasicCamera.instance.transform.up * _vertInput + BasicCamera.instance.transform.right * _horizInput;
+                Vector3 m = BasicCamera.instance.transform.forward * _vertInput + BasicCamera.instance.transform.right * _horizInput + BasicCamera.instance.transform.up * transform.position.y;
 
                 Quaternion q = Quaternion.LookRotation(m.normalized, transform.up );
 
-                _rb.MoveRotation(q);
+               // _rb.MoveRotation(q);
 
 
 

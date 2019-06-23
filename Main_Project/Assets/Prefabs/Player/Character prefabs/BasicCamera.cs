@@ -35,8 +35,8 @@ public class BasicCamera : MonoBehaviour {
 
     private void Start() {
         ///PostProcessing
-        _PPProfile = GetComponent<PostProcessingBehaviour>().profile;
-        ChangeVignetteSmoothness();
+       // _PPProfile = GetComponent<PostProcessingBehaviour>().profile;
+        //ChangeVignetteSmoothness();
     }
 
     private void FixedUpdate() {
@@ -52,6 +52,11 @@ public class BasicCamera : MonoBehaviour {
 
         Vector3 direction = (transform.position - player.position).normalized;
         transform.position = player.position + camTurn * player.TransformVector(offset * zoom_factor);
+
+
+
+
+
 
         if (zoom_factor <= 0.5) {
             desiredPos = player.position + camTurn * player.TransformVector(close_offset * zoom_factor);
