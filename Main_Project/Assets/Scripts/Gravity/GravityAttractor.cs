@@ -2,7 +2,13 @@
 
 public class GravityAttractor : MonoBehaviour
 {
+    public static GravityAttractor instance;
     public float gravity = -10f;
+
+    private void Awake() {
+        BasicCamera.instance.planet = transform;
+
+    }
 
     public void Attract(Rigidbody bodyTransform)
     {

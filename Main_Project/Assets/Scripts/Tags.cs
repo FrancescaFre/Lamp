@@ -32,11 +32,6 @@ public static class Tags {
     public readonly static string MissingPart = "Items/MissingPart";
     public readonly static string Key = "Items/Key";
     public readonly static string Drill = "Items/Drill";
-    //dummy
-    public readonly static string DummyPlayer = "Dummy/Player";
-    public readonly static string DummyPlanet = "Dummy/Planet";
-    public readonly static string DummyPivot = "Dummy/Pivot";
-    public readonly static string DummyCam = "Dummy/Cam";
     //planet
     public readonly static string Planet = "Planet";
     public readonly static string Planet_Switch = "Planet/Switch";

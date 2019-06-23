@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4405821853632764}
   - component: {fileID: 20634048570460312}
   - component: {fileID: 81567611263976850}
-  - component: {fileID: 114432920845342348}
   - component: {fileID: 114641728974344804}
   - component: {fileID: 114270922803078030}
+  - component: {fileID: 114988691237008492}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -37,13 +37,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1180277617239296}
-  m_LocalRotation: {x: 0.30070576, y: -0, z: -0, w: 0.953717}
-  m_LocalPosition: {x: 0, y: 23.25, z: -2.4}
+  m_LocalRotation: {x: 0.1932899, y: 0.7305896, z: -0.23035397, w: 0.6130374}
+  m_LocalPosition: {x: -4.358, y: 23.023, z: 0.839}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 35, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 35, y: 100.00001, z: 0}
 --- !u!20 &20634048570460312
 Camera:
   m_ObjectHideFlags: 1
@@ -53,7 +53,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BackGroundColor: {r: 1, g: 0.9764151, b: 0.9764151, a: 1}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -103,24 +103,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: afd8111b60611c14da70fec70fd96fb2, type: 2}
---- !u!114 &114432920845342348
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1180277617239296}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d33771a29357054e8ce50348046bb9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nearZoom: 4
-  farZoom: 5
-  sensitivity: 0.1
-  cameraSpeed: 90
-  offset: {x: 0, y: 2, z: 2}
-  normalVignetteSmoothness: 0.2
-  curseVignetteSmoothness: 1
 --- !u!114 &114641728974344804
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -134,3 +116,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Resolution: 0
   DefaultSpotCookie: {fileID: 2800000, guid: 5157bf6d690b6df458f6c0ce0c06d329, type: 3}
+--- !u!114 &114988691237008492
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1180277617239296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8ed06233b6ae9742879668a6ba6c2ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraSpeed: 5
+  smooth_speed: 0.125
+  player: {fileID: 0}
+  planet: {fileID: 0}
+  offset: {x: 0, y: 10, z: -11}
+  max_zoom: 1.2
+  min_zoom: 0.3
+  normalVignetteSmoothness: 0.2
+  curseVignetteSmoothness: 1

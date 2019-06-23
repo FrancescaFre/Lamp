@@ -56,7 +56,7 @@ public class MovingCircle : ZoneDig {
         _horizInput = 0f;
         _vertInput = 0f;
         _speed = player.gameObject.GetComponent<PlayerMovement>().walkSpeed;
-        BasicCamera.instance.player = transform;
+        BasicCamera.instance.target = transform;
 
         Reposition(zoneDig);
     }
@@ -97,7 +97,7 @@ public class MovingCircle : ZoneDig {
     }
 
     public void OnDestroy() {
-        BasicCamera.instance.player = GameManager.Instance.currentPC.transform;
+        BasicCamera.instance.target = GameManager.Instance.currentPC.transform;
     }
 
     private void Reposition(Transform zoneDig) {

@@ -9,8 +9,6 @@ public class DifferenceOfTerrain : MonoBehaviour {
     [Range(-3f, 3f)]
     public float inWaterHeight = -1f;
 
-
-    
     void Awake() {
         foreach (Transform child in transform)
             if (child.CompareTag(Tags.PlayerModel))

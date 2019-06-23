@@ -7,7 +7,7 @@ public class BasicCamera : MonoBehaviour {
     public static BasicCamera instance;
 
     public float cameraSpeed = 5f, smooth_speed = 0.125f;
-    public Transform player, planet;
+    public Transform target, planet;
     public Vector3 offset;
 
     private Quaternion camTurn;
@@ -34,16 +34,16 @@ public class BasicCamera : MonoBehaviour {
     }
 
     private void Start() {
+        //transform.position = target.position + target.TransformVector(offset * zoom_factor);
+
         ///PostProcessing
-        ///
-        transform.position = player.position + player.TransformVector(offset * zoom_factor);
-       // _PPProfile = GetComponent<PostProcessingBehaviour>().profile;
-        //ChangeVignetteSmoothness();
+        _PPProfile = GetComponent<PostProcessingBehaviour>().profile;
+        ChangeVignetteSmoothness();
     }
 
     private void FixedUpdate() {
-        temp_up = (player.position - planet.position).normalized;
-        temp_right = Vector3.Cross(temp_up, player.forward).normalized;
+        temp_up = (target.position - planet.position).normalized;
+        temp_right = Vector3.Cross(temp_up, target.forward).normalized;// TODO check if needed
 
         if (Input.GetAxis("Mouse ScrollWheel") != 0)
             zoom_factor = Mathf.Clamp(zoom_factor - Input.GetAxis("Mouse ScrollWheel"), min_zoom, max_zoom);
@@ -52,21 +52,18 @@ public class BasicCamera : MonoBehaviour {
         angle += input * cameraSpeed;
         camTurn = Quaternion.AngleAxis(angle, temp_up);
 
-        Vector3 direction = (transform.position - player.position).normalized;
-        
-
+        Vector3 direction = (transform.position - target.position).normalized;
 
         if (zoom_factor <= 0.5) {
-            desiredPos = player.position + camTurn * player.TransformVector(close_offset * zoom_factor);
+            desiredPos = target.position + camTurn * target.TransformVector(close_offset * zoom_factor);
             Vector3 smooth_pos = Vector3.Lerp(transform.position, desiredPos, smooth_speed);
             transform.position = smooth_pos;
-            transform.LookAt(player.position + player.up * offset_look, temp_up);
+            transform.LookAt(target.position + target.up * offset_look, temp_up);
         }
         else {
-            transform.position = player.position + camTurn * player.TransformVector(offset * zoom_factor);
+            transform.position = target.position + camTurn * target.TransformVector(offset * zoom_factor);
 
-            //transform.position = player.position + player.TransformVector(offset * zoom_factor);
-            transform.LookAt(player, temp_up);
+            transform.LookAt(target, temp_up);
         }
     }
 

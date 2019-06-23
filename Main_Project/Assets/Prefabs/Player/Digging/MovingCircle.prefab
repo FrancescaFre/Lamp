@@ -38,8 +38,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1805591998086222}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 21, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 0.6, y: 0.01, z: 0.6}
   m_Children: []
   m_Father: {fileID: 0}
@@ -140,12 +140,8 @@ MonoBehaviour:
   digYes: {fileID: 2100000, guid: a3827f10b46ed464b82b64db37f8a1ad, type: 2}
   digNo: {fileID: 2100000, guid: 30eeca49f9f277244af8997a80685650, type: 2}
   player: {fileID: 0}
-  castingTime: 0
-  caster: {fileID: 0}
-  bar: {fileID: 0}
   movingCirclePrefab: {fileID: 0}
+  movingCircle: {fileID: 0}
   radius: 10
   sphereC: {fileID: 0}
   colliders: []
-  dummyCirclePrefab: {fileID: 1508751496941206, guid: 13daaeb546c809d4e94a51b9a9835342,
-    type: 2}

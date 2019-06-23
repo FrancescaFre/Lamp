@@ -16,7 +16,9 @@ public class ZoneDig : Digging {
         sphereC.radius = radius;
         sphereC.enabled = false;
     }
-
+    protected override void ChangeColor() {
+        
+    }
     /// <summary>
     /// Performs the digging action (called by caster)
     /// </summary>
@@ -59,9 +61,9 @@ public class ZoneDig : Digging {
         }
         else if (CanDig()) {
             gameObject.SetActive(true);
-            movingCircle = Instantiate(movingCirclePrefab).GetComponent<MovingCircle>();
-            movingCircle.Setup(transform, player);
 
+            movingCirclePrefab.GetComponent<MovingCircle>().Setup(transform, player);
+            movingCircle = Instantiate(movingCirclePrefab).GetComponent<MovingCircle>();
             player.IsZoneDigging = true;
         }
     }

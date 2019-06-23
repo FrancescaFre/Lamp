@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour {
 
         currentPC = CharactersDict[TeamList[currentCharacter]];
 
-        BasicCamera.instance.player = currentPC.transform;  //change the player the camera has to follow
+        BasicCamera.instance.target = currentPC.transform;  //change the player the camera has to follow
 
         if (startGame)
             CharactersDict[TeamList[currentCharacter]].transform.position = levelLoaded.entryPoint;

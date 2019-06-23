@@ -4,7 +4,8 @@ using UnityEngine;
 public class Walls : MonoBehaviour {
 
     private List<Light> lights = new List<Light>();
-    public bool t = false; 
+    
+
     private void Start()
     {
       //  layer = this.gameObject.layer;
@@ -14,13 +15,10 @@ public class Walls : MonoBehaviour {
 
         foreach (Light light in lights)
             light.enabled = false;
-       
 
-
-        if ( !(((1 << gameObject.layer) & LayerMask.GetMask("Obstacle")) != 0))
+        // remember this is the same as (i>1 && i<3)
+        if ( !(((1 << gameObject.layer) & LayerMask.GetMask("Obstacle")) != 0))// if "this" wall is NOT an obstacle
         {
-            
-            t = true;
             Destroy(GetComponent<Walls>()); //.enabled = false;
         }
     }
