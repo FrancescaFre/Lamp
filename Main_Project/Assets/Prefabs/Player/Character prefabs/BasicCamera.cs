@@ -35,6 +35,8 @@ public class BasicCamera : MonoBehaviour {
 
     private void Start() {
         ///PostProcessing
+        ///
+        transform.position = player.position + player.TransformVector(offset * zoom_factor);
        // _PPProfile = GetComponent<PostProcessingBehaviour>().profile;
         //ChangeVignetteSmoothness();
     }
@@ -51,11 +53,7 @@ public class BasicCamera : MonoBehaviour {
         camTurn = Quaternion.AngleAxis(angle, temp_up);
 
         Vector3 direction = (transform.position - player.position).normalized;
-        transform.position = player.position + camTurn * player.TransformVector(offset * zoom_factor);
-
-
-
-
+        
 
 
         if (zoom_factor <= 0.5) {
@@ -66,6 +64,8 @@ public class BasicCamera : MonoBehaviour {
         }
         else {
             transform.position = player.position + camTurn * player.TransformVector(offset * zoom_factor);
+
+            //transform.position = player.position + player.TransformVector(offset * zoom_factor);
             transform.LookAt(player, temp_up);
         }
     }

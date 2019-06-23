@@ -1,11 +1,58 @@
-﻿using System.Collections;
+﻿#region antonio
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+ 
+public class PlayerControllerF : MonoBehaviour
+{
+ 
+    public float moveSpeed = 15f;
+    private Vector3 moveDir;
+    private Rigidbody rb;
+    public GameObject model;
+ 
+    public bool moving = false;
+ 
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+ 
+    private void Update()
+    {
+        moveDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
+        if (moveDir != Vector3.zero)
+            moving = true;
+        else
+            moving = false;
+ 
+ 
+    }
+ 
+    private void FixedUpdate()
+    {
+        float vertical = Input.GetAxis("Vertical");
+        float horizontal = Input.GetAxis("Horizontal");
+        Vector3 mov, f, r;
+        f = Vector3.ProjectOnPlane((transform.position - BasicCamera.instance.transform.position), transform.up).normalized;
+        r = Vector3.Cross(transform.up, f);
+        mov = horizontal * r + vertical * f;
+        if (moving) rb.MovePosition(rb.position + mov * Time.deltaTime * moveSpeed);
+        model.transform.LookAt(rb.position + mov, rb.transform.up);
+         
+    }
+}
+#endregion
+
+/*
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControllerF : MonoBehaviour
 {
 
-    public float moveSpeed = 15f;
+    public float moveSpeed = 15f, vertical, horizontal;
     private Vector3 moveDir;
     private Rigidbody rb;
 
@@ -26,35 +73,33 @@ public class PlayerControllerF : MonoBehaviour
             moving = true;
         else
             moving = false;
-
-
     }
 
     private void FixedUpdate()
     {
-        float vertical = Input.GetAxis("Vertical");
-        float horizontal = Input.GetAxis("Horizontal");
-        // rb.MovePosition(rb.position + transform.TransformDirection(moveDir) * moveSpeed * Time.deltaTime);
+        vertical = Input.GetAxis("Vertical");
+        horizontal = Input.GetAxis("Horizontal");
+         rb.MovePosition(rb.position + transform.TransformDirection(moveDir) * moveSpeed * Time.deltaTime);
         Vector3 mov;
 
+        /*
         if (vertical > 0) // Pressing ↓ made the player literally jump backwards (so it's needed the _screenUp variable)
             mov = (BasicCamera.instance.transform.forward * vertical + BasicCamera.instance.transform.right * horizontal).normalized * moveSpeed * Time.deltaTime; // Takes camera axes to correct the direction
         else
             mov = (BasicCamera.instance.transform.up * vertical + BasicCamera.instance.transform.right * horizontal).normalized * moveSpeed * Time.deltaTime;
-
+            
         rb.MovePosition(rb.position + mov);
-
+        
 
         co_front = this.transform.forward;
         co_right = BasicCamera.instance.transform.right;
-        co_up = Vector3.Cross(co_front, co_right).normalized;
-
+        //co_up = Vector3.Cross(co_front, co_right).normalized;
+        co_up = this.transform.up; 
         
 
         Debug.Log(co_right);
-        nextrot = transform.position + (co_right * horizontal*2) + (co_front * vertical * 2);
+        nextrot = transform.position + (co_right * horizontal*2) + (co_up * vertical * 2);
 
-       // transform.LookAt(nextrot);
     }
 
     private void OnDrawGizmos()
@@ -76,3 +121,4 @@ public class PlayerControllerF : MonoBehaviour
         Gizmos.DrawSphere(nextrot, 0.1f);
     }
 }
+*/
