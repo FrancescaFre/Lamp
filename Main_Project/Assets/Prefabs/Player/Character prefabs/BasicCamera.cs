@@ -16,6 +16,14 @@ public class BasicCamera : MonoBehaviour {
 
     public float max_zoom = 1.5f, min_zoom = 0.5f;
 
+    public bool is_character;
+    
+    public void ChangeTarget(Transform tgt)
+    {
+        target = tgt;
+        is_character = tgt.CompareTag(Tags.Player); 
+    }
+
     ///PostProcessing
     [Tooltip("Change the vignette smoothness when a character is half-cursed.")]
     [Header("Post Processing")]
@@ -32,6 +40,7 @@ public class BasicCamera : MonoBehaviour {
         else
             Destroy(gameObject);
     }
+
 
     private void Start() {
         //transform.position = target.position + target.TransformVector(offset * zoom_factor);
@@ -54,16 +63,24 @@ public class BasicCamera : MonoBehaviour {
 
         Vector3 direction = (transform.position - target.position).normalized;
 
-        if (zoom_factor <= 0.5) {
+        if (is_character && zoom_factor <= 0.5)
+        {
             desiredPos = target.position + camTurn * target.TransformVector(close_offset * zoom_factor);
             Vector3 smooth_pos = Vector3.Lerp(transform.position, desiredPos, smooth_speed);
             transform.position = smooth_pos;
             transform.LookAt(target.position + target.up * offset_look, temp_up);
         }
-        else {
+        else if (is_character && zoom_factor > 0.5)
+        {
             transform.position = target.position + camTurn * target.TransformVector(offset * zoom_factor);
 
             transform.LookAt(target, temp_up);
+        }
+        else if (!is_character) {
+            desiredPos = target.position + camTurn * target.TransformVector(close_offset * 1);
+            Vector3 smooth_pos = Vector3.Lerp(transform.position, desiredPos, smooth_speed);
+            transform.position = smooth_pos;
+            transform.LookAt(target.position + target.up * offset_look, temp_up);
         }
     }
 

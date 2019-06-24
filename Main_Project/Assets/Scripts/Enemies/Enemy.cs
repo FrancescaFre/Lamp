@@ -363,8 +363,6 @@ public class Enemy : MonoBehaviour
                
                 pathIndex = (pathIndex + 1) % path.childCount;
 
-               
-
                 while (path.GetChild(pathIndex).GetComponent<SingleWaypoint>().underALamp)
                 {
                     pathIndex = (pathIndex + 1) % path.childCount;

@@ -41,7 +41,7 @@ public class PauseManagerGUI : MonoBehaviour
         PausePanel.SetActive(IsPaused);
         firstButtonSelected = PausePanel.transform.GetChild(0).gameObject;
         firstOptionSelected = _optionsGUI.transform.GetChild(0).gameObject;
-        firstTutorialSelected = _tutorialGUI.firstSelected;
+       // firstTutorialSelected = _tutorialGUI.firstSelected;
 
     }
 

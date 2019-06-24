@@ -130,7 +130,7 @@ public class DigBehaviour : MonoBehaviour {
       
         wallLighter.EnlightWalls();
 
-        BasicCamera.instance.target = transform;
+        BasicCamera.instance.ChangeTarget(transform);
 
         transform.position = pc.transform.position;
 
@@ -146,7 +146,7 @@ public class DigBehaviour : MonoBehaviour {
 
     public void ReleaseZoneDigger() {
 
-        BasicCamera.instance.target = GameManager.Instance.currentPC.transform;
+        BasicCamera.instance.ChangeTarget(GameManager.Instance.currentPC.transform);
 
         wallLighter.TurnOffWallLights();
   
