@@ -17,22 +17,11 @@ public class PlayerMovement : MonoBehaviour {
     [Tooltip("The player's running speed")]
     public float runSpeed = 5f;
 
-    /*[Header("Dummy settings")]
-  [Tooltip("The distance between the player's and the dummy's positions")]
-    public Vector3 dummyOffset;  // The distance between the player's and the dummy's positions
-
-    [Tooltip("The dummy player's transform")]
-    public Transform dummyPlayer;
-
-    //[Tooltip("The dummy player's camera transform (must be dummy's child")]
-    private Transform dummyCam;*/
-
-    //-------------------------------------------------------------------------
-
-    public bool OnWater { get; set; }  // True if player is walking on the water / mud
-    public bool OnLeaves { get; set; } // True if player is walking on the leaves / noisy terrain
-    public bool OnIce { get; set; } // True if player is walking on ice
-    public bool OnSolidFloor { get; set; } // True if player is walking on a solid floor
+    [Header("Terrain check")]
+    public bool OnWater;  // True if player is walking on the water / mud
+    public bool OnLeaves; // True if player is walking on the leaves / noisy terrain
+    public bool OnIce; // True if player is walking on ice
+    public bool OnSolidFloor; // True if player is walking on a solid floor
 
     private PlayerController _player; // The PlayerController attached to the player
 

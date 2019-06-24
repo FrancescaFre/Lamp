@@ -1,30 +1,32 @@
 ﻿using UnityEngine;
 
 public class DigBehaviour : MonoBehaviour {
-    public ParticleSystem digYes;
-    public ParticleSystem digNo;
-    
     public static DigBehaviour instance;
+
+    [Header("Particle Ring")]
+    public ParticleSystem digRing;
+    private ParticleSystemRenderer pRenderer;
+    public Material dig;
+    public Material no_dig;
+
+    
     [Header("Dig Information")]
     public bool canDig = true;
     public  bool isZoneActive;
     public  bool isVerticalActive;
-    private float distanceRadius = 8f;
+    [Range(1f,10f)]
+    public float distanceRadius = 8f;
     private PlayerController pc;
-
+    private PlayerMovement _pm;
     private Vector3 _movement;
     private Rigidbody rb;
     private float _speed;
     private float _horizInput, _vertInput;
-
-   
-
-    private MeshRenderer circleModel; 
-
-    private float castingTime = 0f;
-    private PlayerMovement _pm;
+    
+    //caster
+    private float castingTime = 0f; 
     private float _progress; // Actual casting progress
-
+    [Space]
     public DiggableWallLighter wallLighter;
 
     private void Awake() {
@@ -45,9 +47,12 @@ public class DigBehaviour : MonoBehaviour {
         _horizInput = 0f;
         _vertInput = 0f;
 
-        circleModel = GetComponentInChildren<MeshRenderer>();
-        digNo.Stop();
-        digYes.Stop();
+        digRing = GetComponentInChildren<ParticleSystem>();
+
+        pRenderer = digRing.GetComponent<ParticleSystemRenderer>();
+        pRenderer.sharedMaterial = dig;
+        digRing.Stop();
+        
         pc = GameManager.Instance.currentPC;
         rb.MovePosition(Vector3.zero);
     }
@@ -85,7 +90,22 @@ public class DigBehaviour : MonoBehaviour {
         }
     }
 
-   
+    private void LateUpdate() {
+        if (isZoneActive || isVerticalActive) {
+            
+            if (CanZoneDig() ||CanVerticalDig()) {
+                if (!pRenderer.sharedMaterial.Equals(dig))
+                    pRenderer.sharedMaterial = dig;
+            }
+            else {
+                if (!pRenderer.sharedMaterial.Equals(no_dig))
+                    pRenderer.sharedMaterial = no_dig;
+            }
+        }
+
+
+    }
+
     private void CheckInput() {
         if (!pc) return;
         if (GameManager.Instance.digCount <= 0) return;
@@ -140,7 +160,8 @@ public class DigBehaviour : MonoBehaviour {
         else
             transform.localPosition += Vector3.forward; // Spawns the circle in front of the player
 
-        digYes.Play();
+        pRenderer = digRing.GetComponent<ParticleSystemRenderer>();
+        digRing.Play();
         isZoneActive = true;
     }
 
@@ -154,7 +175,7 @@ public class DigBehaviour : MonoBehaviour {
         
         //[CHECK]
         transform.rotation = Quaternion.Euler(Vector3.zero);
-
+        digRing.Stop();
         isZoneActive = false;
     }
 
@@ -188,7 +209,9 @@ public class DigBehaviour : MonoBehaviour {
 
 
         rb.MovePosition(-pc.transform.position);
-        
+        pc.digRing.gameObject.SetActive(true);
+        pRenderer = pc.digRing.GetComponent<ParticleSystemRenderer>();
+        pc.digRing.Play();
 
         isVerticalActive = true;
     }
@@ -200,7 +223,7 @@ public class DigBehaviour : MonoBehaviour {
 
         //[CHECK]
         transform.rotation = Quaternion.Euler(Vector3.zero);
-
+        pc.digRing.Stop();
         isVerticalActive = false;
     }
 
@@ -265,7 +288,7 @@ public class DigBehaviour : MonoBehaviour {
 
     public bool CanVerticalDig() {
       
-        return !(_pm.OnWater || _pm.OnIce || _pm.OnSolidFloor) || canDig;
+        return !_pm.OnWater &&  !_pm.OnIce && !_pm.OnSolidFloor && canDig;
 
     }
     public void Dig() {
@@ -314,13 +337,8 @@ public class DigBehaviour : MonoBehaviour {
         if (terrain.gameObject.CompareTag(Tags.Solid) ||
             terrain.gameObject.CompareTag(Tags.Water) ||
             terrain.gameObject.CompareTag(Tags.Ice) ) {
-
-
+            Debug.Log("enter in "+terrain.name);
             canDig = false;
-            if (digYes.isPlaying)
-                digYes.Stop();
-            if(digNo.isStopped)
-                digNo.Play();
         }
     }
 
@@ -330,10 +348,7 @@ public class DigBehaviour : MonoBehaviour {
             terrain.gameObject.CompareTag(Tags.Ice) ) {
 
             canDig = false;
-            if (digYes.isPlaying)
-                digYes.Stop();
-            if (digNo.isStopped)
-                digNo.Play();
+
         }
     }
 
@@ -343,11 +358,7 @@ public class DigBehaviour : MonoBehaviour {
             terrain.gameObject.CompareTag(Tags.Ice) ) {
 
             canDig = true;
-            if (digNo.isPlaying)
-                digNo.Stop();
-
-            if (digYes.isStopped)
-                digYes.Play();
+           
         }
     }
 

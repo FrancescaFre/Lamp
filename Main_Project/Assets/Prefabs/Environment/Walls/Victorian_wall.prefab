@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4562852963040358}
   m_Layer: 0
   m_Name: digLight
-  m_TagString: DigLight
+  m_TagString: Dig/Light
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 108043629524873368}
   m_Layer: 0
   m_Name: Spot Light (1)
-  m_TagString: DigLight
+  m_TagString: Dig/Light
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 108062759456684444}
   m_Layer: 0
   m_Name: Spot Light
-  m_TagString: DigLight
+  m_TagString: Dig/Light
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -272,7 +272,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1202325d119ebc4b8f7ccf0be1272c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  t: 0
 --- !u!114 &114866492909300900
 MonoBehaviour:
   m_ObjectHideFlags: 1

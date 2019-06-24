@@ -10,7 +10,7 @@ public class Walls : MonoBehaviour {
     {
       //  layer = this.gameObject.layer;
         foreach (Light light in this.transform.GetComponentsInChildren<Light>())
-            if (light.transform.CompareTag(Tags.DigLight))
+            if (light.transform.CompareTag(Tags.Dig_Light))
                 lights.Add(light);
 
         foreach (Light light in lights)
