@@ -261,7 +261,7 @@ public class PlayerMovement : MonoBehaviour {
     //----------- ANIMATION MANAGER -------------
     private void AnimationUpdate() {
         //se  mi muovo e non scavo
-        if (_player.isMoving && !_player.IsZoneDigging) {
+        if (_player.isMoving && !DigBehaviour.instance.isZoneActive) {
             //se sono sneaky ma non è attiva l'animazione, allora sneaky
             if (!(AnimationManager.Anim_CheckBool(_player.characterAnimator, "IsMovingSneaky")) && _player.isSneaking) {
                 AnimationManager.Anim_StopMovingStanding(_player.characterAnimator);

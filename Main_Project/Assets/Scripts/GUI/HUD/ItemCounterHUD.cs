@@ -45,9 +45,12 @@ public class ItemCounterHUD : MonoBehaviour {
         else if (item == ItemType.DRILL) {
             counter.text = GameManager.Instance.digCount.ToString("00");
 
-            canBeEnabled = GameManager.Instance.currentPC.VDig.CanDig() 
+          /*  canBeEnabled = GameManager.Instance.currentPC.VDig.CanDig() 
                             & GameManager.Instance.currentPC.ZDig.CanDig() 
                             & GameManager.Instance.digCount > 0;
+            */
+
+            canBeEnabled=(DigBehaviour.instance.CanZoneDig() || DigBehaviour.instance.CanZoneDig()) && GameManager.Instance.digCount > 0;
         }
 
         glow.gameObject.SetActive(canBeEnabled);

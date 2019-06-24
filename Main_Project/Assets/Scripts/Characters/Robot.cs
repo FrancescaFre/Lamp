@@ -61,7 +61,7 @@ public class Robot : Skill
             _cam.gameObject.SetActive(false);
             _progress = 0f;
 
-            playerController.IsCasting = false;
+            playerController.isCasting = false;
             playerController.enabled = true;
             //   player.playerCamera.gameObject.SetActive(true);
 

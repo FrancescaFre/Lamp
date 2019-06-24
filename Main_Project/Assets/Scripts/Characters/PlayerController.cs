@@ -36,15 +36,15 @@ public class PlayerController : MonoBehaviour {
     public bool isMoving = false;
 
     public Status CurseStatus;
-    public Visibility Visible { get; set; }
+    public Visibility Visible;
 
-    public VerticalDig VDig { get; set; }
-    public ZoneDig ZDig { get; set; }
+    //public VerticalDig VDig { get; set; }
+   // public ZoneDig ZDig { get; set; }
 
-    public bool IsMimicOrDash { get; set; }
-    public bool IsSafe { get; set; }
-    public bool IsZoneDigging { get; set; }
-    public bool IsCasting { get; set; }
+    public bool IsMimicOrDash;
+    public bool IsSafe;
+    //public bool isZoneDigging;
+    public bool isCasting;
     public bool runningAnimation = false;
 
     public Animator characterAnimator;
@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour {
         IsSafe = false;
         CurseStatus = Status.NORMAL;
         Visible = Visibility.INVISIBLE;
-        IsZoneDigging = false;
+        
     }
 
     // Use this for initialization
@@ -85,8 +85,8 @@ public class PlayerController : MonoBehaviour {
         _rb = GetComponent<Rigidbody>();
         _modelTransform = GetComponent<DifferenceOfTerrain>().modelTransform;
 
-        VDig = GetComponentInChildren<VerticalDig>(includeInactive: true);
-        ZDig = GetComponentInChildren<ZoneDig>(includeInactive: true);
+      //  VDig = GetComponentInChildren<VerticalDig>(includeInactive: true);
+       // ZDig = GetComponentInChildren<ZoneDig>(includeInactive: true);
 
         skill = GetComponentInChildren<Skill>();
 
@@ -121,12 +121,12 @@ public class PlayerController : MonoBehaviour {
     private void Update() {
         this.CheckSkillInteraction();
         this.CheckItemInteraction();
-        this.CheckDig();
+        
     }
 
     private void LateUpdate() {
         questionMark.transform.position = BasicCamera.instance.GetComponent<Camera>().WorldToScreenPoint(_modelTransform.position);
-        if (!IsZoneDigging)
+        if (!DigBehaviour.instance.isZoneActive)
             caster.transform.position = BasicCamera.instance.GetComponent<Camera>().WorldToScreenPoint(_modelTransform.position);
     }
 
@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour {
     /// Returns true if the player can move freely
     /// </summary>
     public bool CanMove() {
-        return !(IsZoneDigging || IsCasting || runningAnimation);
+        return !(DigBehaviour.instance.isZoneActive || isCasting || runningAnimation);
     }
 
     //#####################################################################
@@ -287,17 +287,5 @@ public class PlayerController : MonoBehaviour {
     /// Stub to playtest digging. Press [I] for linear dig
     /// and [O] for zone dig
     /// </summary>
-    private void CheckDig() {
-        if (!IsCasting && !InGameHUD.Instance.pauseManager.IsPaused) {
-            if (Input.GetKeyDown(KeyCode.Mouse1) || Input.GetButtonDown(Controllers.PS4_Button_Triangle)) // [VDIG]
-                if (GameManager.Instance.digCount > 0) {
-                    VDig.CheckInput();
-                }
 
-            if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetButtonDown(Controllers.PS4_Button_Square)) // [ZDIG]
-                if (GameManager.Instance.digCount > 0) {
-                    ZDig.CheckInput();
-                }
-        }
-    }
 }

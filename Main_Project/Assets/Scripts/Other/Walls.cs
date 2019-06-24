@@ -25,14 +25,15 @@ public class Walls : MonoBehaviour {
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponentInParent<PlayerController>() && other.GetComponentInParent<PlayerController>().CompareTag(Tags.Player) && lights.Count >0)
+    
+        if (other.GetComponentInParent<DiggableWallLighter>())
             foreach (Light light in lights)
                light.enabled = true;
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.GetComponentInParent<PlayerController>() && other.GetComponentInParent<PlayerController>().CompareTag(Tags.Player))
+    private void OnTriggerExit(Collider other) {
+        
+        if (other.GetComponentInParent<DiggableWallLighter>() )
             foreach (Light light in lights)
                 light.enabled = false;
     }

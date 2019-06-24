@@ -2102,9 +2102,6 @@ MonoBehaviour:
   digYes: {fileID: 2100000, guid: a3827f10b46ed464b82b64db37f8a1ad, type: 2}
   digNo: {fileID: 2100000, guid: 30eeca49f9f277244af8997a80685650, type: 2}
   player: {fileID: 114321943018512864}
-  castingTime: 120
-  caster: {fileID: 0}
-  bar: {fileID: 0}
 --- !u!114 &114100911834084764
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2150,6 +2147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   digAudioList: []
+  hurtVoiceList: []
   stepsFXList: []
   sneakAudioReduction: 0.6
   runAudioIncrease: 1.2
@@ -2178,12 +2176,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   digYes: {fileID: 2100000, guid: a3827f10b46ed464b82b64db37f8a1ad, type: 2}
   digNo: {fileID: 2100000, guid: 30eeca49f9f277244af8997a80685650, type: 2}
-  player: {fileID: 114321943018512864}
-  castingTime: 120
-  caster: {fileID: 0}
-  bar: {fileID: 0}
-  movingCirclePrefab: {fileID: 1805591998086222, guid: a6986ec8d836a02489d419e6d5b12291,
+  player: {fileID: 0}
+  movingCirclePrefab: {fileID: 1020004514407318, guid: 7e35fb05e2342be469c70cf551cc1ab2,
     type: 2}
+  movingCircle: {fileID: 0}
   radius: 10
   sphereC: {fileID: 0}
   colliders: []
@@ -2199,7 +2195,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modelTransform: {fileID: 0}
-  height: 0
+  onWater: 0
+  inWaterHeight: -1
 --- !u!114 &114321943018512864
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2213,20 +2210,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterPeriod: 1
   skill: {fileID: 0}
-  digCount: 2
+  profile: {fileID: 0}
   usingSkill: 0
   isSneaking: 0
   isRunning: 0
+  isMoving: 0
   CurseStatus: 0
   runningAnimation: 0
-  _missingParts: 0
-  keys: 0
+  characterAnimator: {fileID: 0}
+  drillGO: {fileID: 0}
   halfCurseEffect: {fileID: 0}
   fullCurseEffect: {fileID: 0}
   digEffect: {fileID: 0}
-  questionMarkPrefab: {fileID: 1820886121641010, guid: 07d97c0bab579c7448ba1353e9bdedf3,
-    type: 2}
+  emitter: {fileID: 0}
   questionMark: {fileID: 0}
+  caster: {fileID: 0}
   otherplayer: {fileID: 0}
 --- !u!114 &114346936954027012
 MonoBehaviour:

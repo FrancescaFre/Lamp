@@ -10,14 +10,14 @@ public class TutorialManager : MonoBehaviour {
 
     private int index;
     private float originalDeltaTime;
-    //private bool isActive;
+    //private bool isZoneActive;
 
 	void Start ()
     {
         index = 0;
         originalDeltaTime = Time.fixedDeltaTime;
-        //isActive = true;
-        GameManager.Instance.currentPC.IsZoneDigging = true;
+        //isZoneActive = true;
+        //GameManager.Instance.currentPC.isZoneDigging = true;
         InGameHUD.Instance.tabTutorial.gameObject.SetActive(true);
         //StopTime();
         GameManager.Instance.digCount = 1; // Gives a re-chance to the player if he fails a dig
@@ -25,15 +25,15 @@ public class TutorialManager : MonoBehaviour {
 	
 	void Update ()
     {
-        //if (isActive && Time.timeScale != 0f) // Avoid that the player pauses to restart time
+        //if (isZoneActive && Time.timeScale != 0f) // Avoid that the player pauses to restart time
         //if (GameManager.Instance.currentPC.IsZoneDigging && Time.timeScale != 0f) // Avoid that the player pauses to restart time
             //StopTime();
-        //if (isActive && Input.GetKeyDown(KeyCode.Tab))
-        if (GameManager.Instance.currentPC.IsZoneDigging && Input.GetKeyDown(KeyCode.Tab))
+        //if (isZoneActive && Input.GetKeyDown(KeyCode.Tab))
+       // if (GameManager.Instance.currentPC.isZoneDigging && Input.GetKeyDown(KeyCode.Tab))
             if (!spawnOrder[index].Next())
             {
-                //isActive = false;
-                GameManager.Instance.currentPC.IsZoneDigging = false;
+                //isZoneActive = false;
+              //  GameManager.Instance.currentPC.isZoneDigging = false;
                 InGameHUD.Instance.tabTutorial.gameObject.SetActive(false);
                 spawnOrder[index].AddMenuEntry();
                 //RestartTime();
@@ -46,8 +46,8 @@ public class TutorialManager : MonoBehaviour {
     {
         spawnOrder[index].gameObject.SetActive(false);
         index++;
-        //isActive = true;
-        GameManager.Instance.currentPC.IsZoneDigging = true;
+        //isZoneActive = true;
+        //GameManager.Instance.currentPC.isZoneDigging = true;
         InGameHUD.Instance.tabTutorial.gameObject.SetActive(true);
         //StopTime();
         spawnOrder[index].gameObject.SetActive(true);

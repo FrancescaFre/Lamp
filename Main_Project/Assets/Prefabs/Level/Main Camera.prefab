@@ -37,13 +37,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1180277617239296}
-  m_LocalRotation: {x: 0.1932899, y: 0.7305896, z: -0.23035397, w: 0.6130374}
-  m_LocalPosition: {x: -4.358, y: 23.023, z: 0.839}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 35, y: 100.00001, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &20634048570460312
 Camera:
   m_ObjectHideFlags: 1
@@ -129,9 +129,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraSpeed: 5
   smooth_speed: 0.125
-  player: {fileID: 0}
+  target: {fileID: 0}
   planet: {fileID: 0}
-  offset: {x: 0, y: 10, z: -11}
+  offset: {x: 0, y: 2, z: -3}
   max_zoom: 1.2
   min_zoom: 0.3
   normalVignetteSmoothness: 0.2
