@@ -59,18 +59,14 @@ public class PlayerController : MonoBehaviour {
     public ParticleSystem halfCurseEffect;
     public ParticleSystem fullCurseEffect;
     public ParticleSystem digEffect;
+    public ParticleSystem digRing;
     public PlayerSFXEmitter emitter;
 
     [Header("In-HUD References")]
     public Image questionMark;
     public Slider caster;
 
-    [Space]
-    //TEST
-    public GameObject otherplayer;
-    public Lantern Lantern { get; set; }
-    //TEST
-
+    public Lantern Lantern;
     //#####################################################################
 
     private void Awake() {
@@ -92,14 +88,16 @@ public class PlayerController : MonoBehaviour {
 
         emitter = GetComponent<PlayerSFXEmitter>();
 
-        var particles = GetComponentsInChildren<CFX_AutoDestructShuriken>();
+        var particles = GetComponentsInChildren<ParticleSystem>();
         foreach (var part in particles) {
             if (part.CompareTag(Tags.Half_Curse))
-                halfCurseEffect = part.GetComponent<ParticleSystem>();
+                halfCurseEffect = part;
             else if (part.CompareTag(Tags.Full_Curse))
-                fullCurseEffect = part.GetComponent<ParticleSystem>();
+                fullCurseEffect = part;
             else if (part.CompareTag(Tags.Dig_Effect))
-                digEffect = part.GetComponent<ParticleSystem>();
+                digEffect = part;
+            else if (part.CompareTag(Tags.Dig_Ring))
+                digRing = part;
             part.gameObject.SetActive(false);
         }
 

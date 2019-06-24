@@ -21,8 +21,9 @@ public static class Tags {
     public readonly static string GoodSpirits = "Spirit/Good";
     public readonly static string BadSpirits = "Spirit/Bad";
     //dig
-    public readonly static string DigLight = "DigLight";
-    public readonly static string Dig_Effect = "Dig_Effect";
+    public readonly static string Dig_Light = "Dig/Light";
+    public readonly static string Dig_Effect = "Dig/Effect";
+    public readonly static string Dig_Ring = "Dig/Ring";
     //surfaces
     public readonly static string Water = "Surface/Water";
     public readonly static string Leaves = "Surface/Leaves";

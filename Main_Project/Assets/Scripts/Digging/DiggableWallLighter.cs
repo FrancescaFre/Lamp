@@ -4,6 +4,7 @@ using UnityEngine;
 public class DiggableWallLighter : MonoBehaviour {
 
     //Walls lighter
+    [Range(5f,15f)]
     public float overlapRadius = 10f;
     public SphereCollider overlapOnWalls;
     public List<Collider> colliders;
