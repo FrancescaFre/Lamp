@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class TutorialController : MonoBehaviour {
 
-    int tutorialPage = 1;
-    List<Transform> cameraTrace;
-    Vector3 destination;
-    int nextDest = 0; 
+    int tutorialPage = 0;
+    List<Transform> cameraTrace = new List<Transform>();
+    Vector3 destination = Vector3.zero;
+    int nextDest = 0;
+    float progress = 0f; 
 
+    private float time_to_wait = 3f; 
     public List<GameObject> checkPoints; 
 
 	// Use this for initialization
@@ -20,33 +22,36 @@ public class TutorialController : MonoBehaviour {
 	void Update () {
 
         switch (tutorialPage) {
-            case 1: Step1(); break; 
+            case 0: Step0(); break; 
         }
 
-
-        //movment of the camera
-        if (cameraTrace.Count > 0 && destination != Vector3.zero) {
-            if (Vector3.Distance(destination, transform.position) < 0.3f)
-            {
-                cameraTrace.RemoveAt(0);
-                destination = cameraTrace[0].position;
-            }
+        //---- skip
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            cameraTrace.Clear();
         }
-        if (cameraTrace.Count == 0) {
+
+        progress += Time.deltaTime;
+        if (progress >= time_to_wait && cameraTrace.Count > 0) {
+            progress = 0;
+            
+            BasicCamera.instance.ChangeTarget(cameraTrace[0]);
+            cameraTrace.RemoveAt(0);
+        }
+
+        if (progress >= time_to_wait && cameraTrace.Count == 0) {
             nextDest=0;
-            destination = Vector3.zero;
             BasicCamera.instance.ChangeTarget(GameManager.Instance.currentPC.transform);
         }
-
-
-
 	}
 
-    void Step1() {
+    void Step0() {
         foreach (Transform child in checkPoints[tutorialPage].transform)
             cameraTrace.Add(child);
-        destination = cameraTrace[nextDest].position;
-        BasicCamera.instance.ChangeTarget(cameraTrace[nextDest]);
 
+        BasicCamera.instance.ChangeTarget(cameraTrace[0]);
+        cameraTrace.RemoveAt(0);
+
+        tutorialPage++; 
     }
 }
