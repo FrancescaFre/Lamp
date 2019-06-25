@@ -173,33 +173,22 @@ public class DigBehaviour : MonoBehaviour {
   
         transform.position = Vector3.zero;
         
-        //[CHECK]
-        transform.rotation = Quaternion.Euler(Vector3.zero);
         digRing.Stop();
         isZoneActive = false;
     }
 
-    private void ZoneDig() {
-        
+    private void ZoneDig() {        
         if (CanZoneDig()) {
-            pc.drillGO.SetActive(true);
-            AnimationManager.Anim_StarDigging(pc.characterAnimator);
-            if (pc.CharacterPeriod == CharPeriod.ORIENTAL)
-
-                Invoke("HideDrillGO", AnimationManager.Anim_LenghtAnim(pc.characterAnimator, "orientalDIG"));
-            else
-                Invoke("HideDrillGO", AnimationManager.Anim_LenghtAnim(pc.characterAnimator, "Dig And Plant Seeds"));
             StartCasting();
-            pc.isCasting = true;
         }
-        else {
-            
+        else {         
             ReleaseZoneDigger();
-
-        }
-        
+        }       
     }
-  
+
+    public bool CanZoneDig() {
+        return canDig;
+    }
     #endregion
 
     #region VERTICAL DIG HANDLER
@@ -209,6 +198,7 @@ public class DigBehaviour : MonoBehaviour {
 
 
         rb.MovePosition(-pc.transform.position);
+
         pc.digRing.gameObject.SetActive(true);
         pRenderer = pc.digRing.GetComponent<ParticleSystemRenderer>();
         pc.digRing.Play();
@@ -220,9 +210,10 @@ public class DigBehaviour : MonoBehaviour {
         pc.isCasting = false;
 
         transform.position = Vector3.zero;
-
+        
+        
         //[CHECK]
-        transform.rotation = Quaternion.Euler(Vector3.zero);
+      //  transform.rotation = Quaternion.Euler(Vector3.zero);
         pc.digRing.Stop();
         isVerticalActive = false;
     }
@@ -230,30 +221,39 @@ public class DigBehaviour : MonoBehaviour {
     private void VerticalDig() {
 
         if (CanVerticalDig()) {
-            pc.drillGO.SetActive(true);
-            AnimationManager.Anim_StarDigging(pc.characterAnimator);
-            if (pc.CharacterPeriod == CharPeriod.ORIENTAL)
-
-                Invoke("HideDrillGO", AnimationManager.Anim_LenghtAnim(pc.characterAnimator, "orientalDIG"));
-            else
-                Invoke("HideDrillGO", AnimationManager.Anim_LenghtAnim(pc.characterAnimator, "Dig And Plant Seeds"));
             StartCasting();
-            pc.isCasting = true;
         }
         else 
             ReleaseVerticalDigger();
     }
 
+    public bool CanVerticalDig() {
+
+        return !_pm.OnWater && !_pm.OnIce && !_pm.OnSolidFloor && canDig;
+
+    }
     #endregion
-  protected void HideDrillGO() {
+
+    protected void HideDrillGO() {
         pc.drillGO.SetActive(false);
     }
     /// <summary>
     /// Pops up and starts the casting bar
     /// </summary>
     protected void StartCasting() {
+        pc.drillGO.SetActive(true);
+        AnimationManager.Anim_StarDigging(pc.characterAnimator);
+        if (pc.CharacterPeriod == CharPeriod.ORIENTAL)
+
+            Invoke("HideDrillGO", AnimationManager.Anim_LenghtAnim(pc.characterAnimator, "orientalDIG"));
+        else
+            Invoke("HideDrillGO", AnimationManager.Anim_LenghtAnim(pc.characterAnimator, "Dig And Plant Seeds"));
+        
+        
+
         _progress = 0;
         pc.caster.gameObject.SetActive(true);
+        pc.isCasting = true;
     }
 
     /// <summary>
@@ -280,17 +280,9 @@ public class DigBehaviour : MonoBehaviour {
         pc.caster.maxValue = castingTime;
     }
 
-    public bool CanZoneDig() {
-        
-        return canDig;
 
-    }
 
-    public bool CanVerticalDig() {
-      
-        return !_pm.OnWater &&  !_pm.OnIce && !_pm.OnSolidFloor && canDig;
 
-    }
     public void Dig() {
         if (pc.digEffect) {
             pc.digEffect.gameObject.SetActive(true);

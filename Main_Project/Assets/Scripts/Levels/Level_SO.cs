@@ -13,18 +13,17 @@ public class Level_SO : ScriptableObject {
 
     [Header("Level Details")]
     public string LevelName;
-
     public Season levelSeason;
     public CharPeriod epoch;
     public string Description;
     public bool isCompleted = false;
-
+    public Sprite levelFrameFull;
+    public Sprite levelFrameEmpty;
     [Header("Music clips")]
     public List<AudioClip> levelMusic;
 
     [Header("SFX clips")]
     public AudioClip lampSwitchSFX;
-
     public AudioClip keySFX;
     public AudioClip drillSFX;
     public AudioClip missingSFX;
@@ -32,7 +31,6 @@ public class Level_SO : ScriptableObject {
 
     [Header("Lamp properties")]
     public int allyLamps;
-
     public Color allyColor = Color.yellow;
     public int enemyLamps;
     public Color enemyColor = Color.magenta;

@@ -15,6 +15,9 @@ public class NewGuiManager : MonoBehaviour {
     public GameObject onScreenAnchor;
     public GameObject continueLabelPrefab;
 
+    public Image detailsPanelImage;
+    public Image challengePanelImage;
+
     [Header("Level Details")]
     public GameObject planetInfoPanel;
     public TextMeshProUGUI levelName;
@@ -41,10 +44,16 @@ public class NewGuiManager : MonoBehaviour {
     }
 
     public void ShowLevelInfo() {
-        planetInfoPanel.SetActive(true);
+        
+
+        detailsPanelImage.sprite = GameManager.Instance.levelLoaded.levelFrameFull;
+        challengePanelImage.sprite = GameManager.Instance.levelLoaded.levelFrameFull;
+
         levelName.text = GameManager.Instance.levelLoaded.LevelName;
         epoch.text = GameManager.Instance.levelLoaded.epoch.ToString();
         season.text = GameManager.Instance.levelLoaded.levelSeason.ToString();
+
+        planetInfoPanel.SetActive(true);
         for (int i = 0; i < 3; i++) {
             challanges[i].text = GameManager.Instance.levelLoaded.subQuests[i];
             challanges[i].GetComponentInChildren<Toggle>().isOn = GameManager.Instance.levelLoaded.questCompletion[i];
