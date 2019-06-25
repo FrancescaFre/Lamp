@@ -28,7 +28,10 @@ public class NewTeamFormationGUI : MonoBehaviour {
 
     public Dictionary<CharPeriod, Light> LightsDict;
 
-    private void Start() {
+   
+
+    private void Start(){
+        
         teamList = new List<CharPeriod>(3);
         LightsDict = new Dictionary<CharPeriod, Light>();
 

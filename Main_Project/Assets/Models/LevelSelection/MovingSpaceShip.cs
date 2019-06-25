@@ -26,7 +26,7 @@ public class MovingSpaceShip : MonoBehaviour {
     private GameObject confirmLabel;
     private Camera mainCamera;
 
-    public bool charSelection = false;
+    public bool toCharSelection = false;
 
     // Use this for initialization
     private void Start() {
@@ -44,7 +44,7 @@ public class MovingSpaceShip : MonoBehaviour {
     }
 
     private void ShipMovement() {
-        if (charSelection) return;
+        if (toCharSelection) return;
 
         float translation = Input.GetAxis("Vertical") * speed;
 
@@ -82,12 +82,12 @@ public class MovingSpaceShip : MonoBehaviour {
 
     private void LateUpdate() {
         confirmLabel.transform.position = mainCamera.WorldToScreenPoint(transform.position + Vector3.up);
-        confirmLabel.SetActive(!charSelection && inFrontOf);
-        if (!charSelection && inFrontOf && Input.GetKeyDown(KeyCode.Space)) {
-            charSelection = true;
+        confirmLabel.SetActive(!toCharSelection && inFrontOf);
+        if (!toCharSelection && inFrontOf && Input.GetKeyDown(KeyCode.Space)) {
+            toCharSelection = true;
 
             shipModel.SetActive(false);
-            NewGuiManager.instance.SwitchCharANDLevel(charSelection);
+            NewGuiManager.instance.SwitchCharANDLevel(toCharSelection);
         }
     }
 

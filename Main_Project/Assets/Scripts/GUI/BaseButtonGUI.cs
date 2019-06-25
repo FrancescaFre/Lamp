@@ -5,27 +5,27 @@ using UnityEngine.EventSystems;
 public class BaseButtonGUI : MonoBehaviour, ICancelHandler, IPointerClickHandler, ISubmitHandler, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler {
 
     [Header("Halo Effect")]
-    public GameObject haloParticleGO;
+    public ParticleSystem haloParticle;
     public ParticleRendererGUI haloRenderer;
     public Material highlight;
     public Material selected;
     public Button thisButton;
 
     public virtual void Awake() {
-        if (!haloParticleGO) {
+        if (!haloParticle) {
             haloRenderer = GetComponentInChildren<ParticleRendererGUI>(includeInactive: true);
-            haloParticleGO = haloRenderer.gameObject;
+            haloParticle = haloRenderer.GetComponent<ParticleSystem>();
         }
         StopHalo();
         thisButton = GetComponent<Button>();
     }
 
     public void StartHalo() {
-        haloParticleGO.SetActive(true);
+        haloParticle.Play();
     }
 
     public void StopHalo() {
-        haloParticleGO.SetActive(false);
+        haloParticle.Stop();
     }
 
     public void SetSelected() {

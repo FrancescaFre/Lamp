@@ -19,16 +19,12 @@ public class NewPlayGUI : BaseButtonGUI {
         NewGuiManager.instance.CheckSelectedTeam();
     }
 
-    public override void OnCancel(BaseEventData eventData) {
-        if (teamGUI.teamList.Count == 1)
-            teamGUI.SetCharacter(teamGUI.teamList[0]);
-        else if (teamGUI.teamList.Count == 2)
-            teamGUI.SetCharacter(teamGUI.teamList[1]);
-        else if (teamGUI.teamList.Count == 3)
-            teamGUI.SetCharacter(teamGUI.teamList[2]);
+   /* public override void OnCancel(BaseEventData eventData) {
+        if (teamGUI.teamList.Count >0)
+            teamGUI.SetCharacter(teamGUI.teamList[teamGUI.teamList.Count - 1]);
         else
             NewGuiManager.instance.SwitchCharANDLevel();
-    }
+    }*/
 
     public override void OnPointerEnter(PointerEventData eventData) {
         if (teamGUI.teamList.Count < teamGUI.MIN_TEAM_NUMBER) return;

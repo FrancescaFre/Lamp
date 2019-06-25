@@ -38,12 +38,9 @@ public class PlayerController : MonoBehaviour {
     public Status CurseStatus;
     public Visibility Visible;
 
-    //public VerticalDig VDig { get; set; }
-   // public ZoneDig ZDig { get; set; }
 
     public bool IsMimicOrDash;
     public bool IsSafe;
-    //public bool isZoneDigging;
     public bool isCasting;
     public bool runningAnimation = false;
 
@@ -80,9 +77,6 @@ public class PlayerController : MonoBehaviour {
     private void Start() {
         _rb = GetComponent<Rigidbody>();
         _modelTransform = GetComponent<DifferenceOfTerrain>().modelTransform;
-
-      //  VDig = GetComponentInChildren<VerticalDig>(includeInactive: true);
-       // ZDig = GetComponentInChildren<ZoneDig>(includeInactive: true);
 
         skill = GetComponentInChildren<Skill>();
 

@@ -15,8 +15,7 @@ public class NewGuiManager : MonoBehaviour {
     public GameObject onScreenAnchor;
     public GameObject continueLabelPrefab;
 
-    public Image detailsPanelImage;
-    public Image challengePanelImage;
+    public List<Image> Frames_Full;
 
     [Header("Level Details")]
     public GameObject planetInfoPanel;
@@ -30,6 +29,8 @@ public class NewGuiManager : MonoBehaviour {
     [Space]
     public NewPlayGUI PlayButton;
 
+    public NewTeamFormationGUI teamGUI;
+
     private void Awake() {
         if (!instance)
             instance = this;
@@ -39,15 +40,36 @@ public class NewGuiManager : MonoBehaviour {
 
     private void Start() {
         thisCanvas = GetComponent<Canvas>();
-
+        teamGUI = GetComponentInChildren<NewTeamFormationGUI>(includeInactive: true);
         planetInfoPanel.SetActive(false);
     }
+    private void LateUpdate() {
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Backspace) || Input.GetButtonDown(Controllers.PS4_Button_O)) {
+            if (teamGUI.teamList.Count > 0) {
+                teamGUI.SetCharacter(teamGUI.teamList[teamGUI.teamList.Count - 1]);
+                return;
 
-    public void ShowLevelInfo() {
-        
+            }
 
-        detailsPanelImage.sprite = GameManager.Instance.levelLoaded.levelFrameFull;
-        challengePanelImage.sprite = GameManager.Instance.levelLoaded.levelFrameFull;
+            if (!GameManager.Instance.levelLoaded && GameManager.Instance.TeamList == null) {
+                SceneManager.LoadScene(0);
+                return;
+            }
+
+            if (spaceShip.toCharSelection
+             && GameManager.Instance.levelLoaded
+             && (teamGUI.teamList == null || teamGUI.teamList.Count == 0)) {
+                SwitchCharANDLevel();
+            }
+        }
+
+    }
+
+    public void ShowLevelInfo(){
+        Sprite frame_full = GameManager.Instance.levelLoaded.levelFrameFull;
+
+        if(Frames_Full!=null && Frames_Full.Count>0)
+            Frames_Full.ForEach(img=> img.sprite=frame_full);
 
         levelName.text = GameManager.Instance.levelLoaded.LevelName;
         epoch.text = GameManager.Instance.levelLoaded.epoch.ToString();
@@ -69,42 +91,36 @@ public class NewGuiManager : MonoBehaviour {
         confirmLabel.SetActive(false);
     }
 
-    public void SwitchCharANDLevel(bool charSelection = false) {
-        thisCanvas.renderMode = RenderMode.ScreenSpaceCamera;
+    public void SwitchCharANDLevel(bool toCharSelection = false) {
+        
         planetInfoPanel.SetActive(!planetInfoPanel.activeInHierarchy);
         onScreenAnchor.SetActive(!onScreenAnchor.activeInHierarchy);
 
         charManager.gameObject.SetActive(!charManager.gameObject.activeInHierarchy);
 
-        if (!charSelection) {
-            spaceShip.charSelection = false;
-            spaceShip.shipModel.SetActive(true);
-            GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
-
-            charManager.HideModels();
-        }
-        else {
+        if (toCharSelection){
+            thisCanvas.renderMode = RenderMode.ScreenSpaceCamera;
             charManager.ShowModels();
+            return;
         }
+
+    
+        spaceShip.toCharSelection = false;
+        spaceShip.shipModel.SetActive(true);
+        thisCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+
+        charManager.HideModels();
+       
     }
 
-    private void LateUpdate() {
-        if (!GameManager.Instance.levelLoaded && GameManager.Instance.TeamList == null && Input.GetKeyDown(KeyCode.Escape))
-            SceneManager.LoadScene(0);
 
-        if (spaceShip.charSelection
-            && GameManager.Instance.levelLoaded
-            && PlayButton.teamGUI.teamList.Count == 0
-            && Input.GetKeyDown(KeyCode.Escape))
-            SwitchCharANDLevel();
-    }
 
     public void CheckSelectedTeam() {
         if (GameManager.Instance.TeamList != null && GameManager.Instance.TeamList.Count >= 2 && GameManager.Instance.levelLoaded)
             GameManager.Instance.LoadGame();
         else {
             PlayButton.thisButton.interactable = false;
-            // PlayButton.transform.GetChild(0).gameObject.SetActive(PlayButton.interactable);
+            
             PlayButton.StopHalo();
         }
     }

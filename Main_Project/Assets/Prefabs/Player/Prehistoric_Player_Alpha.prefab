@@ -3303,6 +3303,10 @@ MonoBehaviour:
   walkSpeed: 3
   stealthSpeed: 2
   runSpeed: 5
+  OnWater: 0
+  OnLeaves: 0
+  OnIce: 0
+  OnSolidFloor: 0
   staminaHUD: {fileID: 0}
   maxStamina: 5
   staminaFallRate: 2
@@ -3339,6 +3343,7 @@ MonoBehaviour:
   halfCurseEffect: {fileID: 0}
   fullCurseEffect: {fileID: 0}
   digEffect: {fileID: 0}
+  digRing: {fileID: 0}
   emitter: {fileID: 0}
   questionMark: {fileID: 0}
   caster: {fileID: 0}
@@ -3378,10 +3383,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 4
+  m_Radius: 0.3
+  m_Height: 1.1211047
   m_Direction: 1
-  m_Center: {x: 0, y: 2, z: 0}
+  m_Center: {x: 0, y: 0.5612068, z: 0}
 --- !u!137 &137005070416461110
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

@@ -1,8 +1,11 @@
 ﻿
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using MEC;
 
 public class StartMenuGUI : MonoBehaviour {
 
@@ -26,7 +29,10 @@ public class StartMenuGUI : MonoBehaviour {
     }
 
     public void LoadLevelSelection() {
+        //SceneManager.LoadSceneAsync("1_LevelSelection");
         SceneManager.LoadScene(1);
+        //Timing.RunCoroutine(_AsyncLoadScene());
+        //StartCoroutine(_AsyncLoadScene());
     }
 
     public void QuitGame() {
@@ -64,5 +70,17 @@ public class StartMenuGUI : MonoBehaviour {
     }
     public void OpenFBLink() {
         Application.OpenURL("https://www.facebook.com/pg/LampGameProject");
+    }
+
+    IEnumerator _AsyncLoadScene(){
+
+        AsyncOperation async= SceneManager.LoadSceneAsync(1,LoadSceneMode.Single);
+        //async.allowSceneActivation = false;
+        while (!async.isDone){
+            Debug.Log(async.progress);
+            yield return null;
+        }
+      
+        //async.allowSceneActivation = true;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Experimental.PlayerLoop;
 
 public class NewCharacterGUI : BaseButtonGUI {
 
@@ -28,6 +29,8 @@ public class NewCharacterGUI : BaseButtonGUI {
         chManager.ShowCharacterInfo();
     }
 
+
+
     #region Event Handlers
 
     public override void OnPointerEnter(PointerEventData eventData) {
@@ -52,7 +55,7 @@ public class NewCharacterGUI : BaseButtonGUI {
         StopHalo();
     }
 
-    public override void OnCancel(BaseEventData eventData) {
+   /* public override void OnCancel(BaseEventData eventData) {
         base.OnCancel(eventData);
         if (teamGUI.teamList.Count > 0) {// remove one by one the team members
             teamGUI.SetCharacter(teamGUI.teamList[teamGUI.teamList.Count - 1]);
@@ -60,7 +63,7 @@ public class NewCharacterGUI : BaseButtonGUI {
         else {  //if the list is empty goes back to level selection
             NewGuiManager.instance.SwitchCharANDLevel();
         }
-    }
+    }*/
 
     public override void OnSubmit(BaseEventData eventData) {
         if (!thisButton.interactable) return;
