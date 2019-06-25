@@ -242,10 +242,11 @@ public class GameManager : MonoBehaviour {
     }
 
     public List<GameObject> npc;
-
+    
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        if (scene.buildIndex < 2) return;
-        Debug.Log("OnSceneLoaded: " + scene.name);
+        
+        if (scene.name.StartsWith("0_")|| scene.name.StartsWith("1_")) return;
+        Debug.Log("OnSceneLoaded: " + scene.name+" "+ scene.buildIndex);
         if (!EventSystem.current) {
             GameObject eventSystem = new GameObject("EventSystem", typeof(EventSystem));
             eventSystem.AddComponent<StandaloneInputModule>();
