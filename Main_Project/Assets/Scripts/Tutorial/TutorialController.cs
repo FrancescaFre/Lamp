@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class TutorialController : MonoBehaviour {
+public class TutorialController : MonoBehaviour{
+    public GameObject TutorialPanel;
 
     int tutorialPage = 0;
     List<Transform> cameraTrace = new List<Transform>();
@@ -13,42 +15,62 @@ public class TutorialController : MonoBehaviour {
     private bool disableVerticalDig = true;
     private bool disableZoneDig = true;
 
+    [Header("Tutorial texts")]
+    public Tutorial_SO tutorialTexts;
+
+    public TextMeshProUGUI GeneralTextField;
+    public GameObject CompassField;
+    public GameObject SpaceBar;
+
+    [Header("Tutorial checkpoints")]
     public List<GameObject> checkPoints;
-    
+
     //to setActive
+    [Header("Tutorial items")]
     public GameObject key;
     public GameObject drill_1;
     public GameObject drill_2;
-    public GameObject missing; 
+    public GameObject missing;
 
-	// Use this for initialization
-	private void Start () {
-	    //instantiate of all prefab 	
-	}
-	
-	// Update is called once per frame
-	private void Update () {
+    private bool stopCamera = false;
+    private bool nextText = false;
 
-        //---- skip
-        if (Input.GetKeyDown(KeyCode.P))
-        {
+    private void Start() {
+        CompassField.SetActive(false);
+    }
+
+    // Update is called once per frame
+    private void Update () {
+         CheckEvent();
+         SpaceBar.SetActive(!nextText);
+
+         if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown(Controllers.PS4_Button_X)){
+             stopCamera = false;
+             nextText = true;
+         }
+
+         if(!stopCamera)
+            MoveCamera();
+
+    }
+
+    private void MoveCamera() {  //---- skip
+        if (Input.GetKeyDown(KeyCode.P)) {
             cameraTrace.Clear();
         }
 
         progress += Time.deltaTime;
         if (progress >= time_to_wait && cameraTrace.Count > 0) {
             progress = 0;
-            
+
             BasicCamera.instance.ChangeTarget(cameraTrace[0]);
             cameraTrace.RemoveAt(0);
         }
 
-        if (progress >= time_to_wait && cameraTrace.Count == 0) {
-            
+        if (progress >= time_to_wait && cameraTrace.Count == 0){
+            progress = 0;
             BasicCamera.instance.ChangeTarget(GameManager.Instance.currentPC.transform);
         }
-
-        CheckEvent(); 
     }
 
     void FillCameraTrace() {
@@ -57,11 +79,7 @@ public class TutorialController : MonoBehaviour {
 
         BasicCamera.instance.ChangeTarget(cameraTrace[0]);
         cameraTrace.RemoveAt(0);
-
-     
     }
-
-    
 
     private void CheckEvent()
     {
@@ -71,8 +89,8 @@ public class TutorialController : MonoBehaviour {
 
             case 1: step1(); break;
 
-            case 2: 
-                if(GameManager.Instance.allyLamps == 1)
+            case 2:               
+                if (GameManager.Instance.allyLamps == 1)
                     step2(); break;
 
             case 3:
@@ -90,12 +108,33 @@ public class TutorialController : MonoBehaviour {
             case 9:
                 if(GameManager.Instance.enemyLamps == 0)
                     step9(); break;
-
-            default: break;
         }
 
     }
 
+    public void Notify(int n) {
+        switch (n) {
+            case 1:
+            case 2: nextText = true;
+                break;
+            case 6: if (tutorialPage == 6) step6(); break;
+            case 7: if (tutorialPage == 7) step7(); break;
+            case 8: if (tutorialPage == 8) step8(); break;
+            case 10: if (tutorialPage == 10) step10(); break;
+            case 11: if (tutorialPage == 11) step11(); break;
+        }
+    }
+
+   private void PanelON(){
+        TutorialPanel.SetActive(true);
+    }
+    private void PanelOFF(){
+        nextText = false;
+        GeneralTextField.text = "";
+        TutorialPanel.SetActive(false);
+    }
+
+    //-----------------STEPS
     private void step0()
     {
         
@@ -105,11 +144,23 @@ public class TutorialController : MonoBehaviour {
             FillCameraTrace();
             fill_camera = true;
 
+            PanelON();
+            GeneralTextField.text = tutorialTexts.step0_1;
+            
+
             //print: complete the level...
         }
 
-        if (cameraTrace.Count == 4)
+        if (cameraTrace.Count == 2)
         {
+            stopCamera = true;
+            
+            if (nextText) {
+                GeneralTextField.text = tutorialTexts.step0_2;
+                stopCamera = false;
+               
+            }
+
             //print: these are the light to follow..
         }
 
@@ -118,39 +169,68 @@ public class TutorialController : MonoBehaviour {
             //end
             StopPlayerMovement(false);
             fill_camera = false;
-            tutorialPage++; 
+            tutorialPage++;
+            PanelOFF();
         }
 
     }
 
     private void step1()
     {
+        PanelON();
+        GeneralTextField.text = tutorialTexts.step1_1;
+
         //print movement tutorial
-        tutorialPage++;
+
+        if (nextText){
+            tutorialPage++;
+            PanelOFF();
+        }
     }
 
-    private void step2()
-    {
+    private void step2() {
+        
+        PanelON();
+        CompassField.SetActive(true);
         //print compass tutorial
-        tutorialPage++;
+
+        if (nextText) {
+            PanelOFF();
+            tutorialPage++;
+            CompassField.SetActive(false);
+        }
     }
 
     private void step3()
     {
         if (!fill_camera)
-        {
+        {   
             StopPlayerMovement(true);
             key.SetActive(true);
+
+            PanelON();
+            GeneralTextField.text = tutorialTexts.step3_1;
 
             FillCameraTrace();
             fill_camera = true;
         }
 
+        
+
         if (cameraTrace.Count == 0)
         {
+            stopCamera = true;
+
+            if (!nextText) return;
+
+            stopCamera = false;
+
+            PanelOFF();
+
             StopPlayerMovement(false);
             tutorialPage++;
             fill_camera = false;
+            
         }
     }
 
@@ -291,15 +371,5 @@ public class TutorialController : MonoBehaviour {
         GameManager.Instance.currentPC.GetComponent<PlayerMovement>().OnIce = mov;
     }
 
-    public void Notify(int n)
-    {
-        switch (n)
-        {
-            case 06: if (tutorialPage == 6) step6(); break;
-            case 7: if (tutorialPage == 7) step7(); break;
-            case 8: if (tutorialPage == 8) step8(); break;
-            case 10: if (tutorialPage == 10) step10(); break;
-            case 11: if (tutorialPage == 11) step11(); break;
-        }
-    }
+
 }

@@ -5,8 +5,10 @@ using UnityEngine;
 public class Tutorial_Collider : MonoBehaviour
 {
     private TutorialController tutorialController;
-    private int code; 
+    private int code;
 
+    private List<int> exit = new List<int>{ 1, 2 };
+    private List<int> enter = new List<int> { 6, 7, 8, 10, 11 };
 	// Use this for initialization
 	void Start ()
     {
@@ -17,8 +19,19 @@ public class Tutorial_Collider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(Tags.Player))
-            tutorialController.Notify(code);    
+        if (other.CompareTag(Tags.Player) && enter.Contains(code)) {
+            tutorialController.Notify(code);
+            Debug.Log("enter code "+code);
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        if (other.CompareTag(Tags.Player) && exit.Contains(code)) {
+        
+            tutorialController.Notify(code);
+            Debug.Log("exit code " + code);
+        }
+
     }
 
 
