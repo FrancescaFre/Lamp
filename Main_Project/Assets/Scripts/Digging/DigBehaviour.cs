@@ -16,7 +16,7 @@ public class DigBehaviour : MonoBehaviour {
     public  bool isVerticalActive;
     [Range(1f,10f)]
     public float distanceRadius = 8f;
-    private PlayerController pc;
+    //private PlayerController pc;
     private PlayerMovement _pm;
     private Vector3 _movement;
     private Rigidbody rb;
@@ -53,7 +53,7 @@ public class DigBehaviour : MonoBehaviour {
         pRenderer.sharedMaterial = dig;
         digRing.Stop();
         
-        pc = GameManager.Instance.currentPC;
+        //pc = GameManager.Instance.currentPC;
         rb.MovePosition(Vector3.zero);
     }
 
@@ -66,6 +66,8 @@ public class DigBehaviour : MonoBehaviour {
     }
  
     private void FixedUpdate() {
+        PlayerController pc = GameManager.Instance.currentPC;
+
         if (!pc) return;
         if (!pc.caster) return;
 
@@ -109,13 +111,13 @@ public class DigBehaviour : MonoBehaviour {
     }
 
     private void CheckInput() {
+        PlayerController pc = GameManager.Instance.currentPC;
         if (!pc) return;
         if (GameManager.Instance.digCount <= 0) return;
         if (pc.isCasting || InGameHUD.Instance.pauseManager.IsPaused) return;
         
         //vertical
         if (Input.GetKeyDown(KeyCode.Mouse1) || Input.GetButtonDown(Controllers.PS4_Button_Triangle)) { // [VDIG]
-            
 
             if (isZoneActive) {
                 ReleaseZoneDigger();
@@ -154,7 +156,7 @@ public class DigBehaviour : MonoBehaviour {
     #region ZONE DIG HANDLER
 
     public void ActivateZoneDigger() {
-        pc = GameManager.Instance.currentPC;
+        PlayerController pc = GameManager.Instance.currentPC;
         _pm = pc.GetComponent<PlayerMovement>();
         _speed = _pm.walkSpeed;
 
@@ -204,7 +206,7 @@ public class DigBehaviour : MonoBehaviour {
 
     #region VERTICAL DIG HANDLER
     public void ActivateVerticalDigger() {
-        pc = GameManager.Instance.currentPC;
+        PlayerController pc = GameManager.Instance.currentPC;
         _pm = pc.GetComponent<PlayerMovement>();
 
 
@@ -218,14 +220,11 @@ public class DigBehaviour : MonoBehaviour {
     }
 
     public void ReleaseVerticalDigger() {
-        pc.isCasting = false;
+        GameManager.Instance.currentPC.isCasting = false;
 
         transform.position = Vector3.zero;
-        
-        
-        //[CHECK]
-      //  transform.rotation = Quaternion.Euler(Vector3.zero);
-        pc.digRing.Stop();
+
+        GameManager.Instance.currentPC.digRing.Stop();
         isVerticalActive = false;
     }
 
@@ -246,12 +245,13 @@ public class DigBehaviour : MonoBehaviour {
     #endregion
 
     protected void HideDrillGO() {
-        pc.drillGO.SetActive(false);
+        GameManager.Instance.currentPC.drillGO.SetActive(false);
     }
     /// <summary>
     /// Pops up and starts the casting bar
     /// </summary>
     protected void StartCasting() {
+        PlayerController pc=GameManager.Instance.currentPC;
         pc.drillGO.SetActive(true);
         AnimationManager.Anim_StarDigging(pc.characterAnimator);
         if (pc.CharacterPeriod == CharPeriod.ORIENTAL)
@@ -274,7 +274,7 @@ public class DigBehaviour : MonoBehaviour {
         if (castingTime <= 0)
             SetCastingTime();
         _progress += Time.deltaTime;
-        pc.caster.value = _progress;
+        GameManager.Instance.currentPC.caster.value = _progress;
 
         if (_progress >= castingTime) {
             Dig();
@@ -283,6 +283,7 @@ public class DigBehaviour : MonoBehaviour {
         }
     }
     private void SetCastingTime() {
+        PlayerController pc=GameManager.Instance.currentPC;
         if (pc.CharacterPeriod == CharPeriod.VICTORIAN || pc.CharacterPeriod == CharPeriod.PREHISTORY)
             castingTime = AnimationManager.Anim_LenghtAnim(pc.characterAnimator, "Dig And Plant Seeds");
         if (pc.CharacterPeriod == CharPeriod.ORIENTAL)
@@ -295,6 +296,7 @@ public class DigBehaviour : MonoBehaviour {
 
 
     public void Dig() {
+        PlayerController pc = GameManager.Instance.currentPC;
         if (pc.digEffect) {
             pc.digEffect.gameObject.SetActive(true);
             pc.digEffect.Play();
@@ -323,8 +325,8 @@ public class DigBehaviour : MonoBehaviour {
     /// </summary>
     protected void StopCasting() {
         _progress = 0;
-        pc.caster.value = 0;
-        pc.caster.gameObject.SetActive(false);
+        GameManager.Instance.currentPC.caster.value = 0;
+        GameManager.Instance.currentPC.caster.gameObject.SetActive(false);
     }
 
     public void OnDrawGizmos() {

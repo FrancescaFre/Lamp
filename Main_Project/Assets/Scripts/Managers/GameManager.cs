@@ -123,9 +123,9 @@ public class GameManager : MonoBehaviour {
     }
 
     private void DieManagement() {
-        //if (currentPC.isZoneDigging) {
+        
         if (DigBehaviour.instance.isZoneActive|| DigBehaviour.instance.isVerticalActive) {
-                //Destroy(currentPC.ZDig.movingCircle);
+                
             DigBehaviour.instance.ReleaseZoneDigger();
             DigBehaviour.instance.ReleaseVerticalDigger();
 

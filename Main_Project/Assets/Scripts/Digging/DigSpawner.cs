@@ -31,7 +31,10 @@ public class DigSpawner : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
+        if (!other.CompareTag(Tags.Player)) return;
+        
         if (exist) {
+            
 
             exist = false;
             drill.gameObject.SetActive(false);
