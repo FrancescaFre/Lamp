@@ -49,6 +49,9 @@ public class PlayerMovement : MonoBehaviour {
     public float staminaValue;
 
     //-------------------------------------------------------------------------
+    public void TutorialZeroMov(bool stop) {
+        _player.runningAnimation = stop;
+    }
 
     private void Start() {
         _player = GetComponent<PlayerController>();

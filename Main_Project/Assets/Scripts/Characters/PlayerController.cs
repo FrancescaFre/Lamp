@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour {
     /// Returns true if the player can move freely
     /// </summary>
     public bool CanMove() {
-        return !(DigBehaviour.instance.isZoneActive || isCasting || runningAnimation);
+        return !(DigBehaviour.instance.isZoneActive || isCasting || runningAnimation );
     }
 
     //#####################################################################

@@ -14,8 +14,8 @@ public class BasicCamera : MonoBehaviour {
     private Vector3 object_offset = new Vector3(0, 3, -3);
 
     private Quaternion camTurn;
-    private float input, angle = 0f, zoom_factor = 1f, offset_look = 0.15f;
-    private Vector3 desiredPos, temp_right, temp_up, close_offset = new Vector3(0, 1, -2), smooth_pos;
+    private float input, angle = 0f, zoom_factor = 1f, offset_look =0.8f;
+    private Vector3 desiredPos, temp_right, temp_up, close_offset = new Vector3(0, 3, -3), smooth_pos;
 
     public float max_zoom = 1.5f, min_zoom = 0.5f;
 

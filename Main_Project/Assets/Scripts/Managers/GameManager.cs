@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
+
 
 public class GameManager : MonoBehaviour {
     public static GameManager Instance = null;
@@ -57,7 +56,7 @@ public class GameManager : MonoBehaviour {
             return;
         }
 
-        SceneManager.sceneLoaded += OnSceneLoaded;  // add a delegate to be run everytime a scene is loaded
+       
     }
 
     // Use this for initialization
@@ -213,7 +212,8 @@ public class GameManager : MonoBehaviour {
         enemyGOList.Clear();
         CharactersDict.Clear();
         CharactersList.Clear();
-        SceneManager.LoadScene(1);//which has index 1
+        
+        SceneLoader.instance.LoadSceneAsync(1);
         AudioManager.Instance.PlayMusic();
     }
 
@@ -244,18 +244,7 @@ public class GameManager : MonoBehaviour {
 
     public List<GameObject> npc;
     
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        
-        if (scene.name.StartsWith("0_")|| scene.name.StartsWith("1_")) return;
-        Debug.Log("OnSceneLoaded: " + scene.name+" "+ scene.buildIndex);
-        if (!EventSystem.current) {
-            GameObject eventSystem = new GameObject("EventSystem", typeof(EventSystem));
-            eventSystem.AddComponent<StandaloneInputModule>();
-        }
 
-        AudioManager.Instance.OnStartGame();
-        StartGame();
-    }
 
     #endregion Scene Management
 

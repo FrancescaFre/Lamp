@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
 
 public class NewGuiManager : MonoBehaviour {
     public static NewGuiManager instance = null;
@@ -52,7 +51,8 @@ public class NewGuiManager : MonoBehaviour {
             }
 
             if (!GameManager.Instance.levelLoaded && GameManager.Instance.TeamList == null) {
-                SceneManager.LoadScene(0);
+                //SceneManager.LoadScene(0);
+                SceneLoader.instance.LoadSceneAsync(0);
                 return;
             }
 

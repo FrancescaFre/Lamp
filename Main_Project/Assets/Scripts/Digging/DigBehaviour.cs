@@ -60,6 +60,8 @@ public class DigBehaviour : MonoBehaviour {
     protected void Update() {
         _horizInput = Input.GetAxis(Controllers.Horizontal);
         _vertInput = Input.GetAxis(Controllers.Vertical);
+        
+
         CheckInput();
     }
  
@@ -113,10 +115,15 @@ public class DigBehaviour : MonoBehaviour {
         
         //vertical
         if (Input.GetKeyDown(KeyCode.Mouse1) || Input.GetButtonDown(Controllers.PS4_Button_Triangle)) { // [VDIG]
+            
+
             if (isZoneActive) {
                 ReleaseZoneDigger();
                 return;
             }
+
+            if (TutorialController.instance && TutorialController.instance.disableVerticalDig) return;
+
             if (!isVerticalActive) {
                 ActivateVerticalDigger();
                 return;
@@ -126,11 +133,15 @@ public class DigBehaviour : MonoBehaviour {
 
         //zone
         if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetButtonDown(Controllers.PS4_Button_Square)) { // [ZDIG]
+            
+
             if (isVerticalActive) {
                 ReleaseVerticalDigger();
                 return;
             }
-               
+
+            if (TutorialController.instance && TutorialController.instance.disableZoneDig) return;
+
             if (!isZoneActive) {
                 ActivateZoneDigger();
                 return;
@@ -300,7 +311,7 @@ public class DigBehaviour : MonoBehaviour {
             pc.GetComponent<Rigidbody>().MovePosition(-(pc.transform.position)); // Moves the player on the other side of the world
             ReleaseVerticalDigger();
         }
-        canDig = false;
+      
         pc.isCasting = false;
         GameManager.Instance.digCount--;
 

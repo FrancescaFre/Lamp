@@ -50,7 +50,7 @@ public class ItemCounterHUD : MonoBehaviour {
                             & GameManager.Instance.digCount > 0;
             */
 
-            canBeEnabled=(DigBehaviour.instance.CanZoneDig() || DigBehaviour.instance.CanZoneDig()) && GameManager.Instance.digCount > 0;
+            canBeEnabled=(DigBehaviour.instance.CanZoneDig() | DigBehaviour.instance.CanZoneDig()) & GameManager.Instance.digCount > 0;
         }
 
         glow.gameObject.SetActive(canBeEnabled);

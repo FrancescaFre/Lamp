@@ -9,13 +9,25 @@ public class Tutorial_Collider : MonoBehaviour
     private List<int> exit = new List<int>{ 1, 2,5, 7 };
     private List<int> enter = new List<int> { 6, 7, 8, 10, 11 };
 
+    public LampBehaviour lamp; 
 	// Use this for initialization
+
+    
 	void Start ()
     {
         tutorialController = gameObject.GetComponentInParent<TutorialController>();
         code = int.Parse(this.name.Substring(this.name.Length - 2, 2));
-    }
+        GetComponent<Collider>().isTrigger = true;
 
+        if (code==6)
+            GetComponent<Collider>().isTrigger = false;
+        
+    }
+    private void LateUpdate() {
+        if(lamp &&lamp.isTurnedOn && !lamp.isEnemyLamp && code == 6) {
+            GetComponent<Collider>().isTrigger = true;
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(Tags.Player) && enter.Contains(code)) {
