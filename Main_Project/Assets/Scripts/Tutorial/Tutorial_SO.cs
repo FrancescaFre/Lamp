@@ -9,9 +9,9 @@ public class Tutorial_SO : ScriptableObject{
 
     public string step1_1;
 
-    public string step3_1;
 
-    public string step6_1;
+
+    public string step6_2;
 
     public string step8_1;
     public string step8_2;

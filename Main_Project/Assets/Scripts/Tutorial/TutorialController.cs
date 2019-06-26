@@ -14,6 +14,8 @@ public class TutorialController : MonoBehaviour{
     private float time_to_wait = 3f;
     private bool disableVerticalDig = true;
     private bool disableZoneDig = true;
+    private int insideSteps = 0; 
+    
 
     [Header("Tutorial texts")]
     public Tutorial_SO tutorialTexts;
@@ -21,6 +23,11 @@ public class TutorialController : MonoBehaviour{
     public TextMeshProUGUI GeneralTextField;
     public GameObject CompassField;
     public GameObject SpaceBar;
+    public List<GameObject> Step3_steps;
+    public List<GameObject> Step5_steps;
+    public GameObject step6_1;
+    public List<GameObject> Step10_steps;
+
 
     [Header("Tutorial checkpoints")]
     public List<GameObject> checkPoints;
@@ -37,6 +44,13 @@ public class TutorialController : MonoBehaviour{
 
     private void Start() {
         CompassField.SetActive(false);
+        SpaceBar.SetActive(false);
+
+        Step3_steps.ForEach(GO => GO.SetActive(false));
+        Step5_steps.ForEach(GO => GO.SetActive(false));
+        step6_1.SetActive(false); ;
+        Step10_steps.ForEach(GO => GO.SetActive(false));
+        
     }
 
     // Update is called once per frame
@@ -44,7 +58,7 @@ public class TutorialController : MonoBehaviour{
          CheckEvent();
          SpaceBar.SetActive(!nextText);
 
-         if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown(Controllers.PS4_Button_X)){
+         if (TutorialPanel.activeInHierarchy && (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown(Controllers.PS4_Button_X))){
              stopCamera = false;
              nextText = true;
          }
@@ -52,9 +66,18 @@ public class TutorialController : MonoBehaviour{
          if(!stopCamera)
             MoveCamera();
 
+        if (disableVerticalDig) {
+            DigBehaviour.instance.isVerticalActive = false; 
+        }
+
+        if (disableZoneDig) {
+            DigBehaviour.instance.isZoneActive = false; 
+        }
+
     }
 
-    private void MoveCamera() {  //---- skip
+    private void MoveCamera() {  
+        //---- skip
         if (Input.GetKeyDown(KeyCode.P)) {
             cameraTrace.Clear();
         }
@@ -85,47 +108,48 @@ public class TutorialController : MonoBehaviour{
     {
         switch (tutorialPage)
         {
-            case 0: step0(); break;
+            case 0: Step0(); break;
 
-            case 1: step1(); break;
+            case 1: Step1(); break;
 
             case 2:               
                 if (GameManager.Instance.allyLamps == 1)
-                    step2(); break;
+                    Step2(); break;
 
             case 3:
                 if(GameManager.Instance.allyLamps == 2)
-                    step3(); break;
+                    Step3(); break;
 
             case 4:
                 if (GameManager.Instance.allyLamps == 3)
-                    step4(); break;
+                    Step4(); break;
 
             case 5:
                 if (GameManager.Instance.digCount > 0)
-                    step5(); break;
+                    Step5(); break;
 
             case 9:
                 if(GameManager.Instance.enemyLamps == 0)
-                    step9(); break;
+                    Step9(); break;
         }
 
     }
 
-    public void Notify(int n) {
+    public void EnterNotify(int n) {
         switch (n) {
-            case 1:
-            case 2: nextText = true;
-                break;
-            case 6: if (tutorialPage == 6) step6(); break;
-            case 7: if (tutorialPage == 7) step7(); break;
-            case 8: if (tutorialPage == 8) step8(); break;
-            case 10: if (tutorialPage == 10) step10(); break;
-            case 11: if (tutorialPage == 11) step11(); break;
+            case 6: if (tutorialPage == 6) Step6(); break;
+            case 7: if (tutorialPage == 7) Step7(); break;
+            case 8: if (tutorialPage == 8) Step8(); break;
+            case 10: if (tutorialPage == 10) Step10(); break;
+            case 11: nextText = true;  if (tutorialPage == 11) Step11(); break;
         }
     }
 
-   private void PanelON(){
+    public void ExitNotify(int n) {
+         nextText = true; 
+    }
+
+    private void PanelON(){
         TutorialPanel.SetActive(true);
     }
     private void PanelOFF(){
@@ -135,7 +159,8 @@ public class TutorialController : MonoBehaviour{
     }
 
     //-----------------STEPS
-    private void step0()
+    //Zoom over lamp and candles ---
+    private void Step0()
     {
         
         if (!fill_camera)
@@ -147,7 +172,6 @@ public class TutorialController : MonoBehaviour{
             PanelON();
             GeneralTextField.text = tutorialTexts.step0_1;
             
-
             //print: complete the level...
         }
 
@@ -175,66 +199,75 @@ public class TutorialController : MonoBehaviour{
 
     }
 
-    private void step1()
+    //WASD ---
+    private void Step1()
     {
+        //print movement tutorial
         PanelON();
         GeneralTextField.text = tutorialTexts.step1_1;
 
-        //print movement tutorial
+        if (!nextText) return;
 
-        if (nextText){
-            tutorialPage++;
-            PanelOFF();
-        }
+        tutorialPage++;
+        PanelOFF();
     }
 
-    private void step2() {
-        
+    //COMPASS ---
+    private void Step2() {
+        //print compass tutorial
         PanelON();
         CompassField.SetActive(true);
-        //print compass tutorial
+       
+        if (!nextText) return;
 
-        if (nextText) {
-            PanelOFF();
-            tutorialPage++;
-            CompassField.SetActive(false);
-        }
+        PanelOFF();
+        tutorialPage++;
+        CompassField.SetActive(false);
     }
 
-    private void step3()
+    //Zoom over key and gate ---
+    private void Step3()
     {
         if (!fill_camera)
         {   
             StopPlayerMovement(true);
             key.SetActive(true);
+            insideSteps = 0;
 
+            //show key + text
             PanelON();
-            GeneralTextField.text = tutorialTexts.step3_1;
+            Step3_steps[insideSteps].SetActive(true);
 
+            nextText = false;
             FillCameraTrace();
             fill_camera = true;
+            insideSteps++;
         }
 
-        
-
-        if (cameraTrace.Count == 0)
-        {
+        if (cameraTrace.Count == 0 && insideSteps == 1 && nextText) {
             stopCamera = true;
+            //show gate + text
+            Step3_steps[0].SetActive(false);
+            Step3_steps[insideSteps].SetActive(true);
+            insideSteps++;
+            nextText = false; 
+        }
 
-            if (!nextText) return;
-
+        if (cameraTrace.Count == 0 && insideSteps == 2 && nextText)
+        {
+            //last space to close the 
             stopCamera = false;
-
+            Step3_steps[1].SetActive(false) ;
             PanelOFF();
 
             StopPlayerMovement(false);
             tutorialPage++;
             fill_camera = false;
-            
         }
     }
 
-    private void step4()
+    //Zoom over diggable object (no text)
+    private void Step4()
     {
         if (!fill_camera)
         {
@@ -250,53 +283,128 @@ public class TutorialController : MonoBehaviour{
         }
     }
 
-    private void step5()
+    //Tutorial Zone-DIG
+    private void Step5()
     {
         if (!fill_camera)
         {
             //tutorial zone dig
+            PanelON();
+            insideSteps = 0;
+            Step5_steps[insideSteps].SetActive(true);
+
             disableZoneDig = false;
             FillCameraTrace();
-            fill_camera = true; 
+            fill_camera = true;
+            insideSteps++;
+            nextText = false;
         }
 
-        if (cameraTrace.Count == 0)
+        if (nextText && insideSteps == 1) {
+            Step5_steps[insideSteps].SetActive(true);
+            insideSteps++;
+            nextText = false;
+        }
+
+        if (nextText && insideSteps == 2) {
+            Step5_steps[insideSteps].SetActive(true);
+            insideSteps++;
+            nextText = false;
+        }
+
+        if (nextText && insideSteps == 3) {
+
+            Step5_steps[0].SetActive(false);
+            Step5_steps[1].SetActive(false);
+            Step5_steps[2].SetActive(false);
+            Step5_steps[insideSteps].SetActive(true);
+            insideSteps++;
+            nextText = false;
+        }
+
+        if (cameraTrace.Count == 0  && insideSteps == 4)
         {
+            if (!nextText) return;
+
+            Step5_steps[3].SetActive(false);
+            PanelOFF();
+
+            insideSteps = 0; 
             fill_camera = false;
             tutorialPage++;
         }
     }
 
-    private void step6()
-    {
-        if (!fill_camera)
-        {
+    //Tutorial advanced movement and enemies
+    private void Step6() {
+        if (!fill_camera) {
             StopPlayerMovement(true);
+
             //tutorial approach to the enemies
+            PanelON();
+            step6_1.SetActive(true);
+            
             FillCameraTrace();
             fill_camera = true;
+            insideSteps = 0;
         }
 
-        if (cameraTrace.Count == 0)
-        {
+        //if the camera have as target the player
+        if (BasicCamera.instance.is_character && nextText == true && insideSteps == 0) {
+            //just to warn...
+            step6_1.SetActive(false);
+            GeneralTextField.text = tutorialTexts.step6_2;
+            //alterate vignette
+            BasicCamera.instance.ChangeVignetteSmoothness(true);
+
+            nextText = false;
+            insideSteps++;
+        }
+
+        if (cameraTrace.Count == 0 && nextText == true && insideSteps == 1) {
+            //ripristinate vignentte
+            BasicCamera.instance.ChangeVignetteSmoothness(false);
+
+            nextText = false;
+            insideSteps++;
+        }
+
+        if (cameraTrace.Count == 0 && nextText && insideSteps == 2) {
+            PanelOFF();
+
+            insideSteps = 0;
             StopPlayerMovement(false);
-            fill_camera = false;
+            fill_camera = false; 
             tutorialPage++; 
         }
-
     }
 
-    private void step7()
-    {
+    //Repeat zoneDIG
+    private void Step7()
+    {   
         //repeat drill tutorial 
+        if (insideSteps == 0) {
+            Step5_steps[3].SetActive(true);
+            var temp = Step5_steps[3].GetComponent<TextMeshProUGUI>();
+            temp.text = "Remember \n" + temp.text;
+            insideSteps++;
+        }
+
+        if (!nextText) return;
+        Step5_steps[3].SetActive(false);
+        insideSteps = 0; 
         tutorialPage++;
+        PanelOFF();
     }
 
-    private void step8()
+    //In front of the cursed lamp
+    private void Step8()
     {
         if (!fill_camera)
         {
             StopPlayerMovement(true);
+            PanelON();
+            GeneralTextField.text = tutorialTexts.step8_1;
             //these lamp have some problem
             FillCameraTrace();
             fill_camera = true;
@@ -304,18 +412,28 @@ public class TutorialController : MonoBehaviour{
 
         if (cameraTrace.Count == 1)
         {
+            if (!nextText) return;
             //this cursed lamp...
+            GeneralTextField.text = tutorialTexts.step8_2;
+            nextText = false; 
         }
 
         if (cameraTrace.Count == 0)
         {
+            stopCamera = true; 
+
+            if (!nextText) return;
+
+            stopCamera = false; 
+            PanelOFF();
             StopPlayerMovement(false);
             fill_camera = false;
             tutorialPage++;
         }
     }
 
-    private void step9()
+    //go to the new drill
+    private void Step9()
     {
         if (!fill_camera)
         {
@@ -328,41 +446,86 @@ public class TutorialController : MonoBehaviour{
 
         if (cameraTrace.Count == 0)
         {
+            stopCamera = true;
+            if (!nextText) return;
+
+            stopCamera = false; 
+            PanelOFF();
             StopPlayerMovement(false);
             fill_camera = false;
             tutorialPage++;
         }
     }
 
-    private void step10()
-    {
-        disableVerticalDig = false; 
-        //tutorial vertical dig
-        tutorialPage++;
+    //vertical tutorial 
+    private void Step10() {
+        if (insideSteps == 0) {
+            PanelON();
 
+            disableVerticalDig = false;
+            //tutorial vertical dig
+            Step10_steps[insideSteps].SetActive(true);
+            insideSteps++;
+            nextText = false;
+        }
+
+        if (insideSteps == 1 && nextText) {
+            Step10_steps[insideSteps].SetActive(true);
+            insideSteps++;
+            nextText = false;
+        }
+
+        if (insideSteps == 2 && nextText) {
+            Step10_steps[0].SetActive(false);
+            Step10_steps[1].SetActive(false);
+            Step10_steps[insideSteps].SetActive(true);
+            insideSteps++;
+            nextText = false;
+        }
+
+        if (insideSteps == 3 && nextText) return;
+        {
+            Step10_steps[2].SetActive(false);
+            PanelOFF();
+            tutorialPage++;
+            insideSteps = 0;
+        }
     }
 
-    private void step11()
+    //missing piece
+    private void Step11()
     {
         if (!fill_camera)
         {
             missing.SetActive(true);
             StopPlayerMovement(true);
             //these lamp have some problem...
+            PanelON();
+            GeneralTextField.text = tutorialTexts.step11_1;
+
             FillCameraTrace();
             fill_camera = true;
+
+            nextText = false;
+            insideSteps = 0;
         }
 
-        if (cameraTrace.Count == 1)
+        if (cameraTrace.Count == 0 && insideSteps == 0 && nextText)
         {
             //piece...
+            GeneralTextField.text = tutorialTexts.step11_1;
+            insideSteps++;
+
+            nextText = false;
         }
 
-        if (cameraTrace.Count == 0)
+        if (cameraTrace.Count == 0 && insideSteps == 1 && nextText)
         {
+            PanelOFF(); 
             StopPlayerMovement(false);
             fill_camera = false;
             tutorialPage++;
+            insideSteps = 0;
         }
     }
 
