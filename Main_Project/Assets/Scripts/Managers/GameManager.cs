@@ -166,7 +166,8 @@ public class GameManager : MonoBehaviour {
     public void LoadGame() {
         //TODO fade into scene
         Debug.Log("GAME STARTED WITH SCENE: " + levelLoaded.levelSeason + " first player is " + TeamList[0]);
-        SceneManager.LoadScene(levelLoaded.name);
+        //SceneManager.LoadScene(levelLoaded.name);
+        SceneLoader.instance.LoadSceneAsync(sceneName: levelLoaded.name);
     }
 
     public void StartGame() {//Prologue

@@ -29,10 +29,9 @@ public class StartMenuGUI : MonoBehaviour {
     }
 
     public void LoadLevelSelection() {
-        //SceneManager.LoadSceneAsync("1_LevelSelection");
-        SceneManager.LoadScene(1);
-        //Timing.RunCoroutine(_AsyncLoadScene());
-        //StartCoroutine(_AsyncLoadScene());
+        
+        //SceneManager.LoadScene(1);
+        SceneLoader.instance.LoadSceneAsync(1);
     }
 
     public void QuitGame() {

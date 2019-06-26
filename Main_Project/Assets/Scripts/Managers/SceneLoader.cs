@@ -8,16 +8,18 @@ using MEC;
 
 public class SceneLoader : MonoBehaviour {
     public static SceneLoader instance;
-
-    public Canvas LoadingCanvas;
-    public Slider loadingBar;
-    public TextMeshProUGUI loadingValue;
+    [SerializeField]
+    private Canvas LoadingCanvas;
+    [SerializeField]
+    private Slider loadingBar;
+    [SerializeField]
+    private TextMeshProUGUI loadingValue;
     public AsyncOperation async;
 
     private void Awake() {
         if (!instance) {
             instance = this;
-            DontDestroyOnLoad(this);
+            DontDestroyOnLoad(gameObject);
         }
         else
             Destroy(gameObject);
@@ -25,7 +27,7 @@ public class SceneLoader : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        LoadingCanvas = GetComponent<Canvas>();
+        LoadingCanvas = GetComponentInChildren<Canvas>();
         loadingBar = GetComponentInChildren<Slider>();
         loadingValue= GetComponentInChildren<TextMeshProUGUI>();
         LoadingCanvas.gameObject.SetActive(false);
@@ -44,20 +46,31 @@ public class SceneLoader : MonoBehaviour {
         }
 
         UpdateProgressUI(0);
-        LoadingCanvas.gameObject.SetActive(true);
-        if (sceneIndex >= 0) {
+        
+
+        /*if (sceneIndex >= 0) {
             Timing.RunCoroutine(_LoadSceneAsync(sceneIndex));
             return;
         }
         if (!sceneName.Equals("")) {
             Timing.RunCoroutine(_LoadSceneAsync(sceneName: sceneName));
             return;
+        }/**/
+
+        if (sceneIndex >= 0) {
+            StartCoroutine(_LoadSceneAsync(sceneIndex));
+            return;
         }
+        if (!sceneName.Equals("")) {
+            StartCoroutine(_LoadSceneAsync(sceneName: sceneName));
+            return;
+        }/**/
     }
 
-    private IEnumerator<float> _LoadSceneAsync(int sceneIndex=-1, string sceneName="") {
+    /*private IEnumerator<float> _LoadSceneAsync(int sceneIndex=-1, string sceneName="") {
+        LoadingCanvas.gameObject.SetActive(true);
 
-        if(sceneIndex >= 0)
+        if (sceneIndex >= 0)
              async = SceneManager.LoadSceneAsync(sceneIndex);
         else
             async = SceneManager.LoadSceneAsync(sceneName);
@@ -69,5 +82,25 @@ public class SceneLoader : MonoBehaviour {
         UpdateProgressUI(async.progress);
         async = null;
         LoadingCanvas.gameObject.SetActive(false);
-    }
+        loadingBar.value = 0f;
+    }/**/
+
+    private IEnumerator _LoadSceneAsync(int sceneIndex = -1, string sceneName = "") {
+        LoadingCanvas.gameObject.SetActive(true);
+
+        if (sceneIndex >= 0)
+            async = SceneManager.LoadSceneAsync(sceneIndex);
+        else
+            async = SceneManager.LoadSceneAsync(sceneName);
+            
+        while (!async.isDone) {
+            
+            UpdateProgressUI(async.progress);
+            yield return null;
+        }
+        
+        UpdateProgressUI(async.progress);
+        async = null;
+        LoadingCanvas.gameObject.SetActive(false);
+    }/**/
 }
