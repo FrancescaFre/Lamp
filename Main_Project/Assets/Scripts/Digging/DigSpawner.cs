@@ -7,32 +7,35 @@ public class DigSpawner : MonoBehaviour {
     float progress;
     float time = 10f;
 
-    bool take;
+    bool exist;
     Transform drill; 
 
 	// Use this for initialization
 	void Start () {
+        exist = true; 
         drill = this.gameObject.transform.GetChild(0);
+        drill.gameObject.SetActive(true);
 	}
 
     // Update is called once per frame
     void Update() {
-        if (take) {
+        if (!exist) {
             progress += Time.deltaTime;
             if (progress > time)
             {
-                take = false;
-                transform.gameObject.SetActive(true);
+                exist = true;
+                drill.gameObject.SetActive(true);
+                progress = 0; 
             }
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (take) return;
+    private void OnTriggerEnter(Collider other) {
+        if (exist) {
 
-        take = true; 
-        transform.gameObject.SetActive(false);
-        progress = 0; 
+            exist = false;
+            drill.gameObject.SetActive(false);
+            progress = 0;
+        }
     }
 }

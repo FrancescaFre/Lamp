@@ -501,21 +501,23 @@ public class TutorialController : MonoBehaviour{
 
     //vertical tutorial 
     private void Step10() {
-        nextText = false; 
+      
         if (insideSteps == 0) {
             PanelON();
             StopPlayerMovement(true);
-        
+
             //tutorial vertical dig
-             Step10_steps[insideSteps].SetActive(true);
-          
+            Step10_steps[insideSteps].SetActive(true);
             insideSteps++;
+
             nextText = false;
         }
 
         if (insideSteps == 1 && nextText) {
             Step10_steps[insideSteps].SetActive(true);
+            Debug.Log("Step 10 1" + insideSteps);
             insideSteps++;
+            Debug.Log("Step 10 2 " + insideSteps);
             nextText = false;
         }
 
@@ -523,12 +525,15 @@ public class TutorialController : MonoBehaviour{
             Step10_steps[0].SetActive(false);
             Step10_steps[1].SetActive(false);
             Step10_steps[insideSteps].SetActive(true);
+            Debug.Log("Step 10 2" + insideSteps);
             insideSteps++;
+            Debug.Log("Step 10 3 " + insideSteps);
             nextText = false;
         }
 
-        if (insideSteps == 3 && nextText) return;
+        if (insideSteps == 3 && nextText) 
         {
+            Debug.Log("Step 10 3" + insideSteps);
             disableVerticalDig = false;
             StopPlayerMovement(false);
             Step10_steps[2].SetActive(false);
