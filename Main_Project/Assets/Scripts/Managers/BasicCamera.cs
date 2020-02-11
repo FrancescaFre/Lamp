@@ -72,7 +72,7 @@ public class BasicCamera : MonoBehaviour {
 
         Vector3 direction = (transform.position - target.position).normalized;
 
-
+        Debug.Log(target.name);
         //---- zoom over the player 
         if (is_character && zoom_factor <= 0.5)
         {
@@ -112,5 +112,6 @@ public class BasicCamera : MonoBehaviour {
         _PPProfile.vignette.settings = cameraVignette;
     }
 
+  //  public void FAperture
     #endregion Post Processing
 }
